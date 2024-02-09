@@ -1,4 +1,5 @@
 import toast from "react-hot-toast";
+import Button from "../ui/Button.jsx";
 
 function Home() {
   function test() {
@@ -24,6 +25,7 @@ function Home() {
       <h1>Home</h1>;<button onClick={test}>Button</button>
       <button onClick={test2}>Button</button>
       <button onClick={test3}>Button</button>
+      <Button to={"/"}>Test button</Button>
     </>
   );
 }
