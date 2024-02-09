@@ -103,5 +103,5 @@ button {
   cursor: pointer;
 }
 input:not([type="checkbox"]) {
-  border: 1px solid gray;
+  border: 1px solid rgb(223, 223, 223);
 }

@@ -8,7 +8,7 @@ function Home() {
     toast.error("Not Success");
   }
   function test3() {
-    toast.loading(
+    toast.promise(
       "LOADING ...",
       { duration: 2000 },
       {
