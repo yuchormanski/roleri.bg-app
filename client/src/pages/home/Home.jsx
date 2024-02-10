@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
-import Button from "../ui/elements/Button.jsx";
-import Row from "../ui/elements/Row.jsx";
+import Button from "../../ui/elements/button/Button.jsx";
+import Row from "../../ui/elements/Row.jsx";
 
 function Home() {
   function test() {
