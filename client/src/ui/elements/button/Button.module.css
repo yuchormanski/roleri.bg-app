@@ -1,0 +1,12 @@
+.primary {
+  color: red;
+  font-size: "2rem";
+}
+
+.secondary {
+  color: green;
+}
+
+.navLink {
+  text-decoration: none;
+}
