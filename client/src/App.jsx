@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 
 import AppLayout from "./ui/AppLayout.jsx";
 import PageNotFound from "./pages/PageNotFound.jsx";
-import Login from "./pages/Login.jsx";
+import Login from "./pages/auth/Login.jsx";
 import Home from "./pages/Home.jsx";
 
 const queryClient = new QueryClient({
