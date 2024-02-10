@@ -1,0 +1,45 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid gray;
+}
+.mobileNav {
+  display: none;
+}
+.logo {
+  height: 50px;
+}
+.logo img {
+  width: 100%;
+  height: 100%;
+}
+.nav {
+  margin-left: auto;
+}
+.list {
+  display: flex;
+}
+
+@media (max-width: 800px) {
+  .logo {
+    height: 40px;
+  }
+  .nav {
+    display: none;
+  }
+  .mobileNav {
+    display: block;
+    margin-left: auto;
+  }
+  .mobileList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+@media (max-width: 600px) {
+  .logo {
+    height: 30px;
+  }
+}
