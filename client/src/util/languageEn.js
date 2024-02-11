@@ -4,4 +4,5 @@ export const EN = {
   login: "Login",
   register: "Register",
   forgotten: "Forgotten password",
+  news: "News",
 };

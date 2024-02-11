@@ -1,7 +1,13 @@
 .main {
   max-width: 105rem;
-  padding: 1rem 2rem;
+  padding: 5rem 1rem;
   margin: 0 auto;
-  border: 1px solid gray;
-  transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 760px) {
+  .main {
+    max-width: 105rem;
+    padding: 2rem 3rem;
+  }
 }

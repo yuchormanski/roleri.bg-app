@@ -1,10 +1,11 @@
 .footer {
+  display: flex;
+  justify-content: space-between;
   background-color: var(--color-footer-bg);
   margin-top: auto;
   padding: 0.2rem 1rem;
+  font-size: 1.4rem;
   color: var(--color-body);
-  display: flex;
-  justify-content: space-between;
 }
 
 .company {
@@ -13,7 +14,8 @@
   gap: 0.5rem;
 }
 .title {
-  color: var(--color-title);
+  /* color: var(--color-title); */
+  color: red;
 }
 .title span {
   font-weight: 700;
