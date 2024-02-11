@@ -69,7 +69,7 @@ userController.post(endpoints.forgot_password, isUserGuest, async (req, res, nex
 
         await createResetLink({ email, origin });
 
-        res.status(200).json({ message: 'Reset token is send successfully' });
+        res.status(200).json({ message: 'Reset token sent successfully' });
     } catch (error) {
         next(error);
     }

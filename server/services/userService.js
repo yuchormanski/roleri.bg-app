@@ -146,7 +146,7 @@ async function resetUserPassword({ password, resetToken }) {
     if (isTokenUsed) {
         throw new Error('Reset link is already used');
     }
-   
+
     // Add token to black list to be used only once
     await BlackListToken.create({ token: decodedToken });
 
