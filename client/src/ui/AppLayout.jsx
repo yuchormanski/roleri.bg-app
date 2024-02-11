@@ -3,12 +3,14 @@ import Navigation from "./navigation/Navigation.jsx";
 import Footer from "./footer/Footer.jsx";
 import styles from "./AppLayout.module.css";
 import Login from "../pages/auth/Login.jsx";
-import { useState } from "react";
 import Popup from "./elements/popupModal/Popup.jsx";
-import { useToggleModal } from "../hooks/useToggleModale.js";
+import { useToggleModal } from "../hooks/useToggleModal.js";
+import Register from "../pages/auth/Register.jsx";
+import { useState } from "react";
 
 function AppLayout() {
   const [background, toggle] = useToggleModal();
+  const [authToggle, setAuthToggle] = useState(true);
 
   return (
     <>
@@ -16,7 +18,11 @@ function AppLayout() {
       <main className={styles.main}>
         {background && (
           <Popup onClose={toggle}>
-            <Login onClose={toggle} />
+            {authToggle ? (
+              <Login onClose={toggle} authToggle={setAuthToggle} />
+            ) : (
+              <Register onClose={toggle} authToggle={setAuthToggle} />
+            )}
           </Popup>
         )}
         <Outlet />

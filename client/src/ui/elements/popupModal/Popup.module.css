@@ -20,11 +20,11 @@
 
 .fullInfo {
   background-color: #fff;
-  display: grid;
-  grid-template-columns: 2fr 3fr;
+  display: flex;
+  flex-direction: column;
   gap: 2rem;
   position: relative;
-  padding: 4rem 2rem 2rem 2rem;
+  padding: 1rem;
   color: var(--color-main-dark);
   border-radius: 0.5rem;
   background-color: #faf8ff;
