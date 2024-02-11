@@ -1,9 +1,11 @@
 .container {
   width: 100%;
+  min-width: 300px;
   display: flex;
   flex-direction: column;
   gap: 2rem;
   position: relative;
+  padding: 2rem;
 }
 
 .closeBtn {
@@ -16,7 +18,7 @@
 
 .closeBtn:hover {
   transform: rotate(90deg) translate(-0.2rem, 0);
-  filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.5));
+  /* filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.5)); */
 }
 
 .heading {
@@ -41,8 +43,24 @@
 }
 
 .authInfo {
-  align-self: center;
+  align-self: flex-end;
   font-size: 1.4rem;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
+}
+.arrow {
+  margin-top: 0.6rem;
 }
 
 .authBtn {
@@ -52,4 +70,11 @@
 }
 .authBtn:hover {
   color: var(--color-selected-tint);
+}
+
+.forgotten {
+  font-size: 1.2rem;
+  margin-top: 0.8rem;
+  text-align: right;
+  text-decoration: underline;
 }
