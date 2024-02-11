@@ -36,7 +36,7 @@ function Navigation() {
         </Button>
         <ul
           className={styles.listMobile}
-          style={!isModal && { display: "none " }}
+          style={isModal ? { display: "none" } : null}
         >
           <li>
             <Button to={"/"}>Home</Button>
