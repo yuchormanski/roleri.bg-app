@@ -19,6 +19,8 @@
 }
 .list {
   display: flex;
+  gap: 2rem;
+  font-size: 1.8rem;
 }
 
 @media (max-width: 800px) {

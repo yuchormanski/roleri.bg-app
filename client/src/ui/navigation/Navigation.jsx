@@ -2,11 +2,11 @@ import styles from "./Navigation.module.css";
 import Button from "../elements/button/Button.jsx";
 import { useState } from "react";
 
-function Navigation() {
-  const [isModal, setIsModal] = useState(false);
+function Navigation({ onLogin }) {
+  const [isMobile, setIsMobile] = useState(false);
 
-  function toggleModal() {
-    setIsModal((isModal) => !isModal);
+  function toggleMobile() {
+    setIsMobile((isMobile) => !isMobile);
   }
   return (
     <div className={styles.wrapper}>
@@ -28,15 +28,21 @@ function Navigation() {
           <li>
             <Button to={"lessons"}>Lessons</Button>
           </li>
+          <li>
+            {/* <Button to={"/login"}>Login</Button> */}
+            <Button type={"primary"} onClick={onLogin}>
+              Login
+            </Button>
+          </li>
         </ul>
       </nav>
       <nav className={styles.mobileNav}>
-        <Button onClick={toggleModal} type={"primary"}>
-          {isModal ? "X" : "O"}
+        <Button onClick={toggleMobile} type={"primary"}>
+          {isMobile ? "X" : "O"}
         </Button>
         <ul
           className={styles.listMobile}
-          style={isModal ? { display: "none" } : null}
+          style={isMobile ? { display: "none" } : null}
         >
           <li>
             <Button to={"/"}>Home</Button>
