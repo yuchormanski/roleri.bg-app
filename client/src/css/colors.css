@@ -1,4 +1,5 @@
 :root {
+  --color-body: #fff;
   --color-main: #3e4756;
   --color-header: #fedfed;
   --color-footer-bg: #0873ba;
@@ -8,4 +9,5 @@
   --color-main-btn-tint: #ffe04f;
   --color-main-btn: #ffd823;
   --color-main-btn-shade: #ccad1c;
+  --color-title: #f25141;
 }

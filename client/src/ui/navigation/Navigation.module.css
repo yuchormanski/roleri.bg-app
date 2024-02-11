@@ -25,22 +25,33 @@
   font-size: 1.8rem;
 }
 
-@media (max-width: 800px) {
+.mobileBtn {
+  background-color: var(--color-body);
+  position: absolute;
+  top: 2.3rem;
+  z-index: 1;
+  color: var(--color-footer-bg);
+  font-size: 3rem;
+}
+
+@media (max-width: 760px) {
   .logo {
     height: 40px;
   }
-  /* .nav {
+  .nav {
     display: none;
   }
+
   .mobileNav {
     display: block;
     margin-left: auto;
   }
+
   .mobileList {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-  } */
+  }
 }
 @media (max-width: 600px) {
   .logo {

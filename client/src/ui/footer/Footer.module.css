@@ -2,7 +2,19 @@
   background-color: var(--color-footer-bg);
   margin-top: auto;
   padding: 0.2rem 1rem;
-  color: var(--color-white);
+  color: var(--color-body);
   display: flex;
   justify-content: space-between;
+}
+
+.company {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.title {
+  color: var(--color-title);
+}
+.title span {
+  font-weight: 700;
 }

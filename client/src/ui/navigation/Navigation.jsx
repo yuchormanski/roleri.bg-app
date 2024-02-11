@@ -1,10 +1,12 @@
 import styles from "./Navigation.module.css";
-import Button from "../elements/button/Button.jsx";
 import { useState } from "react";
+import { VscMenu, VscClose } from "react-icons/vsc";
+
+import Button from "../elements/button/Button.jsx";
 import NavigationMenu from "./NavigationMenu.jsx";
 
 function Navigation({ onLogin }) {
-  const [isMobile, setIsMobile] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   function toggleMobile() {
     setIsMobile((isMobile) => !isMobile);
@@ -25,10 +27,12 @@ function Navigation({ onLogin }) {
         <NavigationMenu onLogin={onLogin} />
       </nav>
       <nav className={styles.mobileNav}>
-        <Button onClick={toggleMobile} type={"primary"}>
-          {isMobile ? "X" : "O"}
-        </Button>
-        <NavigationMenu onLogin={onLogin} />
+        <div className={styles.mobileBtn}>
+          <Button onClick={toggleMobile} type="menu" open={isMobile}>
+            {isMobile ? <VscClose /> : <VscMenu />}
+          </Button>
+        </div>
+        <NavigationMenu onLogin={onLogin} isMobile={isMobile} />
       </nav>
     </div>
   );
