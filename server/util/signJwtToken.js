@@ -46,4 +46,5 @@ const generateUserToken = async (user) => {
 
 export {
     generateUserToken,
+    signJwtToken,
 };
