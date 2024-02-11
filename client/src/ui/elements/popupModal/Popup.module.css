@@ -28,11 +28,25 @@
   color: var(--color-main-dark);
   border-radius: 0.5rem;
   background-color: #faf8ff;
+  opacity: 0;
+  animation: modalFadeIn 0.3s ease-in-out forwards;
 }
+
 button.closeIcon {
   position: absolute;
   top: 1rem;
   right: 1rem;
   font-size: 3rem;
   cursor: pointer;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-100px, -50px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
 }

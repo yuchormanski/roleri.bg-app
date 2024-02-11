@@ -1,9 +1,10 @@
 import styles from "./Navigation.module.css";
 import Button from "../elements/button/Button.jsx";
 import { useState } from "react";
+import NavigationMenu from "./NavigationMenu.jsx";
 
 function Navigation({ onLogin }) {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
 
   function toggleMobile() {
     setIsMobile((isMobile) => !isMobile);
@@ -21,36 +22,13 @@ function Navigation({ onLogin }) {
         </div>
       </Button>
       <nav className={styles.nav}>
-        <ul className={styles.list}>
-          <li>
-            <Button to={"/"}>Home</Button>
-          </li>
-          <li>
-            <Button to={"lessons"}>Lessons</Button>
-          </li>
-          <li>
-            {/* <Button to={"/login"}>Login</Button> */}
-            <Button type={"primary"} onClick={onLogin}>
-              Login
-            </Button>
-          </li>
-        </ul>
+        <NavigationMenu onLogin={onLogin} />
       </nav>
       <nav className={styles.mobileNav}>
         <Button onClick={toggleMobile} type={"primary"}>
           {isMobile ? "X" : "O"}
         </Button>
-        <ul
-          className={styles.listMobile}
-          style={isMobile ? { display: "none" } : null}
-        >
-          <li>
-            <Button to={"/"}>Home</Button>
-          </li>
-          <li>
-            <Button to={"lessons"}>Lessons</Button>
-          </li>
-        </ul>
+        <NavigationMenu onLogin={onLogin} />
       </nav>
     </div>
   );

@@ -1,17 +1,19 @@
 import { Form } from "react-hook-form";
 import Button from "../../ui/elements/button/Button.jsx";
 
-function Login({ onClose }) {
+function Register() {
   return (
     <>
-      <h2>Login</h2>
+      <h2>Register</h2>
       <Form></Form>
 
       <div>
-        <p>Don't have an account? <Button>Sign up!</Button></p>
+        <p>
+          Already have an account? <Button>Sign in!</Button>
+        </p>
       </div>
     </>
   );
 }
 
-export default Login;
+export default Register;
