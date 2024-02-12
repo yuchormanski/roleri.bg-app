@@ -33,13 +33,18 @@
 }
 
 .form .input {
+  background-color: var(--color-input);
   padding: 0.1rem 1rem;
   font-size: 1.6rem;
+  color: var(--color-main);
+  border-color: var(--input-border);
   border-radius: 0.3rem;
 }
 
 .input::placeholder {
   font-size: 1.2rem;
+  color: var(--color-nav-link);
+  opacity: 0.5;
 }
 
 .authInfo {
@@ -74,6 +79,7 @@
 
 .forgotten {
   font-size: 1.2rem;
+  color: var(--color-nav-link);
   margin-top: 0.8rem;
   text-align: right;
   text-decoration: underline;

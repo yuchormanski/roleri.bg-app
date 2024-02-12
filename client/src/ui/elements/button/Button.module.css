@@ -17,7 +17,8 @@
 }
 .small {
   font-size: 1.4rem;
-  transition: all 0.3s ease;
+  color: var(--color-body);
+  /* transition: all 0.3s ease; */
 }
 .menu {
   color: var(--color-body);

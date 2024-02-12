@@ -19,7 +19,8 @@
 }
 
 .fullInfo {
-  background-color: #fff;
+  /* background-color: var(--color-header); */
+  background-color: var(--color-header);
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -27,7 +28,6 @@
   padding: 1rem;
   color: var(--color-main-dark);
   border-radius: 0.5rem;
-  background-color: #faf8ff;
   opacity: 0;
   animation: modalFadeIn 0.3s ease-in-out forwards;
 }

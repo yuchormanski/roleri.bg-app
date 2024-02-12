@@ -4,10 +4,12 @@
   &.light {
     --color-body: #fff;
     --color-main: #3e4756;
-    --color-header: ##fdfdfd;
+    --color-header: #fdfdfd;
     --color-nav-link: #3e4756;
     --color-nav-link-hover: #465268;
     --color-footer-bg: #0873ba;
+    --color-input: #fff;
+    --input-border: #001e3136;
   }
 
   /* dark mode */
@@ -18,6 +20,8 @@
     --color-nav-link: #f1f1e6;
     --color-nav-link-hover: #acac8e;
     --color-footer-bg: #2e3644;
+    --color-input: #626872;
+    --input-border: #ccac1c80;
   }
   /* main styles */
   --color-footer-fonts: ##fdfdfd;
