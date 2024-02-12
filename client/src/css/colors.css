@@ -3,24 +3,24 @@
   /* light mode */
   &.light {
     --color-body: #fff;
-    --color-main: #3e4756;
+    --color-input: #fff;
     --color-header: #fdfdfd;
+    --color-main: #3e4756;
     --color-nav-link: #3e4756;
     --color-nav-link-hover: #465268;
-    --color-footer-bg: #0873ba;
-    --color-input: #fff;
     --input-border: #001e3136;
+    --color-footer-bg: #0873ba;
   }
 
   /* dark mode */
   &.dark {
-    --color-body: #3e4756;
     --color-main: #fff;
-    --color-header: #2e3644;
     --color-nav-link: #f1f1e6;
     --color-nav-link-hover: #acac8e;
-    --color-footer-bg: #2e3644;
     --color-input: #626872;
+    --color-body: #3e4756;
+    --color-header: #2e3644;
+    --color-footer-bg: #2e3644;
     --input-border: #ccac1c80;
   }
   /* main styles */
@@ -30,7 +30,7 @@
   --color-selected-shade: #2086b6;
   --color-main-btn-tint: #ffe04f;
   --color-main-btn: #ffd823;
+  --link-border: #ffd823;
   --color-main-btn-shade: #ccad1c;
   --color-title: #f25141;
-  --link-border: #ffd823;
 }
