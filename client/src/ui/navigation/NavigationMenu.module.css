@@ -1,7 +1,7 @@
 .list {
   display: flex;
   gap: 1rem;
-  align-items: flex-end;
+  align-items: center;
   font-size: 1.8rem;
 }
 
@@ -29,11 +29,10 @@
 }
 
 .iconBtn {
-  position: absolute;
-  top: 2.4rem;
-}
-.lastInLine {
-  margin-right: 2rem;
+  /* position: absolute;
+  top: 2.4rem; */
+  display: grid;
+  place-items: center;
 }
 
 @media (max-width: 760px) {
@@ -71,9 +70,10 @@
 
   .link,
   .link:visited,
-  .listItemBtn {
+  .listItemBtn,
+  .iconBtn {
     /* color: var(--color-footer-bg); */
-    color: var(--color-body);
+    color: var(--color-nav-link);
   }
   .link:active,
   .listItem:hover .link,

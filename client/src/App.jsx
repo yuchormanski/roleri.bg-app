@@ -10,6 +10,7 @@ import Home from "./pages/home/Home.jsx";
 import LessonsList from "./pages/lessons/LessonsList.jsx";
 import ToasterComponent from "./ui/elements/toaster/ToasterComponent.jsx";
 import { DarkModeProvider } from "./context/DarkMode.jsx";
+import { LanguageProvider } from "./context/Language.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,24 +23,26 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <DarkModeProvider>
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools
-          initialIsOpen={false}
-          style={{ fontSize: "16px" }}
-        />
-        <BrowserRouter>
-          <Routes>
-            <Route element={<AppLayout />}>
-              <Route index element={<Navigate replace to={"home"} />} />
-              <Route path={"home"} element={<Home />} />
-              <Route path={"lessons"} element={<LessonsList />} />
-            </Route>
-            <Route path={"login"} element={<Login />} />
-            <Route path={"*"} element={<PageNotFound />} />
-          </Routes>
-        </BrowserRouter>
-        <ToasterComponent />
-      </QueryClientProvider>
+      <LanguageProvider>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools
+            initialIsOpen={false}
+            style={{ fontSize: "16px" }}
+          />
+          <BrowserRouter>
+            <Routes>
+              <Route element={<AppLayout />}>
+                <Route index element={<Navigate replace to={"home"} />} />
+                <Route path={"home"} element={<Home />} />
+                <Route path={"lessons"} element={<LessonsList />} />
+              </Route>
+              <Route path={"login"} element={<Login />} />
+              <Route path={"*"} element={<PageNotFound />} />
+            </Routes>
+          </BrowserRouter>
+          <ToasterComponent />
+        </QueryClientProvider>
+      </LanguageProvider>
     </DarkModeProvider>
   );
 }
