@@ -14,7 +14,10 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
   return (
     <>
       {isMobile && (
-        <div className={styles.menuPanel}>
+        <div
+          className={styles.menuPanel}
+          style={isDark ? { border: "1px solid var(--input-border)" } : null}
+        >
           <button onClick={langChanger} className={styles.lang}>
             {language ? (
               <img

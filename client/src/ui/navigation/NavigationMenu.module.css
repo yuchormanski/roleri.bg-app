@@ -29,57 +29,63 @@
 }
 
 .iconBtn {
-  /* position: absolute;
-  top: 2.4rem; */
   display: grid;
   place-items: center;
 }
 
 @media (max-width: 760px) {
   .menuPanel {
-    /* background-color: var(--color-body); */
+    flex-direction: column;
     background-color: var(--color-footer-bg);
     position: absolute;
     right: 1rem;
     top: 1rem;
-    padding: 4rem 0.3rem 1rem;
+    padding: 4rem 1rem 3rem;
     border: 1px solid var(--color-footer-bg);
     border-radius: 0.3rem;
+  }
+  .lang {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.8rem;
   }
 
   .list {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: 1;
   }
 
   .listItem {
     width: 100%;
     padding: 0 2rem;
     border: 0.1rem solid transparent;
-    /* border-bottom: 1px solid var(--color-footer-bg); */
     border-bottom: 1px solid var(--color-body);
-    transition: all 0.2s ease-in-out;
-  }
-  .listItem:hover {
-    /* background-color: var(--color-footer-bg); */
-    background-color: var(--color-body);
-    /* border: 0.1rem solid var(--color-body); */
-    border: 0.1rem solid var(--color-footer-bg);
+    border-radius: 0.3rem;
+    transition: all 0.1s ease-in-out;
   }
 
   .link,
   .link:visited,
   .listItemBtn,
   .iconBtn {
-    /* color: var(--color-footer-bg); */
-    color: var(--color-nav-link);
+    /* color: var(--color-nav-link); */
+    color: #ededed;
+  }
+
+  .listItem:hover {
+    background-color: var(--color-body);
+    border: 0.1rem solid var(--color-footer-bg);
   }
   .link:active,
   .listItem:hover .link,
-  .listItem:hover .listItemBtn {
-    /* color: var(--color-body); */
-    color: var(--color-footer-bg);
+  .listItem:hover .listItemBtn,
+  .listItem:hover .iconBtn {
+    color: var(--color-menu-btn);
+  }
+  .iconBtn {
+    margin-bottom: 0.3rem;
+    height: 25px;
   }
 }
 @media (max-width: 600px) {

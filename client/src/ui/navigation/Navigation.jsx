@@ -35,9 +35,17 @@ function Navigation({ onLogin }) {
       </nav>
       <nav className={styles.mobileNav}>
         <div className={styles.mobileBtn}>
-          <Button onClick={toggleMobile} type="menu" open={isMobile}>
+          <button
+            onClick={toggleMobile}
+            className={
+              isMobile
+                ? `${styles.menuBtn} ${styles.openedMenuBtn}`
+                : styles.menuBtn
+            }
+            open={isMobile}
+          >
             {isMobile ? <VscClose /> : <VscMenu />}
-          </Button>
+          </button>
         </div>
         <NavigationMenu
           onLogin={onLogin}

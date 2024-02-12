@@ -42,6 +42,17 @@
     display: none;
   }
 
+  .menuBtn {
+    color: var(--color-menu-btn);
+    position: absolute;
+    top: -0.5rem;
+    right: 0;
+    font-size: 1.8rem;
+  }
+
+  .openedMenuBtn {
+    color: var(--color-footer-fonts);
+  }
   .mobileNav {
     display: block;
     margin-left: auto;
