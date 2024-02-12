@@ -118,9 +118,7 @@ function Login({ onClose, authToggle }) {
             </button>
           </p>
           <p className={styles.forgotten}>
-            <Button type={"small"} onClick={forgotten}>
-              Forgotten Password?
-            </Button>
+            <button onClick={forgotten}>Forgotten Password?</button>
           </p>
         </div>
       )}
