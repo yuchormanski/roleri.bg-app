@@ -10,3 +10,7 @@ body #root {
   background-color: var(--color-body);
   color: var(--color-main);
 }
+
+* {
+  transition: all 0.2s ease;
+}

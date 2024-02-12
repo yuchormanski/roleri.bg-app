@@ -12,6 +12,7 @@ import { useTheme } from "../../context/DarkMode.jsx";
 
 function NavigationMenu({ onLogin, isMobile = true }) {
   const { isDark, themeToggle } = useTheme();
+
   const {
     isLoading,
     data: cabins,
@@ -49,7 +50,7 @@ function NavigationMenu({ onLogin, isMobile = true }) {
           <ul className={styles.list}>
             <li className={styles.listItem}>
               <NavLink to={"/"} className={styles.link}>
-                Home
+                {lang("home")}
               </NavLink>
             </li>
             <li className={styles.listItem}>

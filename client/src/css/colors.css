@@ -5,6 +5,9 @@
     --color-body: #fff;
     --color-main: #3e4756;
     --color-header: ##fdfdfd;
+    --color-nav-link: #3e4756;
+    --color-nav-link-hover: #465268;
+    --color-footer-bg: #0873ba;
   }
 
   /* dark mode */
@@ -12,9 +15,12 @@
     --color-body: #3e4756;
     --color-main: #fff;
     --color-header: #2e3644;
+    --color-nav-link: #f1f1e6;
+    --color-nav-link-hover: #acac8e;
+    --color-footer-bg: #2e3644;
   }
   /* main styles */
-  --color-footer-bg: #0873ba;
+  --color-footer-fonts: ##fdfdfd;
   --color-selected-tint: #53b9e9;
   --color-selected: #28a8e3;
   --color-selected-shade: #2086b6;
@@ -22,4 +28,5 @@
   --color-main-btn: #ffd823;
   --color-main-btn-shade: #ccad1c;
   --color-title: #f25141;
+  --link-border: #ffd823;
 }

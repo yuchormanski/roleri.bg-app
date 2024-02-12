@@ -18,8 +18,14 @@
 .link,
 .link:visited,
 .listItemBtn {
-  color: var(--color-footer-bg);
+  color: var(--color-nav-link);
   text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.link:hover,
+.listItemBtn:hover {
+  color: var(--color-nav-link-hover);
+  border-bottom: 1px solid var(--link-border);
 }
 
 .iconBtn {
