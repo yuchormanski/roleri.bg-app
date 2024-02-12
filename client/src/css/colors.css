@@ -1,7 +1,19 @@
 :root {
-  --color-body: #fff;
-  --color-main: #3e4756;
-  --color-header: #fedfed;
+  &,
+  /* light mode */
+  &.light {
+    --color-body: #fff;
+    --color-main: #3e4756;
+    --color-header: ##fdfdfd;
+  }
+
+  /* dark mode */
+  &.dark {
+    --color-body: #3e4756;
+    --color-main: #fff;
+    --color-header: #2e3644;
+  }
+  /* main styles */
   --color-footer-bg: #0873ba;
   --color-selected-tint: #53b9e9;
   --color-selected: #28a8e3;

@@ -22,6 +22,14 @@
   text-decoration: none;
 }
 
+.iconBtn {
+  position: absolute;
+  top: 2.4rem;
+}
+.lastInLine {
+  margin-right: 2rem;
+}
+
 @media (max-width: 760px) {
   .menuPanel {
     /* background-color: var(--color-body); */

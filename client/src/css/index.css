@@ -7,5 +7,6 @@ body #root {
   flex-direction: column;
   height: 100dvh;
   position: relative;
+  background-color: var(--color-body);
   color: var(--color-main);
 }
