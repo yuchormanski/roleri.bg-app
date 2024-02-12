@@ -2,9 +2,11 @@ import { Router } from "express";
 
 import { endpoints } from "../environments/endPoints.js";
 import { isUserGuest, isUserLogged } from "../middlewares/guards.js";
-import { validateLoginSchema, validateRegisterSchema } from "../util/validationSchemes.js";
+import { validateLoginSchema, validateRegisterSchema, validateResetPasswordSchema } from "../util/validationSchemes.js";
 
 import {
+    createResetLink,
+    resetUserPassword,
     userLogin,
     userLogout,
     userRegister,
@@ -37,7 +39,7 @@ userController.post(endpoints.login, isUserGuest, async (req, res, next) => {
         const data = await userLogin(userData);
 
         res.cookie(process.env.COOKIE_NAME, data.userToken, data.cookieOptions)
-            .status(201)
+            .status(200)
             .json(data.user);
     } catch (error) {
         next(error);
@@ -58,5 +60,36 @@ userController.get(endpoints.logout, isUserLogged, async (req, res, next) => {
         next(error);
     }
 });
+
+// Forgot password
+userController.post(endpoints.forgot_password, isUserGuest, async (req, res, next) => {
+    try {
+        const { email } = req.body;
+        const origin = req.get('origin');
+
+        await createResetLink({ email, origin });
+
+        res.status(200).json({ message: 'Reset token sent successfully' });
+    } catch (error) {
+        next(error);
+    }
+});
+
+// Reset password
+userController.put(endpoints.reset_password, isUserGuest, async (req, res, next) => {
+    try {
+        const userData = req.body;
+
+        await validateResetPasswordSchema.validateAsync(userData);
+        const data = await resetUserPassword(userData);
+
+        res.cookie(process.env.COOKIE_NAME, data.userToken, data.cookieOptions)
+            .status(200)
+            .json(data.user);
+    } catch (error) {
+        next(error);
+    }
+});
+
 
 export { userController };
