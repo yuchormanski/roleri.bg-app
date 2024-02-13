@@ -6,11 +6,17 @@ import { useTheme } from "../../context/DarkMode.jsx";
 import { useLanguage } from "../../context/Language.jsx";
 
 import { NavLink } from "react-router-dom";
+import { get } from "../../services/api.js";
+import { path } from "../../services/environment.js";
 
 function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
   const { isDark, themeToggle } = useTheme();
   const { lang, langChanger, toggle: language } = useLanguage();
 
+  async function onLogout() {
+    const res = await get(path.logout);
+    console.log(res);
+  }
   return (
     <>
       {/* next line is for keeping nav menu closed on initial render.
@@ -51,7 +57,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
               <button
                 onClick={() => {
                   onLogin();
-                  toggleMobile();
+                  if (!isMobile) toggleMobile();
                 }}
                 className={styles.listItemBtn}
               >
@@ -59,13 +65,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
               </button>
             </li>
             <li className={styles.listItem}>
-              <button
-                onClick={() => {
-                  onLogin();
-                  toggleMobile();
-                }}
-                className={styles.listItemBtn}
-              >
+              <button onClick={onLogout} className={styles.listItemBtn}>
                 {lang.logout}
               </button>
             </li>

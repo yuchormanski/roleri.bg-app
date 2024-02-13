@@ -5,4 +5,9 @@ const EMAIL_REGEX =
 
 const PASS_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/;
 
-export { BASE_URL, EMAIL_REGEX, PASS_REGEX };
+const path = {
+  login: "users/login",
+  logout: "users/logout",
+};
+
+export { BASE_URL, path, EMAIL_REGEX, PASS_REGEX };
