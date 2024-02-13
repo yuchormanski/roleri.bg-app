@@ -6,17 +6,36 @@ import Button from "../../ui/elements/button/Button.jsx";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { EMAIL_REGEX } from "../../services/environment.js";
+import { useRegister } from "../../hooks/useRegister.js";
+import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 
 function Login({ onClose, authToggle }) {
   const [isNotForgotten, setIsNotForgotten] = useState(false);
   const [hide, setHide] = useState(false);
   const { register, handleSubmit, reset, getValues, formState } = useForm();
 
+  const { isLoading, registerUser } = useRegister();
+
+  const mockData = {
+    name: "User",
+    email: "email@email.bg",
+    phone: "+35967823642",
+    password: "User123",
+  };
+
   // SUBMITTING THE FORM
   function onFormSubmit(data) {
-    console.log(data);
-    if (isNotForgotten) {
-      //register user
+    // console.log(data);
+
+    onClose();
+    if (!isNotForgotten) {
+      //login user
+      registerUser(mockData, {
+        onSuccess: (data) => {
+          // console.log("after");
+          reset();
+        },
+      });
     } else {
       //send reset password email
     }
@@ -32,6 +51,7 @@ function Login({ onClose, authToggle }) {
   function forgotten() {
     setIsNotForgotten((is) => !is);
   }
+
   return (
     <div className={styles.container}>
       <div className={styles.closeBtn}>

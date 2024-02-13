@@ -6,16 +6,13 @@ import { useTheme } from "../../context/DarkMode.jsx";
 import { useLanguage } from "../../context/Language.jsx";
 
 import { NavLink } from "react-router-dom";
-import { get } from "../../services/api.js";
-import { path } from "../../services/environment.js";
 
 function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
   const { isDark, themeToggle } = useTheme();
   const { lang, langChanger, toggle: language } = useLanguage();
 
   async function onLogout() {
-    const res = await get(path.logout);
-    console.log(res);
+    console.log("logout");
   }
   return (
     <>

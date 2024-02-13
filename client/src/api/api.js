@@ -1,7 +1,6 @@
-import { environment } from "../environments/environment.js";
-import { clearUserData, getUserData } from "./util.js";
+import { BASE_URL } from "../services/environment.js";
 
-const host = environment.BASE_URL;
+const host = BASE_URL;
 
 async function request(method, url, data) {
   const options = {
@@ -9,11 +8,11 @@ async function request(method, url, data) {
     headers: {},
   };
 
-  const userData = getUserData();
-  if (userData) {
-    const token = userData.accessToken;
-    options.headers["X-Authorization"] = token;
-  }
+  // const userData = getUserData();
+  // if (userData) {
+  //   const token = userData.accessToken;
+  //   options.headers["X-Authorization"] = token;
+  // }
 
   if (data !== undefined) {
     options.headers["Content-Type"] = "application/json";
@@ -29,20 +28,14 @@ async function request(method, url, data) {
     }
     if (response.ok == false) {
       if (response.status == 403) {
-        clearUserData();
+        // clear cookie data
       }
-      const error = { result, statusCode: response.status };
-      throw error;
+      throw result;
     }
 
     return result;
   } catch (error) {
-    // alert(error.message);
-    clearUserData();
-
-    // throw new Error(error.message);
-    console.log(error);
-    return { isError: error };
+    throw new Error(error.message);
   }
 }
 

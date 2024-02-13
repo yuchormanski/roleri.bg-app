@@ -1,11 +1,11 @@
 const BASE_URL = "http://localhost:3000/";
 
 const SERVER_ENDPOINTS = {
-  REGISTER: 'users/register',
-  LOGIN: 'users/login',
-  LOGOUT: 'users/logout',
-  FORGOT_PASSWORD: 'users/forgot-password',
-  RESET_PASSWORD: 'users/reset-password',
+  REGISTER: "users/register",
+  LOGIN: "users/login",
+  LOGOUT: "users/logout",
+  FORGOT_PASSWORD: "users/forgot-password",
+  RESET_PASSWORD: "users/reset-password",
 };
 
 const EMAIL_REGEX =
@@ -19,4 +19,3 @@ const path = {
 };
 
 export { BASE_URL, SERVER_ENDPOINTS, path, EMAIL_REGEX, PASS_REGEX };
-
