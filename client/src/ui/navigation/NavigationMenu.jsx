@@ -21,13 +21,13 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
           <button onClick={langChanger} className={styles.lang}>
             {language ? (
               <img
-                src={"/united_kingdom_fluttering_flag_64.png"}
-                alt="UK flag"
+                src={"/bulgaria_fluttering_flag_64.png"}
+                alt="Bulgarian flag"
               />
             ) : (
               <img
-                src={"/bulgaria_fluttering_flag_64.png"}
-                alt="Bulgarian flag"
+                src={"/united_kingdom_fluttering_flag_64.png"}
+                alt="UK flag"
               />
             )}
           </button>
