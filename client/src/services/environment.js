@@ -1,5 +1,13 @@
 const BASE_URL = "http://localhost:3000/";
 
+const SERVER_ENDPOINTS = {
+  REGISTER: 'users/register',
+  LOGIN: 'users/login',
+  LOGOUT: 'users/logout',
+  FORGOT_PASSWORD: 'users/forgot-password',
+  RESET_PASSWORD: 'users/reset-password',
+};
+
 const EMAIL_REGEX =
   /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
 
@@ -10,4 +18,5 @@ const path = {
   logout: "users/logout",
 };
 
-export { BASE_URL, path, EMAIL_REGEX, PASS_REGEX };
+export { BASE_URL, SERVER_ENDPOINTS, path, EMAIL_REGEX, PASS_REGEX };
+
