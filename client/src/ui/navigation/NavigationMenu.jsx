@@ -13,10 +13,11 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
 
   return (
     <>
+      {/* next line is for keeping nav menu closed on initial render.
+      If missing the menu will be permanently open */}
       {isMobile && (
         <div
-          className={styles.menuPanel}
-          style={isDark ? { border: "1px solid var(--input-border)" } : null}
+          className={`${styles.menuPanel} ${isDark && styles.isMobileBorder}`}
         >
           <button onClick={langChanger} className={styles.lang}>
             {language ? (
@@ -55,6 +56,17 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
                 className={styles.listItemBtn}
               >
                 {lang.login}
+              </button>
+            </li>
+            <li className={styles.listItem}>
+              <button
+                onClick={() => {
+                  onLogin();
+                  toggleMobile();
+                }}
+                className={styles.listItemBtn}
+              >
+                {lang.logout}
               </button>
             </li>
             <li className={styles.listItem}>

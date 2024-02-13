@@ -22,7 +22,6 @@ function Navigation({ onLogin }) {
       <Button to={"/"}>
         <div className={styles.logo}>
           <img
-            // className={styles.logoImg}
             style={isDark ? { opacity: "0.8" } : null}
             src={src}
             alt="Училище за кънки Вертиго"
