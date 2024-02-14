@@ -25,7 +25,6 @@ function Navigation({ onLogin }) {
             style={isDark ? { opacity: "0.8" } : null}
             src={src}
             alt="Училище за кънки Вертиго"
-            data-rjs="2"
           />
         </div>
       </Button>

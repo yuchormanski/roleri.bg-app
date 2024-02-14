@@ -19,11 +19,6 @@
 .nav {
   margin-left: auto;
 }
-.list {
-  display: flex;
-  gap: 2rem;
-  font-size: 1.8rem;
-}
 
 .mobileBtn {
   background-color: var(--color-body);
@@ -47,25 +42,22 @@
     position: absolute;
     top: -0.5rem;
     right: 0;
-    font-size: 1.8rem;
+    font-size: 2.8rem;
   }
 
   .openedMenuBtn {
     color: var(--color-footer-fonts);
+    font-size: 2.8rem;
   }
   .mobileNav {
     display: block;
     margin-left: auto;
   }
-
-  .mobileList {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
 }
 @media (max-width: 600px) {
-  .logo {
-    height: 30px;
+  .logo img {
+    width: 100%;
+    height: 50px;
+    object-fit: contain;
   }
 }
