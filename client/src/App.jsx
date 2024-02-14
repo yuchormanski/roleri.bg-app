@@ -25,10 +25,11 @@ function App() {
     <DarkModeProvider>
       <LanguageProvider>
         <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools
-            initialIsOpen={false}
-            style={{ fontSize: "16px" }}
-          />
+          <div style={{ fontSize: "16px" }}>
+            <ReactQueryDevtools
+              initialIsOpen={false}
+            />
+          </div>
           <BrowserRouter>
             <Routes>
               <Route element={<AppLayout />}>
@@ -43,7 +44,7 @@ function App() {
           <ToasterComponent />
         </QueryClientProvider>
       </LanguageProvider>
-    </DarkModeProvider>
+    </DarkModeProvider >
   );
 }
 

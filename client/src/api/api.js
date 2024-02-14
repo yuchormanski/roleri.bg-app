@@ -1,42 +1,33 @@
 import { BASE_URL } from "../services/environment.js";
 
-const host = BASE_URL;
-
 async function request(method, url, data) {
   const options = {
     method,
     headers: {},
+    credentials: 'include',
   };
-
-  // const userData = getUserData();
-  // if (userData) {
-  //   const token = userData.accessToken;
-  //   options.headers["X-Authorization"] = token;
-  // }
 
   if (data !== undefined) {
     options.headers["Content-Type"] = "application/json";
     options.body = JSON.stringify(data);
   }
 
-  try {
-    const response = await fetch(host + url, options);
+  const response = await fetch(BASE_URL + url, options);
 
-    let result;
-    if (response.status != 204) {
-      result = await response.json();
-    }
-    if (response.ok == false) {
-      if (response.status == 403) {
-        // clear cookie data
-      }
-      throw result;
+  if (response.ok == false) {
+    if (response.status == 403) {
+      // clear cookie data
+      document.cookie = '';
     }
 
-    return result;
-  } catch (error) {
-    throw new Error(error.message);
+    const error = await response.json();
+
+    throw error;
   }
+
+  const result = await response.json();
+
+  return result;
 }
 
 export const get = request.bind(null, "get");

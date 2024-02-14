@@ -6,14 +6,18 @@ import { useTheme } from "../../context/DarkMode.jsx";
 import { useLanguage } from "../../context/Language.jsx";
 
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth.js";
 
 function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
   const { isDark, themeToggle } = useTheme();
   const { lang, langChanger, toggle: language } = useLanguage();
 
-  async function onLogout() {
-    console.log("logout");
+  const { logoutQuery } = useAuth();
+
+  function onLogout() {
+    logoutQuery.refetch();
   }
+
   return (
     <>
       {/* next line is for keeping nav menu closed on initial render.

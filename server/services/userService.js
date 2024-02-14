@@ -58,12 +58,7 @@ const userRegister = async ({ name, email, phone, role, password }) => {
     // Create token
     const userToken = await generateUserToken(user);
 
-    // Create cookie options
-    const cookieOptions = process.env.NODE_ENV === 'production'
-        ? { httpOnly: true, secure: true, sameSite: 'strict', maxAge: calculateExpirePeriodCookieInDay() }
-        : { httpOnly: true, maxAge: calculateExpirePeriodCookieInDay() };
-
-    return { userToken, cookieOptions, user: createUserDetailsObject(user) };
+    return { userToken, cookieOptions: cookieOptions(), user: createUserDetailsObject(user) };
 };
 
 // Login
@@ -83,12 +78,7 @@ const userLogin = async ({ email, password }) => {
     // Create token
     const userToken = await generateUserToken(user);
 
-    // Create cookie options
-    const cookieOptions = process.env.NODE_ENV === 'production'
-        ? { httpOnly: true, secure: true, sameSite: 'strict', maxAge: calculateExpirePeriodCookieInDay() }
-        : { httpOnly: true, maxAge: calculateExpirePeriodCookieInDay() };
-
-    return { userToken, cookieOptions, user: createUserDetailsObject(user) };
+    return { userToken, cookieOptions: cookieOptions(), user: createUserDetailsObject(user) };
 };
 
 // Logout
@@ -165,21 +155,10 @@ async function resetUserPassword({ password, resetToken }) {
     // Create token
     const userToken = await generateUserToken(user);
 
-    // Create cookie options
-    const cookieOptions = process.env.NODE_ENV === 'production'
-        ? { httpOnly: true, secure: true, sameSite: 'strict', maxAge: calculateExpirePeriodCookieInDay() }
-        : { httpOnly: true, maxAge: calculateExpirePeriodCookieInDay() };
-
-    return { userToken, cookieOptions, user: createUserDetailsObject(user) };
+    return { userToken, cookieOptions: cookieOptions(), user: createUserDetailsObject(user) };
 }
 
 // Helper functions
-
-// Calculate the cookie expiration period
-function calculateExpirePeriodCookieInDay(day = 30) {
-    const expirePeriodCookie = Number(day) * 24 * 60 * 60 * 1000; // days * 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
-    return expirePeriodCookie;
-}
 
 // Data to return to front-end
 function createUserDetailsObject(user) {
@@ -190,6 +169,19 @@ function createUserDetailsObject(user) {
         role: user.role,
         phone: user.phone,
     };
+}
+
+// Use different cookie options for different environment
+function cookieOptions() {
+    return process.env.NODE_ENV === 'production'
+        ? { httpOnly: true, sameSite: 'none', secure: true, maxAge: calculateExpirePeriodCookieInDay() }
+        : { httpOnly: true, sameSite: 'lax', maxAge: calculateExpirePeriodCookieInDay() };
+}
+
+// Calculate the cookie expiration period
+function calculateExpirePeriodCookieInDay(day = 30) {
+    const expirePeriodCookie = Number(day) * 24 * 60 * 60 * 1000; // days * 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
+    return expirePeriodCookie;
 }
 
 export {
