@@ -22,13 +22,13 @@
 .content {
   display: flex;
   flex-direction: column;
-  padding: 1rem 0 2rem;
+  padding: 1rem 0 0rem;
 }
 
 .heading {
   width: fit-content;
   align-self: center;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   border-bottom: 0.1rem var(--border-bottom);
 }
 
@@ -68,6 +68,18 @@
   color: var(--color-label);
   text-transform: uppercase;
   margin-right: auto;
+}
+.btnContainer {
+  margin-top: 2rem;
+}
+.lessonBtn {
+  width: 100%;
+  background-color: var(--color-menu-btn);
+  color: var(--color-header);
+  font-size: 1.6rem;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 1.6rem 0;
 }
 
 @media (max-width: 760px) {

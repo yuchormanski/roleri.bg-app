@@ -46,6 +46,19 @@ function LessonsList() {
           <LessonListElement key={lm.id} lm={lm} />
         ))}
       </div>
+      <div className={styles.scrollToTop}>
+        <button
+          onClick={() =>
+            window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: "smooth",
+            })
+          }
+        >
+          To top
+        </button>
+      </div>
     </>
   );
 }

@@ -13,4 +13,5 @@ export const EN = {
   count: "Lessons",
   location: "Location",
   price: "Price",
+  more: "More info",
 };

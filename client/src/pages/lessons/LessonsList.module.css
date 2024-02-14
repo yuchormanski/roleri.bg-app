@@ -10,6 +10,10 @@
   gap: 2rem 4rem;
 }
 
+.scrollToTop {
+  display: none;
+}
+
 @media (max-width: 760px) {
   .lessons {
     display: flex;
@@ -17,9 +21,19 @@
     align-items: center;
     gap: 4rem;
   }
+  .scrollToTop {
+    display: block;
+    background-color: var(--color-main-btn);
+    width: fit-content;
+    position: fixed;
+    right: 5%;
+    top: 92%;
+    padding: 0.8rem 2rem;
+    border-radius: 3px;
+  }
 }
 @media (max-width: 600px) {
   .lessons {
-    gap: 2rem;
+    gap: 4rem;
   }
 }

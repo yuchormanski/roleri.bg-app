@@ -57,6 +57,9 @@ function LessonListElement({ lm }) {
             <span>{lang.price}: </span>
             {lm.price.split("&/&").at(index) ?? lm.price}
           </div> */}
+          <div className={styles.btnContainer}>
+            <button className={styles.lessonBtn}>{lang.more}</button>
+          </div>
         </div>
       </div>
     </figure>

@@ -12,4 +12,5 @@ export const BG = {
   count: "Брой участници",
   location: "Местоположение",
   price: "Цена",
+  more: "Още за този урок",
 };
