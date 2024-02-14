@@ -9,8 +9,8 @@ export const EN = {
   age: "Age",
   skills: "Skills",
   participants: "Participants",
-  type: "Lessons type",
-  count: "Lessons count",
+  type: "Type",
+  count: "Lessons",
   location: "Location",
   price: "Price",
 };

@@ -6,7 +6,7 @@ import { useTheme } from "../../context/DarkMode.jsx";
 import { useLanguage } from "../../context/Language.jsx";
 
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth.js";
+import { useAuth } from "../../pages/auth/useAuth.js";
 
 function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
   const { isDark, themeToggle } = useTheme();
@@ -15,7 +15,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
   const { logoutQuery } = useAuth();
 
   function onLogout() {
-    logoutQuery.refetch();
+    // logoutQuery.refetch();
   }
 
   return (

@@ -4,4 +4,12 @@ export const BG = {
   login: "Вход",
   register: "Регистрация",
   forgotten: "Забравена парола",
+  news: "Новини",
+  age: "Възраст",
+  skills: "Умения",
+  participants: "Участници",
+  type: "Вид",
+  count: "Брой участници",
+  location: "Местоположение",
+  price: "Цена",
 };
