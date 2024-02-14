@@ -1,0 +1,10 @@
+.heading {
+  width: fit-content;
+  align-self: center;
+  margin-bottom: 3rem;
+  border-bottom: 0.2rem solid var(--color-main-btn);
+}
+.news {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}

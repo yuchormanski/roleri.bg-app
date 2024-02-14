@@ -8,13 +8,16 @@ const LanguageContext = createContext();
 function LanguageProvider({ children }) {
   const [toggle, setToggle] = useState(true);
   const [lang, setLang] = useState(EN);
+  const [index, setIndex] = useState(1);
 
   useEffect(
     function () {
       if (toggle) {
         setLang(EN);
+        setIndex(1);
       } else {
         setLang(BG);
+        setIndex(0);
       }
     },
     [toggle]
@@ -25,7 +28,7 @@ function LanguageProvider({ children }) {
   }
 
   return (
-    <LanguageContext.Provider value={{ lang, langChanger, toggle }}>
+    <LanguageContext.Provider value={{ lang, langChanger, toggle, index }}>
       {children}
     </LanguageContext.Provider>
   );

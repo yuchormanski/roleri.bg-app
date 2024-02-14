@@ -6,4 +6,11 @@ export const EN = {
   register: "Register",
   forgotten: "Forgotten password",
   news: "News",
+  age: "Age",
+  skills: "Skills",
+  participants: "Participants",
+  type: "Lessons type",
+  count: "Lessons count",
+  location: "Location",
+  price: "Price",
 };
