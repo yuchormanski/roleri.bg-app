@@ -7,10 +7,17 @@ import Popup from "./elements/popupModal/Popup.jsx";
 import { useToggleModal } from "../hooks/useToggleModal.js";
 import Register from "../pages/auth/Register.jsx";
 import { useState } from "react";
+import Spinner from "./elements/spinner/Spinner.jsx";
 
 function AppLayout() {
   const [background, toggle] = useToggleModal();
   const [authToggle, setAuthToggle] = useState(true);
+  const [loading, setLoading] = useState(false);
+
+  function load() {
+    console.log("in");
+    setLoading((l) => !l);
+  }
 
   return (
     <>
@@ -19,12 +26,13 @@ function AppLayout() {
         {background && (
           <Popup onClose={toggle}>
             {authToggle ? (
-              <Login onClose={toggle} authToggle={setAuthToggle} />
+              <Login onClose={toggle} authToggle={setAuthToggle} load={load} />
             ) : (
               <Register onClose={toggle} authToggle={setAuthToggle} />
             )}
           </Popup>
         )}
+        {loading && <Spinner />}
         <Outlet />
       </main>
       <Footer />

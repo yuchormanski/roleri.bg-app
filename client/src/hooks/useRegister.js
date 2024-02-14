@@ -5,10 +5,16 @@ import { post } from "../api/api.js";
 import { SERVER_ENDPOINTS } from "../services/environment.js";
 
 export function useRegister() {
-  const queryClient = useQueryClient();
-  const { isLoading, mutate: registerUser } = useMutation({
-    mutationFn: (data) => {
-      post(SERVER_ENDPOINTS.REGISTER, data);
+  // const queryClient = useQueryClient();
+  const {
+    isPending: isLoading,
+    data,
+    error,
+    mutate: registerUser,
+  } = useMutation({
+    mutationFn: (user) => {
+      console.log(isLoading);
+      post(SERVER_ENDPOINTS.REGISTER, user);
     },
     onSuccess: () => {
       toast.success("User was successful registered!");
@@ -19,6 +25,5 @@ export function useRegister() {
       toast.error(error.message);
     },
   });
-
   return { isLoading, registerUser };
 }

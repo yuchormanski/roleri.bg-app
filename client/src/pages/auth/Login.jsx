@@ -8,34 +8,50 @@ import { useState } from "react";
 import { EMAIL_REGEX } from "../../services/environment.js";
 import { useRegister } from "../../hooks/useRegister.js";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
+import { useLogin } from "../../hooks/useLogin.js";
 
-function Login({ onClose, authToggle }) {
+function Login({ onClose, authToggle, load }) {
   const [isNotForgotten, setIsNotForgotten] = useState(false);
   const [hide, setHide] = useState(false);
   const { register, handleSubmit, reset, getValues, formState } = useForm();
 
-  const { isLoading, registerUser } = useRegister();
+  // const { isLoading, registerUser } = useRegister();
+  const { isLoading, mutate, data } = useLogin();
 
-  const mockData = {
-    name: "User",
-    email: "email@email.bg",
-    phone: "+35967823642",
-    password: "User123",
-  };
+  // const mockData = {
+  //   name: "User",
+  //   email: "email@email.bg",
+  //   phone: "+35967823642",
+  //   password: "User123",
+  // };
 
   // SUBMITTING THE FORM
-  function onFormSubmit(data) {
-    // console.log(data);
+  async function onFormSubmit(loginData) {
+    const tempData = {
+      email: "email@email.bg",
+      password: "User123",
+    };
 
     onClose();
     if (!isNotForgotten) {
       //login user
-      registerUser(mockData, {
-        onSuccess: (data) => {
-          // console.log("after");
+      mutate(tempData, {
+        onSuccess: () => {
           reset();
         },
+        onSettled: (data) => {
+          // always called after a successful or failed mutation
+          // console.log(data);
+        },
       });
+
+      ///////////////////////
+      // registerUser(mockData, {
+      //   onSuccess: (data) => {
+      //     reset();
+      //   },
+      // });
+      /////////////////
     } else {
       //send reset password email
     }
