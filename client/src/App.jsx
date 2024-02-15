@@ -11,6 +11,7 @@ import LessonsList from "./pages/lessons/LessonsList.jsx";
 import ToasterComponent from "./ui/elements/toaster/ToasterComponent.jsx";
 import { DarkModeProvider } from "./context/DarkMode.jsx";
 import { LanguageProvider } from "./context/Language.jsx";
+import { AutContextProvider } from "./context/AuthContext.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,18 +31,20 @@ function App() {
               initialIsOpen={false}
             />
           </div>
-          <BrowserRouter>
-            <Routes>
-              <Route element={<AppLayout />}>
-                <Route index element={<Navigate replace to={"home"} />} />
-                <Route path={"home"} element={<Home />} />
-                <Route path={"lessons"} element={<LessonsList />} />
-              </Route>
-              <Route path={"login"} element={<Login />} />
-              <Route path={"*"} element={<PageNotFound />} />
-            </Routes>
-          </BrowserRouter>
-          <ToasterComponent />
+          <AutContextProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route element={<AppLayout />}>
+                  <Route index element={<Navigate replace to={"home"} />} />
+                  <Route path={"home"} element={<Home />} />
+                  <Route path={"lessons"} element={<LessonsList />} />
+                </Route>
+                <Route path={"login"} element={<Login />} />
+                <Route path={"*"} element={<PageNotFound />} />
+              </Routes>
+            </BrowserRouter>
+            <ToasterComponent />
+          </AutContextProvider>
         </QueryClientProvider>
       </LanguageProvider>
     </DarkModeProvider >
