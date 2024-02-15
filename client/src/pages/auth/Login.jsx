@@ -7,13 +7,13 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import { EMAIL_REGEX } from "../../services/environment.js";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
-import { useAuth } from "./useAuth.js";
+import { useAuthQueries } from "./useAuthQueries.js";
 
 function Login({ onClose, authToggle }) {
   const [isNotForgotten, setIsNotForgotten] = useState(false);
   const { register, handleSubmit, reset, getValues, formState } = useForm();
 
-  const { loginMutation } = useAuth();
+  const { loginMutation } = useAuthQueries();
 
   // SUBMITTING THE FORM
   async function onFormSubmit(loginData) {
