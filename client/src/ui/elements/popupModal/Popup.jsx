@@ -1,34 +1,8 @@
-// In parent component:
-// const [background, setBackground] = useState(false);
-// const [currentComponent, setCurrentComponent] = useState({});
-
-// function onButtonClick(component) {
-//   setCurrentOrder(component);
-//   setBackground(true);
-// }
-
-// function close(e) {
-//   setCurrentOrder({});
-//   setBackground(false);
-// }
-
-// return (
-//   <>
-//     {background && (
-//       <Popup onClose={close}>
-//         {children component}
-//       </Popup>
-//     )}
-
-//     <button onClick={() => onButtonClick(component)}></button>
-//     </>
-// );
-
 import styles from "./Popup.module.css";
 
-function Popup({ children, onClose, noBackground }) {
+function Popup({ children, onClose, noBackground, backgroundClick }) {
   return (
-    <div className={styles.modalBg} onClick={onClose}>
+    <div className={styles.modalBg} onClick={backgroundClick ? onClose : null}>
       <figure
         className={`${styles.fullInfo} ${noBackground && styles.noBackground}`}
         onClick={(e) => e.stopPropagation()}

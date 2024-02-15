@@ -19,7 +19,7 @@ function AppLayout() {
       <Navigation onLogin={toggle} />
       <main className={styles.main}>
         {background && (
-          <Popup onClose={toggle}>
+          <Popup onClose={toggle} backgroundClick={false}>
             {authToggle ? (
               <Login onClose={toggle} authToggle={setAuthToggle} />
             ) : (
