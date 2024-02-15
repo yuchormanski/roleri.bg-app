@@ -43,7 +43,7 @@ function LessonsList() {
       <h1 className={styles.heading}>{lang.lessons}</h1>
       <div className={styles.lessons}>
         {lessonsArr.map((lm) => (
-          <LessonListElement key={lm.id} lm={lm} />
+          <LessonListElement key={lm._id} lm={lm} />
         ))}
       </div>
       <div className={styles.scrollToTop}>
