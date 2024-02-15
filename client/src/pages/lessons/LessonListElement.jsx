@@ -1,8 +1,24 @@
 import { useLanguage } from "../../context/Language.jsx";
+import { useTranslate } from "../../hooks/useTranslate.js";
 import styles from "./LessonListElement.module.css";
 
 function LessonListElement({ lm }) {
-  const { lang, index } = useLanguage();
+  const { lang } = useLanguage();
+  const { translatePhrase: getCurrentLangHandler } = useTranslate();
+
+  const properties = Object.keys({
+    age: lm.age,
+    skills: lm.skills,
+    participants: lm.participants,
+    type: lm.type,
+    count: lm.count,
+    location: lm.location,
+  });
+
+  // TODO - Create component for details on one lesson
+  function lessonHandler() {
+    console.log(lm._id);
+  }
 
   return (
     <figure className={styles.figure} key={lm.id}>
@@ -18,47 +34,31 @@ function LessonListElement({ lm }) {
 
       <div className={styles.content}>
         <h2 className={styles.heading}>
-          {lm.title.split("&/&").at(index) ?? lm.title}
+          {getCurrentLangHandler(lm.title)}
         </h2>
         <p className={styles.titleInfo}>
           <span className={styles.additional}>* </span>
-          {lm.titleInfo.split("&/&").at(index) ?? lm.titleInfo}
+          {getCurrentLangHandler(lm.titleInfo)}
         </p>
 
         <div className={styles.description}>
-          <div className={styles.line}>
-            <span>{lang.age}:</span>
-            {lm.age.split("&/&").at(index) ?? lm.age}
-          </div>
 
-          <div className={styles.line}>
-            <span>{lang.skills}:</span>
-            {lm.skills.split("&/&").at(index) ?? lm.skills}
-          </div>
+          {
+            properties.map((prop, index) => (
+              <div className={styles.line} key={index}>
+                <span>{lang[prop]}: </span>
+                {getCurrentLangHandler(lm[prop])}
+              </div>
+            ))
+          }
 
-          <div className={styles.line}>
-            <span>{lang.participants}:</span>
-            {lm.participants.split("&/&").at(index) ?? lm.participants}
-          </div>
-
-          <div className={styles.line}>
-            <span>{lang.type}:</span>
-            {lm.type.split("&/&").at(index) ?? lm.type}
-          </div>
-          <div className={styles.line}>
-            <span>{lang.count}:</span>
-            {lm.count.split("&/&").at(index) ?? lm.count}
-          </div>
-          <div className={styles.line}>
-            <span>{lang.location}: </span>
-            {lm.location.split("&/&").at(index) ?? lm.location}
-          </div>
           {/* <div className={styles.line}>
             <span>{lang.price}: </span>
-            {lm.price.split("&/&").at(index) ?? lm.price}
+            {getCurrentLangHandler(lm.price)}
+
           </div> */}
           <div className={styles.btnContainer}>
-            <button className={styles.lessonBtn}>{lang.more}</button>
+            <button className={styles.lessonBtn} onClick={lessonHandler}>{lang.more}</button>
           </div>
         </div>
       </div>

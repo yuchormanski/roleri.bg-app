@@ -6,6 +6,7 @@ const SERVER_ENDPOINTS = {
   LOGOUT: "users/logout",
   FORGOT_PASSWORD: "users/forgot-password",
   RESET_PASSWORD: "users/reset-password",
+  GET_ALL_LESSONS: "lessons",
 };
 
 const EMAIL_REGEX =
@@ -18,4 +19,13 @@ const path = {
   logout: "users/logout",
 };
 
-export { BASE_URL, SERVER_ENDPOINTS, path, EMAIL_REGEX, PASS_REGEX };
+const USER_LOCAL_STORAGE_KEY = "08180818a772caa4b9a0787a7e065311e1e83e676b5ce1e83e676b5c"
+
+export {
+  BASE_URL,
+  SERVER_ENDPOINTS,
+  path,
+  EMAIL_REGEX,
+  PASS_REGEX,
+  USER_LOCAL_STORAGE_KEY,
+};

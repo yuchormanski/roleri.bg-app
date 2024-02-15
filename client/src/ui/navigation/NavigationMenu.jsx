@@ -6,16 +6,23 @@ import { useTheme } from "../../context/DarkMode.jsx";
 import { useLanguage } from "../../context/Language.jsx";
 
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../../pages/auth/useAuth.js";
+import { useAuthQueries } from "../../pages/auth/useAuthQueries.js";
+import { useAuthContext } from "../../context/AuthContext.jsx";
 
 function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
   const { isDark, themeToggle } = useTheme();
   const { lang, langChanger, toggle: language } = useLanguage();
 
-  const { logoutQuery } = useAuth();
+  const { checkIsUserLoggedIn } = useAuthContext();
+  const { logoutMutation } = useAuthQueries();
 
-  function onLogout() {
-    // logoutQuery.refetch();
+  async function onLogout() {
+    try {
+      await logoutMutation.mutateAsync();
+
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   return (
@@ -54,22 +61,29 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
                 {lang.lessons}
               </NavLink>
             </li>
-            <li className={styles.listItem}>
-              <button
-                onClick={() => {
-                  onLogin();
-                  if (!isMobile) toggleMobile();
-                }}
-                className={styles.listItemBtn}
-              >
-                {lang.login}
-              </button>
-            </li>
-            <li className={styles.listItem}>
-              <button onClick={onLogout} className={styles.listItemBtn}>
-                {lang.logout}
-              </button>
-            </li>
+
+
+            {checkIsUserLoggedIn()
+              ? (
+                <li className={styles.listItem}>
+                  <button onClick={onLogout} className={styles.listItemBtn}>
+                    {lang.logout}
+                  </button>
+                </li>
+              ) : (
+                <li className={styles.listItem}>
+                  <button
+                    onClick={() => {
+                      onLogin();
+                      if (!isMobile) toggleMobile();
+                    }}
+                    className={styles.listItemBtn}
+                  >
+                    {lang.login}
+                  </button>
+                </li>
+              )}
+
             <li className={styles.listItem}>
               <div className={`${styles.listItemBtn}`}>
                 <button className={`${styles.iconBtn}`} onClick={themeToggle}>

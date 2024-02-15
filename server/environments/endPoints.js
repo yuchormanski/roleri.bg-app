@@ -2,7 +2,7 @@ export const mainRoutes = {
     allRoute: '*',
     home: '/',
     users: '/users',
-
+    lessons: '/lessons',
 };
 
 export const endpoints = {
