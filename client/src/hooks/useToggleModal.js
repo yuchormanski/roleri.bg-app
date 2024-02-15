@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export const useToggleModal = () => {
+export function useToggleModal() {
   const [isShownModal, setIsShownModal] = useState(false); // Initial state for the modal
   const toggleModal = () => {
     // Change state of the modal
@@ -8,4 +8,4 @@ export const useToggleModal = () => {
   };
 
   return [isShownModal, toggleModal];
-};
+}
