@@ -11,9 +11,8 @@ async function request(method, url, data) {
     options.headers["Content-Type"] = "application/json";
     options.body = JSON.stringify(data);
   }
-  console.log("before response");
+
   const response = await fetch(BASE_URL + url, options);
-  console.log("after response");
 
   if (response.ok == false) {
     if (response.status == 403) {
