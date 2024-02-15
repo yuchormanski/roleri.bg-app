@@ -2,6 +2,7 @@ export const BG = {
   home: "У дома",
   lessons: "Уроци",
   login: "Вход",
+  logout: "Изход",
   register: "Регистрация",
   forgotten: "Забравена парола",
   news: "Новини",
