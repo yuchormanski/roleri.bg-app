@@ -19,7 +19,6 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
   async function onLogout() {
     try {
       await logoutMutation.mutateAsync();
-
     } catch (error) {
       console.error(error.message);
     }
@@ -62,29 +61,27 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
               </NavLink>
             </li>
 
+            {checkIsUserLoggedIn() ? (
+              <li className={styles.listItem}>
+                <button onClick={onLogout} className={styles.listItemBtn}>
+                  {lang.logout}
+                </button>
+              </li>
+            ) : (
+              <li className={styles.listItem}>
+                <button
+                  onClick={() => {
+                    onLogin();
+                    if (!isMobile) toggleMobile();
+                  }}
+                  className={styles.listItemBtn}
+                >
+                  {lang.login}
+                </button>
+              </li>
+            )}
 
-            {checkIsUserLoggedIn()
-              ? (
-                <li className={styles.listItem}>
-                  <button onClick={onLogout} className={styles.listItemBtn}>
-                    {lang.logout}
-                  </button>
-                </li>
-              ) : (
-                <li className={styles.listItem}>
-                  <button
-                    onClick={() => {
-                      onLogin();
-                      if (!isMobile) toggleMobile();
-                    }}
-                    className={styles.listItemBtn}
-                  >
-                    {lang.login}
-                  </button>
-                </li>
-              )}
-
-            <li className={styles.listItem}>
+            <li className={`${styles.listItem} ${styles.themeChanger}`}>
               <div className={`${styles.listItemBtn}`}>
                 <button className={`${styles.iconBtn}`} onClick={themeToggle}>
                   {isDark ? <IoSunnyOutline /> : <IoMoonOutline />}
