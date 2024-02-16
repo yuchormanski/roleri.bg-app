@@ -19,6 +19,7 @@ function Register({ onClose, authToggle }) {
   const { registerMutation } = useAuthQueries();
 
   const [phone, setPhone] = useState("");
+  const [visible, setVisible] = useState(false);
 
   // SUBMITTING THE FORM
   async function onFormSubmit(regData) {
@@ -35,7 +36,7 @@ function Register({ onClose, authToggle }) {
       };
 
       // await registerMutation.mutateAsync({ ...regData, phone: phone });
-      await registerMutation.mutateAsync(resultData); //REMOVE this
+      // await registerMutation.mutateAsync(resultData); //REMOVE this
       onClose();
       reset();
     } catch (error) {
@@ -50,9 +51,8 @@ function Register({ onClose, authToggle }) {
     Object.keys(errors).forEach((error) => toast.error(errors[error].message));
   }
 
-  //CHANGE TO FORGOTTEN PASSWORD
-  function forgotten() {
-    setIsNotForgotten((is) => !is);
+  function eyeHandler() {
+    setVisible((v) => !v);
   }
 
   return (
@@ -114,25 +114,47 @@ function Register({ onClose, authToggle }) {
             placeholder={"Email"}
           />
 
+          <div className={styles.passContainer}>
+            <input
+              className={styles.input}
+              type={visible ? "text" : "password"}
+              id="password"
+              {...register(
+                "password",
+                !isNotForgotten
+                  ? {
+                      required: "Password is required",
+                      minLength: {
+                        value: 3,
+                        message:
+                          "The password should be at least 3 characters long ",
+                      },
+                    }
+                  : null
+              )}
+              placeholder={"Password"}
+            />
+            <div className={styles.passEyeBtn} onClick={eyeHandler}>
+              {visible ? <GoEyeClosed /> : <GoEye />}
+            </div>
+          </div>
+
+          {/* <div className={styles.passContainer}> */}
           <input
             className={styles.input}
-            type="password"
-            id="password"
-            {...register(
-              "password",
-              !isNotForgotten
-                ? {
-                    required: "Password is required",
-                    minLength: {
-                      value: 3,
-                      message:
-                        "The password should be at least 3 characters long ",
-                    },
-                  }
-                : null
-            )}
-            placeholder={"Password"}
+            type={visible ? "text" : "password"}
+            id="repass"
+            {...register("repass", {
+              required: "Repeat password is required",
+              validate: (value) =>
+                value === getValues().password || "Passwords don't match",
+            })}
+            placeholder={"Repeat password"}
           />
+          {/* <div className={styles.passEyeBtn} onClick={eyeHandler}>
+              {visible ? <GoEyeClosed /> : <GoEye />}
+            </div> */}
+          {/* </div> */}
 
           <PhoneInput
             name={"phone"}
