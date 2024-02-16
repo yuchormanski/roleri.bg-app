@@ -27,16 +27,14 @@ function App() {
       <LanguageProvider>
         <QueryClientProvider client={queryClient}>
           <div style={{ fontSize: "16px" }}>
-            <ReactQueryDevtools
-              initialIsOpen={false}
-            />
+            <ReactQueryDevtools initialIsOpen={false} />
           </div>
           <AutContextProvider>
             <BrowserRouter>
               <Routes>
                 <Route element={<AppLayout />}>
-                  <Route index element={<Navigate replace to={"home"} />} />
-                  <Route path={"home"} element={<Home />} />
+                  <Route index element={<Navigate replace to={"/"} />} />
+                  <Route path={"/"} element={<Home />} />
                   <Route path={"lessons"} element={<LessonsList />} />
                 </Route>
                 <Route path={"login"} element={<Login />} />
@@ -47,7 +45,7 @@ function App() {
           </AutContextProvider>
         </QueryClientProvider>
       </LanguageProvider>
-    </DarkModeProvider >
+    </DarkModeProvider>
   );
 }
 

@@ -15,10 +15,12 @@
     --card-bg: rgb(250, 249, 249);
     --card-border: 1px solid #46526842;
     --color-line: #f1f1e6;
+    --button: rgb(91, 116, 184);
   }
 
   /* dark mode */
   &.dark {
+    --button: #ffd723b4;
     --color-body: #3e4756;
     --color-main: #fff;
     --color-nav-link: #f1f1e6;
