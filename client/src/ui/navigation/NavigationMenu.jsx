@@ -16,7 +16,6 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
   const { checkIsUserLoggedIn, getUserHandler } = useAuthContext();
   const { logoutMutation } = useAuthQueries();
   const user = getUserHandler();
-  console.log(user);
 
   async function onLogout() {
     try {

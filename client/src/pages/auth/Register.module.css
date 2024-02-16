@@ -37,7 +37,7 @@
 
 .form .input {
   background-color: var(--color-input);
-  padding: 0.1rem 1rem;
+  padding: 0.3rem 1rem;
   font-size: 1.6rem;
   color: var(--color-main);
   border-color: var(--input-border);

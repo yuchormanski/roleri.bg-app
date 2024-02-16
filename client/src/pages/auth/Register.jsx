@@ -5,47 +5,42 @@ import { GoChevronLeft, GoX, GoEye, GoEyeClosed } from "react-icons/go";
 import Button from "../../ui/elements/button/Button.jsx";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import { EMAIL_REGEX } from "../../services/environment.js";
+import { EMAIL_REGEX, PHONE_REGEX } from "../../services/environment.js";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 import { useAuthQueries } from "./useAuthQueries.js";
+// import PhoneComponent from "../../ui/elements/phone/PhoneComponent.jsx";
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
 
 function Register({ onClose, authToggle }) {
   const [isNotForgotten, setIsNotForgotten] = useState(false);
   const { register, handleSubmit, reset, getValues, formState } = useForm();
 
-  const { loginMutation } = useAuthQueries();
+  const { registerMutation } = useAuthQueries();
+
+  const [phone, setPhone] = useState("");
 
   // SUBMITTING THE FORM
-  async function onFormSubmit(loginData) {
+  async function onFormSubmit(regData) {
     try {
-      if (!isNotForgotten) {
-        await loginMutation.mutateAsync(loginData);
+      if (!PHONE_REGEX.test(phone)) throw new Error("Invalid phone number!");
 
-        //login user
-        // mutate(tempData, {
-        //   onSuccess: () => {
-        //     reset();
-        //   },
-        //   onSettled: (data) => {
-        //     // always called after a successful or failed mutation
-        //     // console.log(data);
-        //   },
-        // });
+      // TODO: да се направи базата да приема firstName & lastName instead of name
 
-        ///////////////////////
-        // registerUser(mockData, {
-        //   onSuccess: (data) => {
-        //     reset();
-        //   },
-        // });
-        /////////////////
-      } else {
-        //send reset password email
-      }
+      const resultData = {
+        name: `${regData.firstName} ${regData.lastName}`,
+        email: regData.email,
+        password: regData.password,
+        phone: phone,
+      };
+
+      // await registerMutation.mutateAsync({ ...regData, phone: phone });
+      await registerMutation.mutateAsync(resultData); //REMOVE this
       onClose();
       reset();
     } catch (error) {
-      console.error("Login error:", error);
+      toast.error(error.message);
+      console.error("Registration error:", error);
     }
   }
 
@@ -62,16 +57,14 @@ function Register({ onClose, authToggle }) {
 
   return (
     <>
-      {loginMutation.isPending && <Spinner />}
+      {registerMutation.isPending && <Spinner />}
       <div className={styles.container}>
         <div className={styles.closeBtn}>
           <button onClick={onClose} className={styles.closeIcon}>
             <GoX />
           </button>
         </div>
-        <h2 className={styles.heading}>
-          {isNotForgotten ? "Forgotten Password" : "Sign Up"}
-        </h2>
+        <h2 className={styles.heading}>Sign In</h2>
 
         <form
           onSubmit={handleSubmit(onFormSubmit, onErrorSubmit)}
@@ -121,82 +114,59 @@ function Register({ onClose, authToggle }) {
             placeholder={"Email"}
           />
 
-          {!isNotForgotten && (
-            <input
-              className={styles.input}
-              type="password"
-              id="password"
-              {...register(
-                "password",
-                !isNotForgotten
-                  ? {
-                      required: "Password is required",
-                      minLength: {
-                        value: 3,
-                        message:
-                          "The password should be at least 3 characters long ",
-                      },
-                    }
-                  : null
-              )}
-              placeholder={"Password"}
-            />
-          )}
-
           <input
             className={styles.input}
-            type="phone"
-            id="lastName"
-            {...register("phone", {
-              required: "The phone number is required",
-              maxLength: {
-                value: 20,
-                message: "Phone number can't be more than 20 digits!",
-              },
-              minLength: {
-                value: 11,
-                message: "Phone number can't be more than 20 digits!",
-              },
-            })}
-            placeholder={""}
-            defaultValue={"+359"}
+            type="password"
+            id="password"
+            {...register(
+              "password",
+              !isNotForgotten
+                ? {
+                    required: "Password is required",
+                    minLength: {
+                      value: 3,
+                      message:
+                        "The password should be at least 3 characters long ",
+                    },
+                  }
+                : null
+            )}
+            placeholder={"Password"}
+          />
+
+          <PhoneInput
+            name={"phone"}
+            defaultCountry="bg"
+            value={phone}
+            onChange={(phone) => setPhone(phone)}
+            inputStyle={{
+              border: "1px solid lightgray",
+              backgrounColor: "none",
+              borderRadius: "3px",
+              fontSize: "1.6rem",
+              padding: "0 2px",
+              width: "100%",
+              height: "auto",
+              margin: "0 0 0 5px",
+            }}
+            buttonStyle={true}
           />
 
           <div className={styles.btnContainer}>
-            {isNotForgotten && (
-              <div className={styles.backBtn}>
-                <div className={styles.arrow}>
-                  <GoChevronLeft />
-                </div>
-                <Button type={"small"} onClick={forgotten}>
-                  Back
-                </Button>
-              </div>
-            )}
             <div style={{ marginLeft: "auto" }}>
-              <Button type={"primary"}>
-                {!isNotForgotten ? "Login" : "Send"}
-              </Button>
+              <Button type={"primary"}>Register</Button>
             </div>
           </div>
         </form>
 
-        {!isNotForgotten && (
-          <div className={styles.authInfo}>
-            <p>
-              Don&apos;t have an account?{" "}
-              <button
-                onClick={() => authToggle(false)}
-                className={styles.authBtn}
-              >
-                Sign up!
-              </button>
-            </p>
-            <p className={styles.forgotten}>
-              <button onClick={forgotten}>Forgotten Password?</button>
-            </p>
-          </div>
-        )}
+        <div className={styles.authInfo}>
+          <p>
+            Already have an account?{" "}
+            <button onClick={() => authToggle(true)} className={styles.authBtn}>
+              Sign In!
+            </button>
+          </p>
+        </div>
       </div>
     </>
   );

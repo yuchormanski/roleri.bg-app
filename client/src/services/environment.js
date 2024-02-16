@@ -14,12 +14,16 @@ const EMAIL_REGEX =
 
 const PASS_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/;
 
+const PHONE_REGEX =
+  /(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/;
+
 const path = {
   login: "users/login",
   logout: "users/logout",
 };
 
-const USER_LOCAL_STORAGE_KEY = "08180818a772caa4b9a0787a7e065311e1e83e676b5ce1e83e676b5c"
+const USER_LOCAL_STORAGE_KEY =
+  "08180818a772caa4b9a0787a7e065311e1e83e676b5ce1e83e676b5c";
 
 export {
   BASE_URL,
@@ -27,5 +31,6 @@ export {
   path,
   EMAIL_REGEX,
   PASS_REGEX,
+  PHONE_REGEX,
   USER_LOCAL_STORAGE_KEY,
 };
