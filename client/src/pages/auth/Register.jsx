@@ -52,7 +52,10 @@ function Register({ onClose, authToggle }) {
   }
 
   function eyeHandler() {
-    setVisible((v) => !v);
+    setVisible(true);
+    setTimeout(() => {
+      setVisible(false);
+    }, 3000);
   }
 
   return (
@@ -82,6 +85,7 @@ function Register({ onClose, authToggle }) {
               },
             })}
             placeholder={"First name"}
+            autoComplete="given-name"
           />
           <input
             className={styles.input}
@@ -95,6 +99,7 @@ function Register({ onClose, authToggle }) {
               },
             })}
             placeholder={"Last name"}
+            autoComplete="family-name"
           />
           <input
             className={styles.input}
@@ -112,6 +117,7 @@ function Register({ onClose, authToggle }) {
               },
             })}
             placeholder={"Email"}
+            autoComplete="email"
           />
 
           <div className={styles.passContainer}>
@@ -150,6 +156,7 @@ function Register({ onClose, authToggle }) {
                 value === getValues().password || "Passwords don't match",
             })}
             placeholder={"Repeat password"}
+            autoComplete="new-password"
           />
           {/* <div className={styles.passEyeBtn} onClick={eyeHandler}>
               {visible ? <GoEyeClosed /> : <GoEye />}

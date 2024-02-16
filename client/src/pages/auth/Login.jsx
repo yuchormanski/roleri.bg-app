@@ -10,10 +10,10 @@ import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 import { useAuthQueries } from "./useAuthQueries.js";
 
 function Login({ onClose, authToggle }) {
-  const [isNotForgotten, setIsNotForgotten] = useState(false);
-  const { register, handleSubmit, reset, getValues, formState } = useForm();
-
   const { loginMutation } = useAuthQueries();
+  const { register, handleSubmit, reset, getValues, formState } = useForm();
+  const [isNotForgotten, setIsNotForgotten] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   // SUBMITTING THE FORM
   async function onFormSubmit(loginData) {
@@ -60,6 +60,13 @@ function Login({ onClose, authToggle }) {
     setIsNotForgotten((is) => !is);
   }
 
+  function eyeHandler() {
+    setVisible(true);
+    setTimeout(() => {
+      setVisible(false);
+    }, 3000);
+  }
+
   return (
     <>
       {loginMutation.isPending && <Spinner />}
@@ -93,28 +100,34 @@ function Login({ onClose, authToggle }) {
               },
             })}
             placeholder={"Email"}
+            autoComplete="email"
           />
 
           {!isNotForgotten && (
-            <input
-              className={styles.input}
-              type="password"
-              id="password"
-              {...register(
-                "password",
-                !isNotForgotten
-                  ? {
-                      required: "Password is required",
-                      minLength: {
-                        value: 3,
-                        message:
-                          "The password should be at least 3 characters long ",
-                      },
-                    }
-                  : null
-              )}
-              placeholder={"Password"}
-            />
+            <div className={styles.passContainer}>
+              <input
+                className={styles.input}
+                type={visible ? "text" : "password"}
+                id="password"
+                {...register(
+                  "password",
+                  !isNotForgotten
+                    ? {
+                        required: "Password is required",
+                        minLength: {
+                          value: 3,
+                          message:
+                            "The password should be at least 3 characters long ",
+                        },
+                      }
+                    : null
+                )}
+                placeholder={"Password"}
+              />
+              <div className={styles.passEyeBtn} onClick={eyeHandler}>
+                {visible ? <GoEyeClosed /> : <GoEye />}
+              </div>
+            </div>
           )}
           <div className={styles.btnContainer}>
             {isNotForgotten && (
