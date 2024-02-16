@@ -23,7 +23,7 @@
   padding: 0 1rem;
 }
 .listItem:hover {
-  background-color: var(--color-input);
+  background-color: var(--color-nav-hover);
   border-radius: 0.3rem;
 }
 
@@ -39,10 +39,11 @@
   text-decoration: none;
   border-bottom: 1px solid transparent;
 }
-.listItem:hover ~ a,
-.link:hover,
+.listItem:hover > a,
+a.link:hover,
+.listItem:hover > .listItemBtn,
 .listItemBtn:hover {
-  color: var(--color-nav-link-hover);
+  color: var(--color-header);
   border-bottom: 1px solid var(--link-border);
 }
 

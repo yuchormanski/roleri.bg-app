@@ -22,7 +22,7 @@ function useAuthQueries() {
       // Save the user data to local storage
       addUserHandler(userData);
 
-      redirectTo('/lessons');
+      redirectTo("/lessons");
     },
     onError: (error) => {
       toast.error(error.message);
@@ -39,7 +39,7 @@ function useAuthQueries() {
       // Save the user data to local storage
       addUserHandler(userData);
 
-      redirectTo('/lessons');
+      redirectTo("/lessons");
     },
     onError: (error) => {
       toast.error(error.message);
@@ -56,7 +56,7 @@ function useAuthQueries() {
       // Clear the user data from the local storage
       removeUserHandler();
 
-      redirectTo('/home');
+      redirectTo("/");
     },
     onError: (error) => {
       toast.error(error.message);

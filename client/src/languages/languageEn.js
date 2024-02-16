@@ -14,4 +14,5 @@ export const EN = {
   location: "Location",
   price: "Price",
   more: "More info",
+  profile: "Profile",
 };

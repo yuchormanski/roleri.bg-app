@@ -4,6 +4,7 @@
   &.light {
     --color-body: #fff;
     --color-input: #fff;
+    --color-nav-hover: #0298fc;
     --color-header: #fdfdfd;
     --color-main: #3e4756;
     --color-label: #6079a5;
@@ -26,6 +27,7 @@
     --color-nav-link: #f1f1e6;
     --color-nav-link-hover: #acac8e;
     --color-input: #626872;
+    --color-nav-hover: #626872;
     --color-header: #2e3644;
     --color-footer-bg: #2e3644;
     --input-border: #ccac1c80;
