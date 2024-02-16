@@ -55,7 +55,7 @@ function Login({ onClose, authToggle }) {
     Object.keys(errors).forEach((error) => toast.error(errors[error].message));
   }
 
-  //CHANGE FORGOTTEN PASSWORD
+  //CHANGE TO FORGOTTEN PASSWORD
   function forgotten() {
     setIsNotForgotten((is) => !is);
   }
@@ -65,9 +65,9 @@ function Login({ onClose, authToggle }) {
       {loginMutation.isPending && <Spinner />}
       <div className={styles.container}>
         <div className={styles.closeBtn}>
-          <Button onClick={onClose}>
+          <button onClick={onClose} className={styles.closeIcon}>
             <GoX />
-          </Button>
+          </button>
         </div>
         <h2 className={styles.heading}>
           {isNotForgotten ? "Forgotten Password" : "Sign In"}
