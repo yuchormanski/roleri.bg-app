@@ -14,4 +14,6 @@ export const BG = {
   location: "Местоположение",
   price: "Цена",
   more: "Още за този урок",
+  profile: "Профил",
+  back: "Назад",
 };

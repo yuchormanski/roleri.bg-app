@@ -8,12 +8,14 @@ import { useState } from "react";
 import { EMAIL_REGEX } from "../../services/environment.js";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 import { useAuthQueries } from "./useAuthQueries.js";
+import { useLanguage } from "../../context/Language.jsx";
 
 function Login({ onClose, authToggle }) {
   const { loginMutation } = useAuthQueries();
   const { register, handleSubmit, reset, getValues, formState } = useForm();
   const [isNotForgotten, setIsNotForgotten] = useState(false);
   const [visible, setVisible] = useState(false);
+  const { lang } = useLanguage();
 
   // SUBMITTING THE FORM
   async function onFormSubmit(loginData) {
@@ -135,9 +137,9 @@ function Login({ onClose, authToggle }) {
                 <div className={styles.arrow}>
                   <GoChevronLeft />
                 </div>
-                <Button type={"small"} onClick={forgotten}>
-                  Back
-                </Button>
+                <button className={styles.backBtnElement} onClick={forgotten}>
+                  {lang.back}
+                </button>
               </div>
             )}
             <div style={{ marginLeft: "auto" }}>

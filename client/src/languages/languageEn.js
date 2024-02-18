@@ -15,4 +15,5 @@ export const EN = {
   price: "Price",
   more: "More info",
   profile: "Profile",
+  back: "Back",
 };

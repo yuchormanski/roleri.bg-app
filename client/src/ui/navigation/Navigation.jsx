@@ -28,9 +28,11 @@ function Navigation({ onLogin }) {
           />
         </div>
       </Button>
+
       <nav className={styles.nav}>
         <NavigationMenu onLogin={onLogin} />
       </nav>
+
       <nav className={styles.mobileNav}>
         <div className={styles.mobileBtn}>
           <button

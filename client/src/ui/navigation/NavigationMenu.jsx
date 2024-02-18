@@ -46,10 +46,16 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
               />
             )}
           </button>
+
           <ul className={styles.list}>
             <li className={styles.listItem}>
-              <NavLink to={"/"} className={styles.link} onClick={toggleMobile}>
+              <NavLink
+                to={"home"}
+                className={styles.link}
+                onClick={toggleMobile}
+              >
                 {lang.home}
+                <span className={styles.linkBorder}></span>
               </NavLink>
             </li>
             <li className={styles.listItem}>
@@ -59,6 +65,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
                 onClick={toggleMobile}
               >
                 {lang.lessons}
+                <span className={styles.linkBorder}></span>
               </NavLink>
             </li>
 
@@ -71,25 +78,30 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
                     onClick={toggleMobile}
                   >
                     {lang.profile}
+                    <span className={styles.linkBorder}></span>
                   </NavLink>
                 </li>
                 <li className={styles.listItem}>
-                  <button onClick={onLogout} className={styles.listItemBtn}>
+                  <NavLink onClick={onLogout} className={styles.link} to="">
                     {lang.logout}
-                  </button>
+                    <span className={styles.linkBorder}></span>
+                  </NavLink>
                 </li>
               </>
             ) : (
               <li className={styles.listItem}>
-                <button
+                <NavLink
                   onClick={() => {
                     onLogin();
                     if (!isMobile) toggleMobile();
                   }}
-                  className={styles.listItemBtn}
+                  // className={styles.listItemBtn}
+                  className={styles.link}
+                  to=""
                 >
                   {lang.login}
-                </button>
+                  <span className={styles.linkBorder}></span>
+                </NavLink>
               </li>
             )}
 

@@ -17,3 +17,22 @@ body #root {
 * {
   transition: all 0.2s ease;
 }
+
+.active,
+.active:visited,
+.active:focus {
+  background-color: var(--color-nav-hover);
+  border-radius: 0.3rem;
+  color: var(--active-text);
+}
+
+@media (max-width: 600px) {
+  .active,
+  .active:visited,
+  .active:focus {
+    width: 100%;
+    height: 100%;
+    border-radius: 0.3rem;
+    color: var(--active-text);
+  }
+}

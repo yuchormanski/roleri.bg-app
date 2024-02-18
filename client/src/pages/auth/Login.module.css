@@ -67,6 +67,9 @@
   align-items: center;
   font-size: 1.6rem;
 }
+.backBtnElement {
+  color: var(--color-nav-link);
+}
 .arrow {
   margin-top: 0.6rem;
 }
