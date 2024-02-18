@@ -129,13 +129,13 @@ function Register({ onClose, authToggle }) {
                 "password",
                 !isNotForgotten
                   ? {
-                      required: "Password is required",
-                      minLength: {
-                        value: 3,
-                        message:
-                          "The password should be at least 3 characters long ",
-                      },
-                    }
+                    required: "Password is required",
+                    minLength: {
+                      value: 3,
+                      message:
+                        "The password should be at least 3 characters long ",
+                    },
+                  }
                   : null
               )}
               placeholder={"Password"}
@@ -180,6 +180,13 @@ function Register({ onClose, authToggle }) {
               color: "var(--color-main)",
             }}
             buttonStyle={true}
+            style={{
+              "--react-international-phone-dropdown-item-background-color": "var(--color-input)",
+              "--react-international-phone-country-selector-background-color": "var(--color-input)",
+              "--react-international-phone-country-selector-background-color-hover": "var(--color-input)",
+              "--react-international-phone-country-selector-border-color": "var(--input-border)",
+              "--react-international-phone-country-selector-arrow-color": "var(--color-main)",
+            }}
           />
 
           <div className={styles.btnContainer}>
