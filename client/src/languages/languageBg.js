@@ -16,4 +16,9 @@ export const BG = {
   more: "Още за този урок",
   profile: "Профил",
   back: "Назад",
+  edit: "Редактирай",
+  skaters: "Кънкьор",
+  history: "История",
+  hello: "Здравей",
+  details: "Още",
 };
