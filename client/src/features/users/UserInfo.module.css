@@ -1,0 +1,13 @@
+/* SECTION */
+.section {
+  border: 1px solid gray;
+  font-size: 1.8rem;
+}
+.heading {
+  text-align: right;
+  padding-right: 2rem;
+}
+
+.profileImg {
+  font-size: 24rem;
+}
