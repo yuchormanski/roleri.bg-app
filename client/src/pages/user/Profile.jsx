@@ -2,7 +2,12 @@ import styles from "./Profile.module.css";
 import { Link, NavLink } from "react-router-dom";
 import { useLanguage } from "../../context/Language.jsx";
 import { useAuthContext } from "../../context/AuthContext.jsx";
-import { PiUserThin, PiUsersThin } from "react-icons/pi";
+import {
+  PiUserThin,
+  PiUsersThin,
+  PiCalendarBlankThin,
+  PiNotePencilThin,
+} from "react-icons/pi";
 
 function Profile() {
   const { lang } = useLanguage();
@@ -10,9 +15,9 @@ function Profile() {
   const { firstName, lastName, phone, role, id, email } = getUserHandler();
 
   const links = [
-    { path: "edit", label: lang.edit },
+    { path: "edit", label: lang.edit, icon: <PiNotePencilThin /> },
     { path: "/skaters", label: lang.skaters, icon: <PiUsersThin /> },
-    { path: "history", label: lang.history },
+    { path: "history", label: lang.history, icon: <PiCalendarBlankThin /> },
   ];
 
   return (
@@ -21,7 +26,7 @@ function Profile() {
         <h2 className={styles.heading}>{`${lang.hello}, ${firstName}`}</h2>
 
         <div>
-          <div>
+          <div className={styles.profileImg}>
             <PiUserThin />
           </div>
         </div>
@@ -55,7 +60,8 @@ function Profile() {
             {links.map((link, i) => (
               <li className={styles.listItem} key={i}>
                 <NavLink to={link.path} className={styles.profileLink}>
-                  {link.label}
+                  <span className={styles.icon}>{link.icon}</span>
+                  <span className={styles.label}>{link.label}</span>
                 </NavLink>
               </li>
             ))}

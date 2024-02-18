@@ -13,6 +13,10 @@
   padding-right: 2rem;
 }
 
+.profileImg {
+  font-size: 24rem;
+}
+
 /* ASIDE */
 .aside {
   /* border: 1px solid gray; */
@@ -30,8 +34,11 @@
 }
 .profileLink {
   background-color: var(--color-nav-hover);
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  position: relative;
   color: var(--active-text);
   font-size: 1.6rem;
   text-decoration: none;
@@ -44,4 +51,12 @@
 .profileLink:hover {
   background-color: var(--color-menu-btn);
   border-bottom: 1px var(--border-bottom);
+}
+
+.icon {
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+
+.label {
 }
