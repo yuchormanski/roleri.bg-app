@@ -1,0 +1,24 @@
+.profileContent {
+  display: grid;
+  grid-template-columns: auto 20%;
+}
+
+.section {
+  border: 1px solid gray;
+}
+.aside {
+  border: 1px solid gray;
+}
+
+.list {
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+}
+.listItem {
+}
+.profileLink {
+  display: block;
+  width: 100%;
+  background-color: aliceblue;
+}

@@ -1,5 +1,6 @@
 .main {
   background-color: var(--color-body);
+  width: 100%;
   max-width: 105rem;
   padding: 5rem 1rem;
   margin: 0 auto;
