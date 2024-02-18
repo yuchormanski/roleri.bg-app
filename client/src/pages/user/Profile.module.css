@@ -2,47 +2,8 @@
   display: grid;
   grid-template-columns: auto 20%;
 }
-
-/* ASIDE */
-.aside {
-  /* border: 1px solid gray; */
-}
-
-.list {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-  padding: 1rem;
-}
-.listItem {
-  width: 100%;
-}
-.profileLink {
-  background-color: var(--color-nav-hover);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  position: relative;
-  color: var(--active-text);
-  font-size: 1.6rem;
-  text-decoration: none;
-  text-align: center;
-  padding: 0.6rem 0;
-  border-bottom: 1px solid transparent;
-  border-radius: 0.3rem;
-}
-
-.profileLink:hover {
-  background-color: var(--color-menu-btn);
-  border-bottom: 1px var(--border-bottom);
-}
-
-.icon {
-  font-size: 2rem;
-  margin-right: 1rem;
-}
-
-.label {
+@media (max-width: 760px) {
+  .profileContent {
+    grid-template-columns: 1fr;
+  }
 }

@@ -29,14 +29,33 @@
 }
 
 .profileLink:hover {
-  background-color: var(--color-menu-btn);
+  /* background-color: var(--color-menu-btn); */
   border-bottom: 1px var(--border-bottom);
 }
 
 .icon {
   font-size: 2rem;
   margin-right: 1rem;
+  position: absolute;
+  top: 0.6rem;
+  left: 2rem;
 }
 
 .label {
+}
+@media (max-width: 760px) {
+  .aside {
+    grid-row: 1;
+  }
+  .list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .profileLink {
+    padding: 2rem 0;
+  }
+  .icon {
+    top: 2rem;
+    /* left: 1rem; */
+  }
 }

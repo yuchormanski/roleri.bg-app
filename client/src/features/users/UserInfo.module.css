@@ -11,3 +11,8 @@
 .profileImg {
   font-size: 24rem;
 }
+@media (max-width: 760px) {
+  .section {
+    grid-row: 2;
+  }
+}

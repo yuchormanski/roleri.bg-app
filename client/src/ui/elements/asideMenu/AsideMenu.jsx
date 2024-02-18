@@ -5,23 +5,32 @@ import {
   PiUsersThin,
   PiCalendarBlankThin,
   PiNotePencilThin,
+  PiUserListThin,
 } from "react-icons/pi";
 import { usePath } from "../../../context/PathContext.jsx";
 
 function AsideMenu() {
   const { lang } = useLanguage();
   const { path } = usePath();
+  const urlPath = path === "profile";
 
   const links = [
     {
-      path: path === "profile" ? "edit" : "/profile",
-      label: path === "profile" ? lang.edit : lang.profile,
-      icon: <PiNotePencilThin />,
+      path: "skaters",
+      label: lang.skaters,
+      //  icon: <PiUsersThin />
     },
-    { path: "skaters", label: lang.skaters, icon: <PiUsersThin /> },
-    { path: "history", label: lang.history, icon: <PiCalendarBlankThin /> },
+    {
+      path: "history",
+      label: lang.history,
+      //  icon: <PiCalendarBlankThin />
+    },
+    {
+      path: urlPath ? "edit" : "/profile",
+      label: urlPath ? lang.edit : lang.profile,
+      // icon: urlPath ? <PiNotePencilThin /> : <PiUserListThin />,
+    },
   ];
-  console.log(path);
   return (
     <aside className={styles.aside}>
       <nav>

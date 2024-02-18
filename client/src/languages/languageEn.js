@@ -16,7 +16,7 @@ export const EN = {
   more: "More info",
   profile: "Profile",
   back: "Back",
-  edit: "Edit",
+  edit: "Edit profile",
   skaters: "Skaters",
   history: "History",
   hello: "Hello",
