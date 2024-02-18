@@ -188,7 +188,6 @@ function createUserDetailsObject(user) {
     _id: user._id,
     firstName: user.firstName,
     lastName: user.lastName,
-    name: user.name,
     email: user.email,
     role: user.role,
     phone: user.phone,
@@ -199,16 +198,16 @@ function createUserDetailsObject(user) {
 function cookieOptions() {
   return process.env.NODE_ENV === "production"
     ? {
-        httpOnly: true,
-        sameSite: "none",
-        secure: true,
-        maxAge: calculateExpirePeriodCookieInDay(),
-      }
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+      maxAge: calculateExpirePeriodCookieInDay(),
+    }
     : {
-        httpOnly: true,
-        sameSite: "lax",
-        maxAge: calculateExpirePeriodCookieInDay(),
-      };
+      httpOnly: true,
+      sameSite: "lax",
+      maxAge: calculateExpirePeriodCookieInDay(),
+    };
 }
 
 // Calculate the cookie expiration period
