@@ -26,8 +26,6 @@ function Register({ onClose, authToggle }) {
     try {
       if (!PHONE_REGEX.test(phone)) throw new Error("Invalid phone number!");
 
-      // TODO: да се направи базата да приема firstName & lastName instead of name
-
       const resultData = {
         name: `${regData.firstName} ${regData.lastName}`,
         email: regData.email,
@@ -129,13 +127,13 @@ function Register({ onClose, authToggle }) {
                 "password",
                 !isNotForgotten
                   ? {
-                      required: "Password is required",
-                      minLength: {
-                        value: 3,
-                        message:
-                          "The password should be at least 3 characters long ",
-                      },
-                    }
+                    required: "Password is required",
+                    minLength: {
+                      value: 3,
+                      message:
+                        "The password should be at least 3 characters long ",
+                    },
+                  }
                   : null
               )}
               placeholder={"Password"}
@@ -169,14 +167,15 @@ function Register({ onClose, authToggle }) {
             value={phone}
             onChange={(phone) => setPhone(phone)}
             inputStyle={{
-              border: "1px solid lightgray",
-              backgrounColor: "none",
+              border: "1px solid var(--input-border)",
+              backgroundColor: "var(--color-input)",
               borderRadius: "3px",
               fontSize: "1.6rem",
               padding: "0 2px",
               width: "100%",
               height: "auto",
               margin: "0 0 0 5px",
+              color: "var(--color-main)"
             }}
             buttonStyle={true}
           />
