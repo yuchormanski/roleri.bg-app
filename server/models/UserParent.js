@@ -2,16 +2,20 @@ import mongoose from 'mongoose';
 import { userRole } from '../environments/constants.js';
 
 const userParentSchema = new mongoose.Schema({
-    name: {
+    firstName: {
         type: String,
-        required: [true, 'Name is require']
+        required: [true, 'First Name is require']
+    },
+    lastName: {
+        type: String,
+        required: [true, 'Last Name is require']
     },
     email: {
         type: String,
         required: [true, 'Email is require']
     },
     phone: {
-        type: Number,
+        type: String,
         required: [true, 'Phone is require']
     },
     role: {
