@@ -27,14 +27,16 @@ function Register({ onClose, authToggle }) {
       if (!PHONE_REGEX.test(phone)) throw new Error("Invalid phone number!");
 
       const resultData = {
-        name: `${regData.firstName} ${regData.lastName}`,
+        // name: `${regData.firstName} ${regData.lastName}`,
+        firstName: regData.firstName,
+        lastName: regData.lastName,
         email: regData.email,
         password: regData.password,
         phone: phone,
       };
 
       // await registerMutation.mutateAsync({ ...regData, phone: phone });
-      // await registerMutation.mutateAsync(resultData); //REMOVE this
+      await registerMutation.mutateAsync(resultData); //REMOVE this
       onClose();
       reset();
     } catch (error) {
@@ -127,13 +129,13 @@ function Register({ onClose, authToggle }) {
                 "password",
                 !isNotForgotten
                   ? {
-                    required: "Password is required",
-                    minLength: {
-                      value: 3,
-                      message:
-                        "The password should be at least 3 characters long ",
-                    },
-                  }
+                      required: "Password is required",
+                      minLength: {
+                        value: 3,
+                        message:
+                          "The password should be at least 3 characters long ",
+                      },
+                    }
                   : null
               )}
               placeholder={"Password"}
@@ -175,7 +177,7 @@ function Register({ onClose, authToggle }) {
               width: "100%",
               height: "auto",
               margin: "0 0 0 5px",
-              color: "var(--color-main)"
+              color: "var(--color-main)",
             }}
             buttonStyle={true}
           />
