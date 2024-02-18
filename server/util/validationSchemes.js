@@ -15,7 +15,7 @@ const passwordSchema = joi.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[
 const validateRegisterSchema = joi.object({
 	name: joi.string().required().trim().max(100),
 	email: joi.string().required().trim().email().lowercase(),
-	phone: joi.number().required(),
+	phone: joi.string().required().regex(/(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/),
 	role: joi.string().allow('').optional().valid(userRole.admin, userRole.user, userRole.instructor).trim().lowercase(),
 	password: passwordSchema,
 });
