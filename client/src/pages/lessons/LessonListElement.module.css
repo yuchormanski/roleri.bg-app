@@ -1,13 +1,12 @@
 .figure {
   background-color: var(--card-bg);
   width: 32rem;
+  justify-self: center;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   border-top-left-radius: 1rem;
   border-top-right-radius: 1rem;
-  /* border-radius: 1rem; */
-  /* border: var(--card-border); */
 }
 
 .imgContainer {
