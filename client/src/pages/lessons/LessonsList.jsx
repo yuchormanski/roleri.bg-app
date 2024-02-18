@@ -2,28 +2,28 @@ import toast from "react-hot-toast";
 import styles from "./LessonsList.module.css";
 
 import { useLanguage } from "../../context/Language.jsx";
-import { useLessonQueries } from "./useLessonQueries.js";
+import { useGetAllLessonQueries } from "./useGetAllLessonQueries.js";
 
 import LessonListElement from "./LessonListElement.jsx";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 
 function LessonsList() {
   const { lang } = useLanguage();
-  const { getAllLessonsQuery } = useLessonQueries();
+  const { isLoading, isError, error, data } = useGetAllLessonQueries();
 
-  if (getAllLessonsQuery.isError) {
-    toast.error(getAllLessonsQuery.error.message);
+  if (isError) {
+    toast.error(error.message);
   }
 
   return (
     <>
-      {getAllLessonsQuery.isLoading
+      {isLoading
         ? (<Spinner />
         ) : (
           <>
             <h1 className={styles.heading}>{lang.lessons}</h1>
             <div className={styles.lessons}>
-              {getAllLessonsQuery.data.map((lm) => (
+              {data.map((lm) => (
                 <LessonListElement key={lm._id} lm={lm} />
               ))}
             </div>
