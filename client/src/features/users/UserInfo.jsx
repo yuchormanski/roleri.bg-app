@@ -4,9 +4,11 @@ import styles from "./UserInfo.module.css";
 import { PiUserThin } from "react-icons/pi";
 import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { useLanguage } from "../../context/Language.jsx";
 
 function UserInfo() {
   const { path, newPath } = usePath();
+  const { lang } = useLanguage();
 
   const {
     isLoading,
@@ -21,8 +23,13 @@ function UserInfo() {
   console.log(lessons);
   return (
     <>
-      {lessons === null && <h3>You have no active lessons.</h3>}
-      <p>Трябва да се зарежда информация дали има предстоящи записани уроци.</p>
+      <div className={styles.container}>
+        <h3 className={styles.heading}>{lang.dashboard}</h3>
+        {lessons === null && <h3>You have no active lessons.</h3>}
+        <p>
+          Трябва да се зарежда информация дали има предстоящи записани уроци.
+        </p>
+      </div>
     </>
   );
 }

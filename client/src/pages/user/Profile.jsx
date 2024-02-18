@@ -16,7 +16,7 @@ function Profile() {
     <>
       <div className={styles.profileContent}>
         <section className={styles.section}>
-          <h2 className={styles.heading}>{`${lang.hello}, ${firstName}`}</h2>
+          {/* <h2 className={styles.heading}>{`${lang.hello}, ${firstName}`}</h2> */}
           <Outlet />
         </section>
 

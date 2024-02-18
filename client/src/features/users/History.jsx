@@ -1,7 +1,14 @@
+import { useLanguage } from "../../context/Language.jsx";
 import styles from "./History.module.css";
 
 function History() {
-  return <div>History</div>;
+  const { lang } = useLanguage();
+
+  return (
+    <div className={styles.container}>
+      <h3 className={styles.heading}>{lang.history}</h3>
+    </div>
+  );
 }
 
 export default History;

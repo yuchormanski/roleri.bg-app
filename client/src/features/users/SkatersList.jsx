@@ -1,11 +1,14 @@
-import styles from './SkatersList.module.css'
+import { useLanguage } from "../../context/Language.jsx";
+import styles from "./SkatersList.module.css";
 
 function SkatersList() {
-    return (
-        <div>
-            Skaters list
-        </div>
-    )
+  const { lang } = useLanguage();
+
+  return (
+    <div className={styles.container}>
+      <h3 className={styles.heading}>{lang.skaters}</h3>
+    </div>
+  );
 }
 
-export default SkatersList
+export default SkatersList;

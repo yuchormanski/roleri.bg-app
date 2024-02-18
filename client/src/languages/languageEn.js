@@ -20,4 +20,6 @@ export const EN = {
   skaters: "Skaters",
   history: "History",
   hello: "Hello",
+  update: "Update profile",
+  dashboard: "Dashboard",
 };
