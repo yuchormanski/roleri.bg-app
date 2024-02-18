@@ -19,4 +19,5 @@ export const EN = {
   edit: "Edit",
   skaters: "Skaters",
   history: "History",
+  hello: "Hello",
 };
