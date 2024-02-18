@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { usePath } from "../../context/PathContext.jsx";
 import styles from "./UserInfo.module.css";
-import { PiUserThin } from "react-icons/pi";
 import { useQuery } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 import { useLanguage } from "../../context/Language.jsx";
 
 function UserInfo() {

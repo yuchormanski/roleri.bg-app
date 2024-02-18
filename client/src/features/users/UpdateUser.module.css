@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: 2rem;
   position: relative;
-  padding: 2rem;
+  padding: 1rem 2rem 2rem;
 }
 
 .heading {
@@ -15,6 +15,7 @@
   font-weight: 300;
   margin-left: auto;
   border-bottom: 1px var(--border-bottom);
+  margin-bottom: 1rem;
 }
 
 .form {
@@ -46,6 +47,9 @@
 }
 
 @media (max-width: 760px) {
+  .heading {
+    margin-bottom: 3rem;
+  }
   .form {
     grid-template-columns: 1fr;
   }

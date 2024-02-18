@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: 2rem;
   position: relative;
-  padding: 2rem;
+  padding: 1rem 2rem 2rem;
 }
 
 .heading {
@@ -15,4 +15,5 @@
   font-weight: 300;
   margin-left: auto;
   border-bottom: 1px var(--border-bottom);
+  margin-bottom: 1rem;
 }

@@ -5,7 +5,7 @@
   flex-direction: column;
   gap: 2rem;
   position: relative;
-  padding: 2rem;
+  padding: 1rem 2rem 2rem;
 }
 
 .heading {
@@ -15,18 +15,14 @@
   font-weight: 300;
   margin-left: auto;
   border-bottom: 1px var(--border-bottom);
-}
-
-.section {
-  border: 1px solid gray;
-  font-size: 1.8rem;
+  margin-bottom: 1rem;
 }
 
 .profileImg {
   font-size: 24rem;
 }
 @media (max-width: 760px) {
-  .section {
-    grid-row: 2;
+  .heading {
+    margin-bottom: 3rem;
   }
 }
