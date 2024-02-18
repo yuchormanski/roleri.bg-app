@@ -1,12 +1,13 @@
 import styles from "./UpdateUser.module.css";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePath } from "../../context/PathContext.jsx";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import Input from "../../ui/elements/Input.jsx";
 import { EMAIL_REGEX, PHONE_REGEX } from "../../services/environment.js";
 import { useLanguage } from "../../context/Language.jsx";
+import { toast } from "react-hot-toast";
 
 const userMock = {
   _id: "65d1e25875c58bac29f86ea7",
@@ -19,23 +20,40 @@ const userMock = {
 
 function UpdateUser() {
   const { path, newPath } = usePath();
-  const { register, handleSubmit, reset, getValues, formState } = useForm();
-  const { lang } = useLanguage();
-
-  useEffect(() => newPath("edit"), [newPath]);
-
-  // const queryClient = useQueryClient();
-
   const { isLoading, data, error } = useQuery({
     queryKey: ["user"],
     queryFn: () => userMock,
   });
 
+  const { lang } = useLanguage();
+
+  useEffect(() => newPath("edit"), [newPath]);
+
+  // const queryClient = useQueryClient();
+  const { register, handleSubmit, reset, getValues, formState } = useForm({
+    defaultValues: data,
+  });
+
+  function onFormSubmit(data) {
+    console.log(data);
+  }
+
+  function onErrorForm(error) {
+    console.log(error);
+    Object.entries(error).map((e) => {
+      toast.error(e.at(1).message);
+    });
+  }
+
   return (
     <div className={styles.container}>
       <h3 className={styles.heading}>{lang.update}</h3>
-      <form className={styles.form}>
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit(onFormSubmit, onErrorForm)}
+      >
         <input
+          disabled={isLoading}
           className={styles.input}
           type="text"
           id="firstName"
@@ -48,10 +66,10 @@ function UpdateUser() {
           })}
           placeholder={"First name"}
           autoComplete="given-name"
-          defaultValue={data?.firstName}
+          defaultValue={"ds"}
         />
-
         <input
+          disabled={isLoading}
           className={styles.input}
           type="text"
           id="lastName"
@@ -64,10 +82,9 @@ function UpdateUser() {
           })}
           placeholder={"Last name"}
           autoComplete="family-name"
-          defaultValue={data?.lastName}
         />
-
         <input
+          disabled={isLoading}
           className={styles.input}
           type="email"
           id="email"
@@ -84,10 +101,9 @@ function UpdateUser() {
           })}
           placeholder={"Email"}
           autoComplete="email"
-          defaultValue={data?.email}
         />
-
         <input
+          disabled={isLoading}
           className={styles.input}
           type="tel"
           id="phone"
@@ -104,8 +120,10 @@ function UpdateUser() {
           })}
           placeholder={"Phone number"}
           autoComplete="tel"
-          defaultValue={data?.phone}
         />
+        <button className={styles.updateBtn} disabled={isLoading}>
+          {lang.update}
+        </button>
       </form>
     </div>
   );

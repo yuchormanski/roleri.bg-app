@@ -20,5 +20,7 @@ export const BG = {
   skaters: "Кънкьор",
   history: "История",
   hello: "Здравей",
+  update: "Обнови профила",
+  dashboard: "Табло",
   details: "Още",
 };

@@ -22,4 +22,5 @@ export const EN = {
   hello: "Hello",
   update: "Update profile",
   dashboard: "Dashboard",
+  details: "Read more",
 };
