@@ -11,4 +11,5 @@ export const endpoints = {
     logout: '/logout',
     forgot_password: '/forgot-password',
     reset_password: '/reset-password',
+    news: '/news',
 };
