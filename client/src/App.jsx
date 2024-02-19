@@ -51,7 +51,7 @@ function App() {
                       <Route path={"history"} element={<History />} />
                     </Route>
                   </Route>
-                  <Route path={"login"} element={<Login />} />
+                  {/* <Route path={"login"} element={<Login />} /> */}
                   <Route path={"*"} element={<PageNotFound />} />
                 </Routes>
               </BrowserRouter>

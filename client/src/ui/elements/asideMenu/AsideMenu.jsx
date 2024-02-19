@@ -23,12 +23,12 @@ function AsideMenu() {
     {
       path: "skaters",
       label: lang.skaters,
-      //  icon: <PiUsersThin />
+      // icon: <PiUsersThin />,
     },
     {
       path: "history",
       label: lang.history,
-      //  icon: <PiCalendarBlankThin />
+      // icon: <PiCalendarBlankThin />,
     },
     {
       path: urlPath ? "edit" : "/profile",
@@ -36,6 +36,7 @@ function AsideMenu() {
       // icon: urlPath ? <PiNotePencilThin /> : <PiUserListThin />,
     },
   ];
+
   return (
     <aside className={styles.aside}>
       <button

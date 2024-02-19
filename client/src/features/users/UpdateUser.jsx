@@ -20,6 +20,7 @@ const userMock = {
 
 function UpdateUser() {
   const { path, newPath } = usePath();
+
   const { isLoading, data, error } = useQuery({
     queryKey: ["user"],
     queryFn: () => userMock,
