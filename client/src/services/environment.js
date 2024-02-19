@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:3000/";
+// const BASE_URL = "http://localhost:3000/";
+const BASE_URL = "https://roleri-bg-app.vercel.app/";
 
 const SERVER_ENDPOINTS = {
   REGISTER: "users/register",
