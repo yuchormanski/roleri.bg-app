@@ -19,6 +19,7 @@
     --color-line: #f1f1e6;
     --button: rgb(91, 116, 184);
     --active-text: #fdfdfd;
+    --button: #ffd723b4;
   }
 
   /* dark mode */
@@ -40,6 +41,7 @@
     --card-border: 1px solid #58570d;
   }
   /* main styles */
+  --text-dark: #222;
   --color-footer-fonts: #fdfdfd;
   --color-selected-tint: #53b9e9;
   --color-selected: #28a8e3;

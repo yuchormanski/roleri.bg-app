@@ -23,4 +23,5 @@ export const BG = {
   update: "Обнови профила",
   dashboard: "Табло",
   details: "Още",
+  send: "Изпрати",
 };

@@ -23,4 +23,5 @@ export const EN = {
   update: "Update profile",
   dashboard: "Dashboard",
   details: "Read more",
+  send: "Send",
 };

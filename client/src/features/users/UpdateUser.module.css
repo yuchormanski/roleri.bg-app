@@ -40,11 +40,16 @@
 }
 
 .updateBtn {
+  min-width: 5.6rem;
+  text-align: center;
+  grid-column: 1/-1;
   background-color: var(--button);
   justify-self: end;
-  padding: 1rem 2rem;
-  margin-top: 1.5rem;
-  color: var(--color-main);
+  padding: 0.8rem 2rem;
+  margin-top: 1.3rem;
+  color: #1c1c1f;
+  font-size: 1.4rem;
+  font-weight: 500;
   border-radius: 0.3rem;
 }
 
@@ -53,6 +58,21 @@
     margin-bottom: 3rem;
   }
   .form {
+    margin: 0 auto;
+    width: 80%;
     grid-template-columns: 1fr;
+  }
+  .updateBtn {
+    opacity: 0.8;
+  }
+}
+@media (max-width: 430px) {
+  .form {
+    width: 90%;
+  }
+}
+@media (max-width: 375px) {
+  .form {
+    width: 100%;
   }
 }

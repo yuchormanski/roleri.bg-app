@@ -66,7 +66,6 @@ function UpdateUser() {
           })}
           placeholder={"First name"}
           autoComplete="given-name"
-          defaultValue={"ds"}
         />
         <input
           disabled={isLoading}
@@ -122,7 +121,7 @@ function UpdateUser() {
           autoComplete="tel"
         />
         <button className={styles.updateBtn} disabled={isLoading}>
-          {lang.update}
+          {lang.send}
         </button>
       </form>
     </div>
