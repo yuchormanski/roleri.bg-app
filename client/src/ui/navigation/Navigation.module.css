@@ -58,7 +58,7 @@
     font-size: 2.8rem;
   }
   .mobileNav {
-    display: block;
+    display: flex;
     margin-left: auto;
   }
 }
