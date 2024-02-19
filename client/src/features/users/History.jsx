@@ -7,6 +7,7 @@ function History() {
   return (
     <div className={styles.container}>
       <h3 className={styles.heading}>{lang.history}</h3>
+      <p>History</p>
     </div>
   );
 }
