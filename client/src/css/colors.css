@@ -2,11 +2,13 @@
   &,
   /* light mode */
   &.light {
+    --box: #cfd3dd;
     --color-body: #fff;
     --color-input: #fff;
     --color-nav-hover: #0298fc;
     --color-nav-hover: #0298fc;
     --color-header: #fdfdfd;
+    --color-header-dim: #727272;
     --color-main: #3e4756;
     --color-label: #6079a5;
     --color-nav-link: #3e4756;
@@ -19,11 +21,15 @@
     --color-line: #f1f1e6;
     --button: rgb(91, 116, 184);
     --active-text: #fdfdfd;
-    --button: #ffd723b4;
+    /* --button: #ffd723b4; */
+    --color-main-btn: #ffd823;
+    --action-btn: #11a2db;
   }
 
   /* dark mode */
   &.dark {
+    --action-btn: #888888;
+    --box: #1c2029;
     --button: #ffd723b4;
     --color-body: #3e4756;
     --color-main: #fff;
@@ -32,6 +38,7 @@
     --color-input: #626872;
     --color-nav-hover: #626872;
     --color-header: #2e3644;
+    --color-header-dim: #aaaaaa;
     --color-footer-bg: #2e3644;
     --input-border: #ccac1c80;
     --color-menu-btn: #f1f1e6;
@@ -39,6 +46,7 @@
     --color-line: #3e434e;
     --color-label: #ffd823;
     --card-border: 1px solid #58570d;
+    --color-main-btn: #ffd723ab;
   }
   /* main styles */
   --text-dark: #222;
@@ -47,7 +55,6 @@
   --color-selected: #28a8e3;
   --color-selected-shade: #2086b6;
   --color-main-btn-tint: #ffe04f;
-  --color-main-btn: #ffd823;
   --link-border: #ffd823;
   --color-main-btn-shade: #ccad1c;
   --color-title: #f25141;

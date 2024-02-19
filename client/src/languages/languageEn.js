@@ -25,4 +25,6 @@ export const EN = {
   details: "Read more",
   send: "Send",
   addSkater: "Add skater",
+  gender: "Gender",
+  level: "Level",
 };

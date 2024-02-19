@@ -8,7 +8,7 @@ function Footer() {
       <div className={styles.company}>
         <p className={styles.smallest}>Yuchormanski & Yadkov for</p>
         <p className={styles.title}>
-          <span>BELEV</span>studio
+          <span>BELEV</span>STUDIO
         </p>
       </div>
     </div>

@@ -4,7 +4,13 @@ import { useLanguage } from "../../context/Language.jsx";
 
 import { useQuery } from "@tanstack/react-query";
 
-import { LiaUserEditSolid, LiaTrashAlt } from "react-icons/lia";
+import {
+  LiaUserEditSolid,
+  LiaTrashAlt,
+  LiaGrin,
+  LiaIdCard,
+} from "react-icons/lia";
+import { TbUserEdit } from "react-icons/tb";
 
 // REMOVE THIS
 function test() {
@@ -15,6 +21,7 @@ function test() {
       gender: "male",
       age: 6,
       _id: 1,
+      level: "advanced",
     },
     {
       firstName: "Dimitrinka",
@@ -22,6 +29,7 @@ function test() {
       gender: "femaile",
       age: 4,
       _id: 23,
+      level: "basic",
     },
   ];
 }
@@ -53,15 +61,32 @@ function SkatersList() {
                 <h3
                   className={styles.figureHeading}
                 >{`${skater.firstName} ${skater.lastName}`}</h3>
-                <div className={styles.actions}>
-                  <button className="actionBtn">
+                <div className={styles.actionContainer}>
+                  <button className={styles.actionBtn}>
+                    <LiaIdCard />
+                  </button>
+                  <button className={styles.actionBtn}>
                     <LiaUserEditSolid />
                   </button>
-                  <button className="actionBtn">
+                  <button className={styles.actionBtn}>
                     <LiaTrashAlt />
                   </button>
                 </div>
               </header>
+              <div className={styles.content}>
+                <p className={styles.element}>
+                  <span className={styles.elSpan}>{lang.gender}: </span>
+                  {skater.gender}
+                </p>
+                <p className={styles.element}>
+                  <span className={styles.elSpan}>{lang.level}: </span>
+                  {skater.level}
+                </p>
+                <p className={styles.element}>
+                  <span className={styles.elSpan}>{lang.age}: </span>
+                  {skater.age}
+                </p>
+              </div>
             </figure>
           ))}
       </div>
@@ -69,6 +94,18 @@ function SkatersList() {
       <div className={styles.addSkaterBtnContainer}>
         <button className={styles.addBtn}>{lang.addSkater}</button>
       </div>
+
+      <section className={styles.description}>
+        <p className={styles.par}>
+          Кънкьорите, които добавите и виждате тук ще са достъпни от страницата
+          за записване на уроци. Необходимото оборудване ще е автоматично
+          включено към избраната тренировка.
+        </p>
+        <p className={styles.par}>
+          Имате възможност да прегледате и редактирате всеки един от кънкьорите
+          в списъка.
+        </p>
+      </section>
     </div>
   );
 }
