@@ -5,24 +5,17 @@ import { usePath } from "../../context/PathContext.jsx";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import Input from "../../ui/elements/Input.jsx";
-import { EMAIL_REGEX, PHONE_REGEX } from "../../services/environment.js";
+import { EMAIL_REGEX, PHONE_REGEX, SERVER_ENDPOINTS } from "../../services/environment.js";
 import { useLanguage } from "../../context/Language.jsx";
 import { toast } from "react-hot-toast";
-
-const userMock = {
-  _id: "65d1e25875c58bac29f86ea7",
-  firstName: "Van",
-  lastName: "Deribohten",
-  email: "van@deribohten.com",
-  role: "user",
-  phone: "+35976382648",
-};
+import { get } from "../../api/api.js"
 
 function UpdateUser() {
   const { path, newPath } = usePath();
+
   const { isLoading, data, error } = useQuery({
     queryKey: ["user"],
-    queryFn: () => userMock,
+    queryFn: () => get(SERVER_ENDPOINTS.GET_USER),
   });
 
   const { lang } = useLanguage();

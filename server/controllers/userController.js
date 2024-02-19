@@ -6,6 +6,7 @@ import { validateLoginSchema, validateRegisterSchema, validateResetPasswordSchem
 
 import {
     createResetLink,
+    getUserById,
     resetUserPassword,
     userLogin,
     userLogout,
@@ -91,5 +92,17 @@ userController.put(endpoints.reset_password, isUserGuest, async (req, res, next)
     }
 });
 
+// Get details for one user
+userController.get(endpoints.get_user, isUserLogged, async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+
+        const userData = await getUserById(userId);
+
+        res.status(200).json(userData);
+    } catch (error) {
+        next(error);
+    }
+});
 
 export { userController };

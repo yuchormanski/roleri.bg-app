@@ -8,41 +8,18 @@ const AuthContext = createContext();
 function AutContextProvider({ children }) {
   const queryClient = useQueryClient();
 
-  const addUserHandler = (data) => {
-    localStorage.setItem(USER_LOCAL_STORAGE_KEY, JSON.stringify(data));
-  };
+  function addUserHandler(data) {
+    return localStorage.setItem(USER_LOCAL_STORAGE_KEY, JSON.stringify(data))
+  }
 
-  //   const getUserHandler = () => {
-  //     try {
-  //       const localStorageData = JSON.parse(
-  //         localStorage.getItem(USER_LOCAL_STORAGE_KEY)
-  //       );
-  //       return localStorageData ? localStorageData : null;
-  //     } catch (error) {
-  //       console.error(error);
-  //       return null;
-  //     }
-  //   };
 
   function getUserHandler() {
     return JSON.parse(localStorage.getItem(USER_LOCAL_STORAGE_KEY)) ?? null;
   }
 
-  const removeUserHandler = () => {
-    localStorage.removeItem(USER_LOCAL_STORAGE_KEY);
-  };
-
-  //   const checkIsUserLoggedIn = () => {
-  //     // Get user data from React Query
-  //     const userDataFromQuery = queryClient.getQueryData(["user"]);
-  //     if (userDataFromQuery) {
-  //       return true;
-  //     } else {
-  //       // Get user data from local storage
-  //       const userDataFromLocalStorage = getUserHandler();
-  //       return !!userDataFromLocalStorage;
-  //     }
-  //   };
+  function removeUserHandler() {
+    return localStorage.removeItem(USER_LOCAL_STORAGE_KEY);
+  }
 
   function checkIsUserLoggedIn() {
     return queryClient.getQueryData(["user"]) ?? !!getUserHandler();

@@ -12,4 +12,5 @@ export const endpoints = {
     forgot_password: '/forgot-password',
     reset_password: '/reset-password',
     news: '/news',
+    get_user: '/get-user',
 };
