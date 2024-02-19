@@ -17,11 +17,12 @@ export const BG = {
   profile: "Профил",
   back: "Назад",
   edit: "Редактирай",
-  skaters: "Кънкьор",
+  skaters: "Кънкьори",
   history: "История",
   hello: "Здравей",
   update: "Обнови профила",
   dashboard: "Табло",
   details: "Още",
   send: "Изпрати",
+  addSkater: "Добави кънкьор",
 };

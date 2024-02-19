@@ -24,4 +24,5 @@ export const EN = {
   dashboard: "Dashboard",
   details: "Read more",
   send: "Send",
+  addSkater: "Add skater",
 };
