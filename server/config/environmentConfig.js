@@ -8,7 +8,7 @@ const config = {
     development: {
         port: process.env.PORT || 3000,
         connectionString: 'mongodb://127.0.0.1:27017/RoleriBG',
-        origin: ['http://localhost:5137']
+        origin: ['http://localhost:5173']
     },
     production: {
         port: process.env.PORT || 3000,

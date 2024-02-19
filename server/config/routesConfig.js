@@ -4,6 +4,7 @@ import { mainRoutes } from "../environments/endPoints.js";
 
 import { homeController } from "../controllers/homeController.js";
 import { userController } from "../controllers/userController.js";
+import { lessonController } from "../controllers/lessonController.js";
 
 const routesConfig = (app) => {
     // Middleware for displaying request information
@@ -12,6 +13,7 @@ const routesConfig = (app) => {
     // Routes
     app.use(mainRoutes.home, homeController);
     app.use(mainRoutes.users, userController);
+    app.use(mainRoutes.lessons, lessonController);
 
     // Handle 404 errors
     app.all(mainRoutes.allRoute, (req, res, next) => {
