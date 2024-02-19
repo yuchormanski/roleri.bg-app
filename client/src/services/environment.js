@@ -8,6 +8,7 @@ const SERVER_ENDPOINTS = {
   RESET_PASSWORD: "users/reset-password",
   GET_ALL_LESSONS: "lessons",
   GET_ALL_NEWS: "news",
+  GET_USER: "users/get-user",
 };
 
 const EMAIL_REGEX =

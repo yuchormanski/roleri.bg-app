@@ -180,6 +180,9 @@ async function resetUserPassword({ password, resetToken }) {
   };
 }
 
+// Get one user
+const getUserById = async (userId) => UserParent.findById(userId).select('-password -__v');
+
 // Helper functions
 
 // Data to return to front-end
@@ -222,4 +225,5 @@ export {
   userLogout,
   createResetLink,
   resetUserPassword,
+  getUserById,
 };
