@@ -38,6 +38,25 @@ const validateRegisterSchema = joi.object({
   password: passwordSchema,
 });
 
+const updateUserSchema = joi.object({
+  firstName: joi.string().required().trim().max(100),
+  lastName: joi.string().required().trim().max(100),
+  email: joi.string().required().trim().email().lowercase(),
+  phone: joi
+    .string()
+    .required()
+    .regex(
+      /(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/
+    ),
+  role: joi
+    .string()
+    .allow("")
+    .optional()
+    .valid(userRole.admin, userRole.user, userRole.instructor)
+    .trim()
+    .lowercase(),
+});
+
 const validateLoginSchema = joi.object({
   email: joi.string().required().trim().email().lowercase(),
   password: passwordSchema,
@@ -52,4 +71,5 @@ export {
   validateRegisterSchema,
   validateLoginSchema,
   validateResetPasswordSchema,
+  updateUserSchema,
 };
