@@ -23,7 +23,6 @@ function Home() {
         <Spinner />
       ) : (
         <section className={styles.news}>
-          {/* {news.map((n) => ( */}
           {news.map((n) => (
             <article key={n._id} className={styles.article}>
               <div className={styles.articleHeader}>
