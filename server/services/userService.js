@@ -181,7 +181,8 @@ async function resetUserPassword({ password, resetToken }) {
 }
 
 // Get one user
-const getUserById = async (userId) => UserParent.findById(userId).select('-password -__v');
+const getUserById = async (userId) =>
+  UserParent.findById(userId).select("-password -__v");
 
 // Helper functions
 
@@ -201,16 +202,16 @@ function createUserDetailsObject(user) {
 function cookieOptions() {
   return process.env.NODE_ENV === "production"
     ? {
-      httpOnly: true,
-      sameSite: "none",
-      secure: true,
-      maxAge: calculateExpirePeriodCookieInDay(),
-    }
+        httpOnly: true,
+        sameSite: "none",
+        secure: true,
+        maxAge: calculateExpirePeriodCookieInDay(),
+      }
     : {
-      httpOnly: true,
-      sameSite: "lax",
-      maxAge: calculateExpirePeriodCookieInDay(),
-    };
+        httpOnly: true,
+        sameSite: "lax",
+        maxAge: calculateExpirePeriodCookieInDay(),
+      };
 }
 
 // Calculate the cookie expiration period

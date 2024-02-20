@@ -44,7 +44,7 @@ function SkatersList() {
     error,
     data: skaters,
   } = useQuery({
-    queryKey: ["news"],
+    queryKey: ["skaters"],
     queryFn: test,
     // initialData: [],
   });

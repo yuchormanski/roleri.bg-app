@@ -5,24 +5,25 @@ import { usePath } from "../../context/PathContext.jsx";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import Input from "../../ui/elements/Input.jsx";
-import { EMAIL_REGEX, PHONE_REGEX, SERVER_ENDPOINTS } from "../../services/environment.js";
+import {
+  EMAIL_REGEX,
+  PHONE_REGEX,
+  SERVER_ENDPOINTS,
+} from "../../services/environment.js";
 import { useLanguage } from "../../context/Language.jsx";
 import { toast } from "react-hot-toast";
-import { get } from "../../api/api.js"
+import { get } from "../../api/api.js";
 
 function UpdateUser() {
   const { path, newPath } = usePath();
 
-  const { isLoading, data, error } = useQuery({
-    queryKey: ["user"],
-    queryFn: () => get(SERVER_ENDPOINTS.GET_USER),
-  });
+  const queryClient = useQueryClient();
+  const data = queryClient.getQueryData(["user"]);
 
   const { lang } = useLanguage();
 
   useEffect(() => newPath("edit"), [newPath]);
 
-  // const queryClient = useQueryClient();
   const { register, handleSubmit, reset, getValues, formState } = useForm({
     defaultValues: data,
   });
@@ -38,6 +39,7 @@ function UpdateUser() {
     });
   }
 
+  const isLoading = false;
   return (
     <div className={styles.container}>
       <h3 className={styles.heading}>{lang.update}</h3>
