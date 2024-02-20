@@ -6,22 +6,27 @@ import { BG } from "../languages/languageBg.js";
 const LanguageContext = createContext();
 
 function LanguageProvider({ children }) {
-  const [toggle, setToggle] = useState(true);
-  const [lang, setLang] = useState(EN);
-  const [index, setIndex] = useState(1);
+  // Load initial language from local storage, default to EN if not set
+  const [toggle, setToggle] = useState(() => {
+    const storedToggle = localStorage.getItem("language");
+    return storedToggle ? JSON.parse(storedToggle) : true;
+  });
 
-  useEffect(
-    function () {
-      if (toggle) {
-        setLang(EN);
-        setIndex(1);
-      } else {
-        setLang(BG);
-        setIndex(0);
-      }
-    },
-    [toggle]
-  );
+  const [lang, setLang] = useState(toggle ? EN : BG);
+  const [index, setIndex] = useState(toggle ? 1 : 0);
+
+  useEffect(() => {
+    // Update local storage whenever toggle is changed
+    localStorage.setItem("language", JSON.stringify(toggle));
+
+    if (toggle) {
+      setLang(EN);
+      setIndex(1);
+    } else {
+      setLang(BG);
+      setIndex(0);
+    }
+  }, [toggle]);
 
   function langChanger() {
     setToggle((s) => !s);
