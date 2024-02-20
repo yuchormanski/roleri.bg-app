@@ -12,9 +12,11 @@ function AutContextProvider({ children }) {
     return localStorage.setItem(USER_LOCAL_STORAGE_KEY, JSON.stringify(data))
   }
 
-
   function getUserHandler() {
-    return JSON.parse(localStorage.getItem(USER_LOCAL_STORAGE_KEY)) ?? null;
+    const queryUserData = queryClient.getQueryData(["user"]);
+    const localStorageUserData = JSON.parse(localStorage.getItem(USER_LOCAL_STORAGE_KEY));
+
+    return queryUserData || localStorageUserData || null;
   }
 
   function removeUserHandler() {
