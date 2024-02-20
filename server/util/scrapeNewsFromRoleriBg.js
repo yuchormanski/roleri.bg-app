@@ -1,36 +1,32 @@
-import puppeteer from 'puppeteer';
+import axios from 'axios';
+import { load } from 'cheerio';
 
 const scrapeNewsFromRoleriBg = async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
+    try {
+        // Fetch the webpage content using axios
+        const response = await axios.get('https://roleri.bg/');
+        const html = response.data;
 
-    await page.goto('https://roleri.bg/');
+        // Load the HTML content into Cheerio
+        const $ = load(html);
 
-    // Wait for the news section to be rendered
-    await page.waitForSelector('.widget_kiddie_recent_posts_widget');
-
-    // Extract news data
-    const news = await page.evaluate(() => {
+        // Extract news data
         const newsList = [];
-        const newsItems = document.querySelectorAll('.widget_kiddie_recent_posts_widget .item-post');
-
-        // Iterate over each news item and extract data
-        newsItems.forEach(item => {
-            const title = item.querySelector('h6 a').textContent.trim();
-            const date = item.querySelector('.ztl-recent-post-date a').textContent.trim();
-            const content = item.querySelector('.recentPostRoll').textContent.trim();
-            const newsUrl = item.querySelector('.ztl-button.recentBtnRoll').getAttribute('href');
-            const imageUrl = item.querySelector('.recentImgRoll img').getAttribute('src');
+        $('.widget_kiddie_recent_posts_widget .item-post').each((index, element) => {
+            const title = $(element).find('h6 a').text().trim();
+            const date = $(element).find('.ztl-recent-post-date a').text().trim();
+            const content = $(element).find('.recentPostRoll').text().trim();
+            const newsUrl = $(element).find('.ztl-button.recentBtnRoll').attr('href');
+            const imageUrl = $(element).find('.recentImgRoll img').attr('src');
 
             newsList.push({ title, date, newsUrl, content, imageUrl });
         });
 
         return newsList;
-    });
-
-    await browser.close();
-
-    return news;
+    } catch (error) {
+        console.error('Error while scraping news: ' + error);
+        return [];
+    }
 };
 
 export { scrapeNewsFromRoleriBg };
