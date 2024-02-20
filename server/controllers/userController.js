@@ -2,12 +2,18 @@ import { Router } from "express";
 
 import { endpoints } from "../environments/endPoints.js";
 import { isUserGuest, isUserLogged } from "../middlewares/guards.js";
-import { validateLoginSchema, validateRegisterSchema, validateResetPasswordSchema } from "../util/validationSchemes.js";
+import {
+    updateUserSchema,
+    validateLoginSchema,
+    validateRegisterSchema,
+    validateResetPasswordSchema
+} from "../util/validationSchemes.js";
 
 import {
     createResetLink,
     getUserById,
     resetUserPassword,
+    updateUserById,
     userLogin,
     userLogout,
     userRegister,
@@ -100,6 +106,21 @@ userController.get(endpoints.get_user, isUserLogged, async (req, res, next) => {
         const userData = await getUserById(userId);
 
         res.status(200).json(userData);
+    } catch (error) {
+        next(error);
+    }
+});
+
+// Update user
+userController.put(endpoints.update_user, isUserLogged, async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+        const userData = req.body;
+
+        await updateUserSchema.validateAsync(userData);
+        const updatedUser = await updateUserById(userId, userData);
+
+        res.status(200).json(updatedUser);
     } catch (error) {
         next(error);
     }
