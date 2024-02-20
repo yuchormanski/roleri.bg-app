@@ -13,7 +13,7 @@ const config = {
   production: {
     port: process.env.PORT || 3000,
     connectionString: process.env.DB_URL_CREDENTIALS,
-    origin: ["https://roleri-bg-web-app.vercel.app/"], // TODO: add deployed client origin here to only accept request from there, Remove the asterisk
+    origin: ["https://roleri-bg-web-app.vercel.app"],
   },
 };
 
