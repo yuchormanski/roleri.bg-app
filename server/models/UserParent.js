@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { userRole } from '../environments/constants.js';
 
-const userParentSchema = new mongoose.Schema({
+const userParentSchema = new Schema({
     firstName: {
         type: String,
         required: [true, 'First Name is require']
@@ -36,6 +36,6 @@ userParentSchema.index({ email: 1 }, {
 
 }, { timestamps: true });
 
-const UserParent = mongoose.model('UserParent', userParentSchema);
+const UserParent = model('UserParent', userParentSchema);
 
 export { UserParent };
