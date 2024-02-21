@@ -18,6 +18,13 @@
   margin-bottom: 1rem;
 }
 
+.headingNoSkaters {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 300;
+  padding: 2rem;
+}
+
 .skatersContainer {
   background-color: var(--color-header);
   width: 100%;
@@ -33,11 +40,13 @@
   padding: 1rem 0;
   border-bottom: var(--card-border);
 }
+
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .figureHeading {
   align-self: start;
   font-size: clamp(1.4rem, 4vw, 2rem);
@@ -53,6 +62,7 @@
   margin-left: auto;
   padding-right: 1rem;
 }
+
 .actionBtn {
   background-color: var(--action-btn);
   display: grid;
@@ -70,11 +80,13 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
 }
+
 .element {
   font-size: clamp(1.2rem, 2vw, 1.6rem);
   text-transform: uppercase;
   color: var(--color-header-dim);
 }
+
 .elSpan {
   font-size: clamp(0.9rem, 2vw, 1.2rem);
   color: var(--color-menu-btn);
@@ -85,6 +97,7 @@
   display: flex;
   justify-content: end;
 }
+
 .addBtn {
   background-color: var(--color-main-btn);
   padding: 1rem 2rem;
@@ -99,6 +112,7 @@
   gap: 1rem;
   margin-top: 3rem;
 }
+
 .par {
   font-size: clamp(1.2rem, 2vw, 1.6rem);
   text-indent: 1.2rem;
@@ -109,20 +123,24 @@
   .heading {
     margin-bottom: 3rem;
   }
+
   .figureHeading {
     margin: 2rem 0 0 2rem;
     font-weight: 400;
   }
+
   .actionContainer {
     flex-direction: column;
     margin: 1rem 0.6rem 0 0;
   }
 }
+
 @media (max-width: 375px) {
   .figureHeading {
     margin: 4rem 0 0 0rem;
     font-weight: 400;
   }
+
   .actionContainer {
     flex-direction: column;
   }
