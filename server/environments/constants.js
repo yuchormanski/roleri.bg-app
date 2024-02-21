@@ -3,3 +3,8 @@ export const userRole = {
     user: 'user',
     instructor: 'instructor',
 };
+
+export const preloadOptions = {
+    editSkater: 'editSkater',
+    deleteSkater: 'deleteSkater',
+};
