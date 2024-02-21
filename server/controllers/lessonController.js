@@ -1,8 +1,11 @@
 import { Router } from "express";
 
+import { lessonCreateSchema } from "../util/validationSchemes.js";
+import { getAllLessons } from "../services/lessonService.js";
+
 const lessonController = Router();
 
-lessonController.get("/", (req, res, next) => {
+lessonController.get("/", async (req, res, next) => {
   try {
     const lessonsArr = [
       {
@@ -39,6 +42,8 @@ lessonController.get("/", (req, res, next) => {
           "Урок в който ще научите правилната стойка и как да контролирате скороста си.",
       },
     ];
+
+    // const allLessons = await getAllLessons();
 
     res.status(200).json(lessonsArr);
   } catch (error) {
