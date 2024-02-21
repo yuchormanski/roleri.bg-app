@@ -1,13 +1,14 @@
 import styles from "./NavigationMenu.module.css";
 
+import { NavLink } from "react-router-dom";
+
 import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
 
 import { useTheme } from "../../context/DarkMode.jsx";
 import { useLanguage } from "../../context/Language.jsx";
-
-import { NavLink } from "react-router-dom";
-import { useAuthQueries } from "../../pages/auth/useAuthQueries.js";
 import { useAuthContext } from "../../context/AuthContext.jsx";
+
+import { useAuthQueries } from "../../pages/auth/useAuthQueries.js";
 
 function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
   const { isDark, themeToggle } = useTheme();

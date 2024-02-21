@@ -1,5 +1,6 @@
-import toast from "react-hot-toast";
 import styles from "./LessonsList.module.css";
+
+import toast from "react-hot-toast";
 
 import { useLanguage } from "../../context/Language.jsx";
 import { useGetAllLessonQueries } from "./useGetAllLessonQueries.js";

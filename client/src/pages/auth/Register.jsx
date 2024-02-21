@@ -1,16 +1,17 @@
 import styles from "./Register.module.css";
-import { useForm } from "react-hook-form";
-import { GoChevronLeft, GoX, GoEye, GoEyeClosed } from "react-icons/go";
 
-import Button from "../../ui/elements/button/Button.jsx";
-import toast from "react-hot-toast";
 import { useState } from "react";
-import { EMAIL_REGEX, PHONE_REGEX } from "../../services/environment.js";
-import Spinner from "../../ui/elements/spinner/Spinner.jsx";
-import { useAuthQueries } from "./useAuthQueries.js";
-// import PhoneComponent from "../../ui/elements/phone/PhoneComponent.jsx";
+import { useForm } from "react-hook-form";
+import { GoX, GoEye, GoEyeClosed } from "react-icons/go";
+import toast from "react-hot-toast";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
+
+import { EMAIL_REGEX, PHONE_REGEX } from "../../services/environment.js";
+import { useAuthQueries } from "./useAuthQueries.js";
+
+import Button from "../../ui/elements/button/Button.jsx";
+import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 
 function Register({ onClose, authToggle }) {
   const [isNotForgotten, setIsNotForgotten] = useState(false);
@@ -27,7 +28,6 @@ function Register({ onClose, authToggle }) {
       if (!PHONE_REGEX.test(phone)) throw new Error("Invalid phone number!");
 
       const resultData = {
-        // name: `${regData.firstName} ${regData.lastName}`,
         firstName: regData.firstName,
         lastName: regData.lastName,
         email: regData.email,
@@ -35,8 +35,7 @@ function Register({ onClose, authToggle }) {
         phone: phone,
       };
 
-      // await registerMutation.mutateAsync({ ...regData, phone: phone });
-      await registerMutation.mutateAsync(resultData); //REMOVE this
+      await registerMutation.mutateAsync(resultData);
       onClose();
       reset();
     } catch (error) {
@@ -174,7 +173,7 @@ function Register({ onClose, authToggle }) {
               borderRadius: "3px",
               fontSize: "1.6rem",
               padding: "0 2px",
-              width: "100%",
+              width: "81%",
               height: "auto",
               margin: "0 0 0 5px",
               color: "var(--color-main)",
@@ -186,6 +185,9 @@ function Register({ onClose, authToggle }) {
               "--react-international-phone-country-selector-background-color-hover": "var(--color-input)",
               "--react-international-phone-country-selector-border-color": "var(--input-border)",
               "--react-international-phone-country-selector-arrow-color": "var(--color-main)",
+              "--react-international-phone-dropdown-item-text-color": "var(--color-main)",
+              "--react-international-phone-dropdown-item-dial-code-color": "var(--color-main)",
+              "--react-international-phone-selected-dropdown-item-background-color": "var(--input-border)",
             }}
           />
 

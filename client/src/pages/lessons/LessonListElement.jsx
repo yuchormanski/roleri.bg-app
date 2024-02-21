@@ -1,6 +1,7 @@
+import styles from "./LessonListElement.module.css";
+
 import { useLanguage } from "../../context/Language.jsx";
 import { useTranslate } from "../../hooks/useTranslate.js";
-import styles from "./LessonListElement.module.css";
 
 function LessonListElement({ lm }) {
   const { lang } = useLanguage();

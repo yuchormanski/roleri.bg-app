@@ -1,14 +1,17 @@
 import styles from "./Login.module.css";
+
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { GoChevronLeft, GoX, GoEye, GoEyeClosed } from "react-icons/go";
+import toast from "react-hot-toast";
+
+import { EMAIL_REGEX } from "../../services/environment.js";
+
+import { useLanguage } from "../../context/Language.jsx";
+import { useAuthQueries } from "./useAuthQueries.js";
 
 import Button from "../../ui/elements/button/Button.jsx";
-import toast from "react-hot-toast";
-import { useState } from "react";
-import { EMAIL_REGEX } from "../../services/environment.js";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
-import { useAuthQueries } from "./useAuthQueries.js";
-import { useLanguage } from "../../context/Language.jsx";
 
 function Login({ onClose, authToggle }) {
   const { loginMutation } = useAuthQueries();
@@ -23,24 +26,6 @@ function Login({ onClose, authToggle }) {
       if (!isNotForgotten) {
         await loginMutation.mutateAsync(loginData);
 
-        //login user
-        // mutate(tempData, {
-        //   onSuccess: () => {
-        //     reset();
-        //   },
-        //   onSettled: (data) => {
-        //     // always called after a successful or failed mutation
-        //     // console.log(data);
-        //   },
-        // });
-
-        ///////////////////////
-        // registerUser(mockData, {
-        //   onSuccess: (data) => {
-        //     reset();
-        //   },
-        // });
-        /////////////////
       } else {
         //send reset password email
       }
@@ -115,13 +100,13 @@ function Login({ onClose, authToggle }) {
                   "password",
                   !isNotForgotten
                     ? {
-                        required: "Password is required",
-                        minLength: {
-                          value: 3,
-                          message:
-                            "The password should be at least 3 characters long ",
-                        },
-                      }
+                      required: "Password is required",
+                      minLength: {
+                        value: 3,
+                        message:
+                          "The password should be at least 3 characters long ",
+                      },
+                    }
                     : null
                 )}
                 placeholder={"Password"}

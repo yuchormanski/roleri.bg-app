@@ -1,6 +1,10 @@
-import { NavLink } from "react-router-dom";
 import styles from "./AsideMenu.module.css";
+
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+
 import { useLanguage } from "../../../context/Language.jsx";
+import { usePath } from "../../../context/PathContext.jsx";
 import {
   PiUsersThin,
   PiCalendarBlankThin,
@@ -10,8 +14,6 @@ import {
   PiCaretDoubleUpDuotone,
 } from "react-icons/pi";
 
-import { usePath } from "../../../context/PathContext.jsx";
-import { useState } from "react";
 
 function AsideMenu() {
   const { lang } = useLanguage();
@@ -41,9 +43,8 @@ function AsideMenu() {
     <aside className={styles.aside}>
       <button
         onClick={() => setIsMobile((x) => !x)}
-        className={`${styles.mobileMenuBtn} ${
-          isMobile ? styles.notClicked : styles.clicked
-        }`}
+        className={`${styles.mobileMenuBtn} ${isMobile ? styles.notClicked : styles.clicked
+          }`}
       >
         {isMobile ? <PiCaretDoubleDownDuotone /> : <PiCaretDoubleUpDuotone />}
       </button>

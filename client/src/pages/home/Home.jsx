@@ -1,9 +1,10 @@
+import styles from "./Home.module.css";
+
+import { FaRegFolderOpen } from "react-icons/fa";
 import toast from "react-hot-toast";
 
-import styles from "./Home.module.css";
-import { FaRegFolderOpen } from "react-icons/fa";
-
 import { useLanguage } from "../../context/Language.jsx";
+
 import { useGetAllNewsQueries } from "./useGetAllNewsQueries.js";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 

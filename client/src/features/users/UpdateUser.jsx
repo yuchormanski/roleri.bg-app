@@ -3,13 +3,13 @@ import styles from "./UpdateUser.module.css";
 import { useEffect } from "react";
 import { usePath } from "../../context/PathContext.jsx";
 import { useForm } from "react-hook-form";
-import {
-  EMAIL_REGEX,
-  PHONE_REGEX,
-} from "../../services/environment.js";
-import { useLanguage } from "../../context/Language.jsx";
 import { toast } from "react-hot-toast";
+
+import { EMAIL_REGEX, PHONE_REGEX, } from "../../services/environment.js";
+
+import { useLanguage } from "../../context/Language.jsx";
 import { useAuthContext } from "../../context/AuthContext.jsx";
+
 import { useUpdateUserQuery } from "./useUpdateUserQuery.js";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 

@@ -1,4 +1,5 @@
 import styles from "./Profile.module.css";
+
 import { Outlet } from "react-router-dom";
 
 import AsideMenu from "../../ui/elements/asideMenu/AsideMenu.jsx";

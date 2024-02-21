@@ -10,8 +10,8 @@ function useGetAllLessonQueries() {
     // TODO - change this property with more accurate method to resolve situation with infinity refetch data on error
     initialData: [],
   });
-  const { isLoading, isError, error, data, isFetching } = result;
 
+  const { isLoading, isError, error, data, isFetching } = result;
   return { isLoading, isError, error, data, isFetching };
 }
 

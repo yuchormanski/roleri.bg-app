@@ -1,10 +1,13 @@
-import { useEffect } from "react";
-import { usePath } from "../../context/PathContext.jsx";
 import styles from "./UserInfo.module.css";
-import { useQueryClient } from "@tanstack/react-query";
+
+import { useEffect } from "react";
+// import { useQueryClient } from "@tanstack/react-query";
+
+import { usePath } from "../../context/PathContext.jsx";
 import { useLanguage } from "../../context/Language.jsx";
-import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 import { useAuthContext } from "../../context/AuthContext.jsx";
+
+import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 
 function UserInfo() {
   const { path, newPath } = usePath();
@@ -18,7 +21,7 @@ function UserInfo() {
   if (data) {
     isWorking = false;
   }
-
+  // TODO TO decide which way to get data - from server or local storage. It is now local storage
   // const { isFetching, data, error } = useQuery({
   //   queryKey: ["user"],
 
