@@ -1,10 +1,11 @@
 import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { put } from "../../api/api.js";
 import { SERVER_ENDPOINTS } from "../../services/environment.js";
 import { useAuthContext } from "../../context/AuthContext.jsx";
+
 import { useMoveBack } from "../../hooks/useMoveBack.js";
+import { put } from "../../api/api.js";
 
 function useUpdateUserQuery() {
     const queryClient = useQueryClient();
