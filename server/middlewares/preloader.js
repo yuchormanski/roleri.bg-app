@@ -1,28 +1,17 @@
-const preload = (api, option) => async (req, res, next) => {
+import { preloadOptions } from "../environments/constants.js";
+
+const preloader = (api, option) => async (req, res, next) => {
 	try {
-		let params;
-		let errorMessage;
+		const result = checkOptions(option, req);
 
-		// TODO ADD NEEDED CASES
-
-		switch (option) {
-			case 'TODO':
-				params = [req.body._id];
-				errorMessage = '';
-				break;
-
-			default:
-				throw new Error('Invalid preload option');
-		}
-
-		const currentState = await api(...params);
+		const currentState = await api(...result.params);
 
 		if (currentState) {
 			res.locals.preloadData = currentState;
 			next();
 
 		} else {
-			throw new Error(errorMessage);
+			throw new Error(result.errorMessage);
 		}
 
 	} catch (error) {
@@ -30,4 +19,28 @@ const preload = (api, option) => async (req, res, next) => {
 	}
 };
 
-export default preload;
+// Here add more options to use preloader
+function checkOptions(option, req) {
+	const result = {
+		params: [],
+		errorMessage: ''
+	};
+
+	switch (option) {
+		case preloadOptions.editSkater:
+			result.params = [req.body._id];
+			result.errorMessage = 'Error on update skater!';
+			break;
+		case preloadOptions.deleteSkater:
+			result.params = [req.params.skaterId];
+			result.errorMessage = 'Error on delete Skater';
+			break;
+
+		default:
+			throw new Error('Invalid preload option');
+	}
+
+	return result;
+}
+
+export default preloader;
