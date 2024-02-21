@@ -16,4 +16,8 @@ export const endpoints = {
   forgot_password: "/forgot-password",
   reset_password: "/reset-password",
   news: "/news",
+  get_all_skaters: "/",
+  add_skater: "/add",
+  edit_skater: "/edit",
+  delete_skater: "/delete/:skaterId",
 };
