@@ -1,5 +1,6 @@
-import { useLanguage } from "../../context/Language.jsx";
 import styles from "./History.module.css";
+
+import { useLanguage } from "../../context/Language.jsx";
 
 function History() {
   const { lang } = useLanguage();

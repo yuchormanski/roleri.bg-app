@@ -1,5 +1,6 @@
-import { useLanguage } from "../../context/Language.jsx";
 import styles from "./Skater.module.css";
+
+import { useLanguage } from "../../context/Language.jsx";
 
 function Skater() {
   const { lang } = useLanguage();
