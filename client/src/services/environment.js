@@ -15,6 +15,8 @@ const SERVER_ENDPOINTS = {
   DELETE_SKATER: (skaterId) => `skaters/delete/${skaterId}`,
   GET_ALL_LESSONS: "lessons",
   GET_ALL_NEWS: "news",
+  GET_ALL_OPTIONS: 'options',
+  ADD_OPTIONS: 'options/add',
 };
 
 const EMAIL_REGEX = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
@@ -30,6 +32,12 @@ const path = {
 
 const USER_LOCAL_STORAGE_KEY = "08180818a772caa4b9a0787a7e065311e1e83e676b5ce1e83e676b5c";
 
+const USER_ROLE = {
+  admin: 'admin',
+  user: 'user',
+  instructor: 'instructor',
+};
+
 export {
   BASE_URL,
   SERVER_ENDPOINTS,
@@ -38,4 +46,5 @@ export {
   PASS_REGEX,
   PHONE_REGEX,
   USER_LOCAL_STORAGE_KEY,
+  USER_ROLE,
 };

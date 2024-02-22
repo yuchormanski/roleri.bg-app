@@ -28,7 +28,7 @@ function DeleteSkater({ onClose, skaterData }) {
     }
 
     return (
-        <Popup onClose={onClose} backgroundClick={false}>
+        <Popup onClose={onClose} backgroundClick={true}>
             {deleteSkaterMutation.isPending && <Spinner />}
             <div className={styles.container}>
                 <div className={styles.closeBtn}>

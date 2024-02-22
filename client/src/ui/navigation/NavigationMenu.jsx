@@ -14,9 +14,8 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
   const { isDark, themeToggle } = useTheme();
   const { lang, langChanger, toggle: language } = useLanguage();
 
-  const { checkIsUserLoggedIn, getUserHandler } = useAuthContext();
+  const { checkIsUserLoggedIn, checkIsUserAdmin } = useAuthContext();
   const { logoutMutation } = useAuthQueries();
-  const user = getUserHandler();
 
   async function onLogout() {
     try {
@@ -82,6 +81,20 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
                     <span className={styles.linkBorder}></span>
                   </NavLink>
                 </li>
+
+                {checkIsUserAdmin() && (
+                  <li className={styles.listItem}>
+                    <NavLink
+                      to={"settings"}
+                      className={styles.link}
+                      onClick={toggleMobile}
+                    >
+                      {lang.settings}
+                      <span className={styles.linkBorder}></span>
+                    </NavLink>
+                  </li>
+                )}
+
                 <li className={styles.listItem}>
                   <NavLink onClick={onLogout} className={styles.link} to="">
                     {lang.logout}

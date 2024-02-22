@@ -56,7 +56,7 @@ const lessonModelSchema = new Schema({
         type: String,
         required: true
     },
-});
+}, { timestamps: true });
 
 const LessonModel = model('Lesson', lessonModelSchema);
 

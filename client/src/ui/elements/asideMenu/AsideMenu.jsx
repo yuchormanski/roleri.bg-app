@@ -3,41 +3,13 @@ import styles from "./AsideMenu.module.css";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import { useLanguage } from "../../../context/Language.jsx";
-import { usePath } from "../../../context/PathContext.jsx";
 import {
-  PiUsersThin,
-  PiCalendarBlankThin,
-  PiNotePencilThin,
-  PiUserListThin,
   PiCaretDoubleDownDuotone,
   PiCaretDoubleUpDuotone,
 } from "react-icons/pi";
 
-
-function AsideMenu() {
-  const { lang } = useLanguage();
-  const { path } = usePath();
-  const urlPath = path === "profile";
+function AsideMenu({ links }) {
   const [isMobile, setIsMobile] = useState(true);
-
-  const links = [
-    {
-      path: "skaters",
-      label: lang.skaters,
-      // icon: <PiUsersThin />,
-    },
-    {
-      path: "history",
-      label: lang.history,
-      // icon: <PiCalendarBlankThin />,
-    },
-    {
-      path: urlPath ? "edit" : "/profile",
-      label: urlPath ? lang.edit : lang.profile,
-      // icon: urlPath ? <PiNotePencilThin /> : <PiUserListThin />,
-    },
-  ];
 
   return (
     <aside className={styles.aside}>

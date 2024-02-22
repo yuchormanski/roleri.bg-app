@@ -7,4 +7,5 @@ export const userRole = {
 export const preloadOptions = {
     editSkater: 'editSkater',
     deleteSkater: 'deleteSkater',
+    getUserById: 'getUserById',
 };

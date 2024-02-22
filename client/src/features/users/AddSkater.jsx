@@ -6,27 +6,25 @@ import toast from "react-hot-toast";
 
 import { useLanguage } from "../../context/Language.jsx";
 
+import { useAddSkaterQuery } from "./useAddSkaterQuery.js";
+import { useGetSkaterOptionsQuery } from "./useGetSkaterOptionsQuery.js";
+
 import Popup from "../../ui/elements/popupModal/Popup.jsx";
 import Button from "../../ui/elements/button/Button.jsx";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
-import { useAddSkaterQuery } from "./useAddSkaterQuery.js";
 
 function AddSkater({ onClose }) {
     const { lang } = useLanguage();
 
+    const { isLoading, data: options_data } = useGetSkaterOptionsQuery();
     const { addSkaterMutation } = useAddSkaterQuery();
     const { register, handleSubmit, reset } = useForm();
 
     // SUBMITTING THE FORM
-    async function onFormSubmit(skaterData) {
-        try {
-            await addSkaterMutation.mutateAsync(skaterData);
-            onClose();
-            reset();
-        } catch (error) {
-            toast.error(error.message);
-            console.error("Add skater error:", error);
-        }
+    function onFormSubmit(skaterData) {
+        addSkaterMutation.mutate(skaterData);
+        onClose();
+        reset();
     }
 
     //ERROR IN FORM
@@ -35,9 +33,13 @@ function AddSkater({ onClose }) {
         Object.keys(errors).forEach((error) => toast.error(errors[error].message));
     }
 
+
+    // TODO: Add additionalRequirements property
+
+
     return (
         <Popup onClose={onClose} backgroundClick={false}>
-            {addSkaterMutation.isPending && <Spinner />}
+            {(addSkaterMutation.isPending || isLoading) && <Spinner />}
             <div className={styles.container}>
                 <div className={styles.closeBtn}>
                     <button onClick={onClose} className={styles.closeIcon}><GoX /></button>
@@ -94,40 +96,6 @@ function AddSkater({ onClose }) {
                         placeholder={lang.age}
                         autoComplete="skater-age"
                     />
-                    <input
-                        className={styles.input}
-                        type="number"
-                        id="skatesSize"
-                        {...register("skatesSize", {
-                            required: "Skate size is required",
-                            min: {
-                                value: 0,
-                                message: "The skate size cannot be smaller than 0"
-                            }
-                        })}
-                        placeholder={lang.skaterSkateSize}
-                        autoComplete="skate-size"
-                    />
-                    <input
-                        className={styles.input}
-                        type="text"
-                        id="protection"
-                        {...register("protection", {
-                            required: "Protection is required",
-                        })}
-                        placeholder={lang.skaterProtection}
-                        autoComplete="protection"
-                    />
-                    <input
-                        className={styles.input}
-                        type="text"
-                        id="level"
-                        {...register("level", {
-                            required: "Level is required",
-                        })}
-                        placeholder={lang.level}
-                        autoComplete="level"
-                    />
                     <select
                         className={styles.input}
                         id="gender"
@@ -140,6 +108,74 @@ function AddSkater({ onClose }) {
                         <option value="male">{lang.skaterGenderMale}</option>
                         <option value="female">{lang.skaterGenderFemale}</option>
                     </select>
+
+                    <select
+                        className={styles.input}
+                        id="skatesSize"
+                        {...register("skatesSize", {
+                            // required: "Skate size is required",
+                        })}
+                        autoComplete="skate-size"
+                    >
+                        <option value="">{lang.skaterSkateSize}</option>
+                        {options_data?.skatesData?.map(s => <option key={s._id} value={s._id}>{s.size}</option>)}
+                    </select>
+                    {/* <input
+                        className={styles.input}
+                        type="number"
+                        id="skatesSize"
+                        {...register("skatesSize", {
+                            required: "Skate size is required",
+                            min: {
+                                value: 0,
+                                message: "The skate size cannot be smaller than 0"
+                            }
+                        })}
+                        placeholder={lang.skaterSkateSize}
+                        autoComplete="skate-size"
+                    /> */}
+                    <select
+                        className={styles.input}
+                        id="protection"
+                        {...register("protection", {
+                            // required: "Protector is required",
+                        })}
+                        autoComplete="protection"
+                    >
+                        <option value="">{lang.skaterProtection}</option>
+                        {options_data?.protectorsData?.map(p => <option key={p._id} value={p._id}>{p.size}</option>)}
+                    </select>
+                    {/* <input
+                        className={styles.input}
+                        type="text"
+                        id="protector"
+                        {...register("protector", {
+                            required: "Protector is required",
+                        })}
+                        placeholder={lang.skaterProtector}
+                        autoComplete="protector"
+                    /> */}
+                    <select
+                        className={styles.input}
+                        id="groupLevel"
+                        {...register("groupLevel", {
+                            // required: "Level is required",
+                        })}
+                        autoComplete="groupLevel"
+                    >
+                        <option value="">{lang.level}</option>
+                        {options_data?.groupsLevelData?.map(l => <option key={l._id} value={l._id}>{l.typeGroup}</option>)}
+                    </select>
+                    {/* <input
+                        className={styles.input}
+                        type="text"
+                        id="groupLevel"
+                        {...register("groupLevel", {
+                            required: "Group level is required",
+                        })}
+                        placeholder={lang.level}
+                        autoComplete="groupLevel"
+                    /> */}
 
                     <div className={styles.btnContainer}>
                         <div style={{ marginLeft: "auto" }}>

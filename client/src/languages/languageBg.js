@@ -30,11 +30,12 @@ export const BG = {
   skaterFirstName: "Име",
   skaterLastName: "Фамилия",
   skaterSkateSize: "Размер ролери",
-  skaterProtection: "Екипировка",
+  skaterProtections: "Протектори",
   skaterGenderMale: "Мъж",
   skaterGenderFemale: "Жена",
   editSkater: "Редактирай",
   deleteSkater: "Изтрий",
   deleteSkaterQuestion: "Желаете ли да изтриете",
   noAddedSkaters: "Все още няма добавени кънкьори!",
+  settings: 'Настройки',
 };
