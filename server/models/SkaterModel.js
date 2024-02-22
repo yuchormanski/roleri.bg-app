@@ -17,18 +17,29 @@ const skaterModelSchema = new Schema({
     type: String,
     required: [true, 'Gender is require'],
   },
+  additionalRequirements: {
+    type: String,
+    default: null,
+  },
   skatesSize: {
-    type: Number,
-    required: [true, 'Skates is require'],
+    type: Types.ObjectId,
+    ref: 'Skates',
   },
   protection: {
-    type: String,
-    required: [true, 'Protection is require'],
+    type: Types.ObjectId,
+    ref: 'Protection',
   },
-  level: {
-    type: String,
-    required: [true, 'Level is require'],
+  groupLevel: {
+    type: Types.ObjectId,
+    ref: 'GroupLevel',
   },
+  courseHistory: [
+    {
+      courseLevel: String,
+      lessonsCompleted: Number,
+      timestamp: { type: Date, default: Date.now }
+    }
+  ],
   owner: {
     type: Types.ObjectId,
     ref: 'UserParent',

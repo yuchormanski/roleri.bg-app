@@ -57,7 +57,7 @@ skaterController.put(endpoints.edit_skater, isUserLogged, preloader(getSkaterByI
 skaterController.delete(endpoints.delete_skater, isUserLogged, preloader(getSkaterById, preloadOptions.deleteSkater), isOwner, async (req, res, next) => {
     try {
         const skaterId = req.params.skaterId;
-        
+
         const deletedSkater = await deleteSkater(skaterId);
 
         res.status(200).json(deletedSkater);

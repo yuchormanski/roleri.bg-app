@@ -21,7 +21,7 @@ const newsSchema = new Schema({
         type: String,
         default: null
     }
-});
+}, { timestamps: true });
 
 const ScrapedNews = model('ScrapedNews', newsSchema);
 

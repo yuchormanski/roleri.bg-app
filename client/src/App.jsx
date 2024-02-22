@@ -8,6 +8,7 @@ import { LanguageProvider } from "./context/Language.jsx";
 import { AutContextProvider } from "./context/AuthContext.jsx";
 import { PathContextProvider } from "./context/PathContext.jsx";
 
+import { RouteGuardAdmin } from "./guards/RouteGuardAdmin.jsx";
 import { RouteGuardAuthenticated } from "./guards/RouteGuardAuthenticated.jsx";
 
 import AppLayout from "./ui/AppLayout.jsx";
@@ -22,6 +23,9 @@ import PageNotFound from "./pages/PageNotFound.jsx";
 import Home from "./pages/home/Home.jsx";
 import LessonsList from "./pages/lessons/LessonsList.jsx";
 import Profile from "./pages/user/Profile.jsx";
+import Admin from "./pages/admin/Admin.jsx";
+import AdminInfo from "./features/admin/AdminInfo.jsx";
+import SkatesOptions from "./features/admin/SkatesOptions.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -54,6 +58,17 @@ function App() {
                         <Route path={"edit"} element={<UpdateUser />} />
                         <Route path={"skaters"} element={<SkatersList />} />
                         <Route path={"history"} element={<History />} />
+                      </Route>
+
+                      <Route element={<RouteGuardAdmin />}>
+                        <Route path={"settings"} element={<Admin />} >
+                          <Route index element={<AdminInfo />} />
+                          <Route path={"skates"} element={<SkatesOptions />} />
+                          {/* <Route path={"protectors"} element={< />} />
+                          <Route path={"levels"} element={< />} />
+                          <Route path={"age-range"} element={< />} />
+                          <Route path={"payments"} element={< />} /> */}
+                        </Route>
                       </Route>
                     </Route>
 

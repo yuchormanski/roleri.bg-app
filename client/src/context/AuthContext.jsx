@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 
-import { USER_LOCAL_STORAGE_KEY } from "../services/environment.js";
+import { USER_LOCAL_STORAGE_KEY, USER_ROLE } from "../services/environment.js";
 
 const AuthContext = createContext();
 
@@ -27,11 +27,17 @@ function AutContextProvider({ children }) {
     return queryClient.getQueryData(["user"]) ?? !!getUserHandler();
   }
 
+  function checkIsUserAdmin() {
+    const userData = getUserHandler();
+    return userData ? userData.role === USER_ROLE.admin : null;
+  }
+
   const values = {
     addUserHandler,
     getUserHandler,
     removeUserHandler,
     checkIsUserLoggedIn,
+    checkIsUserAdmin,
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;

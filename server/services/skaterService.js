@@ -4,11 +4,12 @@ const getAllSkaters = async () => SkaterModel.find();
 
 const getSkaterById = async (skaterId) => SkaterModel.findById(skaterId);
 
-const addSkater = (userParentId, skaterData) => SkaterModel.create({ ...skaterData, owner: userParentId });
+const addSkater = async (userParentId, skaterData) => SkaterModel.create({ ...skaterData, owner: userParentId });
 
-const updateSkater = (skaterId, skaterData) => SkaterModel.findByIdAndUpdate(skaterId, skaterData, { runValidators: true, new: true });
+const updateSkater = async (skaterId, skaterData) => SkaterModel.findByIdAndUpdate(skaterId, skaterData, { runValidators: true, new: true });
 
 const deleteSkater = async (skaterId) => SkaterModel.findByIdAndDelete(skaterId);
+
 
 export {
     getAllSkaters,

@@ -11,7 +11,7 @@ function ToasterComponent() {
           duration: 3000,
         },
         error: {
-          duration: 5000,
+          duration: 3000,
         },
         style: {
           backgroundColor: "#fff",

@@ -35,6 +35,10 @@ function checkOptions(option, req) {
 			result.params = [req.params.skaterId];
 			result.errorMessage = 'Error on delete Skater';
 			break;
+		case preloadOptions.getUserById:
+			result.params = [req.user._id];
+			result.errorMessage = 'Error on get user by ID';
+			break;
 
 		default:
 			throw new Error('Invalid preload option');
