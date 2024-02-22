@@ -218,8 +218,16 @@ function cookieOptions() {
 
 // Calculate the cookie expiration period
 function calculateExpirePeriodCookieInDay(day = 30) {
-  const expirePeriodCookie = Number(day) * 24 * 60 * 60 * 1000; // days * 24 hours * 60 minutes * 60 seconds * 1000 milliseconds
-  return expirePeriodCookie;
+  const millisecondsPerDay = 24 * 60 * 60 * 1000;
+  const expirePeriodCookie = day * millisecondsPerDay;
+
+  // Get current time in milliseconds
+  const currentTime = Date.now();
+
+  // Calculate expiration time by adding expirePeriodCookie to current time
+  const expirationTime = currentTime + expirePeriodCookie;
+
+  return expirationTime;
 }
 
 export {
