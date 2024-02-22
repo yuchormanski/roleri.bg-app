@@ -206,7 +206,6 @@ function cookieOptions() {
     ? {
       httpOnly: true,
       sameSite: "lax",
-      secure: true,
       maxAge: calculateExpirePeriodCookieInDay(),
     }
     : {
