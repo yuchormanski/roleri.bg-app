@@ -12,11 +12,11 @@ function Admin() {
   const links = [
     {
       path: "skates",
-      label: lang.skaterSkateSize,
+      label: lang.s_skateSize,
     },
     {
       path: "protections",
-      label: lang.skaterProtections,
+      label: lang.s_protections,
     },
     {
       path: "levels",
@@ -27,7 +27,7 @@ function Admin() {
       label: lang.ageGroup,
     },
     {
-      path: "payments",
+      path: "subscription",
       label: lang.subscription,
     },
   ];

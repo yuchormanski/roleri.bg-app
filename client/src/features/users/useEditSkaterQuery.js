@@ -14,7 +14,7 @@ function useEditSkaterQuery() {
         onSuccess: (skaterData) => {
             toast.success("Skater updated successfully!");
             // Save the skater data to the cache
-            queryClient.setQueryData(["skaters"], oldData => oldData.map(skater => skater._id === skaterData._id ? skaterData : skater));
+            queryClient.setQueryData(["skaters"], (oldData) => oldData.map(skater => skater._id === skaterData._id ? skaterData : skater));
 
         },
         onError: (error) => {

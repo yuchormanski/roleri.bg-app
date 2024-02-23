@@ -23,10 +23,13 @@ import PageNotFound from "./pages/PageNotFound.jsx";
 import Home from "./pages/home/Home.jsx";
 import LessonsList from "./pages/lessons/LessonsList.jsx";
 import Profile from "./pages/user/Profile.jsx";
+import ResetPassword from "./pages/auth/ResetPassword.jsx";
 import Admin from "./pages/admin/Admin.jsx";
 import AdminInfo from "./features/admin/AdminInfo.jsx";
-import SkatesOptions from "./features/admin/SkatesOptions.jsx";
-import ResetPassword from "./pages/auth/ResetPassword.jsx";
+import ListSkatesOptions from "./features/admin/skatesOption/ListSkatesOptions.jsx";
+import ListProtectionOptions from "./features/admin/protectionOption/ListProtectionOptions.jsx";
+import ListLevelOptions from "./features/admin/levelOption/ListLevelOptions.jsx";
+import ListAgeOptions from "./features/admin/ageOption/ListAgeOptions.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -65,11 +68,11 @@ function App() {
                       <Route element={<RouteGuardAdmin />}>
                         <Route path={"settings"} element={<Admin />} >
                           <Route index element={<AdminInfo />} />
-                          <Route path={"skates"} element={<SkatesOptions />} />
-                          {/* <Route path={"protectors"} element={< />} />
-                          <Route path={"levels"} element={< />} />
-                          <Route path={"age-range"} element={< />} />
-                          <Route path={"payments"} element={< />} /> */}
+                          <Route path={"skates"} element={<ListSkatesOptions />} />
+                          <Route path={"protections"} element={<ListProtectionOptions />} />
+                          <Route path={"levels"} element={<ListLevelOptions />} />
+                          <Route path={"age-range"} element={<ListAgeOptions />} />
+                          {/*<Route path={"subscription"} element={< />} /> */}
                         </Route>
                       </Route>
                     </Route>

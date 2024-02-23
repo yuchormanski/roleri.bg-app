@@ -60,7 +60,7 @@ function EditSkater({ onClose, skaterData }) {
                                 message: "First name can't be more than 20 characters long!",
                             },
                         })}
-                        placeholder={lang.skaterFirstName}
+                        placeholder={lang.s_firstName}
                         autoComplete="given-name"
                     />
                     <input
@@ -74,7 +74,7 @@ function EditSkater({ onClose, skaterData }) {
                                 message: "Last name can't be more than 20 characters long!",
                             },
                         })}
-                        placeholder={lang.skaterLastName}
+                        placeholder={lang.s_lastName}
                         autoComplete="family-name"
                     />
                     <input
@@ -106,7 +106,7 @@ function EditSkater({ onClose, skaterData }) {
                                 message: "The skate size cannot be smaller than 0"
                             }
                         })}
-                        placeholder={lang.skaterSkateSize}
+                        placeholder={lang.s_skateSize}
                         autoComplete="skate-size"
                     />
                     <input
@@ -138,8 +138,8 @@ function EditSkater({ onClose, skaterData }) {
                         autoComplete="skater-gender"
                     >
                         <option value="">{lang.gender}</option>
-                        <option value="male">{lang.skaterGenderMale}</option>
-                        <option value="female">{lang.skaterGenderFemale}</option>
+                        <option value="male">{lang.s_genderMale}</option>
+                        <option value="female">{lang.s_genderFemale}</option>
                     </select>
 
                     <div className={styles.btnContainer}>

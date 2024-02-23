@@ -61,7 +61,7 @@ function AddSkater({ onClose }) {
                                 message: "First name can't be more than 20 characters long!",
                             },
                         })}
-                        placeholder={lang.skaterFirstName}
+                        placeholder={lang.s_firstName}
                         autoComplete="given-name"
                     />
                     <input
@@ -75,7 +75,7 @@ function AddSkater({ onClose }) {
                                 message: "Last name can't be more than 20 characters long!",
                             },
                         })}
-                        placeholder={lang.skaterLastName}
+                        placeholder={lang.s_lastName}
                         autoComplete="family-name"
                     />
                     <input
@@ -105,8 +105,8 @@ function AddSkater({ onClose }) {
                         autoComplete="skater-gender"
                     >
                         <option value="">{lang.gender}</option>
-                        <option value="male">{lang.skaterGenderMale}</option>
-                        <option value="female">{lang.skaterGenderFemale}</option>
+                        <option value="male">{lang.s_genderMale}</option>
+                        <option value="female">{lang.s_genderFemale}</option>
                     </select>
 
                     <select
@@ -117,7 +117,7 @@ function AddSkater({ onClose }) {
                         })}
                         autoComplete="skate-size"
                     >
-                        <option value="">{lang.skaterSkateSize}</option>
+                        <option value="">{lang.s_skateSize}</option>
                         {options_data?.skatesData?.map(s => <option key={s._id} value={s._id}>{s.size}</option>)}
                     </select>
                     {/* <input
@@ -131,7 +131,7 @@ function AddSkater({ onClose }) {
                                 message: "The skate size cannot be smaller than 0"
                             }
                         })}
-                        placeholder={lang.skaterSkateSize}
+                        placeholder={lang.s_skateSize}
                         autoComplete="skate-size"
                     /> */}
                     <select
@@ -142,8 +142,8 @@ function AddSkater({ onClose }) {
                         })}
                         autoComplete="protection"
                     >
-                        <option value="">{lang.skaterProtection}</option>
-                        {options_data?.protectorsData?.map(p => <option key={p._id} value={p._id}>{p.size}</option>)}
+                        <option value="">{lang.s_protections}</option>
+                        {options_data?.protectionsData?.map(p => <option key={p._id} value={p._id}>{p.size}</option>)}
                     </select>
                     {/* <input
                         className={styles.input}

@@ -16,10 +16,29 @@ const SERVER_ENDPOINTS = {
   GET_ALL_LESSONS: "lessons",
   GET_ALL_NEWS: "news",
   GET_ALL_OPTIONS: 'options',
-  ADD_OPTIONS: 'options/add',
+  GET_SKATES_OPTIONS: 'options/skates',
+  GET_PROTECTION_OPTIONS: 'options/protections',
+  GET_LEVEL_OPTIONS: 'options/group-levels',
+  GET_AGE_OPTIONS: 'options/group-age',
+  GET_SUBSCRIPTION_OPTIONS: 'options/subscriptions',
+  ADD_SKATES_OPTIONS: 'options/add-skates',
+  ADD_PROTECTION_OPTIONS: 'options/add-protections',
+  ADD_LEVEL_OPTIONS: 'options/add-group-levels',
+  ADD_AGE_OPTIONS: 'options/add-group-age',
+  ADD_SUBSCRIPTION_OPTIONS: 'options/add-subscriptions',
+  EDIT_SKATES_OPTIONS: 'options/edit-skates',
+  EDIT_PROTECTION_OPTIONS: 'options/edit-protections',
+  EDIT_LEVEL_OPTIONS: 'options/edit-group-levels',
+  EDIT_AGE_OPTIONS: 'options/edit-group-age',
+  EDIT_SUBSCRIPTION_OPTIONS: 'options/edit-subscriptions',
+  DELETE_SKATES_OPTIONS: (optionId) => `options/delete-skates/${optionId}`,
+  DELETE_PROTECTION_OPTIONS: (optionId) => `options/delete-protections/${optionId}`,
+  DELETE_LEVEL_OPTIONS: (optionId) => `options/delete-group-levels/${optionId}`,
+  DELETE_AGE_OPTIONS: (optionId) => `options/delete-group-age/${optionId}`,
+  DELETE_SUBSCRIPTION_OPTIONS: (optionId) => `options/delete-subscriptions/${optionId}`,
 };
 
-const EMAIL_REGEX = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+const EMAIL_REGEX = /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?: \.[a - z0 - 9!#$ %& '*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
 
 const PASS_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/;
 

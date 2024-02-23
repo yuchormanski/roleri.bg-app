@@ -29,7 +29,8 @@ function AutContextProvider({ children }) {
 
   function checkIsUserAdmin() {
     const userData = getUserHandler();
-    return userData ? userData.role === USER_ROLE.admin : null;
+    const isAdmin = userData ? userData.role === USER_ROLE.admin : false;
+    return isAdmin;
   }
 
   const values = {

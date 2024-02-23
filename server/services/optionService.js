@@ -1,14 +1,24 @@
-import { GroupAgeModel } from '../models/GroupAgeModel.js';
-import { GroupLevelModel } from '../models/GroupLevelModel.js';
-import { SubscriptionTypeModel } from '../models/SubscriptionTypeModel.js';
-import { ProtectionModel } from '../models/ProtectionModel.js';
 import { SkatesModel } from '../models/SkatesModel.js';
+import { ProtectionModel } from '../models/ProtectionModel.js';
+import { GroupLevelModel } from '../models/GroupLevelModel.js';
+import { GroupAgeModel } from '../models/GroupAgeModel.js';
+import { SubscriptionTypeModel } from '../models/SubscriptionTypeModel.js';
 
-// Get the necessary data to be sent to the front end before creating a skater
+const getSkatesOptions = async () => SkatesModel.find();
+
+const getProtectionOptions = async () => ProtectionModel.find();
+
+const getLevelOptions = async () => GroupLevelModel.find();
+
+const getAgeOptions = async () => GroupAgeModel.find();
+
+const getSubscriptionOptions = async () => SubscriptionTypeModel.find();
+
+// Get all options
 const getAllOptionsSkatesData = async () => {
     const [
         skatesData,
-        protectionData,
+        protectionsData,
         groupsLevelData,
         groupsAgeData,
         subscriptionData
@@ -22,42 +32,63 @@ const getAllOptionsSkatesData = async () => {
 
     return {
         skatesData,
-        protectionData,
+        protectionsData,
         groupsLevelData,
         groupsAgeData,
         subscriptionData,
     };
 };
 
-const createOption = async (optionNameData, data) => {
-    let model;
+const addSkatesOptions = async (data) => SkatesModel.create(data);
 
-    // Select the appropriate model based on the property
-    switch (optionNameData) {
-        case 'skatesData':
-            model = SkatesModel;
-            break;
-        case 'protectionData':
-            model = ProtectionModel;
-            break;
-        case 'groupsLevelData':
-            model = GroupLevelModel;
-            break;
-        case 'groupsAgeData':
-            model = GroupAgeModel;
-            break;
-        case 'subscriptionData':
-            model = SubscriptionTypeModel;
-            break;
-        default:
-            throw new Error('Invalid property');
-    }
+const addProtectionOptions = async (data) => ProtectionModel.create(data);
 
-    return await model.create(data);
-};
+const addLevelOptions = async (data) => GroupLevelModel.create(data);
 
+const addAgeOptions = async (data) => GroupAgeModel.create(data);
+
+const addSubscriptionOptions = async (data) => SubscriptionTypeModel.create(data);
+
+const editSkatesOptions = async (data) => SkatesModel.findByIdAndUpdate(data._id, data, { runValidators: true, new: true });
+
+const editProtectionOptions = async (data) => ProtectionModel.findByIdAndUpdate(data._id, data, { runValidators: true, new: true });
+
+const editLevelOptions = async (data) => GroupLevelModel.findByIdAndUpdate(data._id, data, { runValidators: true, new: true });
+
+const editAgeOptions = async (data) => GroupAgeModel.findByIdAndUpdate(data._id, data, { runValidators: true, new: true });
+
+const editSubscriptionOptions = async (data) => SubscriptionTypeModel.findByIdAndUpdate(data._id, data, { runValidators: true, new: true });
+
+const deleteSkatesOptions = async (optionId) => SkatesModel.findByIdAndDelete(optionId);
+
+const deleteProtectionOptions = async (optionId) => ProtectionModel.findByIdAndDelete(optionId);
+
+const deleteLevelOptions = async (optionId) => GroupLevelModel.findByIdAndDelete(optionId);
+
+const deleteAgeOptions = async (optionId) => GroupAgeModel.findByIdAndDelete(optionId);
+
+const deleteSubscriptionOptions = async (optionId) => SubscriptionTypeModel.findByIdAndDelete(optionId);
 
 export {
+    getSkatesOptions,
+    getProtectionOptions,
+    getLevelOptions,
+    getAgeOptions,
+    getSubscriptionOptions,
     getAllOptionsSkatesData,
-    createOption,
+    addSkatesOptions,
+    addProtectionOptions,
+    addLevelOptions,
+    addAgeOptions,
+    addSubscriptionOptions,
+    editSkatesOptions,
+    editProtectionOptions,
+    editLevelOptions,
+    editAgeOptions,
+    editSubscriptionOptions,
+    deleteSkatesOptions,
+    deleteProtectionOptions,
+    deleteLevelOptions,
+    deleteAgeOptions,
+    deleteSubscriptionOptions,
 }

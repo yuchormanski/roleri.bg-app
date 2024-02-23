@@ -7,7 +7,6 @@ import { useLanguage } from "../../context/Language.jsx";
 
 import { useGetUserDataQuery } from "../users/useGetUserDataQuery.js";
 
-import { useGetSkaterOptionsQuery } from "../users/useGetSkaterOptionsQuery.js";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 
 function AdminInfo() {
@@ -15,7 +14,6 @@ function AdminInfo() {
   const { lang } = useLanguage();
 
   const { isLoading, data } = useGetUserDataQuery();
-  const { data: options } = useGetSkaterOptionsQuery();
 
   useEffect(() => newPath("settings"), [newPath]);
 

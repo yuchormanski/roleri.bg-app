@@ -5,23 +5,25 @@ import { SERVER_ENDPOINTS } from "../../services/environment.js";
 
 import { post } from "../../api/api.js";
 
-function useAddOptionsQuery(refreshState) {
+function useAddOptionsQuery(actionType) {
+    const endPoints = {
+        skates: SERVER_ENDPOINTS.ADD_SKATES_OPTIONS,
+        protection: SERVER_ENDPOINTS.ADD_PROTECTION_OPTIONS,
+        level: SERVER_ENDPOINTS.ADD_LEVEL_OPTIONS,
+        age: SERVER_ENDPOINTS.ADD_AGE_OPTIONS,
+        subscription: SERVER_ENDPOINTS.ADD_SUBSCRIPTION_OPTIONS,
+    }
+
     const queryClient = useQueryClient();
 
     const { mutate, isPending } = useMutation({
         enabled: false,
-        mutationFn: (optionsData) => post(SERVER_ENDPOINTS.ADD_OPTIONS, optionsData),
+        mutationFn: (optionsData) => post(endPoints[actionType], optionsData),
         onSuccess: (optionsData) => {
             toast.success("Option added successfully!");
-            // Save the skater data to the cache
-            const { optionNameData, ...newData } = optionsData;
-            queryClient.setQueryData(["skaters_options_data"], (oldData) => ({
-                ...oldData,
-                [optionNameData]: [...oldData[optionNameData], newData]
-            }));
-
-            queryClient.invalidateQueries("skaters_options_data");
-            refreshState();
+            // Save the data to the cache
+            queryClient.setQueryData([actionType], (oldData) => [...(oldData && Array.isArray(oldData) ? oldData : []), optionsData]);
+            queryClient.invalidateQueries(actionType);
         },
         onError: (error) => {
             toast.error(error.message);
