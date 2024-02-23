@@ -1,7 +1,8 @@
 import { BlackListToken } from "../models/BlackListToken.js";
+import { cookieName } from "../environments/constants.js";
 
 const checkBlackListToken = async () => async (req, res, next) => {
-    const token = req.cookies[process.env.COOKIE_NAME];
+    const token = req.cookies[cookieName];
 
     if (token) {
         try {

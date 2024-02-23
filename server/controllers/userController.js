@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import { endpoints } from "../environments/endPoints.js";
+import { cookieName } from "../environments/constants.js";
 import { isUserGuest, isUserLogged } from "../middlewares/guards.js";
 import {
     updateUserSchema,
@@ -29,7 +30,7 @@ userController.post(endpoints.register, isUserGuest, async (req, res, next) => {
         await validateRegisterSchema.validateAsync(userData);
         const data = await userRegister(userData);
 
-        res.cookie(process.env.COOKIE_NAME, data.userToken, data.cookieOptions)
+        res.cookie(cookieName, data.userToken, data.cookieOptions)
             .status(201)
             .json(data.user);
     } catch (error) {
@@ -45,7 +46,7 @@ userController.post(endpoints.login, isUserGuest, async (req, res, next) => {
         await validateLoginSchema.validateAsync(userData);
         const data = await userLogin(userData);
 
-        res.cookie(process.env.COOKIE_NAME, data.userToken, data.cookieOptions)
+        res.cookie(cookieName, data.userToken, data.cookieOptions)
             .status(200)
             .json(data.user);
     } catch (error) {
@@ -60,7 +61,7 @@ userController.get(endpoints.logout, isUserLogged, async (req, res, next) => {
 
         const logoutMsg = await userLogout(userToken);
 
-        res.clearCookie(process.env.COOKIE_NAME)
+        res.clearCookie(cookieName)
             .status(200)
             .json(logoutMsg);
     } catch (error) {
@@ -90,7 +91,7 @@ userController.put(endpoints.reset_password, isUserGuest, async (req, res, next)
         await validateResetPasswordSchema.validateAsync(userData);
         const data = await resetUserPassword(userData);
 
-        res.cookie(process.env.COOKIE_NAME, data.userToken, data.cookieOptions)
+        res.cookie(cookieName, data.userToken, data.cookieOptions)
             .status(200)
             .json(data.user);
     } catch (error) {

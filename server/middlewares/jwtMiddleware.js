@@ -1,7 +1,8 @@
 import verifyJwtToken from "../util/verifyJwtToken.js";
+import { cookieName } from "../environments/constants.js";
 
 const jwtMiddleware = () => (req, res, next) => {
-    const token = req.cookies[process.env.COOKIE_NAME];
+    const token = req.cookies[cookieName];
 
     if (token) {
         try {

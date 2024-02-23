@@ -9,3 +9,5 @@ export const preloadOptions = {
     deleteSkater: 'deleteSkater',
     getUserById: 'getUserById',
 };
+
+export const cookieName = '_roleri_bg';
