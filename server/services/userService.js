@@ -205,6 +205,7 @@ function cookieOptions() {
   return process.env.NODE_ENV === "production"
     ? {
       httpOnly: true,
+      sameSite: "none",
       maxAge: calculateExpirePeriodCookieInDay(),
     }
     : {
