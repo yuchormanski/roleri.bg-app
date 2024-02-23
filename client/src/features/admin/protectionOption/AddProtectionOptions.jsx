@@ -46,7 +46,7 @@ function AddProtectionOptions({ onClose }) {
                 >
                     <input
                         className={styles.input}
-                        type="number"
+                        type="text"
                         id="size"
                         {...register("size", {
                             required: "Protection size is required",
