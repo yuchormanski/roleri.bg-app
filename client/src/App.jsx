@@ -30,6 +30,7 @@ import ListSkatesOptions from "./features/admin/skatesOption/ListSkatesOptions.j
 import ListProtectionOptions from "./features/admin/protectionOption/ListProtectionOptions.jsx";
 import ListLevelOptions from "./features/admin/levelOption/ListLevelOptions.jsx";
 import ListAgeOptions from "./features/admin/ageOption/ListAgeOptions.jsx";
+import ListSubscriptionOptions from "./features/admin/subscriptionOption/ListSubscriptionOptions.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -72,7 +73,7 @@ function App() {
                           <Route path={"protections"} element={<ListProtectionOptions />} />
                           <Route path={"levels"} element={<ListLevelOptions />} />
                           <Route path={"age-range"} element={<ListAgeOptions />} />
-                          {/*<Route path={"subscription"} element={< />} /> */}
+                          <Route path={"subscription"} element={<ListSubscriptionOptions />} />
                         </Route>
                       </Route>
                     </Route>
