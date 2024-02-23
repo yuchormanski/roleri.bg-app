@@ -65,11 +65,7 @@ const userRegister = async ({
   // Create token
   const userToken = await generateUserToken(user);
 
-  return {
-    userToken,
-    cookieOptions: cookieOptions(),
-    user: createUserDetailsObject(user),
-  };
+  return createUserDetailsObject(user, userToken);
 };
 
 // Login
@@ -89,11 +85,7 @@ const userLogin = async ({ email, password }) => {
   // Create token
   const userToken = await generateUserToken(user);
 
-  return {
-    userToken,
-    cookieOptions: cookieOptions(),
-    user: createUserDetailsObject(user),
-  };
+  return createUserDetailsObject(user, userToken);
 };
 
 // Logout
@@ -173,11 +165,7 @@ async function resetUserPassword({ password, resetToken }) {
   // Create token
   const userToken = await generateUserToken(user);
 
-  return {
-    userToken,
-    cookieOptions: cookieOptions(),
-    user: createUserDetailsObject(user),
-  };
+  return createUserDetailsObject(user, userToken);
 }
 
 // Get one user
@@ -189,7 +177,7 @@ const updateUserById = async (userId, userData) => UserParent.findByIdAndUpdate(
 // Helper functions
 
 // Data to return to front-end
-function createUserDetailsObject(user) {
+function createUserDetailsObject(user, userToken) {
   return {
     _id: user._id,
     firstName: user.firstName,
@@ -197,37 +185,8 @@ function createUserDetailsObject(user) {
     email: user.email,
     role: user.role,
     phone: user.phone,
+    accessToken: userToken,
   };
-}
-
-// Use different cookie options for different environment
-function cookieOptions() {
-  return process.env.NODE_ENV === "production"
-    ? {
-      httpOnly: true,
-      sameSite: "none",
-      secure: true,
-      maxAge: calculateExpirePeriodCookieInDay(),
-    }
-    : {
-      httpOnly: true,
-      sameSite: "lax",
-      maxAge: calculateExpirePeriodCookieInDay(),
-    };
-}
-
-// Calculate the cookie expiration period
-function calculateExpirePeriodCookieInDay(day = 30) {
-  const millisecondsPerDay = 24 * 60 * 60 * 1000;
-  const expirePeriodCookie = day * millisecondsPerDay;
-
-  // Get current time in milliseconds
-  const currentTime = Date.now();
-
-  // Calculate expiration time by adding expirePeriodCookie to current time
-  const expirationTime = currentTime + expirePeriodCookie;
-
-  return expirationTime;
 }
 
 export {

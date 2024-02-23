@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 
-import { EMAIL_REGEX, PHONE_REGEX } from "../../services/environment.js";
+import { EMAIL_REGEX, PASS_REGEX, PHONE_REGEX } from "../../services/environment.js";
 import { useAuthQueries } from "./useAuthQueries.js";
 
 import Button from "../../ui/elements/button/Button.jsx";
@@ -134,6 +134,10 @@ function Register({ onClose, authToggle }) {
                       message:
                         "The password should be at least 3 characters long ",
                     },
+                    pattern: {
+                      value: PASS_REGEX,
+                      message: "Password must contain at least one lowercase letter, one uppercase letter, and one digit",
+                    },
                   }
                   : null
               )}
@@ -153,6 +157,10 @@ function Register({ onClose, authToggle }) {
               required: "Repeat password is required",
               validate: (value) =>
                 value === getValues().password || "Passwords don't match",
+              pattern: {
+                value: PASS_REGEX,
+                message: "Password must contain at least one lowercase letter, one uppercase letter, and one digitt",
+              },
             })}
             placeholder={"Repeat password"}
             autoComplete="new-password"

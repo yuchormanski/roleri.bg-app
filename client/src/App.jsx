@@ -26,6 +26,7 @@ import Profile from "./pages/user/Profile.jsx";
 import Admin from "./pages/admin/Admin.jsx";
 import AdminInfo from "./features/admin/AdminInfo.jsx";
 import SkatesOptions from "./features/admin/SkatesOptions.jsx";
+import ResetPassword from "./pages/auth/ResetPassword.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -51,6 +52,7 @@ function App() {
                     <Route index element={<Navigate replace to={"home"} />} />
                     <Route path={"home"} element={<Home />} />
                     <Route path={"lessons"} element={<LessonsList />} />
+                    <Route path={"reset-password/:resetToken"} element={<ResetPassword />} />
 
                     <Route element={<RouteGuardAuthenticated />}>
                       <Route path={"profile"} element={<Profile />}>

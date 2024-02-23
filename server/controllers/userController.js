@@ -1,7 +1,6 @@
 import { Router } from "express";
 
 import { endpoints } from "../environments/endPoints.js";
-import { cookieName } from "../environments/constants.js";
 import { isUserGuest, isUserLogged } from "../middlewares/guards.js";
 import {
     updateUserSchema,
@@ -28,11 +27,9 @@ userController.post(endpoints.register, isUserGuest, async (req, res, next) => {
         const userData = req.body;
 
         await validateRegisterSchema.validateAsync(userData);
-        const data = await userRegister(userData);
+        const userWithToken = await userRegister(userData);
 
-        res.cookie(cookieName, data.userToken, data.cookieOptions)
-            .status(201)
-            .json(data.user);
+        res.status(201).json(userWithToken);
     } catch (error) {
         next(error);
     }
@@ -44,11 +41,9 @@ userController.post(endpoints.login, isUserGuest, async (req, res, next) => {
         const userData = req.body;
 
         await validateLoginSchema.validateAsync(userData);
-        const data = await userLogin(userData);
+        const userWithToken = await userLogin(userData);
 
-        res.cookie(cookieName, data.userToken, data.cookieOptions)
-            .status(200)
-            .json(data.user);
+        res.status(200).json(userWithToken);
     } catch (error) {
         next(error);
     }
@@ -61,9 +56,7 @@ userController.get(endpoints.logout, isUserLogged, async (req, res, next) => {
 
         const logoutMsg = await userLogout(userToken);
 
-        res.clearCookie(cookieName)
-            .status(200)
-            .json(logoutMsg);
+        res.status(200).json(logoutMsg);
     } catch (error) {
         next(error);
     }
@@ -89,11 +82,9 @@ userController.put(endpoints.reset_password, isUserGuest, async (req, res, next)
         const userData = req.body;
 
         await validateResetPasswordSchema.validateAsync(userData);
-        const data = await resetUserPassword(userData);
+        const userWithToken = await resetUserPassword(userData);
 
-        res.cookie(cookieName, data.userToken, data.cookieOptions)
-            .status(200)
-            .json(data.user);
+        res.status(200).json(userWithToken);
     } catch (error) {
         next(error);
     }

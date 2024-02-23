@@ -14,7 +14,7 @@ import Button from "../../ui/elements/button/Button.jsx";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 
 function Login({ onClose, authToggle }) {
-  const { loginMutation } = useAuthQueries();
+  const { loginMutation, forgotPasswordMutation } = useAuthQueries();
   const { register, handleSubmit, reset, getValues, formState } = useForm();
   const [isNotForgotten, setIsNotForgotten] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -27,8 +27,10 @@ function Login({ onClose, authToggle }) {
         await loginMutation.mutateAsync(loginData);
 
       } else {
-        //send reset password email
+        const { email, ...data } = loginData;
+        await forgotPasswordMutation.mutateAsync({ email });
       }
+
       onClose();
       reset();
     } catch (error) {
@@ -56,7 +58,7 @@ function Login({ onClose, authToggle }) {
 
   return (
     <>
-      {loginMutation.isPending && <Spinner />}
+      {(loginMutation.isPending || forgotPasswordMutation.isPending) && <Spinner />}
       <div className={styles.container}>
         <div className={styles.closeBtn}>
           <button onClick={onClose} className={styles.closeIcon}>
