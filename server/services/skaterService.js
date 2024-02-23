@@ -1,15 +1,29 @@
 import { SkaterModel } from '../models/SkaterModel.js';
 
-const getAllSkaters = async () => SkaterModel.find();
+const populateFields = ['skatesSize', 'protection', 'groupLevel'];
 
-const getSkaterById = async (skaterId) => SkaterModel.findById(skaterId);
+const populateSkater = (query) => {
+    return query.populate(populateFields.join(' '));
+};
 
-const addSkater = async (userParentId, skaterData) => SkaterModel.create({ ...skaterData, owner: userParentId });
+const getAllSkaters = async () => populateSkater(SkaterModel.find());
 
-const updateSkater = async (skaterId, skaterData) => SkaterModel.findByIdAndUpdate(skaterId, skaterData, { runValidators: true, new: true });
+const getSkaterById = async (skaterId) => populateSkater(SkaterModel.findById(skaterId));
 
-const deleteSkater = async (skaterId) => SkaterModel.findByIdAndDelete(skaterId);
+const addSkater = async (userParentId, skaterData) => {
+    const skater = await SkaterModel.create({ ...skaterData, owner: userParentId });
+    return populateSkater(SkaterModel.findById(skater._id));
+};
 
+const updateSkater = async (skaterId, skaterData) => {
+    const skater = await SkaterModel.findByIdAndUpdate(skaterId, skaterData, { runValidators: true, new: true });
+    return populateSkater(skater);
+};
+
+const deleteSkater = async (skaterId) => {
+    const skater = await SkaterModel.findByIdAndDelete(skaterId);
+    return populateSkater(skater);
+};
 
 export {
     getAllSkaters,
@@ -17,4 +31,4 @@ export {
     addSkater,
     updateSkater,
     deleteSkater,
-}
+};

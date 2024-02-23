@@ -19,10 +19,6 @@ async function request(method, url, data) {
   const response = await fetch(BASE_URL + url, options);
 
   if (response.ok == false) {
-    if (response.status == 403) {
-      localStorage.removeItem(USER_LOCAL_STORAGE_KEY);
-    }
-
     const error = await response.json();
 
     throw error;

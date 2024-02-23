@@ -11,17 +11,29 @@ import Button from "../../ui/elements/button/Button.jsx";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 
 import { useEditSkaterQuery } from "./useEditSkaterQuery.js";
+import { useGetSkaterOptionsQuery } from "./useGetSkaterOptionsQuery.js";
 
 function EditSkater({ onClose, skaterData }) {
     const { lang } = useLanguage();
-
+    console.log(skaterData)
+    const { isLoading, data: options_data } = useGetSkaterOptionsQuery();
     const { editSkaterMutation } = useEditSkaterQuery();
-    const { register, handleSubmit, reset } = useForm({ defaultValues: skaterData });
+    const { register, handleSubmit, reset } = useForm({
+        defaultValues: {
+            firstName: skaterData.firstName,
+            lastName: skaterData.lastName,
+            age: skaterData.age,
+            gender: skaterData.gender,
+            skatesSize: skaterData.skatesSize?._id,
+            protection: skaterData.protection?._id,
+            groupLevel: skaterData.groupLevel?._id,
+        }
+    });
 
     // SUBMITTING THE FORM
-    async function onFormSubmit(skaterData) {
+    async function onFormSubmit(userInput) {
         try {
-            await editSkaterMutation.mutateAsync(skaterData);
+            await editSkaterMutation.mutateAsync({ ...userInput, _id: skaterData._id });
             onClose();
             reset();
         } catch (error) {
@@ -38,7 +50,7 @@ function EditSkater({ onClose, skaterData }) {
 
     return (
         <Popup onClose={onClose} backgroundClick={false}>
-            {editSkaterMutation.isPending && <Spinner />}
+            {(editSkaterMutation.isPending || isLoading) && <Spinner />}
             <div className={styles.container}>
                 <div className={styles.closeBtn}>
                     <button onClick={onClose} className={styles.closeIcon}><GoX /></button>
@@ -95,40 +107,6 @@ function EditSkater({ onClose, skaterData }) {
                         placeholder={lang.age}
                         autoComplete="skater-age"
                     />
-                    <input
-                        className={styles.input}
-                        type="number"
-                        id="skatesSize"
-                        {...register("skatesSize", {
-                            required: "Skate size is required",
-                            min: {
-                                value: 0,
-                                message: "The skate size cannot be smaller than 0"
-                            }
-                        })}
-                        placeholder={lang.s_skateSize}
-                        autoComplete="skate-size"
-                    />
-                    <input
-                        className={styles.input}
-                        type="text"
-                        id="protection"
-                        {...register("protection", {
-                            required: "Protection is required",
-                        })}
-                        placeholder={lang.skaterProtection}
-                        autoComplete="protection"
-                    />
-                    <input
-                        className={styles.input}
-                        type="text"
-                        id="level"
-                        {...register("level", {
-                            required: "Level is required",
-                        })}
-                        placeholder={lang.level}
-                        autoComplete="level"
-                    />
                     <select
                         className={styles.input}
                         id="gender"
@@ -140,6 +118,36 @@ function EditSkater({ onClose, skaterData }) {
                         <option value="">{lang.gender}</option>
                         <option value="male">{lang.s_genderMale}</option>
                         <option value="female">{lang.s_genderFemale}</option>
+                    </select>
+
+                    <select
+                        className={styles.input}
+                        id="skatesSize"
+                        {...register("skatesSize", {})}
+                        autoComplete="skate-size"
+                    >
+                        <option value="">{lang.s_skateSize}</option>
+                        {options_data?.skatesData?.map(s => <option key={s._id} value={s._id}>{s.size}</option>)}
+                    </select>
+
+                    <select
+                        className={styles.input}
+                        id="protection"
+                        {...register("protection", {})}
+                        autoComplete="protection"
+                    >
+                        <option value="">{lang.s_protections}</option>
+                        {options_data?.protectionsData?.map(p => <option key={p._id} value={p._id}>{p.size}</option>)}
+                    </select>
+
+                    <select
+                        className={styles.input}
+                        id="groupLevel"
+                        {...register("groupLevel", {})}
+                        autoComplete="groupLevel"
+                    >
+                        <option value="">{lang.level}</option>
+                        {options_data?.groupsLevelData?.map(l => <option key={l._id} value={l._id}>{l.typeGroup}</option>)}
                     </select>
 
                     <div className={styles.btnContainer}>

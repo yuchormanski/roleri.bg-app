@@ -33,6 +33,7 @@ export const EN = {
   s_protections: "Protection",
   s_genderMale: "Male",
   s_genderFemale: "Female",
+  s_additionalRequirements: "Additional requirements",
   editSkater: "Edit skater",
   deleteSkater: "Delete skater",
   deleteSkaterQuestion: "Do you want to delete",

@@ -74,8 +74,26 @@ function SkatersList() {
                     {skater.gender}
                   </p>
                   <p className={styles.element}>
+                    <span className={styles.elSpan}>{lang.s_additionalRequirements}: </span>
+                    {skater.additionalRequirements ? skater.additionalRequirements : 'No'}
+                  </p>
+                  {/* 
+                  CHECK WHERE TO VISUALIZED HISTORY
+                  <p className={styles.element}>
+                    <span className={styles.elSpan}>{lang.s_additionalRequirements}: </span>
+                    {skater.courseHistory}
+                  </p> */}
+                  <p className={styles.element}>
+                    <span className={styles.elSpan}>{lang.s_skateSize}: </span>
+                    {skater?.skatesSize?.size}
+                  </p>
+                  <p className={styles.element}>
                     <span className={styles.elSpan}>{lang.level}: </span>
-                    {skater.level}
+                    {skater?.groupLevel?.typeGroup}
+                  </p>
+                  <p className={styles.element}>
+                    <span className={styles.elSpan}>{lang.s_protections}: </span>
+                    {skater?.protection?.size}
                   </p>
                   <p className={styles.element}>
                     <span className={styles.elSpan}>{lang.age}: </span>
