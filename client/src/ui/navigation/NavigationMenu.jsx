@@ -118,9 +118,6 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
 
             <li className={`${styles.listItem} ${styles.themeChanger}`}>
               <div className={`${styles.listItemBtn}`}>
-                <button className={`${styles.iconBtn}`} onClick={themeToggle}>
-                  {isDark ? <IoSunnyOutline /> : <IoMoonOutline />}
-                </button>
                 <button onClick={langChanger} className={styles.lang}>
                   {language ? (
                     <img
@@ -130,6 +127,9 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
                   ) : (
                     <img src={"/Flag-of-Great-Britain-28.svg"} alt="UK flag" />
                   )}
+                </button>
+                <button className={`${styles.iconBtn}`} onClick={themeToggle}>
+                  {isDark ? <IoSunnyOutline /> : <IoMoonOutline />}
                 </button>
               </div>
             </li>

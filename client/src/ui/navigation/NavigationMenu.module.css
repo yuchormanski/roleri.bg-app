@@ -64,7 +64,7 @@
 .listItemBtn {
   display: flex;
 }
-.lang {
+.lang img {
   width: 6rem;
   /* margin-right: 1rem; */
 }
@@ -77,7 +77,7 @@
     position: absolute;
     right: 1rem;
     top: 1rem;
-    padding: 6rem 1rem 3rem;
+    padding: 5rem 1rem 3rem;
     border: 1px solid var(--color-footer-bg);
     border-radius: 0.3rem;
   }
@@ -90,6 +90,8 @@
     align-items: center;
     /* gap: 1; */
     font-size: 2rem;
+    border-top: 1px solid #fff;
+    padding-top: 1rem;
   }
 
   .listItem {
@@ -116,7 +118,7 @@
   }
 
   .listItemBtn {
-    width: 64%;
+    width: 66%;
     position: absolute;
     top: 0;
     left: 0;
@@ -125,7 +127,12 @@
   .iconBtn {
     margin-bottom: 0.3rem;
     height: 5rem;
+    font-size: 2.5rem;
   }
+  .lang img {
+    width: 4rem;
+  }
+
   .isMobileBorder {
     border: 1px solid var(--input-border);
   }
