@@ -1,3 +1,8 @@
+// INFO:
+// a_ -> admin functions
+// u_ -> user functions
+// s_ -> skater functions
+
 export const EN = {
   home: "Home",
   lessons: "Lessons",
@@ -29,7 +34,7 @@ export const EN = {
   level: "Level",
   s_firstName: "First name",
   s_lastName: "Last name",
-  s_skateSize: "Skate size",
+  s_skateSize: "Skates",
   s_protections: "Protection",
   s_genderMale: "Male",
   s_genderFemale: "Female",
@@ -40,7 +45,7 @@ export const EN = {
   noAddedSkaters: "No skaters added yet!",
   settings: "Settings",
   adminPanel: "Admin panel",
-  subscription: "Subscription",
+  subscription: "Subscription type",
   ageGroup: "Age group",
   noAddedOptions: "No options added yet!",
   addOptions: "Add option",
@@ -48,4 +53,6 @@ export const EN = {
   deleteOptions: "Delete option",
   quantity: "Quantity",
   description: "Description",
+  a_skates_info_1: "Add number and quantity",
+  a_skates_info_2: "It is possible to manage every item",
 };

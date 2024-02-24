@@ -21,6 +21,10 @@
 .profileImg {
   font-size: 24rem;
 }
+
+.basicInfo {
+  font-size: 1.6rem;
+}
 @media (max-width: 760px) {
   .heading {
     margin-bottom: 3rem;

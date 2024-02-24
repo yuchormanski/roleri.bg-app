@@ -19,18 +19,22 @@ function AdminInfo() {
 
   return (
     <>
-      {isLoading
-        ? (
-          <Spinner />
-        ) : (
-          <div className={styles.container}>
-            <h3 className={styles.heading}>
-              {`${data?.firstName} ${data?.lastName}'s ${lang.adminPanel}`}
-            </h3>
-            <p>This is admin page: Welcome here you can add, edit and delete your options TODO add more functionality</p>
-          </div >
-        )
-      }
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <div className={styles.container}>
+          <h3 className={styles.heading}>
+            {`${data?.firstName} ${data?.lastName}'s ${lang.adminPanel}`}
+          </h3>
+          <p className={styles.basicInfo}>
+            Here you can mange all available inventory, including subscription
+            plans and age groups
+          </p>
+          <p className={styles.basicInfo}>
+            Select from menu category for full list of actions actions
+          </p>
+        </div>
+      )}
     </>
   );
 }
