@@ -121,7 +121,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
                 <button onClick={langChanger} className={styles.lang}>
                   {language ? (
                     <img
-                      src={"/Flag-of-Great-Britain-28.svg"}
+                      src={"/Flag-of-Bulgaria-28.svg"}
                       alt="Bulgarian flag"
                     />
                   ) : (
