@@ -33,21 +33,16 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
         <div
           className={`${styles.menuPanel} ${isDark && styles.isMobileBorder}`}
         >
-          <button onClick={langChanger} className={styles.lang}>
+          {/* <button onClick={langChanger} className={styles.lang}>
             {language ? (
               <img
-                // src={"/bulgaria_fluttering_flag_64.png"}
                 src={"/Flag-of-Bulgaria-28-300x200.png"}
                 alt="Bulgarian flag"
               />
             ) : (
-              <img
-                // src={"/united_kingdom_fluttering_flag_64.png"}
-                src={"/Flag-of-Great-Britain-28.svg"}
-                alt="UK flag"
-              />
+              <img src={"/Flag-of-Great-Britain-28.svg"} alt="UK flag" />
             )}
-          </button>
+          </button> */}
 
           <ul className={styles.list}>
             <li className={styles.listItem}>
@@ -125,6 +120,16 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
               <div className={`${styles.listItemBtn}`}>
                 <button className={`${styles.iconBtn}`} onClick={themeToggle}>
                   {isDark ? <IoSunnyOutline /> : <IoMoonOutline />}
+                </button>
+                <button onClick={langChanger} className={styles.lang}>
+                  {language ? (
+                    <img
+                      src={"/Flag-of-Bulgaria-28-300x200.png"}
+                      alt="Bulgarian flag"
+                    />
+                  ) : (
+                    <img src={"/Flag-of-Great-Britain-28.svg"} alt="UK flag" />
+                  )}
                 </button>
               </div>
             </li>
