@@ -116,7 +116,8 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
               </li>
             )}
 
-            <li className={`${styles.listItem} ${styles.themeChanger}`}>
+            {/* <li className={`${styles.listItem} ${styles.themeChanger}`}> */}
+            <li className={`${styles.themeChanger}`}>
               <div className={`${styles.listItemBtn}`}>
                 <button onClick={langChanger} className={styles.lang}>
                   {language ? (

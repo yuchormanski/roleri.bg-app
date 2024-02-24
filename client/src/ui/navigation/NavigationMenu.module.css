@@ -90,7 +90,7 @@
     align-items: center;
     /* gap: 1; */
     font-size: 2rem;
-    border-top: 1px solid #fff;
+    border-top: 1px solid var(--input-border);
     padding-top: 1rem;
   }
 
