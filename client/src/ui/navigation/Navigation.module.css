@@ -34,6 +34,7 @@
 
 @media (max-width: 760px) {
   .logo {
+    width: 150px;
     height: 40px;
   }
   .logo img {
