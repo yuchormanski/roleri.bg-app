@@ -6,15 +6,8 @@ const groupLevelModelSchema = new Schema(
       type: String,
       required: [true, "Type group is require"],
     },
-    typeGroupEn: {
-      type: String,
-      required: [true, "Type group is require"],
-    },
+
     description: {
-      type: String,
-      // required: [true, 'Description is require'],
-    },
-    descriptionEn: {
       type: String,
       // required: [true, 'Description is require'],
     },

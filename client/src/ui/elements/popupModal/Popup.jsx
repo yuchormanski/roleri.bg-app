@@ -1,6 +1,6 @@
 import styles from "./Popup.module.css";
 
-function Popup({ children, onClose, noBackground, backgroundClick }) {
+function Popup({ children, onClose, noBackground = false, backgroundClick }) {
   return (
     <div className={styles.modalBg} onClick={backgroundClick ? onClose : null}>
       <figure

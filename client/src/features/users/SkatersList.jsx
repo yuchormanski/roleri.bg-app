@@ -18,6 +18,7 @@ import { useState } from "react";
 import EditSkater from "./EditSkater.jsx";
 import DeleteSkater from "./DeleteSkater.jsx";
 import AddSkater from "../skaters/AddSkater.jsx";
+import { useTranslate } from "../../hooks/useTranslate.js";
 
 function SkatersList() {
   const [selectedSkaterData, setSelectedSkaterData] = useState({});
@@ -29,10 +30,11 @@ function SkatersList() {
     useToggleModal();
 
   const { lang, index } = useLanguage();
+  const { translatePhrase } = useTranslate();
   const { isFetching, isError, error, data: skaters } = useGetSkatersQuery();
 
   // index е 0 или 1. 0 е falsy
-  const baseLang = index ? "typeGroupEn" : "typeGroup";
+  // const baseLang = index ? "typeGroupEn" : "typeGroup";
 
   if (isError) {
     toast.error(error.message);
@@ -97,13 +99,13 @@ function SkatersList() {
                   </p>
 
                   <p className={styles.element}>
-                    <span className={styles.elSpan}>{lang.s_skateSize}: </span>
+                    <span className={styles.elSpan}>{lang.s_skates}: </span>
                     {skater?.skatesSize?.size}
                   </p>
 
                   <p className={styles.element}>
                     <span className={styles.elSpan}>{lang.level}: </span>
-                    {skater?.groupLevel[baseLang]}
+                    {translatePhrase(skater?.groupLevel?.typeGroup)}
                   </p>
 
                   <p className={styles.element}>

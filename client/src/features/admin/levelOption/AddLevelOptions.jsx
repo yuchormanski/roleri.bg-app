@@ -21,7 +21,12 @@ function AddLevelOptions({ onClose }) {
 
   // SUBMITTING THE FORM
   function onFormSubmit(levelData) {
-    mutate(levelData);
+    const result = {
+      typeGroup: `${levelData.group}&/&${levelData.groupEn}`,
+      description: `${levelData.descr}&/&${levelData.descrEn}`,
+    };
+    console.log(result);
+    mutate(result);
     onClose();
     reset();
   }
@@ -51,28 +56,26 @@ function AddLevelOptions({ onClose }) {
           <input
             className={styles.input}
             type="text"
-            id="typeGroup"
-            {...register("typeGroup", {
+            id="group"
+            {...register("group", {
               required: "Type of the group is required",
             })}
             placeholder={lang.level}
-            autoComplete="typeGroup"
           />
           <input
             className={styles.input}
             type="text"
-            id="typeGroupEn"
-            {...register("typeGroupEn", {
+            id="groupEn"
+            {...register("groupEn", {
               required: "English type group is required",
             })}
             placeholder={lang.levelEn}
-            autoComplete="typeGroup"
           />
           <input
             className={styles.input}
             type="text"
-            id="description"
-            {...register("description", {
+            id="descr"
+            {...register("descr", {
               required: "Description is required",
             })}
             placeholder={lang.descriptionBg}
@@ -80,8 +83,8 @@ function AddLevelOptions({ onClose }) {
           <input
             className={styles.input}
             type="text"
-            id="descriptionEn"
-            {...register("descriptionEn", {
+            id="descrEn"
+            {...register("descrEn", {
               required: "Description is required",
             })}
             placeholder={lang.descriptionEn}

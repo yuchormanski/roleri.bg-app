@@ -12,18 +12,19 @@ import Popup from "../../ui/elements/popupModal/Popup.jsx";
 import Button from "../../ui/elements/button/Button.jsx";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 import { useGetSkaterOptionsQuery } from "./useGetSkaterOptionsQuery.js";
+import { useTranslate } from "../../hooks/useTranslate.js";
 
 function AddSkater({ onClose }) {
-  const { lang } = useLanguage();
-
+  const { lang, index } = useLanguage();
   const { isLoading, data: options_data } = useGetSkaterOptionsQuery();
   const { addSkaterMutation } = useAddSkaterQuery();
   const { register, handleSubmit, reset } = useForm();
+  const { translatePhrase, translatePhraseFn } = useTranslate();
 
   // SUBMITTING THE FORM
   function onFormSubmit(skaterData) {
-    // addSkaterMutation.mutate(skaterData);
-    console.log(skaterData);
+    // console.log(skaterData);
+    addSkaterMutation.mutate(skaterData);
     onClose();
     reset();
   }
@@ -33,11 +34,6 @@ function AddSkater({ onClose }) {
     console.log(errors);
     Object.keys(errors).forEach((error) => toast.error(errors[error].message));
   }
-
-  const gender = [
-    { value: "male", label: "Male" },
-    { value: "female", label: "Female" },
-  ];
 
   return (
     <Popup onClose={onClose} backgroundClick={false}>
@@ -95,8 +91,8 @@ function AddSkater({ onClose }) {
                   message: "Age must be under 120 years",
                 },
                 min: {
-                  value: 2,
-                  message: "Age must be over 2 years",
+                  value: 3,
+                  message: "Age must be at least 3 years",
                 },
               })}
               placeholder={lang.age}
@@ -119,41 +115,43 @@ function AddSkater({ onClose }) {
             </select>
           </div>
 
-          <select
-            className={styles.input}
-            id="skatesSize"
-            {...register("skatesSize", {
-              required: "Skate size is required",
-            })}
-            defaultValue=""
-          >
-            <option value="" disabled hidden>
-              {lang.s_skateSize}
-            </option>
-            {options_data?.skatesData?.map((s) => (
-              <option key={s._id} value={s._id}>
-                {s.size}
+          <div className={styles.fieldsContainer}>
+            <select
+              className={styles.input}
+              id="skatesSize"
+              {...register("skatesSize", {
+                required: "Skate size is required",
+              })}
+              defaultValue=""
+            >
+              <option value="" disabled hidden>
+                {lang.s_skates}
               </option>
-            ))}
-          </select>
+              {options_data?.skatesData?.map((s) => (
+                <option key={s._id} value={s._id}>
+                  {s.size}
+                </option>
+              ))}
+            </select>
 
-          <select
-            className={styles.input}
-            id="protection"
-            {...register("protection", {
-              required: "Protection is required",
-            })}
-            defaultValue=""
-          >
-            <option value="" disabled hidden>
-              {lang.s_protections}
-            </option>
-            {options_data?.protectionsData?.map((p) => (
-              <option key={p._id} value={p._id}>
-                {p.size}
+            <select
+              className={styles.input}
+              id="protection"
+              {...register("protection", {
+                required: "Protection is required",
+              })}
+              defaultValue=""
+            >
+              <option value="" disabled hidden>
+                {lang.s_protections}
               </option>
-            ))}
-          </select>
+              {options_data?.protectionsData?.map((p) => (
+                <option key={p._id} value={p._id}>
+                  {p.size}
+                </option>
+              ))}
+            </select>
+          </div>
 
           <select
             className={styles.input}
@@ -168,13 +166,13 @@ function AddSkater({ onClose }) {
             </option>
             {options_data?.groupsLevelData?.map((l) => (
               <option key={l._id} value={l._id}>
-                {l.typeGroup}
+                {translatePhrase(l.typeGroup)}
               </option>
             ))}
           </select>
 
           <textarea
-            className={`${styles.input} ${styles.halfWidth}`}
+            className={`${styles.input}`}
             type="text"
             id="additionalRequirements"
             {...register("additionalRequirements", {

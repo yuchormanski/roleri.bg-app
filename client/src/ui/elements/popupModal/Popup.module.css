@@ -20,6 +20,8 @@
 
 .fullInfo {
   /* background-color: var(--color-header); */
+  max-width: 500px;
+  margin-inline: 5px;
   background-color: var(--color-header);
   display: flex;
   flex-direction: column;
