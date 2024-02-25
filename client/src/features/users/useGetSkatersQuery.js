@@ -11,7 +11,7 @@ function useGetSkatersQuery() {
     queryFn: async () => get(SERVER_ENDPOINTS.GET_ALL_SKATERS),
     initialData: [],
   });
-  console.log(data);
+  // console.log(data);
 
   return { isLoading, isError, error, data };
 }

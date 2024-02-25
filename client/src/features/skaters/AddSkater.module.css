@@ -53,7 +53,7 @@ select {
   font-size: 1.6rem;
   color: var(--color-nav-link);
 }
-select option:first-child {
+.selected {
   font-size: 1.2rem;
   color: var(--color-nav-link);
   opacity: 0.5;
@@ -74,6 +74,11 @@ select option:first-child {
 
 .halfWidth {
   position: relative;
+}
+
+textarea {
+  /* overflow: hidden; */
+  resize: none;
 }
 
 .authInfo {
@@ -123,6 +128,16 @@ select option:first-child {
   margin-top: 0.5rem;
   font-size: 2rem;
   cursor: pointer;
+}
+
+.info {
+  width: 80%;
+  font-size: clamp(1rem, 3vw, 1.6rem);
+}
+.info span {
+  font-size: clamp(1rem, 3vw, 1.8rem);
+  color: var(--color-main-btn);
+  margin-right: 1rem;
 }
 
 input::-webkit-outer-spin-button,

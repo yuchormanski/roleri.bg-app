@@ -38,13 +38,7 @@ export const EN = {
   description: "Description",
   descriptionEn: "Description on English",
   descriptionBg: "Description on Bulgarian",
-  s_firstName: "First name",
-  s_lastName: "Last name",
-  s_skateSize: "Skates",
-  s_protections: "Protection",
-  s_genderMale: "Male",
-  s_genderFemale: "Female",
-  s_additionalRequirements: "Additional requirements",
+  requirements: "Additional requirements",
   editSkater: "Edit skater",
   deleteSkater: "Delete skater",
   deleteSkaterQuestion: "Do you want to delete",
@@ -58,6 +52,8 @@ export const EN = {
   editOptions: "Edit option",
   deleteOptions: "Delete option",
   quantity: "Quantity",
+
+  // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",
   a_skates_info_2: "It is possible to manage every item",
   a_info_1: "Here you can mange all available inventory.",
@@ -67,4 +63,15 @@ export const EN = {
   a_level_1: "For maximum compatibility add both language options",
   a_level_2:
     "The description is not required, but it wil be useful when viewing the category",
+  // SKATER OPTIONS
+  s_firstName: "First name",
+  s_lastName: "Last name",
+  s_skateSize: "Skates",
+  s_protections: "Protection",
+  s_genderMale: "Male",
+  s_genderFemale: "Female",
+  s_requirements: "Additional",
+  // USER OPTIONS
+  u_add_skater_info:
+    "If you have additional requirements or custom needs, add them to 'Additional requirements' field. The default value will be 'No'",
 };

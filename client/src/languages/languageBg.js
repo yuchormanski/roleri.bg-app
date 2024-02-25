@@ -1,5 +1,5 @@
 export const BG = {
-  home: "У дома",
+  home: "В началото",
   lessons: "Уроци",
   login: "Вход",
   logout: "Изход",
@@ -33,15 +33,10 @@ export const BG = {
   description: "Описание",
   descriptionEn: "Описание на Английски език",
   descriptionBg: "Описание на Български език",
-  s_firstName: "Име",
-  s_lastName: "Фамилия",
-  s_skateSize: "Кънки",
-  s_protections: "Протектори",
-  s_genderMale: "Мъж",
-  s_genderFemale: "Жена",
   editSkater: "Редактирай",
   deleteSkater: "Изтрий",
   deleteSkaterQuestion: "Желаете ли да изтриете",
+  requirements: "Допълнителни изисквания",
   noAddedSkaters: "Все още няма добавени кънкьори!",
   settings: "Настройки",
   adminPanel: "Админ панел",
@@ -50,6 +45,7 @@ export const BG = {
   noAddedOptions: "Няма добавени опции!",
   addOptions: "Добави опция",
   quantity: "Количество",
+  // ADMIN OPTIONS
   a_info_1:
     "В тази секция имате възможност за преглед, редакция и добавяне целия наличен инвентар",
   a_info_2: "Промяна и добавяне на абонаментен план и възрастова категория",
@@ -63,4 +59,15 @@ export const BG = {
     "За максимална функционалност на приложението добавете и двете опции за език",
   a_level_2:
     "Описанието не е задължително, но ще е полезно при преглед на категорията",
+  // SKATER OPTIONS
+  s_firstName: "Име",
+  s_lastName: "Фамилия",
+  s_skateSize: "Кънки",
+  s_protections: "Протектори",
+  s_genderMale: "Мъж",
+  s_genderFemale: "Жена",
+  s_requirements: "Допълнително",
+  // USER OPTIONS
+  u_add_skater_info:
+    "Ако имате допълнителни изисквания или персонализирани нужди, добавете ги към полето 'Допълнителни изисквания'. Стойността по подразбиране ще бъде 'Не'",
 };

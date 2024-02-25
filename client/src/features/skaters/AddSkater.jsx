@@ -36,8 +36,6 @@ function AddSkater({ onClose }) {
     Object.keys(errors).forEach((error) => toast.error(errors[error].message));
   }
 
-  // TODO: Add additionalRequirements property
-
   const gender = [
     { value: "male", label: "Male" },
     { value: "female", label: "Female" },
@@ -113,8 +111,9 @@ function AddSkater({ onClose }) {
               {...register("gender", {
                 required: "Gender is required",
               })}
+              defaultValue=""
             >
-              <option value="" selected disabled hidden>
+              <option value="" disabled hidden>
                 {lang.gender}
               </option>
               <option value="male">{lang.s_genderMale}</option>
@@ -128,8 +127,9 @@ function AddSkater({ onClose }) {
             {...register("skatesSize", {
               required: "Skate size is required",
             })}
+            defaultValue=""
           >
-            <option value="" selected disabled hidden>
+            <option value="" disabled hidden>
               {lang.s_skateSize}
             </option>
             {options_data?.skatesData?.map((s) => (
@@ -145,8 +145,9 @@ function AddSkater({ onClose }) {
             {...register("protection", {
               required: "Protection is required",
             })}
+            defaultValue=""
           >
-            <option value="" selected disabled hidden>
+            <option value="" disabled hidden>
               {lang.s_protections}
             </option>
             {options_data?.protectionsData?.map((p) => (
@@ -162,8 +163,9 @@ function AddSkater({ onClose }) {
             {...register("groupLevel", {
               required: "Level is required",
             })}
+            defaultValue=""
           >
-            <option value="" selected disabled hidden>
+            <option value="" disabled hidden className={styles.selected}>
               {lang.level}
             </option>
             {options_data?.groupsLevelData?.map((l) => (
@@ -173,12 +175,32 @@ function AddSkater({ onClose }) {
             ))}
           </select>
 
+          <textarea
+            className={`${styles.input} ${styles.halfWidth}`}
+            type="text"
+            id="additionalRequirements"
+            {...register("additionalRequirements", {
+              maxLength: {
+                value: 120,
+                message: "Requirements text can't be more than 120 characters",
+              },
+            })}
+            placeholder={lang.requirements}
+            autoComplete="skater-additional-requirements"
+            rows="2"
+            draggable={false}
+          ></textarea>
+
           <div className={styles.btnContainer}>
             <div style={{ marginLeft: "auto" }}>
               <Button type={"primary"}>{lang.addSkater}</Button>
             </div>
           </div>
         </form>
+        <p className={styles.info}>
+          <span>&#9737;</span>
+          {lang.u_add_skater_info}
+        </p>
       </div>
     </Popup>
   );

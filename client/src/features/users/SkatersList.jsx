@@ -45,6 +45,10 @@ function SkatersList() {
     toggleDeleteSkaterModalHandler();
   }
 
+  function genderHandler(gender) {
+    return gender === "male" ? lang.s_genderMale : lang.s_genderFemale;
+  }
+
   return (
     <div className={styles.container}>
       <h3 className={styles.heading}>{lang.skaters}</h3>
@@ -77,14 +81,38 @@ function SkatersList() {
                     </button>
                   </div>
                 </header>
+
                 <div className={styles.content}>
                   <p className={styles.element}>
                     <span className={styles.elSpan}>{lang.gender}: </span>
-                    {skater.gender}
+                    {genderHandler(skater.gender)}
                   </p>
+
+                  <p className={styles.element}>
+                    <span className={styles.elSpan}>{lang.age}: </span>
+                    {skater.age}
+                  </p>
+
+                  <p className={styles.element}>
+                    <span className={styles.elSpan}>{lang.s_skateSize}: </span>
+                    {skater?.skatesSize?.size}
+                  </p>
+
+                  <p className={styles.element}>
+                    <span className={styles.elSpan}>{lang.level}: </span>
+                    {skater?.groupLevel?.typeGroup}
+                  </p>
+
                   <p className={styles.element}>
                     <span className={styles.elSpan}>
-                      {lang.s_additionalRequirements}:{" "}
+                      {lang.s_protections}:{" "}
+                    </span>
+                    {skater?.protection?.size}
+                  </p>
+
+                  <p className={`${styles.element} ${styles.additional}`}>
+                    <span className={styles.elSpan}>
+                      {lang.s_requirements}:{" "}
                     </span>
                     {skater.additionalRequirements
                       ? skater.additionalRequirements
@@ -96,24 +124,6 @@ function SkatersList() {
                     <span className={styles.elSpan}>{lang.s_additionalRequirements}: </span>
                     {skater.courseHistory}
                   </p> */}
-                  <p className={styles.element}>
-                    <span className={styles.elSpan}>{lang.s_skateSize}: </span>
-                    {skater?.skatesSize?.size}
-                  </p>
-                  <p className={styles.element}>
-                    <span className={styles.elSpan}>{lang.level}: </span>
-                    {skater?.groupLevel?.typeGroup}
-                  </p>
-                  <p className={styles.element}>
-                    <span className={styles.elSpan}>
-                      {lang.s_protections}:{" "}
-                    </span>
-                    {skater?.protection?.size}
-                  </p>
-                  <p className={styles.element}>
-                    <span className={styles.elSpan}>{lang.age}: </span>
-                    {skater.age}
-                  </p>
                 </div>
               </figure>
             ))
