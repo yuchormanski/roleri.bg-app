@@ -86,45 +86,52 @@ function AddSkater({ onClose }) {
             placeholder={lang.s_lastName}
             autoComplete="family-name"
           />
-          <input
-            className={styles.input}
-            type="number"
-            id="age"
-            {...register("age", {
-              required: "Age is required",
-              max: {
-                value: 120,
-                message: "Age must be under 120 years",
-              },
-              min: {
-                value: 2,
-                message: "Age must be over 2 years",
-              },
-            })}
-            placeholder={lang.age}
-            autoComplete="skater-age"
-          />
 
-          <select
-            className={styles.input}
-            id="gender"
-            {...register("gender", {
-              required: "Gender is required",
-            })}
-            autoComplete="skater-gender"
-          >
-            <option value="">{lang.gender}</option>
-            <option value="male">{lang.s_genderMale}</option>
-            <option value="female">{lang.s_genderFemale}</option>
-          </select>
+          <div className={styles.fieldsContainer}>
+            <input
+              className={`${styles.input} ${styles.halfWidth}`}
+              type="number"
+              id="age"
+              {...register("age", {
+                required: "Age is required",
+                max: {
+                  value: 120,
+                  message: "Age must be under 120 years",
+                },
+                min: {
+                  value: 2,
+                  message: "Age must be over 2 years",
+                },
+              })}
+              placeholder={lang.age}
+              autoComplete="skater-age"
+            />
+
+            <select
+              className={`${styles.halfWidth} ${styles.select}`}
+              id="gender"
+              {...register("gender", {
+                required: "Gender is required",
+              })}
+            >
+              <option value="" selected disabled hidden>
+                {lang.gender}
+              </option>
+              <option value="male">{lang.s_genderMale}</option>
+              <option value="female">{lang.s_genderFemale}</option>
+            </select>
+          </div>
 
           <select
             className={styles.input}
             id="skatesSize"
-            {...register("skatesSize", {})}
-            autoComplete="skate-size"
+            {...register("skatesSize", {
+              required: "Skate size is required",
+            })}
           >
-            <option value="">{lang.s_skateSize}</option>
+            <option value="" selected disabled hidden>
+              {lang.s_skateSize}
+            </option>
             {options_data?.skatesData?.map((s) => (
               <option key={s._id} value={s._id}>
                 {s.size}
@@ -135,10 +142,13 @@ function AddSkater({ onClose }) {
           <select
             className={styles.input}
             id="protection"
-            {...register("protection", {})}
-            autoComplete="protection"
+            {...register("protection", {
+              required: "Protection is required",
+            })}
           >
-            <option value="">{lang.s_protections}</option>
+            <option value="" selected disabled hidden>
+              {lang.s_protections}
+            </option>
             {options_data?.protectionsData?.map((p) => (
               <option key={p._id} value={p._id}>
                 {p.size}
@@ -149,10 +159,13 @@ function AddSkater({ onClose }) {
           <select
             className={styles.input}
             id="groupLevel"
-            {...register("groupLevel", {})}
-            autoComplete="groupLevel"
+            {...register("groupLevel", {
+              required: "Level is required",
+            })}
           >
-            <option value="">{lang.level}</option>
+            <option value="" selected disabled hidden>
+              {lang.level}
+            </option>
             {options_data?.groupsLevelData?.map((l) => (
               <option key={l._id} value={l._id}>
                 {l.typeGroup}
