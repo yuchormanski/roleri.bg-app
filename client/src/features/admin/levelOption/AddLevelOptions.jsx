@@ -25,7 +25,7 @@ function AddLevelOptions({ onClose }) {
       typeGroup: `${levelData.group}&/&${levelData.groupEn}`,
       description: `${levelData.descr}&/&${levelData.descrEn}`,
     };
-    console.log(result);
+
     mutate(result);
     onClose();
     reset();

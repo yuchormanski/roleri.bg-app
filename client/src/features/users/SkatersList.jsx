@@ -19,6 +19,7 @@ import EditSkater from "./EditSkater.jsx";
 import DeleteSkater from "./DeleteSkater.jsx";
 import AddSkater from "../skaters/AddSkater.jsx";
 import { useTranslate } from "../../hooks/useTranslate.js";
+import GetSkater from "../skaters/GetSkater.jsx";
 
 function SkatersList() {
   const [selectedSkaterData, setSelectedSkaterData] = useState({});
@@ -28,6 +29,7 @@ function SkatersList() {
     useToggleModal();
   const [isShownDeleteSkaterModal, toggleDeleteSkaterModalHandler] =
     useToggleModal();
+  const [isShownGetSkaterModal, toggleGetSkaterModalHandler] = useToggleModal();
 
   const { lang, index } = useLanguage();
   const { translatePhrase } = useTranslate();
@@ -40,6 +42,11 @@ function SkatersList() {
     toast.error(error.message);
   }
 
+  function onGetSkater(skaterData) {
+    console.log(skaterData);
+    setSelectedSkaterData(skaterData);
+    toggleGetSkaterModalHandler();
+  }
   function onEditSkater(skaterData) {
     setSelectedSkaterData(skaterData);
     toggleEditSkaterModalHandler();
@@ -69,7 +76,10 @@ function SkatersList() {
                     className={styles.figureHeading}
                   >{`${skater.firstName} ${skater.lastName}`}</h3>
                   <div className={styles.actionContainer}>
-                    <button className={styles.actionBtn}>
+                    <button
+                      className={styles.actionBtn}
+                      onClick={() => onGetSkater(skater)}
+                    >
                       <LiaIdCard />
                     </button>
                     <button
@@ -125,12 +135,6 @@ function SkatersList() {
                       ? "No"
                       : "Няма"}
                   </p>
-                  {/* 
-                  CHECK WHERE TO VISUALIZED HISTORY
-                  <p className={styles.element}>
-                    <span className={styles.elSpan}>{lang.s_additionalRequirements}: </span>
-                    {skater.courseHistory}
-                  </p> */}
                 </div>
               </figure>
             ))
@@ -160,6 +164,12 @@ function SkatersList() {
 
       {isShownAddSkaterModal && (
         <AddSkater onClose={toggleAddSkaterModalHandler} />
+      )}
+      {isShownGetSkaterModal && (
+        <GetSkater
+          onClose={toggleGetSkaterModalHandler}
+          skaterData={selectedSkaterData}
+        />
       )}
       {isShownEditSkaterModal && (
         <EditSkater

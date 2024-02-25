@@ -177,8 +177,8 @@ function AddSkater({ onClose }) {
             id="additionalRequirements"
             {...register("additionalRequirements", {
               maxLength: {
-                value: 120,
-                message: "Requirements text can't be more than 120 characters",
+                value: 150,
+                message: "Requirements text can't be more than 150 characters",
               },
             })}
             placeholder={lang.requirements}
