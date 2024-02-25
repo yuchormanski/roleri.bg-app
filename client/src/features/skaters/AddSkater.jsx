@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { GoX } from "react-icons/go";
 import toast from "react-hot-toast";
 
+import Select from "react-select";
+
 import { useLanguage } from "../../context/Language.jsx";
 
 import { useAddSkaterQuery } from "./useAddSkaterQuery.js";
@@ -22,7 +24,8 @@ function AddSkater({ onClose }) {
 
   // SUBMITTING THE FORM
   function onFormSubmit(skaterData) {
-    addSkaterMutation.mutate(skaterData);
+    // addSkaterMutation.mutate(skaterData);
+    console.log(skaterData);
     onClose();
     reset();
   }
@@ -34,6 +37,11 @@ function AddSkater({ onClose }) {
   }
 
   // TODO: Add additionalRequirements property
+
+  const gender = [
+    { value: "male", label: "Male" },
+    { value: "female", label: "Female" },
+  ];
 
   return (
     <Popup onClose={onClose} backgroundClick={false}>
@@ -96,6 +104,7 @@ function AddSkater({ onClose }) {
             placeholder={lang.age}
             autoComplete="skater-age"
           />
+
           <select
             className={styles.input}
             id="gender"
