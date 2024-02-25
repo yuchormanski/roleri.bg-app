@@ -28,8 +28,11 @@ function SkatersList() {
   const [isShownDeleteSkaterModal, toggleDeleteSkaterModalHandler] =
     useToggleModal();
 
-  const { lang } = useLanguage();
+  const { lang, index } = useLanguage();
   const { isFetching, isError, error, data: skaters } = useGetSkatersQuery();
+
+  // index е 0 или 1. 0 е falsy
+  const baseLang = index ? "typeGroupEn" : "typeGroup";
 
   if (isError) {
     toast.error(error.message);
@@ -100,7 +103,7 @@ function SkatersList() {
 
                   <p className={styles.element}>
                     <span className={styles.elSpan}>{lang.level}: </span>
-                    {skater?.groupLevel?.typeGroup}
+                    {skater?.groupLevel[baseLang]}
                   </p>
 
                   <p className={styles.element}>
@@ -116,7 +119,9 @@ function SkatersList() {
                     </span>
                     {skater.additionalRequirements
                       ? skater.additionalRequirements
-                      : "No"}
+                      : index
+                      ? "No"
+                      : "Няма"}
                   </p>
                   {/* 
                   CHECK WHERE TO VISUALIZED HISTORY
