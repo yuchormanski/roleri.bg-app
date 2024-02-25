@@ -23,7 +23,7 @@
   width: 100%;
   border-radius: 0.3rem;
   box-shadow: inset 0 1px 6px var(--box);
-  padding: 1rem 2rem;
+  padding: 1.5rem;
 }
 
 .headingNoSkaters {
@@ -37,8 +37,12 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 1rem 0;
+  padding: 0;
+  border-radius: 0.3rem;
   border-bottom: var(--card-border);
+}
+.figure:nth-child(odd) {
+  background-color: var(--color-header-even);
 }
 
 .header {
@@ -47,20 +51,24 @@
   justify-content: space-between;
 }
 
-.figureHeading {
-  align-self: start;
-  font-size: clamp(1.4rem, 4vw, 2rem);
-  font-weight: 300;
-  line-height: 1.5;
-  margin-bottom: 2rem;
-  border-bottom: 1px var(--border-bottom);
+.content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.skateItem {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 1rem;
 }
 
 .actionContainer {
-  display: flex;
-  gap: 0.2rem;
-  margin-left: auto;
-  padding-right: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* width: 100%;
+  height: 100%; */
 }
 
 .actionBtn {
@@ -68,29 +76,22 @@
   display: grid;
   place-items: center;
   font-size: 2rem;
-  width: 100%;
   padding: 0.6rem 1rem;
   color: var(--active-text);
   border: var(--card-border);
   border-radius: 0.3rem;
 }
 
-.content {
-  width: 90%;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr));
-}
-
 .element {
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-size: clamp(1.4rem, 2vw, 2rem);
   text-transform: uppercase;
-  color: var(--color-header-dim);
+  color: var(--color-menu-btn);
 }
 
 .elSpan {
-  font-size: clamp(0.9rem, 2vw, 1.2rem);
-  color: var(--color-menu-btn);
-  margin-right: 0.3rem;
+  font-size: clamp(0.6rem, 2vw, 1rem);
+  color: var(--color-header-dim);
+  margin-right: 0.5rem;
 }
 
 .addSkaterBtnContainer {
@@ -113,35 +114,35 @@
   margin-top: 3rem;
 }
 
-.par {
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
-  text-indent: 1.2rem;
-  color: var(--color-nav-link);
-}
-
 @media (max-width: 765px) {
   .heading {
     margin-bottom: 3rem;
   }
 
-  .figureHeading {
-    margin: 2rem 0 0 2rem;
-    font-weight: 400;
+  .skateItem {
+    padding: 1rem;
   }
 
   .actionContainer {
-    flex-direction: column;
-    margin: 1rem 0.6rem 0 0;
+    /* flex-direction: column;
+    margin: 1rem 0.6rem 0 0; */
+  }
+}
+
+@media (max-width: 560px) {
+  .skateItem {
+    padding: 1.5rem;
+  }
+  .actionBtn {
+    padding: 0.2rem 1.4rem;
   }
 }
 
 @media (max-width: 375px) {
-  .figureHeading {
-    margin: 4rem 0 0 0rem;
-    font-weight: 400;
+  .skateItem {
+    padding: 1rem;
   }
-
-  .actionContainer {
-    flex-direction: column;
+  .actionBtn {
+    padding: 0.1rem 1rem;
   }
 }

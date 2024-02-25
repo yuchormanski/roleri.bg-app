@@ -9,6 +9,7 @@
     --color-nav-hover: #0298fc;
     --color-header: #fdfdfd;
     --color-header-dim: #727272;
+    --color-header-even: #f3f6fa;
     --color-main: #3e4756;
     --color-label: #6079a5;
     --color-nav-link: #3e4756;
@@ -38,6 +39,7 @@
     --color-input: #626872;
     --color-nav-hover: #626872;
     --color-header: #2e3644;
+    --color-header-even: #3c4658;
     --color-header-dim: #aaaaaa;
     --color-footer-bg: #2e3644;
     --input-border: #ccac1c80;

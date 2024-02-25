@@ -23,7 +23,8 @@ function ListSkatesOptions() {
     useToggleModal();
 
   const { lang } = useLanguage();
-  const { isLoading, data: skatesData } = useGetOptionsQuery("skates");
+  const { isFetching, data } = useGetOptionsQuery("skates");
+  const skatesData = data.sort((a, b) => a.size - b.size);
 
   function onEditSkates(skatesData) {
     setSelectedOptionData(skatesData);
@@ -37,44 +38,42 @@ function ListSkatesOptions() {
 
   return (
     <div className={styles.container}>
-      <h3 className={styles.heading}>{lang.s_skateSize}</h3>
-      {isLoading ? (
+      <h3 className={styles.heading}>{lang.s_skates}</h3>
+      {isFetching ? (
         <Spinner />
       ) : (
         <div className={styles.innerContainer}>
-          {skatesData?.length > 0 ? (
-            skatesData.map((skateOption) => (
-              <figure className={styles.figure} key={skateOption._id}>
-                <header className={styles.header}>
-                  <h3 className={styles.figureHeading}>
-                    {`${lang.s_skateSize} - ${skateOption.size}`}
-                  </h3>
-                  <div className={styles.actionContainer}>
-                    <button
-                      className={styles.actionBtn}
-                      onClick={() => onEditSkates(skateOption)}
-                    >
-                      <LiaEditSolid />
-                    </button>
-                    <button
-                      className={styles.actionBtn}
-                      onClick={() => onDeleteSkates(skateOption)}
-                    >
-                      <LiaTrashAlt />
-                    </button>
-                  </div>
-                </header>
-                <div className={styles.content}>
+          {skatesData.map((skateOption) => (
+            <figure className={styles.figure} key={skateOption._id}>
+              <div className={styles.content}>
+                <div className={styles.skateItem}>
                   <p className={styles.element}>
-                    <span className={styles.elSpan}>{lang.quantity}: </span>
+                    <span className={styles.elSpan}>{lang.number}:</span>
+                    {skateOption.size}
+                  </p>
+                  <p className={styles.element}>
+                    <span className={styles.elSpan}>{lang.quantity}:</span>
                     {skateOption.quantity}
                   </p>
                 </div>
-              </figure>
-            ))
-          ) : (
-            <h2 className={styles.headingNoSkaters}>{lang.noAddedOptions}</h2>
-          )}
+
+                <div className={styles.actionContainer}>
+                  <button
+                    className={styles.actionBtn}
+                    onClick={() => onEditSkates(skateOption)}
+                  >
+                    <LiaEditSolid />
+                  </button>
+                  <button
+                    className={styles.actionBtn}
+                    onClick={() => onDeleteSkates(skateOption)}
+                  >
+                    <LiaTrashAlt />
+                  </button>
+                </div>
+              </div>
+            </figure>
+          ))}
         </div>
       )}
       <div className={styles.addSkaterBtnContainer}>
@@ -86,6 +85,12 @@ function ListSkatesOptions() {
       <section className={styles.description}>
         <p className={styles.par}>{lang.a_skates_info_1}</p>
         <p className={styles.par}>{lang.a_skates_info_2}</p>
+
+        {/* TODO: translate next */}
+
+        <p className={styles.par}>
+          сортирането става автоматично, във възходящ ред
+        </p>
       </section>
 
       {isShownAddSkatesModal && (

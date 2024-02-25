@@ -1,10 +1,10 @@
-import styles from './Admin.module.css'
+import styles from "./Admin.module.css";
 
-import { Outlet } from 'react-router-dom';
+import { Outlet } from "react-router-dom";
 
-import { useLanguage } from '../../context/Language.jsx';
+import { useLanguage } from "../../context/Language.jsx";
 
-import AsideMenu from '../../ui/elements/asideMenu/AsideMenu.jsx';
+import AsideMenu from "../../ui/elements/asideMenu/AsideMenu.jsx";
 
 function Admin() {
   const { lang } = useLanguage();
@@ -12,7 +12,7 @@ function Admin() {
   const links = [
     {
       path: "skates",
-      label: lang.s_skateSize,
+      label: lang.s_skates,
     },
     {
       path: "protections",

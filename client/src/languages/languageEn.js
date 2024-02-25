@@ -52,6 +52,7 @@ export const EN = {
   editOptions: "Edit option",
   deleteOptions: "Delete option",
   quantity: "Quantity",
+  number: "Number",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",
@@ -66,7 +67,7 @@ export const EN = {
   // SKATER OPTIONS
   s_firstName: "First name",
   s_lastName: "Last name",
-  s_skateSize: "Skates",
+  s_skates: "Skates",
   s_protections: "Protection",
   s_genderMale: "Male",
   s_genderFemale: "Female",

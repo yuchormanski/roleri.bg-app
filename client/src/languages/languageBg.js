@@ -45,6 +45,7 @@ export const BG = {
   noAddedOptions: "Няма добавени опции!",
   addOptions: "Добави опция",
   quantity: "Количество",
+  number: "Номер",
   // ADMIN OPTIONS
   a_info_1:
     "В тази секция имате възможност за преглед, редакция и добавяне целия наличен инвентар",
@@ -62,7 +63,7 @@ export const BG = {
   // SKATER OPTIONS
   s_firstName: "Име",
   s_lastName: "Фамилия",
-  s_skateSize: "Кънки",
+  s_skates: "Кънки",
   s_protections: "Протектори",
   s_genderMale: "Мъж",
   s_genderFemale: "Жена",
