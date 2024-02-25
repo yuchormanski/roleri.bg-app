@@ -41,7 +41,7 @@ function ListSkatesOptions() {
       {isLoading ? (
         <Spinner />
       ) : (
-        <div className={styles.skatersContainer}>
+        <div className={styles.innerContainer}>
           {skatesData?.length > 0 ? (
             skatesData.map((skateOption) => (
               <figure className={styles.figure} key={skateOption._id}>

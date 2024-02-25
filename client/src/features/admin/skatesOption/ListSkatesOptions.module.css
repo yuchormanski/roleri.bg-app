@@ -18,19 +18,19 @@
   margin-bottom: 1rem;
 }
 
-.headingNoSkaters {
-  text-align: center;
-  font-size: 2rem;
-  font-weight: 300;
-  padding: 2rem;
-}
-
-.skatersContainer {
+.innerContainer {
   background-color: var(--color-header);
   width: 100%;
   border-radius: 0.3rem;
   box-shadow: inset 0 1px 6px var(--box);
   padding: 1rem 2rem;
+}
+
+.headingNoSkaters {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 300;
+  padding: 2rem;
 }
 
 .figure {

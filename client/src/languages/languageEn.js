@@ -55,4 +55,7 @@ export const EN = {
   description: "Description",
   a_skates_info_1: "Add number and quantity",
   a_skates_info_2: "It is possible to manage every item",
+  a_info_1: "Here you can mange all available inventory.",
+  a_info_2: "Subscription plans and age groups.",
+  a_info_3: "Select from menu category for full list of actions actions",
 };

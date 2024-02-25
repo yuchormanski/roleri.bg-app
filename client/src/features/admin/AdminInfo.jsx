@@ -17,6 +17,8 @@ function AdminInfo() {
 
   useEffect(() => newPath("settings"), [newPath]);
 
+  const textOptions = [lang.a_info_1, lang.a_info_2, lang.a_info_3];
+
   return (
     <>
       {isLoading ? (
@@ -26,13 +28,13 @@ function AdminInfo() {
           <h3 className={styles.heading}>
             {`${data?.firstName} ${data?.lastName}'s ${lang.adminPanel}`}
           </h3>
-          <p className={styles.basicInfo}>
-            Here you can mange all available inventory, including subscription
-            plans and age groups
-          </p>
-          <p className={styles.basicInfo}>
-            Select from menu category for full list of actions actions
-          </p>
+          <div className={styles.innerContainer}>
+            <ul className={styles.list}>
+              {textOptions.map((option, i) => (
+                <ListOptions option={option} key={i} />
+              ))}
+            </ul>
+          </div>
         </div>
       )}
     </>
@@ -40,3 +42,13 @@ function AdminInfo() {
 }
 
 export default AdminInfo;
+
+function ListOptions({ option }) {
+  const src = "/wheel.webp";
+  return (
+    <li className={styles.listItem}>
+      <img src={src} alt="bullet dot" className={styles.bullet} />
+      <p>{option}</p>
+    </li>
+  );
+}
