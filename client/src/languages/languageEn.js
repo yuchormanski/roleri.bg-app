@@ -72,6 +72,9 @@ export const EN = {
   s_genderMale: "Male",
   s_genderFemale: "Female",
   s_requirements: "Additional",
+  s_list_1:
+    "Skaters from this list will be accessible from lesson signing page. The necessary equipment will be added automatically to selected training",
+  s_list_2: "You have ability to review and edit everyone from the list.",
   // USER OPTIONS
   u_add_skater_info:
     "If you have additional requirements or custom needs, add them to 'Additional requirements' field. The default value will be 'No'",

@@ -97,7 +97,7 @@ function SkatersList() {
                   </div>
                 </header>
 
-                <div className={styles.content}>
+                {/* <div className={styles.content}>
                   <p className={styles.element}>
                     <span className={styles.elSpan}>{lang.gender}: </span>
                     {genderHandler(skater.gender)}
@@ -135,7 +135,7 @@ function SkatersList() {
                       ? "No"
                       : "Няма"}
                   </p>
-                </div>
+                </div> */}
               </figure>
             ))
           ) : (
@@ -151,14 +151,14 @@ function SkatersList() {
       </div>
 
       <section className={styles.description}>
-        <p className={styles.par}>
-          Кънкьорите, които добавите и виждате тук ще са достъпни от страницата
-          за записване на уроци. Необходимото оборудване ще е автоматично
-          включено към избраната тренировка.
+        <p className={styles.info}>
+          <span>&#9737;</span>
+          {lang.s_list_1}
         </p>
-        <p className={styles.par}>
-          Имате възможност да прегледате и редактирате всеки един от кънкьорите
-          в списъка.
+
+        <p className={styles.info}>
+          <span>&#9737;</span>
+          {lang.s_list_2}
         </p>
       </section>
 
