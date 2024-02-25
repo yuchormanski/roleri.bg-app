@@ -4,8 +4,6 @@ import { useForm } from "react-hook-form";
 import { GoX } from "react-icons/go";
 import toast from "react-hot-toast";
 
-import Select from "react-select";
-
 import { useLanguage } from "../../context/Language.jsx";
 
 import { useAddSkaterQuery } from "./useAddSkaterQuery.js";
