@@ -29,7 +29,7 @@ function SkatersList() {
     useToggleModal();
 
   const { lang } = useLanguage();
-  const { isLoading, isError, error, data: skaters } = useGetSkatersQuery();
+  const { isFetching, isError, error, data: skaters } = useGetSkatersQuery();
 
   if (isError) {
     toast.error(error.message);
@@ -52,7 +52,7 @@ function SkatersList() {
   return (
     <div className={styles.container}>
       <h3 className={styles.heading}>{lang.skaters}</h3>
-      {isLoading ? (
+      {isFetching ? (
         <Spinner />
       ) : (
         <div className={styles.skatersContainer}>
