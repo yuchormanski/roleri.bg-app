@@ -1,4 +1,4 @@
-import styles from "./EditSkater.module.css";
+import styles from "./AddSkater.module.css";
 
 import { useForm } from "react-hook-form";
 import { GoX } from "react-icons/go";
@@ -6,43 +6,25 @@ import toast from "react-hot-toast";
 
 import { useLanguage } from "../../context/Language.jsx";
 
+import { useAddSkaterQuery } from "./useAddSkaterQuery.js";
+
 import Popup from "../../ui/elements/popupModal/Popup.jsx";
 import Button from "../../ui/elements/button/Button.jsx";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
+import { useGetSkaterOptionsQuery } from "./useGetSkaterOptionsQuery.js";
 
-import { useEditSkaterQuery } from "./useEditSkaterQuery.js";
-import { useGetSkaterOptionsQuery } from "../skaters/useGetSkaterOptionsQuery.js";
-
-function EditSkater({ onClose, skaterData }) {
+function AddSkater({ onClose }) {
   const { lang } = useLanguage();
-  console.log(skaterData);
+
   const { isLoading, data: options_data } = useGetSkaterOptionsQuery();
-  const { editSkaterMutation } = useEditSkaterQuery();
-  const { register, handleSubmit, reset } = useForm({
-    defaultValues: {
-      firstName: skaterData.firstName,
-      lastName: skaterData.lastName,
-      age: skaterData.age,
-      gender: skaterData.gender,
-      skatesSize: skaterData.skatesSize?._id,
-      protection: skaterData.protection?._id,
-      groupLevel: skaterData.groupLevel?._id,
-    },
-  });
+  const { addSkaterMutation } = useAddSkaterQuery();
+  const { register, handleSubmit, reset } = useForm();
 
   // SUBMITTING THE FORM
-  async function onFormSubmit(userInput) {
-    try {
-      await editSkaterMutation.mutateAsync({
-        ...userInput,
-        _id: skaterData._id,
-      });
-      onClose();
-      reset();
-    } catch (error) {
-      toast.error(error.message);
-      console.error("Edit skater error:", error);
-    }
+  function onFormSubmit(skaterData) {
+    addSkaterMutation.mutate(skaterData);
+    onClose();
+    reset();
   }
 
   //ERROR IN FORM
@@ -51,16 +33,18 @@ function EditSkater({ onClose, skaterData }) {
     Object.keys(errors).forEach((error) => toast.error(errors[error].message));
   }
 
+  // TODO: Add additionalRequirements property
+
   return (
     <Popup onClose={onClose} backgroundClick={false}>
-      {(editSkaterMutation.isPending || isLoading) && <Spinner />}
+      {(addSkaterMutation.isPending || isLoading) && <Spinner />}
       <div className={styles.container}>
         <div className={styles.closeBtn}>
           <button onClick={onClose} className={styles.closeIcon}>
             <GoX />
           </button>
         </div>
-        <h2 className={styles.heading}>{lang.editSkater}</h2>
+        <h2 className={styles.heading}>{lang.addSkater}</h2>
 
         <form
           onSubmit={handleSubmit(onFormSubmit, onErrorSubmit)}
@@ -169,7 +153,7 @@ function EditSkater({ onClose, skaterData }) {
 
           <div className={styles.btnContainer}>
             <div style={{ marginLeft: "auto" }}>
-              <Button type={"primary"}>{lang.editSkater}</Button>
+              <Button type={"primary"}>{lang.addSkater}</Button>
             </div>
           </div>
         </form>
@@ -178,4 +162,4 @@ function EditSkater({ onClose, skaterData }) {
   );
 }
 
-export default EditSkater;
+export default AddSkater;

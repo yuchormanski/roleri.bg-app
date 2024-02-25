@@ -12,18 +12,21 @@ import {
 import { useLanguage } from "../../context/Language.jsx";
 import { useToggleModal } from "../../hooks/useToggleModal.js";
 import { useGetSkatersQuery } from "./useGetSkatersQuery.js";
-import AddSkater from "./AddSkater.jsx";
+// import AddSkater from "./AddSkater.jsx";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 import { useState } from "react";
 import EditSkater from "./EditSkater.jsx";
 import DeleteSkater from "./DeleteSkater.jsx";
+import AddSkater from "../skaters/AddSkater.jsx";
 
 function SkatersList() {
   const [selectedSkaterData, setSelectedSkaterData] = useState({});
 
   const [isShownAddSkaterModal, toggleAddSkaterModalHandler] = useToggleModal();
-  const [isShownEditSkaterModal, toggleEditSkaterModalHandler] = useToggleModal();
-  const [isShownDeleteSkaterModal, toggleDeleteSkaterModalHandler] = useToggleModal();
+  const [isShownEditSkaterModal, toggleEditSkaterModalHandler] =
+    useToggleModal();
+  const [isShownDeleteSkaterModal, toggleDeleteSkaterModalHandler] =
+    useToggleModal();
 
   const { lang } = useLanguage();
   const { isLoading, isError, error, data: skaters } = useGetSkatersQuery();
@@ -49,8 +52,8 @@ function SkatersList() {
         <Spinner />
       ) : (
         <div className={styles.skatersContainer}>
-          {skaters.length > 0
-            ? (skaters.map((skater) => (
+          {skaters.length > 0 ? (
+            skaters.map((skater) => (
               <figure className={styles.figure} key={skater._id}>
                 <header className={styles.header}>
                   <h3
@@ -60,10 +63,16 @@ function SkatersList() {
                     <button className={styles.actionBtn}>
                       <LiaIdCard />
                     </button>
-                    <button className={styles.actionBtn} onClick={() => onEditSkater(skater)}>
+                    <button
+                      className={styles.actionBtn}
+                      onClick={() => onEditSkater(skater)}
+                    >
                       <LiaUserEditSolid />
                     </button>
-                    <button className={styles.actionBtn} onClick={() => onDeleteSkater(skater)}>
+                    <button
+                      className={styles.actionBtn}
+                      onClick={() => onDeleteSkater(skater)}
+                    >
                       <LiaTrashAlt />
                     </button>
                   </div>
@@ -74,8 +83,12 @@ function SkatersList() {
                     {skater.gender}
                   </p>
                   <p className={styles.element}>
-                    <span className={styles.elSpan}>{lang.s_additionalRequirements}: </span>
-                    {skater.additionalRequirements ? skater.additionalRequirements : 'No'}
+                    <span className={styles.elSpan}>
+                      {lang.s_additionalRequirements}:{" "}
+                    </span>
+                    {skater.additionalRequirements
+                      ? skater.additionalRequirements
+                      : "No"}
                   </p>
                   {/* 
                   CHECK WHERE TO VISUALIZED HISTORY
@@ -92,7 +105,9 @@ function SkatersList() {
                     {skater?.groupLevel?.typeGroup}
                   </p>
                   <p className={styles.element}>
-                    <span className={styles.elSpan}>{lang.s_protections}: </span>
+                    <span className={styles.elSpan}>
+                      {lang.s_protections}:{" "}
+                    </span>
                     {skater?.protection?.size}
                   </p>
                   <p className={styles.element}>
@@ -102,14 +117,16 @@ function SkatersList() {
                 </div>
               </figure>
             ))
-            ) : (
-              <h2 className={styles.headingNoSkaters}>{lang.noAddedSkaters}</h2>
-            )}
+          ) : (
+            <h2 className={styles.headingNoSkaters}>{lang.noAddedSkaters}</h2>
+          )}
         </div>
       )}
 
       <div className={styles.addSkaterBtnContainer}>
-        <button className={styles.addBtn} onClick={toggleAddSkaterModalHandler}>{lang.addSkater}</button>
+        <button className={styles.addBtn} onClick={toggleAddSkaterModalHandler}>
+          {lang.addSkater}
+        </button>
       </div>
 
       <section className={styles.description}>
@@ -124,10 +141,21 @@ function SkatersList() {
         </p>
       </section>
 
-      {isShownAddSkaterModal && <AddSkater onClose={toggleAddSkaterModalHandler} />}
-      {isShownEditSkaterModal && <EditSkater skaterData={selectedSkaterData} onClose={toggleEditSkaterModalHandler} />}
-      {isShownDeleteSkaterModal && <DeleteSkater skaterData={selectedSkaterData} onClose={toggleDeleteSkaterModalHandler} />}
-
+      {isShownAddSkaterModal && (
+        <AddSkater onClose={toggleAddSkaterModalHandler} />
+      )}
+      {isShownEditSkaterModal && (
+        <EditSkater
+          skaterData={selectedSkaterData}
+          onClose={toggleEditSkaterModalHandler}
+        />
+      )}
+      {isShownDeleteSkaterModal && (
+        <DeleteSkater
+          skaterData={selectedSkaterData}
+          onClose={toggleDeleteSkaterModalHandler}
+        />
+      )}
     </div>
   );
 }
