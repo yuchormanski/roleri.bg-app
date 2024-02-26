@@ -11,7 +11,7 @@ import Button from "../../ui/elements/button/Button.jsx";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 
 import { useEditSkaterQuery } from "./useEditSkaterQuery.js";
-import { useGetSkaterOptionsQuery } from "../skaters/useGetSkaterOptionsQuery.js";
+import { useGetSkaterOptionsQuery } from "./useGetSkaterOptionsQuery.js";
 
 function EditSkater({ onClose, skaterData }) {
   const { lang } = useLanguage();

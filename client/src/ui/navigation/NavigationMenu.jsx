@@ -11,29 +11,29 @@ import { useAuthContext } from "../../context/AuthContext.jsx";
 import { useAuthQueries } from "../../pages/auth/useAuthQueries.js";
 
 function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
-  const { isDark, themeToggle } = useTheme();
-  const { lang, langChanger, toggle: language } = useLanguage();
+	const { isDark, themeToggle } = useTheme();
+	const { lang, langChanger, toggle: language } = useLanguage();
 
-  const { checkIsUserLoggedIn, checkIsUserAdmin } = useAuthContext();
-  const { logoutMutation } = useAuthQueries();
+	const { checkIsUserLoggedIn, checkIsUserAdmin } = useAuthContext();
+	const { logoutMutation } = useAuthQueries();
 
-  async function onLogout() {
-    try {
-      await logoutMutation.mutateAsync();
-    } catch (error) {
-      console.error(error.message);
-    }
-  }
+	async function onLogout() {
+		try {
+			await logoutMutation.mutateAsync();
+		} catch (error) {
+			console.error(error.message);
+		}
+	}
 
-  return (
-    <>
-      {/* next line is for keeping nav menu closed on initial render.
+	return (
+		<>
+			{/* next line is for keeping nav menu closed on initial render.
       If missing the menu will be permanently open */}
-      {isMobile && (
-        <div
-          className={`${styles.menuPanel} ${isDark && styles.isMobileBorder}`}
-        >
-          {/* <button onClick={langChanger} className={styles.lang}>
+			{isMobile && (
+				<div
+					className={`${styles.menuPanel} ${isDark && styles.isMobileBorder}`}
+				>
+					{/* <button onClick={langChanger} className={styles.lang}>
             {language ? (
               <img
                 src={"/Flag-of-Bulgaria-28-300x200.png"}
@@ -44,101 +44,101 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
             )}
           </button> */}
 
-          <ul className={styles.list}>
-            <li className={styles.listItem}>
-              <NavLink
-                to={"home"}
-                className={styles.link}
-                onClick={toggleMobile}
-              >
-                {lang.home}
-                <span className={styles.linkBorder}></span>
-              </NavLink>
-            </li>
-            <li className={styles.listItem}>
-              <NavLink
-                to={"lessons"}
-                className={styles.link}
-                onClick={toggleMobile}
-              >
-                {lang.lessons}
-                <span className={styles.linkBorder}></span>
-              </NavLink>
-            </li>
+					<ul className={styles.list}>
+						<li className={styles.listItem}>
+							<NavLink
+								to={"home"}
+								className={styles.link}
+								onClick={toggleMobile}
+							>
+								{lang.home}
+								<span className={styles.linkBorder}></span>
+							</NavLink>
+						</li>
+						<li className={styles.listItem}>
+							<NavLink
+								to={"lessons"}
+								className={styles.link}
+								onClick={toggleMobile}
+							>
+								{lang.lessons}
+								<span className={styles.linkBorder}></span>
+							</NavLink>
+						</li>
 
-            {checkIsUserAdmin() && (
-              <li className={styles.listItem}>
-                <NavLink
-                  to={"settings"}
-                  className={styles.link}
-                  onClick={toggleMobile}
-                >
-                  {lang.settings}
-                  <span className={styles.linkBorder}></span>
-                </NavLink>
-              </li>
-            )}
+						{checkIsUserAdmin() && (
+							<li className={styles.listItem}>
+								<NavLink
+									to={"settings"}
+									className={styles.link}
+									onClick={toggleMobile}
+								>
+									{lang.settings}
+									<span className={styles.linkBorder}></span>
+								</NavLink>
+							</li>
+						)}
 
-            {checkIsUserLoggedIn() ? (
-              <>
-                <li className={styles.listItem}>
-                  <NavLink
-                    to={"profile"}
-                    className={styles.link}
-                    onClick={toggleMobile}
-                  >
-                    {lang.profile}
-                    <span className={styles.linkBorder}></span>
-                  </NavLink>
-                </li>
+						{checkIsUserLoggedIn() ? (
+							<>
+								<li className={styles.listItem}>
+									<NavLink
+										to={"profile"}
+										className={styles.link}
+										onClick={toggleMobile}
+									>
+										{lang.profile}
+										<span className={styles.linkBorder}></span>
+									</NavLink>
+								</li>
 
-                <li className={styles.listItem}>
-                  <NavLink onClick={onLogout} className={styles.link} to="">
-                    {lang.logout}
-                    <span className={styles.linkBorder}></span>
-                  </NavLink>
-                </li>
-              </>
-            ) : (
-              <li className={styles.listItem}>
-                <NavLink
-                  onClick={() => {
-                    onLogin();
-                    if (!isMobile) toggleMobile();
-                  }}
-                  // className={styles.listItemBtn}
-                  className={styles.link}
-                  to=""
-                >
-                  {lang.login}
-                  <span className={styles.linkBorder}></span>
-                </NavLink>
-              </li>
-            )}
+								<li className={styles.listItem}>
+									<NavLink onClick={onLogout} className={styles.link} to="">
+										{lang.logout}
+										<span className={styles.linkBorder}></span>
+									</NavLink>
+								</li>
+							</>
+						) : (
+							<li className={styles.listItem}>
+								<NavLink
+									onClick={() => {
+										onLogin();
+										if (!isMobile) toggleMobile();
+									}}
+									// className={styles.listItemBtn}
+									className={styles.link}
+									to=""
+								>
+									{lang.login}
+									<span className={styles.linkBorder}></span>
+								</NavLink>
+							</li>
+						)}
 
-            {/* <li className={`${styles.listItem} ${styles.themeChanger}`}> */}
-            <li className={`${styles.themeChanger}`}>
-              <div className={`${styles.listItemBtn}`}>
-                <button onClick={langChanger} className={styles.lang}>
-                  {language ? (
-                    <img
-                      src={"/Flag-of-Bulgaria-28.svg"}
-                      alt="Bulgarian flag"
-                    />
-                  ) : (
-                    <img src={"/Flag-of-Great-Britain-28.svg"} alt="UK flag" />
-                  )}
-                </button>
-                <button className={`${styles.iconBtn}`} onClick={themeToggle}>
-                  {isDark ? <IoSunnyOutline /> : <IoMoonOutline />}
-                </button>
-              </div>
-            </li>
-          </ul>
-        </div>
-      )}
-    </>
-  );
+						{/* <li className={`${styles.listItem} ${styles.themeChanger}`}> */}
+						<li className={`${styles.themeChanger}`}>
+							<div className={`${styles.listItemBtn}`}>
+								<button onClick={langChanger} className={styles.lang}>
+									{language ? (
+										<img
+											src={"/Flag-of-Bulgaria-28.svg"}
+											alt="Bulgarian flag"
+										/>
+									) : (
+										<img src={"/Flag-of-Great-Britain-28.svg"} alt="UK flag" />
+									)}
+								</button>
+								<button className={`${styles.iconBtn}`} onClick={themeToggle}>
+									{isDark ? <IoSunnyOutline /> : <IoMoonOutline />}
+								</button>
+							</div>
+						</li>
+					</ul>
+				</div>
+			)}
+		</>
+	);
 }
 
 export default NavigationMenu;

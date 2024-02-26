@@ -23,8 +23,7 @@ function ListSkatesOptions() {
     useToggleModal();
 
   const { lang } = useLanguage();
-  const { isFetching, data } = useGetOptionsQuery("skates");
-  const skatesData = data.sort((a, b) => a.size - b.size);
+  const { isFetching, data: skatesData } = useGetOptionsQuery("skates");
 
   function onEditSkates(skatesData) {
     setSelectedOptionData(skatesData);

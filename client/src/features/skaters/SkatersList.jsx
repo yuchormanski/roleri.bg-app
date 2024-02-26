@@ -17,9 +17,9 @@ import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 import { useState } from "react";
 import EditSkater from "./EditSkater.jsx";
 import DeleteSkater from "./DeleteSkater.jsx";
-import AddSkater from "../skaters/AddSkater.jsx";
+import AddSkater from "./AddSkater.jsx";
 import { useTranslate } from "../../hooks/useTranslate.js";
-import GetSkater from "../skaters/GetSkater.jsx";
+import GetSkater from "./GetSkater.jsx";
 
 function SkatersList() {
   const [selectedSkaterData, setSelectedSkaterData] = useState({});

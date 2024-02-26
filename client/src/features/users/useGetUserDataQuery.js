@@ -9,7 +9,6 @@ function useGetUserDataQuery() {
     const { isLoading, isError, error, data } = useQuery({
         queryKey: ["user"],
         queryFn: async () => get(SERVER_ENDPOINTS.GET_USER),
-        initialData: [],
     });
 
     if (isError) {

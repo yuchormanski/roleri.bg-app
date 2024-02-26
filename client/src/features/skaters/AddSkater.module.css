@@ -49,10 +49,12 @@
 .input {
   color: var(--color-main);
 }
+
 select {
   font-size: 1.6rem;
   color: var(--color-nav-link);
 }
+
 .selected {
   font-size: 1.2rem;
   color: var(--color-nav-link);
@@ -130,6 +132,7 @@ textarea {
   width: 100%;
   font-size: clamp(1.2rem, 3vw, 1.6rem);
 }
+
 .info span {
   font-size: clamp(1.2rem, 3vw, 1.8rem);
   color: var(--color-main-btn);

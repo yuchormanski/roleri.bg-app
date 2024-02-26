@@ -16,7 +16,7 @@ import ToasterComponent from "./ui/elements/toaster/ToasterComponent.jsx";
 
 import UserInfo from "./features/users/UserInfo.jsx";
 import UpdateUser from "./features/users/UpdateUser.jsx";
-import SkatersList from "./features/users/SkatersList.jsx";
+import SkatersList from "./features/skaters/SkatersList.jsx";
 import History from "./features/users/History.jsx";
 
 import PageNotFound from "./pages/PageNotFound.jsx";

@@ -4,7 +4,7 @@ import { GroupLevelModel } from '../models/GroupLevelModel.js';
 import { GroupAgeModel } from '../models/GroupAgeModel.js';
 import { SubscriptionTypeModel } from '../models/SubscriptionTypeModel.js';
 
-const getSkatesOptions = async () => SkatesModel.find();
+const getSkatesOptions = async () => SkatesModel.find().sort({ size: 1 });
 
 const getProtectionOptions = async () => ProtectionModel.find();
 
