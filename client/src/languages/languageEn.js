@@ -64,6 +64,9 @@ export const EN = {
   a_level_1: "For maximum compatibility add both language options",
   a_level_2:
     "The description is not required, but it wil be useful when viewing the category",
+  a_list_level_1: "Add new lesson type, including the description",
+  a_list_level_2:
+    "You have the ability to edit and delete every item on the list",
   // SKATER OPTIONS
   s_firstName: "First name",
   s_lastName: "Last name",
