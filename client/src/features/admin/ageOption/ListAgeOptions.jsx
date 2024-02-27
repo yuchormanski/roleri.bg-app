@@ -24,7 +24,7 @@ function ListAgeOptions() {
     const [isShownDeleteAgeModal, toggleDeleteAgeModalHandler] = useToggleModal();
 
     const { lang } = useLanguage();
-    const { isLoading, data: ageData } = useGetOptionsQuery('age');
+    const { isFetching, data: ageData } = useGetOptionsQuery('age');
 
     function onEditAge(ageData) {
         setSelectedOptionData(ageData);
@@ -39,19 +39,21 @@ function ListAgeOptions() {
     return (
         <div className={styles.container}>
             <h3 className={styles.heading}>{lang.ageGroup}</h3>
-            {isLoading
+            {isFetching
                 ? (
                     <Spinner />
                 ) : (
-                    <div className={styles.skatersContainer}>
+                    <div className={styles.innerContainer}>
                         {ageData?.length > 0
                             ? (ageData.map((ageOption) => (
                                 <figure className={styles.figure} key={ageOption._id}>
-                                    <header className={styles.header}>
-                                        <h3
-                                            className={styles.figureHeading}
-                                        >{`${lang.ageGroup} - ${ageOption.typeGroup}`}
-                                        </h3>
+                                    <div className={styles.content}>
+                                        <div className={styles.ageItem}>
+                                            <p className={styles.element}>
+                                                <span className={styles.elSpan}>{lang.ageGroup}:</span>
+                                                {ageOption.typeGroup}
+                                            </p>
+                                        </div>
                                         <div className={styles.actionContainer}>
                                             <button className={styles.actionBtn} onClick={() => onEditAge(ageOption)}>
                                                 <LiaEditSolid />
@@ -60,7 +62,7 @@ function ListAgeOptions() {
                                                 <LiaTrashAlt />
                                             </button>
                                         </div>
-                                    </header>
+                                    </div>
                                 </figure>
                             ))
                             ) : (

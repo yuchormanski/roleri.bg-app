@@ -24,7 +24,7 @@ function ListProtectionOptions() {
     const [isShownDeleteProtectionModal, toggleDeleteProtectionModalHandler] = useToggleModal();
 
     const { lang } = useLanguage();
-    const { isLoading, data: protectionData } = useGetOptionsQuery('protection');
+    const { isFetching, data: protectionData } = useGetOptionsQuery('protection');
 
     function onEditProtection(protectionData) {
         setSelectedOptionData(protectionData);
@@ -39,33 +39,40 @@ function ListProtectionOptions() {
     return (
         <div className={styles.container}>
             <h3 className={styles.heading}>{lang.s_protections}</h3>
-            {isLoading
+            {isFetching
                 ? (
                     <Spinner />
                 ) : (
-                    <div className={styles.skatersContainer}>
+                    <div className={styles.innerContainer}>
                         {protectionData?.length > 0
                             ? (protectionData.map((protectionOption) => (
                                 <figure className={styles.figure} key={protectionOption._id}>
-                                    <header className={styles.header}>
-                                        <h3
-                                            className={styles.figureHeading}
-                                        >{`${lang.s_protections} - ${protectionOption.size}`}
-                                        </h3>
+                                    <div className={styles.content}>
+                                        <div className={styles.protectionItem}>
+                                            <p className={styles.element}>
+                                                <span className={styles.elSpan}>{lang.s_protections}:</span>
+                                                {protectionOption.size}
+                                            </p>
+                                            <p className={styles.element}>
+                                                <span className={styles.elSpan}>{lang.quantity}:</span>
+                                                {protectionOption.quantity}
+                                            </p>
+                                        </div>
+
                                         <div className={styles.actionContainer}>
-                                            <button className={styles.actionBtn} onClick={() => onEditProtection(protectionOption)}>
+                                            <button
+                                                className={styles.actionBtn}
+                                                onClick={() => onEditProtection(protectionOption)}
+                                            >
                                                 <LiaEditSolid />
                                             </button>
-                                            <button className={styles.actionBtn} onClick={() => onDeleteProtection(protectionOption)}>
+                                            <button
+                                                className={styles.actionBtn}
+                                                onClick={() => onDeleteProtection(protectionOption)}
+                                            >
                                                 <LiaTrashAlt />
                                             </button>
                                         </div>
-                                    </header>
-                                    <div className={styles.content}>
-                                        <p className={styles.element}>
-                                            <span className={styles.elSpan}>{lang.quantity}: </span>
-                                            {protectionOption.quantity}
-                                        </p>
                                     </div>
                                 </figure>
                             ))

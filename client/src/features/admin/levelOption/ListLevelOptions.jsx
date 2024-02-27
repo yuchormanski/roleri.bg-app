@@ -24,7 +24,7 @@ function ListLevelOptions() {
 
   const { lang } = useLanguage();
   const { translatePhrase: translate } = useTranslate();
-  const { isLoading, data: levelData } = useGetOptionsQuery("level");
+  const { isFetching, data: levelData } = useGetOptionsQuery("level");
 
   function onEditLevel(levelData) {
     setSelectedOptionData(levelData);
@@ -44,7 +44,7 @@ function ListLevelOptions() {
   return (
     <div className={styles.container}>
       <h3 className={styles.heading}>{lang.level}</h3>
-      {isLoading ? (
+      {isFetching ? (
         <Spinner />
       ) : (
         <div className={styles.innerContainer}>

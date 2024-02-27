@@ -17,7 +17,6 @@ function useGetOptionsQuery(actionType) {
   const { isFetching, isError, error, data } = useQuery({
     queryKey: [actionType],
     queryFn: async () => get(endPoints[actionType]),
-    initialData: [],
   });
 
   if (isError) {

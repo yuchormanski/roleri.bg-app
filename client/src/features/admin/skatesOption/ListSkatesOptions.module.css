@@ -41,6 +41,7 @@
   border-radius: 0.3rem;
   border-bottom: var(--card-border);
 }
+
 .figure:nth-child(odd) {
   background-color: var(--color-header-even);
 }
@@ -128,6 +129,7 @@
   .skateItem {
     padding: 1.5rem;
   }
+
   .actionBtn {
     padding: 0.2rem 1.4rem;
   }
@@ -137,16 +139,20 @@
   .container {
     padding: 0;
   }
+
   .skateItem {
     padding: 1rem;
   }
+
   .actionContainer {
     margin: 0;
   }
+
   .actionBtn {
     padding: 1rem;
   }
 }
+
 @media (max-width: 375px) {
   .figureHeading {
     margin: 4rem 0 0 0rem;
@@ -156,9 +162,11 @@
   .actionContainer {
     flex-direction: column;
   }
+
   .skateItem {
     padding: 1rem;
   }
+
   .actionBtn {
     padding: 0.1rem 1rem;
   }

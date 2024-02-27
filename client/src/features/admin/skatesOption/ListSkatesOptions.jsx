@@ -14,101 +14,101 @@ import EditSkatesOption from "./EditSkatesOption.jsx";
 import DeleteSkatesOption from "./DeleteSkatesOption.jsx";
 
 function ListSkatesOptions() {
-  const [selectedOptionData, setSelectedOptionData] = useState({});
+	const [selectedOptionData, setSelectedOptionData] = useState({});
 
-  const [isShownAddSkatesModal, toggleAddSkatesModalHandler] = useToggleModal();
-  const [isShownEditSkatesModal, toggleEditSkatesModalHandler] =
-    useToggleModal();
-  const [isShownDeleteSkatesModal, toggleDeleteSkatesModalHandler] =
-    useToggleModal();
+	const [isShownAddSkatesModal, toggleAddSkatesModalHandler] = useToggleModal();
+	const [isShownEditSkatesModal, toggleEditSkatesModalHandler] =
+		useToggleModal();
+	const [isShownDeleteSkatesModal, toggleDeleteSkatesModalHandler] =
+		useToggleModal();
 
-  const { lang } = useLanguage();
-  const { isFetching, data: skatesData } = useGetOptionsQuery("skates");
+	const { lang } = useLanguage();
+	const { isFetching, data: skatesData } = useGetOptionsQuery("skates");
 
-  function onEditSkates(skatesData) {
-    setSelectedOptionData(skatesData);
-    toggleEditSkatesModalHandler();
-  }
+	function onEditSkates(skatesData) {
+		setSelectedOptionData(skatesData);
+		toggleEditSkatesModalHandler();
+	}
 
-  function onDeleteSkates(skatesData) {
-    setSelectedOptionData(skatesData);
-    toggleDeleteSkatesModalHandler();
-  }
+	function onDeleteSkates(skatesData) {
+		setSelectedOptionData(skatesData);
+		toggleDeleteSkatesModalHandler();
+	}
 
-  return (
-    <div className={styles.container}>
-      <h3 className={styles.heading}>{lang.s_skates}</h3>
-      {isFetching ? (
-        <Spinner />
-      ) : (
-        <div className={styles.innerContainer}>
-          {skatesData.map((skateOption) => (
-            <figure className={styles.figure} key={skateOption._id}>
-              <div className={styles.content}>
-                <div className={styles.skateItem}>
-                  <p className={styles.element}>
-                    <span className={styles.elSpan}>{lang.number}:</span>
-                    {skateOption.size}
-                  </p>
-                  <p className={styles.element}>
-                    <span className={styles.elSpan}>{lang.quantity}:</span>
-                    {skateOption.quantity}
-                  </p>
-                </div>
+	return (
+		<div className={styles.container}>
+			<h3 className={styles.heading}>{lang.s_skates}</h3>
+			{isFetching ? (
+				<Spinner />
+			) : (
+				<div className={styles.innerContainer}>
+					{skatesData.map((skateOption) => (
+						<figure className={styles.figure} key={skateOption._id}>
+							<div className={styles.content}>
+								<div className={styles.skateItem}>
+									<p className={styles.element}>
+										<span className={styles.elSpan}>{lang.number}:</span>
+										{skateOption.size}
+									</p>
+									<p className={styles.element}>
+										<span className={styles.elSpan}>{lang.quantity}:</span>
+										{skateOption.quantity}
+									</p>
+								</div>
 
-                <div className={styles.actionContainer}>
-                  <button
-                    className={styles.actionBtn}
-                    onClick={() => onEditSkates(skateOption)}
-                  >
-                    <LiaEditSolid />
-                  </button>
-                  <button
-                    className={styles.actionBtn}
-                    onClick={() => onDeleteSkates(skateOption)}
-                  >
-                    <LiaTrashAlt />
-                  </button>
-                </div>
-              </div>
-            </figure>
-          ))}
-        </div>
-      )}
-      <div className={styles.addSkaterBtnContainer}>
-        <button className={styles.addBtn} onClick={toggleAddSkatesModalHandler}>
-          {lang.addOptions}
-        </button>
-      </div>
+								<div className={styles.actionContainer}>
+									<button
+										className={styles.actionBtn}
+										onClick={() => onEditSkates(skateOption)}
+									>
+										<LiaEditSolid />
+									</button>
+									<button
+										className={styles.actionBtn}
+										onClick={() => onDeleteSkates(skateOption)}
+									>
+										<LiaTrashAlt />
+									</button>
+								</div>
+							</div>
+						</figure>
+					))}
+				</div>
+			)}
+			<div className={styles.addSkaterBtnContainer}>
+				<button className={styles.addBtn} onClick={toggleAddSkatesModalHandler}>
+					{lang.addOptions}
+				</button>
+			</div>
 
-      <section className={styles.description}>
-        <p className={styles.par}>{lang.a_skates_info_1}</p>
-        <p className={styles.par}>{lang.a_skates_info_2}</p>
+			<section className={styles.description}>
+				<p className={styles.par}>{lang.a_skates_info_1}</p>
+				<p className={styles.par}>{lang.a_skates_info_2}</p>
 
-        {/* TODO: translate next */}
+				{/* TODO: translate next */}
 
-        <p className={styles.par}>
-          сортирането става автоматично, във възходящ ред
-        </p>
-      </section>
+				<p className={styles.par}>
+					сортирането става автоматично, във възходящ ред
+				</p>
+			</section>
 
-      {isShownAddSkatesModal && (
-        <AddSkatesOptions onClose={toggleAddSkatesModalHandler} />
-      )}
-      {isShownEditSkatesModal && (
-        <EditSkatesOption
-          onClose={toggleEditSkatesModalHandler}
-          skatesData={selectedOptionData}
-        />
-      )}
-      {isShownDeleteSkatesModal && (
-        <DeleteSkatesOption
-          onClose={toggleDeleteSkatesModalHandler}
-          skatesData={selectedOptionData}
-        />
-      )}
-    </div>
-  );
+			{isShownAddSkatesModal && (
+				<AddSkatesOptions onClose={toggleAddSkatesModalHandler} />
+			)}
+			{isShownEditSkatesModal && (
+				<EditSkatesOption
+					onClose={toggleEditSkatesModalHandler}
+					skatesData={selectedOptionData}
+				/>
+			)}
+			{isShownDeleteSkatesModal && (
+				<DeleteSkatesOption
+					onClose={toggleDeleteSkatesModalHandler}
+					skatesData={selectedOptionData}
+				/>
+			)}
+		</div>
+	);
 }
 
 export default ListSkatesOptions;

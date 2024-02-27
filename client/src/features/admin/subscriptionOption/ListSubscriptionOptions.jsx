@@ -43,15 +43,21 @@ function ListSubscriptionOptions() {
                 ? (
                     <Spinner />
                 ) : (
-                    <div className={styles.skatersContainer}>
+                    <div className={styles.innerContainer}>
                         {subscriptionData?.length > 0
                             ? (subscriptionData.map((subscriptionOption) => (
                                 <figure className={styles.figure} key={subscriptionOption._id}>
-                                    <header className={styles.header}>
-                                        <h3
-                                            className={styles.figureHeading}
-                                        >{`${lang.subscription} - ${subscriptionOption.typePayment}`}
-                                        </h3>
+                                    <div className={styles.content}>
+                                        <div className={styles.skateItem}>
+                                            <p className={styles.element}>
+                                                <span className={styles.elSpan}>{lang.number}:</span>
+                                                {subscriptionOption.typePayment}
+                                            </p>
+                                            <p className={styles.element}>
+                                                <span className={styles.elSpan}>{lang.quantity}:</span>
+                                                {subscriptionOption.price}
+                                            </p>
+                                        </div>
                                         <div className={styles.actionContainer}>
                                             <button className={styles.actionBtn} onClick={() => onEditLevel(subscriptionOption)}>
                                                 <LiaEditSolid />
@@ -60,12 +66,6 @@ function ListSubscriptionOptions() {
                                                 <LiaTrashAlt />
                                             </button>
                                         </div>
-                                    </header>
-                                    <div className={styles.content}>
-                                        <p className={styles.element}>
-                                            <span className={styles.elSpan}>{lang.price}: </span>
-                                            {subscriptionOption.price}
-                                        </p>
                                     </div>
                                 </figure>
                             ))
