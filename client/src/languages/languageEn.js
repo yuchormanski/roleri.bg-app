@@ -53,6 +53,8 @@ export const EN = {
   deleteOptions: "Delete option",
   quantity: "Quantity",
   number: "Number",
+  booking: "Booking",
+  bookLesson: "Book a lesson",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",

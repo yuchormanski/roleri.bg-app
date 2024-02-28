@@ -3,6 +3,7 @@
   align-self: center;
   margin-bottom: 3rem;
   border-bottom: 0.2rem solid var(--color-main-btn);
+  word-spacing: 0.3rem;
 }
 .lessons {
   display: grid;

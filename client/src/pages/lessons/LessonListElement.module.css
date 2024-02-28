@@ -34,6 +34,7 @@
   align-self: center;
   margin: 1rem 0;
   border-bottom: 0.1rem var(--border-bottom);
+  word-spacing: 0.3rem;
 }
 
 .titleInfo {

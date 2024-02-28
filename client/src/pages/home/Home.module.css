@@ -3,6 +3,7 @@
   align-self: center;
   margin-bottom: 3rem;
   border-bottom: 0.2rem solid var(--color-main-btn);
+  word-spacing: 0.3rem;
 }
 
 .news {
@@ -33,7 +34,7 @@
   padding: 0.2rem;
 }
 
-.imageWrapper>img {
+.imageWrapper > img {
   display: block;
   width: 100%;
   height: 100%;
@@ -45,7 +46,7 @@
   color: var(--color-menu-btn);
 }
 
-.articleTitle>span {
+.articleTitle > span {
   display: flex;
   align-items: center;
   gap: 0.8rem;

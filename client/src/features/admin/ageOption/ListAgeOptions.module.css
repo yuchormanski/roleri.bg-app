@@ -16,6 +16,7 @@
   margin-left: auto;
   border-bottom: 1px var(--border-bottom);
   margin-bottom: 1rem;
+  word-spacing: 0.3rem;
 }
 
 .innerContainer {
@@ -32,7 +33,6 @@
   font-weight: 300;
   padding: 2rem;
 }
-
 
 .figure {
   display: flex;

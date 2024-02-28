@@ -31,6 +31,7 @@ import ListProtectionOptions from "./features/admin/protectionOption/ListProtect
 import ListLevelOptions from "./features/admin/levelOption/ListLevelOptions.jsx";
 import ListAgeOptions from "./features/admin/ageOption/ListAgeOptions.jsx";
 import ListSubscriptionOptions from "./features/admin/subscriptionOption/ListSubscriptionOptions.jsx";
+import Booking from "./features/booking/Booking.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -56,7 +57,11 @@ function App() {
                     <Route index element={<Navigate replace to={"home"} />} />
                     <Route path={"home"} element={<Home />} />
                     <Route path={"lessons"} element={<LessonsList />} />
-                    <Route path={"reset-password/:resetToken"} element={<ResetPassword />} />
+                    <Route path={"booking"} element={<Booking />} />
+                    <Route
+                      path={"reset-password/:resetToken"}
+                      element={<ResetPassword />}
+                    />
 
                     <Route element={<RouteGuardAuthenticated />}>
                       <Route path={"profile"} element={<Profile />}>
@@ -67,17 +72,31 @@ function App() {
                       </Route>
 
                       <Route element={<RouteGuardAdmin />}>
-                        <Route path={"settings"} element={<Admin />} >
+                        <Route path={"settings"} element={<Admin />}>
                           <Route index element={<AdminInfo />} />
-                          <Route path={"skates"} element={<ListSkatesOptions />} />
-                          <Route path={"protections"} element={<ListProtectionOptions />} />
-                          <Route path={"levels"} element={<ListLevelOptions />} />
-                          <Route path={"age-range"} element={<ListAgeOptions />} />
-                          <Route path={"subscription"} element={<ListSubscriptionOptions />} />
+                          <Route
+                            path={"skates"}
+                            element={<ListSkatesOptions />}
+                          />
+                          <Route
+                            path={"protections"}
+                            element={<ListProtectionOptions />}
+                          />
+                          <Route
+                            path={"levels"}
+                            element={<ListLevelOptions />}
+                          />
+                          <Route
+                            path={"age-range"}
+                            element={<ListAgeOptions />}
+                          />
+                          <Route
+                            path={"subscription"}
+                            element={<ListSubscriptionOptions />}
+                          />
                         </Route>
                       </Route>
                     </Route>
-
                   </Route>
                   <Route path={"*"} element={<PageNotFound />} />
                 </Routes>

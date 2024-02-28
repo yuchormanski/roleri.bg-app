@@ -1,5 +1,5 @@
 export const BG = {
-  home: "В началото",
+  home: "Начало",
   lessons: "Уроци",
   login: "Вход",
   logout: "Изход",
@@ -46,6 +46,9 @@ export const BG = {
   addOptions: "Добави опция",
   quantity: "Количество",
   number: "Номер",
+  booking: "Запиши се",
+  bookLesson: "Записване за урок",
+
   // ADMIN OPTIONS
   a_info_1:
     "В тази секция имате възможност за преглед, редакция и добавяне целия наличен инвентар",
