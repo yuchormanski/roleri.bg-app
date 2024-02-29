@@ -55,6 +55,7 @@ export const EN = {
   number: "Number",
   booking: "Booking",
   bookLesson: "Book a lesson",
+  selectDay: "Select day",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",

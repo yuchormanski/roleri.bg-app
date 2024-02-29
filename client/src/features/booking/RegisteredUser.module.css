@@ -53,10 +53,15 @@
   width: fit-content;
   align-self: center;
   margin: 1rem 0;
-
+  font-weight: 300;
   border-bottom: var(--card-border);
+  /* border-bottom: 1px solid var(--color-main-btn); */
 }
 .thirdHeading {
+  color: var(--color-selected-shade);
+}
+.link {
+  text-decoration: none;
   color: var(--color-selected-shade);
 }
 
@@ -64,6 +69,25 @@
   font-size: 1.4rem;
   font-weight: 300;
   color: var(--color-header-dim);
+}
+
+.dayPickerHeading {
+  font-weight: 200;
+}
+
+.skaterContainer {
+  align-self: center;
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.skaterName {
+  font-size: 1.8rem;
+}
+.skaterSelection {
+  width: 1.8rem;
+  aspect-ratio: 1/1;
 }
 
 @media (max-width: 900px) {
@@ -77,4 +101,6 @@
 @media (max-width: 480px) {
 }
 @media (max-width: 375px) {
+  .secondaryContainer {
+  }
 }

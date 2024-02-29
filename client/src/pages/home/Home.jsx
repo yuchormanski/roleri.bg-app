@@ -23,34 +23,39 @@ function Home() {
       {isLoading ? (
         <Spinner />
       ) : (
-        <section className={styles.news}>
-          {news.map((n) => (
-            <article key={n._id} className={styles.article}>
-              <div className={styles.articleHeader}>
-                <div className={styles.imageWrapper}>
-                  <img src={n.imageUrl} alt={n.title} />
-                </div>
-                <h2 className={styles.articleTitle}>
-                  {n.title}
-                  <span>
-                    <FaRegFolderOpen /> {n.date}
-                  </span>
-                </h2>
-              </div>
-              <div className={styles.articleBody}>
-                <p>{n.content}</p>
-                <a
-                  href={n.newsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.linkPrimary}
-                >
-                  {lang.details}
-                </a>
-              </div>
-            </article>
-          ))}
-        </section>
+        <div className={styles.container}>
+          {/* <h3 className={styles.heading}>{lang.bookLesson}</h3> */}
+          <div className={styles.secondaryContainer}>
+            <section className={styles.news}>
+              {news.map((n) => (
+                <article key={n._id} className={styles.article}>
+                  <div className={styles.articleHeader}>
+                    <div className={styles.imageWrapper}>
+                      <img src={n.imageUrl} alt={n.title} />
+                    </div>
+                    <h2 className={styles.articleTitle}>
+                      {n.title}
+                      <span>
+                        <FaRegFolderOpen /> {n.date}
+                      </span>
+                    </h2>
+                  </div>
+                  <div className={styles.articleBody}>
+                    <p>{n.content}</p>
+                    <a
+                      href={n.newsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.linkPrimary}
+                    >
+                      {lang.details}
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </section>
+          </div>
+        </div>
       )}
     </>
   );

@@ -48,6 +48,7 @@ export const BG = {
   number: "Номер",
   booking: "Запиши се",
   bookLesson: "Записване за урок",
+  selectDay: "Изберете ден",
 
   // ADMIN OPTIONS
   a_info_1:
