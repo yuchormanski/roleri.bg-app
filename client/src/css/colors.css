@@ -24,6 +24,7 @@
     /* --button: #ffd723b4; */
     --color-main-btn: #ffd823;
     --action-btn: #11a2db;
+    --color-lesson-info: #f6f6f6;
   }
 
   /* dark mode */
@@ -48,6 +49,7 @@
     --color-label: #ffd823;
     --card-border: 1px solid #58570d;
     --color-main-btn: #ffd723ab;
+    --color-lesson-info: #aaa;
   }
   /* main styles */
   --text-dark: #222;

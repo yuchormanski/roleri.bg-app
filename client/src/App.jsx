@@ -32,6 +32,7 @@ import ListLevelOptions from "./features/admin/levelOption/ListLevelOptions.jsx"
 import ListAgeOptions from "./features/admin/ageOption/ListAgeOptions.jsx";
 import ListSubscriptionOptions from "./features/admin/subscriptionOption/ListSubscriptionOptions.jsx";
 import Booking from "./features/booking/Booking.jsx";
+import Conditions from "./pages/terms_&_Conditions/Conditions.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -58,6 +59,7 @@ function App() {
                     <Route path={"home"} element={<Home />} />
                     <Route path={"lessons"} element={<LessonsList />} />
                     <Route path={"booking"} element={<Booking />} />
+                    <Route path={"conditions"} element={<Conditions />} />
                     <Route
                       path={"reset-password/:resetToken"}
                       element={<ResetPassword />}

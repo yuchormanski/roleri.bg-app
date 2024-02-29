@@ -7,30 +7,41 @@ import DatePickerCalendar from "../../ui/elements/datePicker/Calendar.jsx";
 import { useLanguage } from "../../context/Language.jsx";
 import { useGetSkatersQuery } from "../skaters/useGetSkatersQuery.js";
 import { useGetUserDataQuery } from "../users/useGetUserDataQuery.js";
+import { useGetSkaterOptionsQuery } from "../skaters/useGetSkaterOptionsQuery.js";
+import { useTranslate } from "../../hooks/useTranslate.js";
 
 function RegisteredUser() {
   const { lang, index } = useLanguage();
   const { isFetching: skatersLoading, data: skaters } = useGetSkatersQuery();
   const { isFetching: userLoading, data: user } = useGetUserDataQuery();
-
-  const [selected, setSelected] = useState();
+  const { isLoading, isFetching, data } = useGetSkaterOptionsQuery();
+  const { translatePhrase: translate } = useTranslate();
+  const [selectedDate, setSelectedDate] = useState();
+  const [sign, setSign] = useState({});
   const [skaterSelection, setSkaterSelection] = useState([]);
 
   const userSkaters = skaters.filter((s) => s.owner === user._id);
 
-  function selectedDate(date) {
-    setSelected((d) => (d = date));
+  function selectedDateHandler(date) {
+    setSelectedDate((d) => (d = date));
   }
 
-  function selection(id) {
-    setSkaterSelection((arr) => [...arr, id]);
+  function selection(e, id) {
+    console.log(e.target.value, id);
+
+    const newObj = { ...sign[id], [e.target.id]: e.target.value };
+    console.log(newObj);
+    setSign((state) => (state = { ...state, [id]: newObj }));
   }
 
   function checkboxHandler(e, id) {
     if (e.target.checked) {
-      setSkaterSelection((arr) => [...arr, id]);
+      // setSkaterSelection((arr) => [...arr, id]);
+      setSign((state) => (state = { ...state, [id]: {} }));
     } else {
-      setSkaterSelection((arr) => arr.filter((el) => el !== id));
+      // setSkaterSelection((arr) => arr.filter((el) => el !== id));
+      const { [id]: _, ...newObj } = sign;
+      setSign((state) => (state = { ...newObj }));
     }
   }
   // console.log(skaterSelection);
@@ -67,46 +78,91 @@ function RegisteredUser() {
             </p>
             <h3 className={styles.thirdHeading}>Стъпка 2</h3>
             <p className={styles.paragraph}>
-              Ако се нуждаете от кънки и протектори , изберете подходящия
-              размер. <strong>Екипировката е безплатна</strong>!
-            </p>
-            <p className={styles.paragraph}>
-              Данните за контакт са необходими, за да можем да се свържем с вас
-              .
-            </p>
-            <h3 className={styles.thirdHeading}>Стъпка 3</h3>
-            <p className={styles.paragraph}>
               Изпратете Вашата форма. След затваряне на формата (два дни преди
               урока) ще получите потвърждение на Вашето участие на посоченият
               e-mail адрес.
             </p>
           </div>
+
           <div className={styles.rightPanel}>
             <h3 className={styles.secondaryHeading}>{lang.selectDay}</h3>
-            <DatePickerCalendar selectedDate={selectedDate} />
-            <h3 className={styles.secondaryHeading}>Pic a skater</h3>
+            <DatePickerCalendar selectedDateProp={selectedDateHandler} />
 
-            <>
-              {userSkaters.map((s) => (
-                <div className={styles.skaterContainer} key={s._id}>
-                  <p
-                    className={styles.skaterName}
-                  >{`${s.firstName} ${s.lastName}`}</p>
-                  <input
-                    className={styles.skaterSelection}
-                    type="checkbox"
-                    name="frameIsCheck"
-                    onChange={(e) => checkboxHandler(e, s._id)}
-                  />
-                </div>
+            <h3 className={styles.secondaryHeading}>
+              Select from registered skaters
+            </h3>
+
+            <div className={`${styles.headInfo} ${styles.userChoice} `}>
+              {skaters.map((s) => (
+                <>
+                  <div className={styles.skaterContainer} key={s._id}>
+                    <p
+                      className={styles.skaterName}
+                    >{`${s.firstName} ${s.lastName}`}</p>
+                    <input
+                      className={styles.skaterSelection}
+                      type="checkbox"
+                      onChange={(e) => checkboxHandler(e, s._id)}
+                    />
+                  </div>
+
+                  <div className={styles.selectContainer}>
+                    <div className={styles.label}>
+                      <label htmlFor="type">
+                        <span>Вид урок:</span>
+                      </label>
+                      <select
+                        name=""
+                        id="type"
+                        className={styles.select}
+                        disabled={sign[s._id] ? false : true}
+                        defaultValue=""
+                        onChange={(e) => selection(e, s._id)}
+                      >
+                        <option value="" disabled hidden></option>
+                        <option value="group">Single group lesson</option>
+                        <option value="subscription">Subscription</option>
+                        <option value="individual">Individual</option>
+                      </select>
+                    </div>
+
+                    <div className={styles.label}>
+                      <label htmlFor="level" className={styles.label}>
+                        <span>Група:</span>
+                      </label>
+                      <select
+                        name=""
+                        id="level"
+                        className={styles.select}
+                        disabled={sign[s._id] ? false : true}
+                        defaultValue=""
+                        onChange={(e) => selection(e, s._id)}
+                      >
+                        <option value="" disabled hidden></option>
+                        {data?.groupsLevelData.map((level) => (
+                          <option value={level.typeGroup} key={level._id}>
+                            {translate(level.typeGroup)}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                </>
               ))}
-              <h3 className={styles.secondaryHeading}>Pic a Lesson</h3>
+            </div>
 
-              <select name="" id="">
-                <option value="basic">Basic</option>
-                <option value="advances">Advanced</option>
-              </select>
-            </>
+            <button>Запиши се</button>
+
+            <div className={styles.conditions}>
+              <p>
+                Съгласявам се с <Link to={"/conditions"}>Общите условия</Link>
+              </p>
+              <input
+                className={styles.checkbox}
+                type="checkbox"
+                // onChange={(e) => checkboxHandler(e, s._id)}
+              />
+            </div>
           </div>
         </div>
       </div>

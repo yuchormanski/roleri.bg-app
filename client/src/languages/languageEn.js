@@ -83,5 +83,5 @@ export const EN = {
   s_list_2: "You have ability to review and edit everyone from the list.",
   // USER OPTIONS
   u_add_skater_info:
-    "If you have additional requirements or custom needs, add them to 'Additional requirements' field. The default value will be 'No'",
+    "If you have additional requirements or custom needs, add them to 'Additional requirements' field.",
 };

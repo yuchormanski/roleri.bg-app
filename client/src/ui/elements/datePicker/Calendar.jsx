@@ -4,13 +4,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import "./styles.css";
 
-function DatePickerCalendar({ selectedDate }) {
+function DatePickerCalendar({ selectedDateProp }) {
   const [selectedDay, setSelectedDay] = useState(null);
 
   if (selectedDay) console.log(selectedDay.toDateString());
   useEffect(() => {
-    selectedDate(selectedDay);
-  }, [selectedDate, selectedDay]);
+    selectedDateProp(selectedDay);
+  }, [selectedDateProp, selectedDay]);
 
   return (
     <div className="div">

@@ -125,6 +125,20 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
                 </NavLink>
               </li>
             )}
+            <li className={styles.listItem}>
+              <NavLink
+                // onClick={() => {
+                //   onLogin();
+                //   if (!isMobile) toggleMobile();
+                // }}
+                // className={styles.listItemBtn}
+                className={styles.link}
+                to=""
+              >
+                About
+                <span className={styles.linkBorder}></span>
+              </NavLink>
+            </li>
 
             {/* <li className={`${styles.listItem} ${styles.themeChanger}`}> */}
             <li className={`${styles.themeChanger}`}>
