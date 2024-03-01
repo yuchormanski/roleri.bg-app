@@ -42,37 +42,41 @@ function ListSkatesOptions() {
 				<Spinner />
 			) : (
 				<div className={styles.innerContainer}>
-					{skatesData.map((skateOption) => (
-						<figure className={styles.figure} key={skateOption._id}>
-							<div className={styles.content}>
-								<div className={styles.skateItem}>
-									<p className={styles.element}>
-										<span className={styles.elSpan}>{lang.number}:</span>
-										{skateOption.size}
-									</p>
-									<p className={styles.element}>
-										<span className={styles.elSpan}>{lang.quantity}:</span>
-										{skateOption.quantity}
-									</p>
-								</div>
+					{skatesData?.length > 0
+						? (skatesData.map((skateOption) => (
+							<figure className={styles.figure} key={skateOption._id}>
+								<div className={styles.content}>
+									<div className={styles.skateItem}>
+										<p className={styles.element}>
+											<span className={styles.elSpan}>{lang.number}:</span>
+											{skateOption.size}
+										</p>
+										<p className={styles.element}>
+											<span className={styles.elSpan}>{lang.quantity}:</span>
+											{skateOption.quantity}
+										</p>
+									</div>
 
-								<div className={styles.actionContainer}>
-									<button
-										className={styles.actionBtn}
-										onClick={() => onEditSkates(skateOption)}
-									>
-										<LiaEditSolid />
-									</button>
-									<button
-										className={styles.actionBtn}
-										onClick={() => onDeleteSkates(skateOption)}
-									>
-										<LiaTrashAlt />
-									</button>
+									<div className={styles.actionContainer}>
+										<button
+											className={styles.actionBtn}
+											onClick={() => onEditSkates(skateOption)}
+										>
+											<LiaEditSolid />
+										</button>
+										<button
+											className={styles.actionBtn}
+											onClick={() => onDeleteSkates(skateOption)}
+										>
+											<LiaTrashAlt />
+										</button>
+									</div>
 								</div>
-							</div>
-						</figure>
-					))}
+							</figure>
+						))
+						) : (
+							<h2 className={styles.headingNoSkaters}>{lang.noAddedOptions}</h2>
+						)}
 				</div>
 			)}
 			<div className={styles.addSkaterBtnContainer}>
@@ -87,9 +91,7 @@ function ListSkatesOptions() {
 
 				{/* TODO: translate next */}
 
-				<p className={styles.par}>
-					сортирането става автоматично, във възходящ ред
-				</p>
+				<p className={styles.par}>{lang.a_skates_info_3}</p>
 			</section>
 
 			{isShownAddSkatesModal && (

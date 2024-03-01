@@ -15,11 +15,23 @@ function EditSubscriptionOption({ onClose, subscriptionData }) {
     const { lang } = useLanguage();
 
     const { mutate, isPending } = useEditOptionsQuery("subscription");
-    const { register, handleSubmit, reset } = useForm({ defaultValues: subscriptionData });
+    const { register, handleSubmit, reset } = useForm({
+        defaultValues: {
+            typePaymentBg: subscriptionData.typePayment.split("&/&").at(0),
+            typePaymentEn: subscriptionData.typePayment.split("&/&").at(1),
+            price: subscriptionData.price,
+        }
+    });
 
     // SUBMITTING THE FORM
-    function onFormSubmit(subscriptionData) {
-        mutate(subscriptionData);
+    function onFormSubmit(formData) {
+        const result = {
+            _id: subscriptionData._id,
+            typePayment: `${formData.typePaymentBg}&/&${formData.typePaymentEn}`,
+            price: formData.price,
+        };
+
+        mutate(result);
         onClose();
         reset();
     }
@@ -46,12 +58,22 @@ function EditSubscriptionOption({ onClose, subscriptionData }) {
                     <input
                         className={styles.input}
                         type="text"
-                        id="typePayment"
-                        {...register("typePayment", {
+                        id="typePaymentBg"
+                        {...register("typePaymentBg", {
                             required: "Type of the subscription is required",
                         })}
-                        placeholder={lang.subscription}
-                        autoComplete="typePayment"
+                        placeholder={lang.typePaymentBg}
+                        autoComplete="typePaymentBg"
+                    />
+                    <input
+                        className={styles.input}
+                        type="text"
+                        id="typePaymentEn"
+                        {...register("typePaymentEn", {
+                            required: "Type of the subscription is required",
+                        })}
+                        placeholder={lang.typePaymentEn}
+                        autoComplete="typePaymentEn"
                     />
                     <input
                         className={styles.input}
@@ -74,6 +96,10 @@ function EditSubscriptionOption({ onClose, subscriptionData }) {
                         </div>
                     </div>
                 </form>
+                <p className={styles.info}>
+                    <span>&#9737;</span>
+                    {lang.a_level_1}
+                </p>
             </div>
         </Popup>
     );

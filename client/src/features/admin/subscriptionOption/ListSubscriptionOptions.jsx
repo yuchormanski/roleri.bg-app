@@ -1,20 +1,21 @@
-import styles from './ListSubscriptionOptions.module.css'
+import styles from "./ListSubscriptionOptions.module.css"
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
     LiaEditSolid,
     LiaTrashAlt,
 } from "react-icons/lia";
 
-import { useLanguage } from '../../../context/Language.jsx';
-import { useToggleModal } from '../../../hooks/useToggleModal.js';
+import { useLanguage } from "../../../context/Language.jsx";
+import { useTranslate } from "../../../hooks/useTranslate.js";
+import { useToggleModal } from "../../../hooks/useToggleModal.js";
 
-import { useGetOptionsQuery } from '../useGetOptionsQuery.js';
+import { useGetOptionsQuery } from "../useGetOptionsQuery.js";
 
-import Spinner from '../../../ui/elements/spinner/Spinner.jsx';
-import AddSubscriptionOptions from './AddSubscriptionOptions.jsx';
-import EditSubscriptionOption from './EditSubscriptionOption.jsx';
-import DeleteSubscriptionOption from './DeleteSubscriptionOption.jsx';
+import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
+import AddSubscriptionOptions from "./AddSubscriptionOptions.jsx";
+import EditSubscriptionOption from "./EditSubscriptionOption.jsx";
+import DeleteSubscriptionOption from "./DeleteSubscriptionOption.jsx";
 
 function ListSubscriptionOptions() {
     const [selectedOptionData, setSelectedOptionData] = useState({});
@@ -24,7 +25,8 @@ function ListSubscriptionOptions() {
     const [isShownDeleteSubscriptionModal, toggleDeleteSubscriptionModalHandler] = useToggleModal();
 
     const { lang } = useLanguage();
-    const { isLoading, data: subscriptionData } = useGetOptionsQuery('subscription');
+    const { translatePhrase: translate } = useTranslate();
+    const { isFetching, data: subscriptionData } = useGetOptionsQuery("subscription");
 
     function onEditLevel(subscriptionData) {
         setSelectedOptionData(subscriptionData);
@@ -39,7 +41,7 @@ function ListSubscriptionOptions() {
     return (
         <div className={styles.container}>
             <h3 className={styles.heading}>{lang.subscription}</h3>
-            {isLoading
+            {isFetching
                 ? (
                     <Spinner />
                 ) : (
@@ -51,10 +53,10 @@ function ListSubscriptionOptions() {
                                         <div className={styles.skateItem}>
                                             <p className={styles.element}>
                                                 <span className={styles.elSpan}>{lang.number}:</span>
-                                                {subscriptionOption.typePayment}
+                                                {translate(subscriptionOption.typePayment)}
                                             </p>
                                             <p className={styles.element}>
-                                                <span className={styles.elSpan}>{lang.quantity}:</span>
+                                                <span className={styles.elSpan}>{lang.price}:</span>
                                                 {subscriptionOption.price}
                                             </p>
                                         </div>

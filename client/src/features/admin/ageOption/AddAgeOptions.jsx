@@ -2,6 +2,7 @@ import styles from './AddAgeOptions.module.css'
 
 import { useForm } from "react-hook-form";
 import { GoX } from "react-icons/go";
+import { useQueryClient } from '@tanstack/react-query';
 import toast from "react-hot-toast";
 
 import { useLanguage } from "../../../context/Language.jsx";
@@ -15,12 +16,18 @@ import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 function AddAgeOptions({ onClose }) {
     const { lang } = useLanguage();
 
+    const queryClient = useQueryClient();
     const { mutate, isPending } = useAddOptionsQuery("age");
 
     const { register, handleSubmit, reset } = useForm();
 
     // SUBMITTING THE FORM
     function onFormSubmit(ageData) {
+        const ageAvailableData = queryClient.getQueryData(["age"]);
+        if (ageAvailableData.some(a => a.typeGroup == ageData.typeGroup)) {
+            return toast.error(`Group ${ageData.typeGroup} already exist`);
+        }
+
         mutate(ageData);
         onClose();
         reset();

@@ -4,6 +4,7 @@ const protectionModelSchema = new Schema({
     size: {
         type: String,
         required: [true, 'Protection size is require'],
+        unique: [true, 'Protection already exists'],
     },
     quantity: {
         type: Number,

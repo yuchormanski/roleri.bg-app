@@ -4,6 +4,7 @@ const groupAgeModelSchema = new Schema({
     typeGroup: {
         type: String,
         required: [true, 'Type group is require'],
+        unique: [true, 'Type group already exists'],
     },
 }, { timestamps: true });
 

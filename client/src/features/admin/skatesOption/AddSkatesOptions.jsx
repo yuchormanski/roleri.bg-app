@@ -2,6 +2,7 @@ import styles from "./AddSkatesOptions.module.css";
 
 import { useForm } from "react-hook-form";
 import { GoX } from "react-icons/go";
+import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 import { useLanguage } from "../../../context/Language.jsx";
@@ -15,12 +16,18 @@ import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 function AddSkatesOptions({ onClose }) {
   const { lang } = useLanguage();
 
+  const queryClient = useQueryClient();
   const { mutate, isPending } = useAddOptionsQuery("skates");
 
   const { register, handleSubmit, reset } = useForm();
 
   // SUBMITTING THE FORM
   function onFormSubmit(skatesData) {
+    const skatesAvailableData = queryClient.getQueryData(["skates"]);
+    if (skatesAvailableData.some(s => s.size == skatesData.size)) {
+      return toast.error(`Skates ${skatesData.size} already exist`);
+    }
+
     mutate(skatesData);
     onClose();
     reset();

@@ -3,6 +3,7 @@ import styles from "./DeleteSubscriptionOption.module.css"
 import { GoX } from "react-icons/go";
 
 import { useLanguage } from "../../../context/Language.jsx";
+import { useTranslate } from "../../../hooks/useTranslate.js";
 import { useDeleteOptionsQuery } from "../useDeleteOptionsQuery.js";
 
 import Popup from "../../../ui/elements/popupModal/Popup.jsx";
@@ -11,6 +12,7 @@ import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 
 function DeleteSubscriptionOption({ onClose, subscriptionData }) {
     const { lang } = useLanguage();
+    const { translatePhrase: translate } = useTranslate();
 
     const { mutate, isPending } = useDeleteOptionsQuery("subscription");
 
@@ -31,7 +33,7 @@ function DeleteSubscriptionOption({ onClose, subscriptionData }) {
                 <p className={styles.deleteInfo}
                 >
                     {lang.deleteSkaterQuestion}
-                    <span>{subscriptionData.typePayment}?</span>
+                    <span>{translate(subscriptionData.typePayment)}?</span>
                 </p>
 
                 <div className={styles.btnContainer}>

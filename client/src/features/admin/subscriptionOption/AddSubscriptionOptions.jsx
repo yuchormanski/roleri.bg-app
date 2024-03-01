@@ -2,6 +2,7 @@ import styles from './AddSubscriptionOptions.module.css'
 
 import { useForm } from "react-hook-form";
 import { GoX } from "react-icons/go";
+import { useQueryClient } from '@tanstack/react-query';
 import toast from "react-hot-toast";
 
 import { useLanguage } from "../../../context/Language.jsx";
@@ -15,13 +16,24 @@ import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 function AddSubscriptionOptions({ onClose }) {
     const { lang } = useLanguage();
 
+    const queryClient = useQueryClient();
     const { mutate, isPending } = useAddOptionsQuery("subscription");
 
     const { register, handleSubmit, reset } = useForm();
 
     // SUBMITTING THE FORM
     function onFormSubmit(subscriptionData) {
-        mutate(subscriptionData);
+        const result = {
+            typePayment: `${subscriptionData.typePaymentBg}&/&${subscriptionData.typePaymentEn}`,
+            price: subscriptionData.price,
+        };
+
+        const subscriptionAvailableData = queryClient.getQueryData(["subscription"]);
+        if (subscriptionAvailableData.some(p => p.typePayment == result.typePayment)) {
+            return toast.error(`Subscription type ${subscriptionData.typePayment} already exist`);
+        }
+
+        mutate(result);
         onClose();
         reset();
     }
@@ -47,12 +59,22 @@ function AddSubscriptionOptions({ onClose }) {
                     <input
                         className={styles.input}
                         type="text"
-                        id="typePayment"
-                        {...register("typePayment", {
+                        id="typePaymentBg"
+                        {...register("typePaymentBg", {
                             required: "Type of the subscription is required",
                         })}
-                        placeholder={lang.subscription}
-                        autoComplete="typePayment"
+                        placeholder={lang.typePaymentBg}
+                        autoComplete="typePaymentBg"
+                    />
+                    <input
+                        className={styles.input}
+                        type="text"
+                        id="typePaymentEn"
+                        {...register("typePaymentEn", {
+                            required: "Type of the subscription is required",
+                        })}
+                        placeholder={lang.typePaymentEn}
+                        autoComplete="typePaymentEn"
                     />
                     <input
                         className={styles.input}
@@ -75,6 +97,10 @@ function AddSubscriptionOptions({ onClose }) {
                         </div>
                     </div>
                 </form>
+                <p className={styles.info}>
+                    <span>&#9737;</span>
+                    {lang.a_level_1}
+                </p>
             </div>
         </Popup>
     );

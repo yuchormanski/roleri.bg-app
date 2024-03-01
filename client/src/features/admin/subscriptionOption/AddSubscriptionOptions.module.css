@@ -100,3 +100,14 @@
     font-size: 2rem;
     cursor: pointer;
 }
+
+.info {
+    width: 80%;
+    font-size: clamp(1rem, 3vw, 1.6rem);
+}
+
+.info span {
+    font-size: clamp(1rem, 3vw, 1.8rem);
+    color: var(--color-main-btn);
+    margin-right: 1rem;
+}

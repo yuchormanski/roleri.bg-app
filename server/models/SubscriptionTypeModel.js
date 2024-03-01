@@ -4,6 +4,7 @@ const subscriptionTypeModelSchema = new Schema({
     typePayment: {
         type: String,
         required: [true, 'Type payment is require'],
+        unique: [true, 'Type payment already exists'],
     },
     price: {
         type: Number,

@@ -2,6 +2,7 @@ import styles from "./AddLevelOptions.module.css";
 
 import { useForm } from "react-hook-form";
 import { GoX } from "react-icons/go";
+import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 import { useLanguage } from "../../../context/Language.jsx";
@@ -15,6 +16,7 @@ import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 function AddLevelOptions({ onClose }) {
   const { lang } = useLanguage();
 
+  const queryClient = useQueryClient();
   const { mutate, isPending } = useAddOptionsQuery("level");
 
   const { register, handleSubmit, reset } = useForm();
@@ -25,6 +27,11 @@ function AddLevelOptions({ onClose }) {
       typeGroup: `${levelData.group}&/&${levelData.groupEn}`,
       description: `${levelData.descr}&/&${levelData.descrEn}`,
     };
+
+    const levelAvailableData = queryClient.getQueryData(["level"]);
+    if (levelAvailableData.some(a => a.typeGroup == result.typeGroup)) {
+      return toast.error(`Group ${result.typeGroup} already exist`);
+    }
 
     mutate(result);
     onClose();

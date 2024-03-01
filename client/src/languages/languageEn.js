@@ -39,6 +39,8 @@ export const EN = {
   description: "Description",
   descriptionEn: "Description on English",
   descriptionBg: "Description on Bulgarian",
+  typePaymentEn: "Type payment on English",
+  typePaymentBg: "Type payment on Bulgarian",
   requirements: "Additional requirements",
   editSkater: "Edit skater",
   deleteSkater: "Delete skater",
@@ -61,16 +63,16 @@ export const EN = {
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",
   a_skates_info_2: "It is possible to manage every item",
+  a_skates_info_3: "Sort is in ascending order",
   a_info_1: "Here you can mange all available inventory.",
   a_info_2: "Subscription plans and age groups.",
   a_info_3: "Select from menu category for full list of actions actions",
   a_protection: "The information added here wll be converted to uppercase",
   a_level_1: "For maximum compatibility add both language options",
-  a_level_2:
-    "The description is not required, but it wil be useful when viewing the category",
+  a_level_2: "The description is not required, but it wil be useful when viewing the category",
   a_list_level_1: "Add new lesson type, including the description",
-  a_list_level_2:
-    "You have the ability to edit and delete every item on the list",
+  a_list_level_2: "You have the ability to edit and delete every item on the list",
+
   // SKATER OPTIONS
   s_firstName: "First name",
   s_lastName: "Last name",
@@ -79,10 +81,9 @@ export const EN = {
   s_genderMale: "Male",
   s_genderFemale: "Female",
   s_requirements: "Additional",
-  s_list_1:
-    "Skaters from this list will be accessible from lesson signing page. The necessary equipment will be added automatically to selected training",
+  s_list_1: "Skaters from this list will be accessible from lesson signing page. The necessary equipment will be added automatically to selected training",
   s_list_2: "You have ability to review and edit everyone from the list.",
+
   // USER OPTIONS
-  u_add_skater_info:
-    "If you have additional requirements or custom needs, add them to 'Additional requirements' field.",
+  u_add_skater_info: "If you have additional requirements or custom needs, add them to 'Additional requirements' field.",
 };

@@ -5,6 +5,7 @@ import { GoX } from "react-icons/go";
 import toast from "react-hot-toast";
 
 import { useLanguage } from "../../context/Language.jsx";
+import { useTranslate } from "../../hooks/useTranslate.js";
 
 import Popup from "../../ui/elements/popupModal/Popup.jsx";
 import Button from "../../ui/elements/button/Button.jsx";
@@ -15,7 +16,8 @@ import { useGetSkaterOptionsQuery } from "./useGetSkaterOptionsQuery.js";
 
 function EditSkater({ onClose, skaterData }) {
   const { lang } = useLanguage();
-  console.log(skaterData);
+  const { translatePhrase: translate } = useTranslate();
+
   const { isLoading, data: options_data } = useGetSkaterOptionsQuery();
   const { editSkaterMutation } = useEditSkaterQuery();
   const { register, handleSubmit, reset } = useForm({
@@ -162,7 +164,7 @@ function EditSkater({ onClose, skaterData }) {
             <option value="">{lang.level}</option>
             {options_data?.groupsLevelData?.map((l) => (
               <option key={l._id} value={l._id}>
-                {l.typeGroup}
+                {translate(l.typeGroup)}
               </option>
             ))}
           </select>

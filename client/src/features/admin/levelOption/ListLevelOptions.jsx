@@ -19,16 +19,15 @@ function ListLevelOptions() {
 
   const [isShownAddLevelModal, toggleAddLevelModalHandler] = useToggleModal();
   const [isShownEditLevelModal, toggleEditLevelModalHandler] = useToggleModal();
-  const [isShownDeleteLevelModal, toggleDeleteLevelModalHandler] =
-    useToggleModal();
+  const [isShownDeleteLevelModal, toggleDeleteLevelModalHandler] = useToggleModal();
 
   const { lang } = useLanguage();
-  const { translatePhrase: translate } = useTranslate();
+  const { translatePhrase: translate } = useTranslate(); 
   const { isFetching, data: levelData } = useGetOptionsQuery("level");
 
   function onEditLevel(levelData) {
     setSelectedOptionData(levelData);
-    toggleEditLevelModalHandler();
+    toggleEditLevelModalHandler(); 
   }
 
   function onDeleteLevel(levelData) {

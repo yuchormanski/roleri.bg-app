@@ -13,9 +13,11 @@ import Button from "../../ui/elements/button/Button.jsx";
 
 function RegisteredUser() {
   const { lang, index } = useLanguage();
+  
   const { isFetching: skatersLoading, data: skaters } = useGetSkatersQuery();
   const { isFetching: userLoading, data: user } = useGetUserDataQuery();
   const { isLoading, isFetching, data } = useGetSkaterOptionsQuery();
+
   const { translatePhrase: translate } = useTranslate();
   const [selectedDate, setSelectedDate] = useState();
   const [sign, setSign] = useState({});

@@ -3,6 +3,7 @@ import styles from "./DeleteLevelOption.module.css"
 import { GoX } from "react-icons/go";
 
 import { useLanguage } from "../../../context/Language.jsx";
+import { useTranslate } from "../../../hooks/useTranslate.js";
 import { useDeleteOptionsQuery } from "../useDeleteOptionsQuery.js";
 
 import Popup from "../../../ui/elements/popupModal/Popup.jsx";
@@ -11,6 +12,7 @@ import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 
 function DeleteLevelOption({ onClose, levelData }) {
     const { lang } = useLanguage();
+    const { translatePhrase: translate } = useTranslate();
 
     const { mutate, isPending } = useDeleteOptionsQuery("level");
 
@@ -31,7 +33,7 @@ function DeleteLevelOption({ onClose, levelData }) {
                 <p className={styles.deleteInfo}
                 >
                     {lang.deleteSkaterQuestion}
-                    <span>{levelData.typeGroup}?</span>
+                    <span>{translate(levelData.typeGroup)}?</span>
                 </p>
 
                 <div className={styles.btnContainer}>

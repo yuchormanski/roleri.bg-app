@@ -1,20 +1,20 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from 'mongoose';
 
 const groupLevelModelSchema = new Schema(
   {
     typeGroup: {
       type: String,
-      required: [true, "Type group is require"],
+      required: [true, 'Type group is require'],
+      unique: [true, 'Type group already exists'],
     },
 
     description: {
       type: String,
-      // required: [true, 'Description is require'],
     },
   },
   { timestamps: true }
 );
 
-const GroupLevelModel = model("GroupLevel", groupLevelModelSchema);
+const GroupLevelModel = model('GroupLevel', groupLevelModelSchema);
 
 export { GroupLevelModel };

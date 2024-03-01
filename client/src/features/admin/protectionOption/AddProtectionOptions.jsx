@@ -2,6 +2,7 @@ import styles from "./AddProtectionOptions.module.css";
 
 import { useForm } from "react-hook-form";
 import { GoX } from "react-icons/go";
+import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 import { useLanguage } from "../../../context/Language.jsx";
@@ -15,6 +16,7 @@ import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 function AddProtectionOptions({ onClose }) {
   const { lang } = useLanguage();
 
+  const queryClient = useQueryClient();
   const { mutate, isPending } = useAddOptionsQuery("protection");
 
   const { register, handleSubmit, reset } = useForm();
@@ -25,6 +27,12 @@ function AddProtectionOptions({ onClose }) {
       size: protectionData.size.toUpperCase(),
       quantity: Number(protectionData.quantity),
     };
+
+    const protectionAvailableData = queryClient.getQueryData(["protection"]);
+    if (protectionAvailableData.some(p => p.size == result.size)) {
+      return toast.error(`Protector size ${result.size} already exist`);
+    }
+
     mutate(result);
     onClose();
     reset();

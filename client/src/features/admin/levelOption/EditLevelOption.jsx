@@ -15,11 +15,24 @@ function EditLevelOption({ onClose, levelData }) {
     const { lang } = useLanguage();
 
     const { mutate, isPending } = useEditOptionsQuery("level");
-    const { register, handleSubmit, reset } = useForm({ defaultValues: levelData });
+    const { register, handleSubmit, reset } = useForm({
+        defaultValues: {
+            group: levelData.typeGroup.split('&/&').at(0),
+            groupEn: levelData.typeGroup.split('&/&').at(1),
+            descr: levelData.description.split('&/&').at(0),
+            descrEn: levelData.description.split('&/&').at(1),
+        }
+    });
 
     // SUBMITTING THE FORM
-    function onFormSubmit(levelData) {
-        mutate(levelData);
+    function onFormSubmit(formData) {
+        const result = {
+            _id: levelData._id,
+            typeGroup: `${formData.group}&/&${formData.groupEn}`,
+            description: `${formData.descr}&/&${formData.descrEn}`,
+        };
+
+        mutate(result);
         onClose();
         reset();
     }
@@ -46,24 +59,39 @@ function EditLevelOption({ onClose, levelData }) {
                     <input
                         className={styles.input}
                         type="text"
-                        id="typeGroup"
-                        {...register("typeGroup", {
+                        id="group"
+                        {...register("group", {
                             required: "Type of the group is required",
                         })}
                         placeholder={lang.level}
-                        autoComplete="typeGroup"
                     />
                     <input
                         className={styles.input}
                         type="text"
-                        id="description"
-                        {...register("description", {
+                        id="groupEn"
+                        {...register("groupEn", {
+                            required: "English type group is required",
+                        })}
+                        placeholder={lang.levelEn}
+                    />
+                    <input
+                        className={styles.input}
+                        type="text"
+                        id="descr"
+                        {...register("descr", {
                             required: "Description is required",
                         })}
-                        placeholder={lang.description}
-                        autoComplete="description"
+                        placeholder={lang.descriptionBg}
                     />
-
+                    <input
+                        className={styles.input}
+                        type="text"
+                        id="descrEn"
+                        {...register("descrEn", {
+                            required: "Description is required",
+                        })}
+                        placeholder={lang.descriptionEn}
+                    />
 
                     <div className={styles.btnContainer}>
                         <div style={{ marginLeft: "auto" }}>
