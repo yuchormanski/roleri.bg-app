@@ -10,6 +10,7 @@ import { useGetUserDataQuery } from "../users/useGetUserDataQuery.js";
 import { useGetSkaterOptionsQuery } from "../skaters/useGetSkaterOptionsQuery.js";
 import { useTranslate } from "../../hooks/useTranslate.js";
 import Button from "../../ui/elements/button/Button.jsx";
+import toast from "react-hot-toast";
 
 function RegisteredUser() {
   const { lang, index } = useLanguage();
@@ -47,9 +48,21 @@ function RegisteredUser() {
   }
 
   function bookHandler() {
+    if (!selectedDate) {
+      return toast.error("You should choose a date!");
+    }
     const lessonDate = selectedDate.toDateString();
+    const skatersIds = Object.keys(sign);
+    const result = skatersIds
+      .map((s) => {
+        if (!!sign[s].type && !!sign[s].level) return true;
+        else return false;
+      })
+      .every((x) => x);
 
-    console.log({ date: selectedDate.toLocaleDateString(), skaters: sign });
+    if (result)
+      console.log({ date: selectedDate.toLocaleDateString(), skaters: sign });
+    else return toast.error("You should select all option for skater");
   }
   return (
     <>
