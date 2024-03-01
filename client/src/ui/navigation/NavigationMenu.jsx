@@ -25,6 +25,21 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
     }
   }
 
+  const links = [
+    {
+      path: "home",
+      label: lang.home,
+    },
+    {
+      path: "booking",
+      label: lang.booking,
+    },
+    {
+      path: "lessons",
+      label: lang.lessons,
+    },
+  ];
+
   return (
     <>
       {/* next line is for keeping nav menu closed on initial render.
@@ -33,48 +48,19 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
         <div
           className={`${styles.menuPanel} ${isDark && styles.isMobileBorder}`}
         >
-          {/* <button onClick={langChanger} className={styles.lang}>
-            {language ? (
-              <img
-                src={"/Flag-of-Bulgaria-28-300x200.png"}
-                alt="Bulgarian flag"
-              />
-            ) : (
-              <img src={"/Flag-of-Great-Britain-28.svg"} alt="UK flag" />
-            )}
-          </button> */}
-
           <ul className={styles.list}>
-            <li className={styles.listItem}>
-              <NavLink
-                to={"home"}
-                className={styles.link}
-                onClick={toggleMobile}
-              >
-                {lang.home}
-                <span className={styles.linkBorder}></span>
-              </NavLink>
-            </li>
-            <li className={styles.listItem}>
-              <NavLink
-                to={"booking"}
-                className={styles.link}
-                onClick={toggleMobile}
-              >
-                {lang.booking}
-                <span className={styles.linkBorder}></span>
-              </NavLink>
-            </li>
-            <li className={styles.listItem}>
-              <NavLink
-                to={"lessons"}
-                className={styles.link}
-                onClick={toggleMobile}
-              >
-                {lang.lessons}
-                <span className={styles.linkBorder}></span>
-              </NavLink>
-            </li>
+            {links.map((link, i) => (
+              <li className={styles.listItem} key={i}>
+                <NavLink
+                  to={link.path}
+                  className={styles.link}
+                  onClick={toggleMobile}
+                >
+                  {link.label}
+                  <span className={styles.linkBorder}></span>
+                </NavLink>
+              </li>
+            ))}
 
             {checkIsUserAdmin() && (
               <li className={styles.listItem}>

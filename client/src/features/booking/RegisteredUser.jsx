@@ -1,7 +1,7 @@
 import styles from "./RegisteredUser.module.css";
 
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import DatePickerCalendar from "../../ui/elements/datePicker/Calendar.jsx";
 import { useLanguage } from "../../context/Language.jsx";
@@ -13,7 +13,7 @@ import Button from "../../ui/elements/button/Button.jsx";
 
 function RegisteredUser() {
   const { lang, index } = useLanguage();
-  
+
   const { isFetching: skatersLoading, data: skaters } = useGetSkatersQuery();
   const { isFetching: userLoading, data: user } = useGetUserDataQuery();
   const { isLoading, isFetching, data } = useGetSkaterOptionsQuery();
@@ -21,7 +21,7 @@ function RegisteredUser() {
   const { translatePhrase: translate } = useTranslate();
   const [selectedDate, setSelectedDate] = useState();
   const [sign, setSign] = useState({});
-  const [skaterSelection, setSkaterSelection] = useState([]);
+  // const [skaterSelection, setSkaterSelection] = useState([]);
 
   const userSkaters = skaters.filter((s) => s.owner === user._id);
 
