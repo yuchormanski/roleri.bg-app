@@ -25,6 +25,7 @@
     --color-main-btn: #ffd823;
     --action-btn: #11a2db;
     --color-lesson-info: #f6f6f6;
+    --calendar-disabled: rgb(180, 180, 180);
   }
 
   /* dark mode */
@@ -50,6 +51,7 @@
     --card-border: 1px solid #58570d;
     --color-main-btn: #ffd723ab;
     --color-lesson-info: #aaa;
+    --calendar-disabled: #2e3644;
   }
   /* main styles */
   --text-dark: #222;

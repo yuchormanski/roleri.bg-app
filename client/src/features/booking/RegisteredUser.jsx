@@ -9,6 +9,7 @@ import { useGetSkatersQuery } from "../skaters/useGetSkatersQuery.js";
 import { useGetUserDataQuery } from "../users/useGetUserDataQuery.js";
 import { useGetSkaterOptionsQuery } from "../skaters/useGetSkaterOptionsQuery.js";
 import { useTranslate } from "../../hooks/useTranslate.js";
+import Button from "../../ui/elements/button/Button.jsx";
 
 function RegisteredUser() {
   const { lang, index } = useLanguage();
@@ -27,10 +28,8 @@ function RegisteredUser() {
   }
 
   function selection(e, id) {
-    console.log(e.target.value, id);
-
     const newObj = { ...sign[id], [e.target.id]: e.target.value };
-    console.log(newObj);
+    // console.log(newObj);
     setSign((state) => (state = { ...state, [id]: newObj }));
   }
 
@@ -44,7 +43,12 @@ function RegisteredUser() {
       setSign((state) => (state = { ...newObj }));
     }
   }
-  // console.log(skaterSelection);
+
+  function bookHandler() {
+    const lessonDate = selectedDate.toDateString();
+
+    console.log({ date: selectedDate.toLocaleDateString(), skaters: sign });
+  }
   return (
     <>
       <div className={styles.container}>
@@ -92,10 +96,10 @@ function RegisteredUser() {
               Select from registered skaters
             </h3>
 
-            <div className={`${styles.headInfo} ${styles.userChoice} `}>
-              {skaters.map((s) => (
-                <>
-                  <div className={styles.skaterContainer} key={s._id}>
+            <div className={` ${styles.userChoice} `}>
+              {userSkaters.map((s) => (
+                <div className={styles.skaterWrapper} key={s._id}>
+                  <div className={styles.skaterContainer}>
                     <p
                       className={styles.skaterName}
                     >{`${s.firstName} ${s.lastName}`}</p>
@@ -108,7 +112,14 @@ function RegisteredUser() {
 
                   <div className={styles.selectContainer}>
                     <div className={styles.label}>
-                      <label htmlFor="type">
+                      <label
+                        htmlFor="type"
+                        className={
+                          sign[s._id]
+                            ? styles.enabledLabel
+                            : styles.disabledLabel
+                        }
+                      >
                         <span>Вид урок:</span>
                       </label>
                       <select
@@ -120,14 +131,21 @@ function RegisteredUser() {
                         onChange={(e) => selection(e, s._id)}
                       >
                         <option value="" disabled hidden></option>
-                        <option value="group">Single group lesson</option>
+                        <option value="group">One time group</option>
                         <option value="subscription">Subscription</option>
                         <option value="individual">Individual</option>
                       </select>
                     </div>
 
                     <div className={styles.label}>
-                      <label htmlFor="level" className={styles.label}>
+                      <label
+                        htmlFor="level"
+                        className={
+                          sign[s._id]
+                            ? styles.enabledLabel
+                            : styles.disabledLabel
+                        }
+                      >
                         <span>Група:</span>
                       </label>
                       <select
@@ -147,21 +165,29 @@ function RegisteredUser() {
                       </select>
                     </div>
                   </div>
-                </>
+                </div>
               ))}
             </div>
 
-            <button>Запиши се</button>
-
             <div className={styles.conditions}>
               <p>
-                Съгласявам се с <Link to={"/conditions"}>Общите условия</Link>
+                Съгласявам се с{" "}
+                <Link className={styles.link} to={"/conditions"}>
+                  Общите условия
+                </Link>
               </p>
               <input
                 className={styles.checkbox}
                 type="checkbox"
                 // onChange={(e) => checkboxHandler(e, s._id)}
               />
+            </div>
+            <div className={styles.btnContainer}>
+              <div style={{ marginLeft: "auto" }}>
+                <Button type={"primary"} onClick={bookHandler}>
+                  {userSkaters.length > 1 ? lang.addSkaters : lang.addSkater}
+                </Button>
+              </div>
             </div>
           </div>
         </div>

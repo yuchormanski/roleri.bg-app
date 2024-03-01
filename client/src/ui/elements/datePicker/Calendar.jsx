@@ -7,7 +7,7 @@ import "./styles.css";
 function DatePickerCalendar({ selectedDateProp }) {
   const [selectedDay, setSelectedDay] = useState(null);
 
-  if (selectedDay) console.log(selectedDay.toDateString());
+  // if (selectedDay) console.log(selectedDay.toDateString());
   useEffect(() => {
     selectedDateProp(selectedDay);
   }, [selectedDateProp, selectedDay]);
