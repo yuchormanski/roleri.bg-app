@@ -23,24 +23,28 @@ function LessonsList() {
         <Spinner />
       ) : (
         <>
-          <h1 className={styles.heading}>{lang.lessons}</h1>
-          <div className={styles.lessons}>
-            {data.map((lm) => (
-              <LessonListElement key={lm._id} lm={lm} />
-            ))}
-          </div>
-          <div className={styles.scrollToTop}>
-            <button
-              onClick={() =>
-                window.scrollTo({
-                  top: 0,
-                  left: 0,
-                  behavior: "smooth",
-                })
-              }
-            >
-              To top
-            </button>
+          <div className={styles.container}>
+            <h1 className={styles.heading}>{lang.lessons}</h1>
+            <div className={styles.secondaryContainer}>
+              <div className={styles.lessons}>
+                {data.map((lm) => (
+                  <LessonListElement key={lm._id} lm={lm} />
+                ))}
+              </div>
+              <div className={styles.scrollToTop}>
+                <button
+                  onClick={() =>
+                    window.scrollTo({
+                      top: 0,
+                      left: 0,
+                      behavior: "smooth",
+                    })
+                  }
+                >
+                  To top
+                </button>
+              </div>
+            </div>
           </div>
         </>
       )}
