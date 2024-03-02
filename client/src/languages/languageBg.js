@@ -29,7 +29,7 @@ export const BG = {
   dashboard: "Табло",
   details: "Още",
   send: "Изпрати",
-  addSkater: "Добави кънкьорът",
+  addSkater: "Добави кънкьора",
   addSkaters: "Добави кънкьорите",
   gender: "Пол",
   level: "Ниво",
