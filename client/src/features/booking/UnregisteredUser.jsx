@@ -10,28 +10,36 @@ import { useForm } from "react-hook-form";
 import { useTranslate } from "../../hooks/useTranslate.js";
 import { useGetSkaterOptionsQuery } from "../skaters/useGetSkaterOptionsQuery.js";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
+import toast from "react-hot-toast";
 
 function UnregisteredUser() {
   const [selectedDate, setSelectedDate] = useState();
+  const [ageVerifier, setAgeVerifier] = useState(false);
   const { lang } = useLanguage();
   const { translatePhrase: translate } = useTranslate();
-  const { register, handleSubmit } = useForm();
+  const { register, unregister, handleSubmit, reset, getValues } = useForm();
 
-  const { data, isFetching, error } = useGetSkaterOptionsQuery();
-  // const {
-  //   groupsAgeData,
-  //   groupsLevelData,
-  //   protectionsData,
-  //   skatesData,
-  //   subscriptionData,
-  // } = data;
-
-  console.log(data);
+  const { isFetching, error, data } = useGetSkaterOptionsQuery();
 
   // SELECTING DATE
   function selectedDateHandler(date) {
     setSelectedDate((d) => (d = date));
   }
+
+  console.log(getValues("ageGroup"));
+  function ageHandler(formAge) {
+    console.log(formAge);
+    // const age = Number(e.target.value.slice(-2));
+    // if (age < 18) setAgeVerifier(true);
+  }
+
+  function formSuccessHandler(data) {
+    console.log(data);
+  }
+  function formErrorHandler(error) {
+    toast.error(error.message);
+  }
+
   return (
     <>
       {isFetching ? (
@@ -87,28 +95,46 @@ function UnregisteredUser() {
 
               <h3 className={styles.secondaryHeading}>Fill the form</h3>
 
-              <form>
+              <form onSubmit={handleSubmit()}>
                 {/* First Name */}
                 <div className={styles.element}>
-                  <label htmlFor={"firstName"}>First Name</label>
+                  <label htmlFor={"firstName"}>{lang.firstName}</label>
                   <input
                     className={styles.textInput}
                     type="text"
                     id="firstName"
                     name={"firstName"}
-                    {...register}
+                    {...register("firstName", {
+                      required: "First name is required",
+                      maxLength: {
+                        value: 20,
+                        message:
+                          "First name can't be more than 20 characters long!",
+                      },
+                    })}
+                    // placeholder={lang.s_firstName}
+                    autoComplete="given-name"
                   />
                 </div>
 
                 {/* Last Name */}
                 <div className={styles.element}>
-                  <label htmlFor={"lastName"}>Last Name</label>
+                  <label htmlFor={"lastName"}>{lang.lastName}</label>
                   <input
                     className={styles.textInput}
                     type="text"
                     id="lastName"
                     name={"lastName"}
-                    {...register}
+                    {...register("lastName", {
+                      required: "Last name is required",
+                      maxLength: {
+                        value: 20,
+                        message:
+                          "Last name can't be more than 20 characters long!",
+                      },
+                    })}
+                    // placeholder={lang.s_lastName}
+                    autoComplete="family-name"
                   />
                 </div>
 
@@ -131,6 +157,11 @@ function UnregisteredUser() {
                     // disabled={hasSkater(s._id) ? false : true}
                     defaultValue=""
                     // onChange={(e) => selection(e, s._id)}
+                    {...register("ageGroup", {
+                      required: "Age is required",
+                    })}
+                    placeholder={lang.age}
+                    autoComplete="skater-age"
                   >
                     <option value="" disabled hidden></option>
                     {data.groupsAgeData.map((age) => (
@@ -160,6 +191,9 @@ function UnregisteredUser() {
                     // disabled={hasSkater(s._id) ? false : true}
                     defaultValue=""
                     // onChange={(e) => selection(e, s._id)}
+                    {...register("type", {
+                      required: "Lesson type is required",
+                    })}
                   >
                     <option value="" disabled hidden></option>
                     <option value="group">One time group</option>
@@ -186,6 +220,9 @@ function UnregisteredUser() {
                     // disabled={hasSkater(s._id) ? false : true}
                     defaultValue=""
                     // onChange={(e) => selection(e, s._id)}
+                    {...register("level", {
+                      required: "Level is required",
+                    })}
                   >
                     <option value="" disabled hidden></option>
                     {data.groupsLevelData.map((level) => (
@@ -195,32 +232,155 @@ function UnregisteredUser() {
                     ))}
                   </select>
                 </div>
-              </form>
 
-              <div className={styles.conditions}>
-                <p>
-                  Съгласявам се с{" "}
-                  <Link className={styles.link} to={"/conditions"}>
-                    Общите условия
-                  </Link>
-                </p>
-                <input
-                  className={styles.checkbox}
-                  type="checkbox"
-                  // onChange={(e) => checkboxHandler(e, s._id)}
-                />
-              </div>
-              <div className={styles.btnContainer}>
-                <div style={{ marginLeft: "auto" }}>
-                  <Button
-                    type={"primary"}
-                    // onClick={bookHandler}
-                    // disabled={!selectedDate && sign.length === 0}
+                {/* Skates */}
+                <div className={styles.element}>
+                  <label
+                    htmlFor={`skates`}
+                    // className={
+                    //   hasSkater(s._id)
+                    //     ? styles.enabledLevel
+                    //     : styles.disabledLabel
+                    // }
                   >
-                    {lang.addSkater}
-                  </Button>
+                    <span>{lang.skates}:</span>
+                  </label>
+                  <select
+                    name="skates"
+                    id={`skates`}
+                    className={styles.select}
+                    // disabled={hasSkater(s._id) ? false : true}
+                    defaultValue=""
+                    // onChange={(e) => selection(e, s._id)}
+                    {...register("skates", {
+                      required: "Skates are required",
+                    })}
+                  >
+                    <option value="" disabled hidden></option>
+                    <option value={"hasOwn"}>{lang.haveOwn}</option>
+                    {data.skatesData.map((skate) => (
+                      <option key={skate._id} value={skate.size}>
+                        {skate.size}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-              </div>
+
+                {/* Protection */}
+                <div className={styles.element}>
+                  <label
+                    htmlFor={`protection`}
+                    // className={
+                    //   hasSkater(s._id)
+                    //     ? styles.enabledLevel
+                    //     : styles.disabledLabel
+                    // }
+                  >
+                    <span>{lang.protection}:</span>
+                  </label>
+                  <select
+                    name="protection"
+                    id={`protection`}
+                    className={styles.select}
+                    // disabled={hasSkater(s._id) ? false : true}
+                    defaultValue=""
+                    // onChange={(e) => selection(e, s._id)}
+                    {...register("protection", {
+                      required: "Protection is required",
+                    })}
+                  >
+                    <option value="" disabled hidden></option>
+                    <option value={"hasOwn"}>{lang.haveOwn}</option>
+                    {data.protectionsData.map((protection) => (
+                      <option key={protection._id} value={protection.size}>
+                        {protection.size}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Contact name */}
+                {ageVerifier && (
+                  <div className={styles.element}>
+                    <label htmlFor={"contact"}>{lang.contactName}:</label>
+                    <input
+                      className={styles.textInput}
+                      type="text"
+                      id="contactName"
+                      name={"contactName"}
+                      {...register("contactName", {
+                        validate: {
+                          required: (value) => {
+                            if (!value) return "Contact name is required";
+                            return true;
+                          },
+                        },
+                      })}
+                    />
+                  </div>
+                )}
+
+                {/* Email */}
+                <div className={styles.element}>
+                  <label htmlFor={"email"}>{lang.email}:</label>
+                  <input
+                    className={styles.textInput}
+                    type="email"
+                    id="email"
+                    name={"email"}
+                    {...register}
+                  />
+                </div>
+
+                {/* Phone */}
+                <div className={styles.element}>
+                  <label htmlFor={"phone"}>{lang.phone}:</label>
+                  <input
+                    className={styles.textInput}
+                    type="number"
+                    id="phone"
+                    name={"phone"}
+                    {...register}
+                  />
+                </div>
+
+                {/* Additional field */}
+                <div className={styles.element}>
+                  <label htmlFor={"textArea"}>{lang.requirements}:</label>
+                  <textarea
+                    className={styles.textInput}
+                    type="text"
+                    id="textArea"
+                    name={"textArea"}
+                    {...register}
+                    rows={3}
+                  />
+                </div>
+                <div className={styles.conditions}>
+                  <p>
+                    Съгласявам се с{" "}
+                    <Link className={styles.link} to={"/conditions"}>
+                      Общите условия
+                    </Link>
+                  </p>
+                  <input
+                    className={styles.checkbox}
+                    type="checkbox"
+                    // onChange={(e) => checkboxHandler(e, s._id)}
+                  />
+                </div>
+                <div className={styles.btnContainer}>
+                  <div style={{ marginLeft: "auto" }}>
+                    <Button
+                      type={"primary"}
+                      // onClick={bookHandler}
+                      // disabled={!selectedDate && sign.length === 0}
+                    >
+                      {lang.addSkater}
+                    </Button>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>

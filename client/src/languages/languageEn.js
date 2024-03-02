@@ -4,6 +4,10 @@
 // s_ -> skater functions
 
 export const EN = {
+  firstName: "First name",
+  lastName: "Last name",
+  email: "Email",
+  phone: "Phone",
   home: "Home",
   lessons: "Lessons",
   login: "Login",
@@ -59,6 +63,10 @@ export const EN = {
   booking: "Booking",
   bookLesson: "Book a lesson",
   selectDay: "Select day",
+  skates: "Skates",
+  protection: "Protection",
+  haveOwn: "Have own",
+  contactName: "Contact name",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",

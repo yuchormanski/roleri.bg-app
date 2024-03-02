@@ -1,4 +1,8 @@
 export const BG = {
+  firstName: "Име",
+  lastName: "Фамилия",
+  email: "Имейл",
+  phone: "Телефон",
   home: "Начало",
   lessons: "Уроци",
   login: "Вход",
@@ -54,6 +58,10 @@ export const BG = {
   booking: "Запиши се",
   bookLesson: "Записване за урок",
   selectDay: "Изберете ден",
+  skates: "Кънки",
+  protection: "Протектори",
+  haveOwn: "Имам свои",
+  contactName: "Име за контакт",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Добавете номер и количество",
