@@ -1,298 +1,407 @@
-import { Router } from 'express';
+import { Router } from "express";
 
-import { isUserLogged, isUserRole } from '../middlewares/guards.js';
-import preloader from '../middlewares/preloader.js';
-import { endpoints } from '../environments/endPoints.js';
-import { preloadOptions, userRole } from '../environments/constants.js';
+import { isUserLogged, isUserRole } from "../middlewares/guards.js";
+import preloader from "../middlewares/preloader.js";
+import { endpoints } from "../environments/endPoints.js";
+import { preloadOptions, userRole } from "../environments/constants.js";
 
-import { getUserById } from '../services/userService.js';
+import { getUserById } from "../services/userService.js";
 import {
-    getAgeOptions,
-    getAllOptionsSkatesData,
-    getLevelOptions,
-    getProtectionOptions,
-    getSkatesOptions,
-    getSubscriptionOptions,
-    addSkatesOptions,
-    addProtectionOptions,
-    addLevelOptions,
-    addAgeOptions,
-    addSubscriptionOptions,
-    editSkatesOptions,
-    editProtectionOptions,
-    editLevelOptions,
-    editAgeOptions,
-    editSubscriptionOptions,
-    deleteSkatesOptions,
-    deleteProtectionOptions,
-    deleteLevelOptions,
-    deleteAgeOptions,
-    deleteSubscriptionOptions,
-} from '../services/optionService.js';
+  getAgeOptions,
+  getAllOptionsSkatesData,
+  getLevelOptions,
+  getProtectionOptions,
+  getSkatesOptions,
+  getSubscriptionOptions,
+  addSkatesOptions,
+  addProtectionOptions,
+  addLevelOptions,
+  addAgeOptions,
+  addSubscriptionOptions,
+  editSkatesOptions,
+  editProtectionOptions,
+  editLevelOptions,
+  editAgeOptions,
+  editSubscriptionOptions,
+  deleteSkatesOptions,
+  deleteProtectionOptions,
+  deleteLevelOptions,
+  deleteAgeOptions,
+  deleteSubscriptionOptions,
+} from "../services/optionService.js";
 
 const optionController = Router();
 
 // Get all options for skates
-optionController.get(endpoints.get_all_options, isUserLogged, async (req, res, next) => {
-    try {
-        const optionSkaterData = await getAllOptionsSkatesData();
+// optionController.get(endpoints.get_all_options, isUserLogged, async (req, res, next) => {
+optionController.get(endpoints.get_all_options, async (req, res, next) => {
+  try {
+    const optionSkaterData = await getAllOptionsSkatesData();
 
-        res.status(200).json(optionSkaterData);
-    } catch (error) {
-        next(error);
-    }
+    res.status(200).json(optionSkaterData);
+  } catch (error) {
+    next(error);
+  }
 });
 
 // Get skates options
-optionController.get(endpoints.get_skates_options, isUserLogged, async (req, res, next) => {
+optionController.get(
+  endpoints.get_skates_options,
+  isUserLogged,
+  async (req, res, next) => {
     try {
-        const skatesOptions = await getSkatesOptions();
+      const skatesOptions = await getSkatesOptions();
 
-        res.status(200).json(skatesOptions);
+      res.status(200).json(skatesOptions);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
 // Get protection options
-optionController.get(endpoints.get_protection_options, isUserLogged, async (req, res, next) => {
+optionController.get(
+  endpoints.get_protection_options,
+  isUserLogged,
+  async (req, res, next) => {
     try {
-        const protectionOptions = await getProtectionOptions();
+      const protectionOptions = await getProtectionOptions();
 
-        res.status(200).json(protectionOptions);
+      res.status(200).json(protectionOptions);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
 // Get level options
-optionController.get(endpoints.get_level_options, isUserLogged, async (req, res, next) => {
+optionController.get(
+  endpoints.get_level_options,
+  isUserLogged,
+  async (req, res, next) => {
     try {
-        const protectionOptions = await getLevelOptions();
+      const protectionOptions = await getLevelOptions();
 
-        res.status(200).json(protectionOptions);
+      res.status(200).json(protectionOptions);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
 // Get age options
-optionController.get(endpoints.get_age_options, isUserLogged, async (req, res, next) => {
+optionController.get(
+  endpoints.get_age_options,
+  isUserLogged,
+  async (req, res, next) => {
     try {
-        const protectionOptions = await getAgeOptions();
+      const protectionOptions = await getAgeOptions();
 
-        res.status(200).json(protectionOptions);
+      res.status(200).json(protectionOptions);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
 // Get subscription options
-optionController.get(endpoints.get_subscription_options, isUserLogged, async (req, res, next) => {
+optionController.get(
+  endpoints.get_subscription_options,
+  isUserLogged,
+  async (req, res, next) => {
     try {
-        const protectionOptions = await getSubscriptionOptions();
+      const protectionOptions = await getSubscriptionOptions();
 
-        res.status(200).json(protectionOptions);
+      res.status(200).json(protectionOptions);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
-// Create skates options 
-optionController.post(endpoints.add_skates_options, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+// Create skates options
+optionController.post(
+  endpoints.add_skates_options,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
     try {
-        const skatesData = req.body;
+      const skatesData = req.body;
 
-        const newOption = await addSkatesOptions(skatesData);
+      const newOption = await addSkatesOptions(skatesData);
 
-        res.status(201).json(newOption);
+      res.status(201).json(newOption);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
-// Create protection options 
-optionController.post(endpoints.add_protection_options, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+// Create protection options
+optionController.post(
+  endpoints.add_protection_options,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
     try {
-        const protectionData = req.body;
+      const protectionData = req.body;
 
-        const newOption = await addProtectionOptions(protectionData);
+      const newOption = await addProtectionOptions(protectionData);
 
-        res.status(201).json(newOption);
+      res.status(201).json(newOption);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
-// Create level options 
-optionController.post(endpoints.add_level_options, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+// Create level options
+optionController.post(
+  endpoints.add_level_options,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
     try {
-        const levelData = req.body;
+      const levelData = req.body;
 
-        const newOption = await addLevelOptions(levelData);
+      const newOption = await addLevelOptions(levelData);
 
-        res.status(201).json(newOption);
+      res.status(201).json(newOption);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
-// Create age options 
-optionController.post(endpoints.add_age_options, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+// Create age options
+optionController.post(
+  endpoints.add_age_options,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
     try {
-        const ageData = req.body;
+      const ageData = req.body;
 
-        const newOption = await addAgeOptions(ageData);
+      const newOption = await addAgeOptions(ageData);
 
-        res.status(201).json(newOption);
+      res.status(201).json(newOption);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
-// Create subscription options 
-optionController.post(endpoints.add_subscription_options, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+// Create subscription options
+optionController.post(
+  endpoints.add_subscription_options,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
     try {
-        const subscriptionData = req.body;
+      const subscriptionData = req.body;
 
-        const newOption = await addSubscriptionOptions(subscriptionData);
+      const newOption = await addSubscriptionOptions(subscriptionData);
 
-        res.status(201).json(newOption);
+      res.status(201).json(newOption);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
-
-// Update skates options 
-optionController.put(endpoints.edit_skates_options, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+// Update skates options
+optionController.put(
+  endpoints.edit_skates_options,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
     try {
-        const skatesData = req.body;
+      const skatesData = req.body;
 
-        const updatedOption = await editSkatesOptions(skatesData);
+      const updatedOption = await editSkatesOptions(skatesData);
 
-        res.status(200).json(updatedOption);
+      res.status(200).json(updatedOption);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
-// Update protection options 
-optionController.put(endpoints.edit_protection_options, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+// Update protection options
+optionController.put(
+  endpoints.edit_protection_options,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
     try {
-        const protectionData = req.body;
+      const protectionData = req.body;
 
-        const updatedOption = await editProtectionOptions(protectionData);
+      const updatedOption = await editProtectionOptions(protectionData);
 
-        res.status(200).json(updatedOption);
+      res.status(200).json(updatedOption);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
-// Update level options 
-optionController.put(endpoints.edit_level_options, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+// Update level options
+optionController.put(
+  endpoints.edit_level_options,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
     try {
-        const levelData = req.body;
+      const levelData = req.body;
 
-        const updatedOption = await editLevelOptions(levelData);
+      const updatedOption = await editLevelOptions(levelData);
 
-        res.status(200).json(updatedOption);
+      res.status(200).json(updatedOption);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
-// Update age options 
-optionController.put(endpoints.edit_age_options, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+// Update age options
+optionController.put(
+  endpoints.edit_age_options,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
     try {
-        const ageData = req.body;
+      const ageData = req.body;
 
-        const updatedOption = await editAgeOptions(ageData);
+      const updatedOption = await editAgeOptions(ageData);
 
-        res.status(200).json(updatedOption);
+      res.status(200).json(updatedOption);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
-// Update subscription options 
-optionController.put(endpoints.edit_subscription_options, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+// Update subscription options
+optionController.put(
+  endpoints.edit_subscription_options,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
     try {
-        const subscriptionData = req.body;
+      const subscriptionData = req.body;
 
-        const updatedOption = await editSubscriptionOptions(subscriptionData);
+      const updatedOption = await editSubscriptionOptions(subscriptionData);
 
-        res.status(200).json(updatedOption);
+      res.status(200).json(updatedOption);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
-
-// Delete skates options 
-optionController.delete(endpoints.delete_skates_options, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+// Delete skates options
+optionController.delete(
+  endpoints.delete_skates_options,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
     try {
-        const optionId = req.params.optionId;
+      const optionId = req.params.optionId;
 
-        const deletedOption = await deleteSkatesOptions(optionId);
+      const deletedOption = await deleteSkatesOptions(optionId);
 
-        res.status(200).json(deletedOption);
+      res.status(200).json(deletedOption);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
-// Delete protection options 
-optionController.delete(endpoints.delete_protection_options, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+// Delete protection options
+optionController.delete(
+  endpoints.delete_protection_options,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
     try {
-        const optionId = req.params.optionId;
+      const optionId = req.params.optionId;
 
-        const deletedOption = await deleteProtectionOptions(optionId);
+      const deletedOption = await deleteProtectionOptions(optionId);
 
-        res.status(200).json(deletedOption);
+      res.status(200).json(deletedOption);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
-// Delete level options 
-optionController.delete(endpoints.delete_level_options, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+// Delete level options
+optionController.delete(
+  endpoints.delete_level_options,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
     try {
-        const optionId = req.params.optionId;
+      const optionId = req.params.optionId;
 
-        const deletedOption = await deleteLevelOptions(optionId);
+      const deletedOption = await deleteLevelOptions(optionId);
 
-        res.status(200).json(deletedOption);
+      res.status(200).json(deletedOption);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
-// Delete age options 
-optionController.delete(endpoints.delete_age_options, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+// Delete age options
+optionController.delete(
+  endpoints.delete_age_options,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
     try {
-        const optionId = req.params.optionId;
+      const optionId = req.params.optionId;
 
-        const deletedOption = await deleteAgeOptions(optionId);
+      const deletedOption = await deleteAgeOptions(optionId);
 
-        res.status(200).json(deletedOption);
+      res.status(200).json(deletedOption);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
-// Delete subscription options 
-optionController.delete(endpoints.delete_subscription_options, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+// Delete subscription options
+optionController.delete(
+  endpoints.delete_subscription_options,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
     try {
-        const optionId = req.params.optionId;
+      const optionId = req.params.optionId;
 
-        const deletedOption = await deleteSubscriptionOptions(optionId);
+      const deletedOption = await deleteSubscriptionOptions(optionId);
 
-        res.status(200).json(deletedOption);
+      res.status(200).json(deletedOption);
     } catch (error) {
-        next(error);
+      next(error);
     }
-});
+  }
+);
 
 export { optionController };
