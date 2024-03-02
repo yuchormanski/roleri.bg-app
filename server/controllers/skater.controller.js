@@ -6,6 +6,7 @@ import {
   addSkater,
   deleteSkater,
   getAllSkaters,
+  getAllUserSkaters,
   getSkaterById,
   updateSkater,
 } from "../services/skaterService.js";
@@ -21,6 +22,22 @@ skaterController.get(
   async (req, res, next) => {
     try {
       const allSkaters = await getAllSkaters();
+
+      res.status(200).json(allSkaters);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// Get all user skaters
+skaterController.get(
+  endpoints.get_all_user_skaters,
+  isUserLogged,
+  async (req, res, next) => {
+    try {
+      const userId = req.user._id;
+      const allSkaters = await getAllUserSkaters(userId);
 
       res.status(200).json(allSkaters);
     } catch (error) {

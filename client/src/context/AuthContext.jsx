@@ -9,14 +9,16 @@ function AutContextProvider({ children }) {
   const queryClient = useQueryClient();
 
   function addUserHandler(data) {
-    return localStorage.setItem(USER_LOCAL_STORAGE_KEY, JSON.stringify(data))
+    return localStorage.setItem(USER_LOCAL_STORAGE_KEY, JSON.stringify(data));
   }
 
   function getUserHandler() {
-    const queryUserData = queryClient.getQueryData(["user"]);
-    const localStorageUserData = JSON.parse(localStorage.getItem(USER_LOCAL_STORAGE_KEY));
+    const queryUserData = queryClient.getQueryData(["user"]) ?? null;
+    const localStorageUserData = JSON.parse(
+      localStorage.getItem(USER_LOCAL_STORAGE_KEY)
+    );
 
-    return queryUserData || localStorageUserData || null;
+    return queryUserData || localStorageUserData || false;
   }
 
   function removeUserHandler() {

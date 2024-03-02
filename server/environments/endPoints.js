@@ -18,6 +18,7 @@ export const endpoints = {
   reset_password: "/reset-password",
   news: "/news",
   get_all_skaters: "/",
+  get_all_user_skaters: "/owned-by",
   get_skater_by_id: "/get-one/:skaterId",
   add_skater: "/add",
   edit_skater: "/edit",

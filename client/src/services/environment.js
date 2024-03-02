@@ -13,6 +13,7 @@ const SERVER_ENDPOINTS = {
   FORGOT_PASSWORD: "users/forgot-password",
   RESET_PASSWORD: "users/reset-password",
   GET_ALL_SKATERS: "skaters",
+  GET_ALL_USER_SKATERS: "skaters/owned-by",
   GET_SKATER_BY_ID: (skaterId) => `skaters/get-one/${skaterId}`,
   ADD_SKATER: "skaters/add",
   EDIT_SKATER: "skaters/edit",

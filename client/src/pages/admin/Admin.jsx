@@ -30,6 +30,10 @@ function Admin() {
       path: "subscription",
       label: lang.subscription,
     },
+    {
+      path: "lessons",
+      label: lang.s_lessons,
+    },
   ];
 
   return (

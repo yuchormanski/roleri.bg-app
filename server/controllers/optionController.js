@@ -33,7 +33,6 @@ import {
 const optionController = Router();
 
 // Get all options for skates
-// optionController.get(endpoints.get_all_options, isUserLogged, async (req, res, next) => {
 optionController.get(endpoints.get_all_options, async (req, res, next) => {
   try {
     const optionSkaterData = await getAllOptionsSkatesData();
