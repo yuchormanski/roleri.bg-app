@@ -157,8 +157,9 @@ label.label {
 }
 
 .select {
+  min-height: 28px;
   background-color: var(--color-header);
-  padding: 1rem 1rem 1rem;
+  padding: 0.8rem 1rem 0.6rem;
   font-size: 1.4rem;
   color: var(--color-nav-link);
   border: 1px solid var(--input-border);
