@@ -3,7 +3,7 @@
   width: 100%;
   display: grid;
   place-items: center;
-  margin-bottom: 2rem;
+  margin: 1rem 0 2rem;
 }
 .calendar-styles {
   .react-datepicker {
