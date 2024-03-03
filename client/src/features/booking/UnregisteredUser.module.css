@@ -159,7 +159,7 @@ label.label {
 .select {
   background-color: var(--color-header);
   padding: 0.8rem 1rem 0.4rem;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   color: var(--color-nav-link);
   border: 1px solid var(--input-border);
   border-radius: 0.3rem;
@@ -188,8 +188,8 @@ select.select:active ~ label.selectLabel,
 select.select:visited ~ label.selectLabel,
 .filled {
   color: var(--placeholder);
-
-  transform: translate(10%, -110%) scale(0.8);
+  /* transform: translate(10%, -110%) scale(0.9); */
+  transform: translate(10%, -110%);
 }
 .filled span {
   color: var(--placeholder);
