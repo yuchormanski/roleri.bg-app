@@ -184,6 +184,7 @@ label.label {
   color: var(--placeholder);
   padding-inline: 0.6rem;
 }
+
 select.select:focus ~ label.selectLabel,
 select.select:active ~ label.selectLabel,
 select.select:visited ~ label.selectLabel,
@@ -262,26 +263,37 @@ select.select:visited ~ label.selectLabel,
 
   .fieldContainer_double {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 1.4rem;
   }
   .fieldContainer_triple {
     grid-template-columns: 1fr;
-    gap: 1rem;
+    gap: 2rem;
+  }
+  .form {
+    padding: 1rem 0rem;
   }
 }
 @media (max-width: 480px) {
   .rightPanel {
     padding: 1rem 0;
   }
+
+  .select {
+    padding: 0rem 1rem 0.2rem;
+    height: 3.5rem;
+    font-size: 1.6rem;
+  }
   .selectLabel {
-    font-size: 1.3rem;
+    top: 1rem;
+    left: 0.2rem;
+    font-size: 1.4rem;
   }
 }
 @media (max-width: 430px) {
   .container {
     padding: 1rem;
   }
-  .selectLabel {
+  /* .selectLabel {
     font-size: 1.2rem;
-  }
+  } */
 }
