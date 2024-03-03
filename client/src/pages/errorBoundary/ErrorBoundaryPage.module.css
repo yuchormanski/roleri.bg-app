@@ -25,15 +25,15 @@
 
 .heading {
   font-size: 2.2rem;
-  color: var(--color-link-light-hover);
+  color: var(--color-footer-fonts);
 }
 .friendlyMessage {
   font-size: 1.8rem;
-  color: var(--color-border);
+  color: var(--color-footer-fonts);
 }
 .errorMessage {
   font-size: 1.6rem;
-  color: var(--button-font-color);
+  color: var(--color-footer-fonts);
 }
 .link {
   display: inline-block;
@@ -41,9 +41,10 @@
   width: fit-content;
   padding: 0.5rem 2rem;
   font-size: 1.8rem;
-  color: var(--color-link-light);
+  color: var(--color-footer-fonts);
   text-decoration: none;
   text-transform: uppercase;
+  margin-top: 10px;
   border: 1px solid #b6b6b698;
   border-radius: 0.3rem;
 }
