@@ -99,19 +99,21 @@ function RegisteredUser() {
           <div className={styles.secondaryContainer}>
             <div className={styles.leftPanel}>
               <p className={styles.headInfo}>
-                Преди да попълните формата, моля, запознайте се с видовете{" "}
+                {lang.book_headInfo_1}
                 <Link className={styles.link} to={"/lessons"}>
-                  уроци
+                  {lang.lessons.toLowerCase()}
                 </Link>{" "}
-                и техния{" "}
+                {lang.book_headInfo_2}
                 <Link
                   className={styles.link}
                   to="http://roleri.bg/rollwp/plans/"
                 >
-                  график
+                  {lang.schedule.toLowerCase()}
                 </Link>
               </p>
-              <h2 className={styles.secondaryHeading}>Следвайте стъпките</h2>
+              <h2 className={styles.secondaryHeading}>
+                {lang.book_sec_heading_1}
+              </h2>
               <h3 className={styles.thirdHeading}>Стъпка 1</h3>
               <p className={styles.paragraph}>
                 <span>&#9737;</span>
@@ -138,12 +140,12 @@ function RegisteredUser() {
             </div>
 
             <div className={styles.rightPanel}>
-              <h3 className={styles.secondaryHeading}>{lang.selectDay}</h3>
+              <h3 className={styles.secondaryHeading}>
+                {lang.book_sec_heading_2}
+              </h3>
               <DatePickerCalendar selectedDateProp={selectedDateHandler} />
 
-              <h3 className={styles.secondaryHeading}>
-                Select from registered skaters
-              </h3>
+              <h3 className={styles.secondaryHeading}>{lang.select_skaters}</h3>
 
               <div className={` ${styles.userChoice} `}>
                 {skaters.map((s) => (

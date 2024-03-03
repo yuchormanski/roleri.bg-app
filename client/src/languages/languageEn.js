@@ -62,11 +62,12 @@ export const EN = {
   number: "Number",
   booking: "Booking",
   bookLesson: "Book a lesson",
-  selectDay: "Select day",
   skates: "Skates",
   protection: "Protection",
   haveOwn: "Have own",
   contactName: "Contact name",
+  select_skaters: "Select skaters",
+  schedule: "schedule",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",
@@ -99,4 +100,10 @@ export const EN = {
   // USER OPTIONS
   u_add_skater_info:
     "If you have additional requirements or custom needs, add them to 'Additional requirements' field.",
+
+  // Book lessons
+  book_headInfo_1: "Before filling the form, please, check the ",
+  book_headInfo_2: "and their ",
+  book_sec_heading_1: "Follow the steps",
+  book_sec_heading_2: "Select day",
 };

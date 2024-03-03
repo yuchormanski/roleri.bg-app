@@ -58,11 +58,12 @@ export const BG = {
   number: "Номер",
   booking: "Запиши се",
   bookLesson: "Записване за урок",
-  selectDay: "Изберете ден",
   skates: "Кънки",
   protection: "Протектори",
   haveOwn: "Имам свои",
   contactName: "Име за контакт",
+  select_skaters: "Изберете кънкьори",
+  schedule: "График",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Добавете номер и количество",
@@ -100,4 +101,11 @@ export const BG = {
   // USER OPTIONS
   u_add_skater_info:
     "Ако имате допълнителни изисквания или персонализирани нужди, добавете ги към полето 'Допълнителни изисквания'.",
+
+  // Book lessons
+  book_headInfo_1:
+    "Преди да попълните формата, моля, запознайте се с видовете ",
+  book_headInfo_2: "и техния ",
+  book_sec_heading_1: "Следвайте стъпките",
+  book_sec_heading_2: "Изберете ден",
 };

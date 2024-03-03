@@ -137,5 +137,11 @@
     border: 1px solid var(--input-border);
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 480px) {
+  .menuPanel {
+    width: calc(100% - 2rem);
+  }
+  .list {
+    width: 100%;
+  }
 }
