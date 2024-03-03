@@ -2,6 +2,9 @@ import styles from "./UnregisteredUser.module.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+import { PhoneInput } from "react-international-phone";
+import "react-international-phone/style.css";
+
 import DatePickerCalendar from "../../ui/elements/datePicker/Calendar.jsx";
 import Button from "../../ui/elements/button/Button.jsx";
 
@@ -11,6 +14,7 @@ import { useTranslate } from "../../hooks/useTranslate.js";
 import { useGetSkaterOptionsQuery } from "../skaters/useGetSkaterOptionsQuery.js";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 import toast from "react-hot-toast";
+import { EMAIL_REGEX, PHONE_REGEX } from "../../services/environment.js";
 
 const initialFieldsValues = {
   firstName: "",
@@ -30,6 +34,8 @@ function UnregisteredUser() {
   const [selectedDate, setSelectedDate] = useState();
   const [ageVerifier, setAgeVerifier] = useState(false);
   const [fieldValues, setFieldValues] = useState(initialFieldsValues);
+  const [phone, setPhone] = useState("");
+
   const { lang } = useLanguage();
   const { translatePhrase: translate } = useTranslate();
   const { register, unregister, handleSubmit, reset, getValues } = useForm();
@@ -42,10 +48,17 @@ function UnregisteredUser() {
   }
 
   function formSuccessHandler(data) {
-    console.log(data);
+    if (!PHONE_REGEX.test(phone)) return toast.error("Invalid phone number!");
+    const result = { ...data, phone: phone };
+
+    console.log(result);
+
+    reset();
+    setPhone("");
   }
-  function formErrorHandler(error) {
-    toast.error(error.message);
+  function formErrorHandler(errors) {
+    console.log(errors);
+    Object.keys(errors).forEach((error) => toast.error(errors[error].message));
   }
 
   // HELPER
@@ -140,8 +153,8 @@ function UnregisteredUser() {
                             "First name can't be more than 20 characters long!",
                         },
                       })}
-                      onChange={valueHandler}
-                      autoComplete="given-name"
+                      onBlur={valueHandler}
+                      // autoComplete="given-name"
                     />
                     <label
                       htmlFor={"firstName"}
@@ -168,8 +181,8 @@ function UnregisteredUser() {
                             "Last name can't be more than 20 characters long!",
                         },
                       })}
-                      onChange={valueHandler}
-                      autoComplete="family-name"
+                      onBlur={valueHandler}
+                      // autoComplete="family-name"
                     />
                     <label
                       htmlFor={"lastName"}
@@ -193,8 +206,9 @@ function UnregisteredUser() {
                       {...register("ageGroup", {
                         required: "Age is required",
                       })}
-                      onBlur={ageHandler}
-                      onChange={valueHandler}
+                      onBlur={(e) => {
+                        valueHandler(e), ageHandler(e);
+                      }}
                     >
                       <option value="" disabled hidden></option>
                       {data.groupsAgeData.map((age) => (
@@ -223,7 +237,7 @@ function UnregisteredUser() {
                       {...register("skates", {
                         required: "Skates are required",
                       })}
-                      onChange={valueHandler}
+                      onBlur={valueHandler}
                     >
                       <option value="" disabled hidden></option>
                       <option value={"hasOwn"}>{lang.haveOwn}</option>
@@ -253,7 +267,7 @@ function UnregisteredUser() {
                       {...register("protection", {
                         required: "Protection is required",
                       })}
-                      onChange={valueHandler}
+                      onBlur={valueHandler}
                     >
                       <option value="" disabled hidden></option>
                       <option value={"hasOwn"}>{lang.haveOwn}</option>
@@ -285,7 +299,7 @@ function UnregisteredUser() {
                       {...register("type", {
                         required: "Lesson type is required",
                       })}
-                      onChange={valueHandler}
+                      onBlur={valueHandler}
                     >
                       <option value="" disabled hidden></option>
                       <option value="group">One time group</option>
@@ -311,7 +325,7 @@ function UnregisteredUser() {
                       {...register("level", {
                         required: "Level is required",
                       })}
-                      onChange={valueHandler}
+                      onBlur={valueHandler}
                     >
                       <option value="" disabled hidden></option>
                       {data.groupsLevelData.map((level) => (
@@ -348,7 +362,7 @@ function UnregisteredUser() {
                           },
                         },
                       })}
-                      onChange={valueHandler}
+                      onBlur={valueHandler}
                     />
                     <label
                       htmlFor={"contactName"}
@@ -371,8 +385,19 @@ function UnregisteredUser() {
                       type="email"
                       id="email"
                       name={"email"}
-                      {...register}
-                      onChange={valueHandler}
+                      {...register("email", {
+                        required: "Email is required",
+                        pattern: {
+                          value: EMAIL_REGEX,
+                          message: "Invalid email address",
+                        },
+                        maxLength: {
+                          value: 30,
+                          message:
+                            "Email can't be more than 30 characters long!",
+                        },
+                      })}
+                      onBlur={valueHandler}
                     />
                     <label
                       htmlFor={"email"}
@@ -385,7 +410,7 @@ function UnregisteredUser() {
                   </div>
 
                   {/* Phone */}
-                  <div className={styles.element}>
+                  {/* <div className={styles.element}>
                     <input
                       className={styles.textInput}
                       type="number"
@@ -402,7 +427,44 @@ function UnregisteredUser() {
                     >
                       {lang.phone}
                     </label>
-                  </div>
+                  </div> */}
+
+                  <PhoneInput
+                    name={"phone"}
+                    defaultCountry="bg"
+                    value={phone}
+                    onChange={(phone) => setPhone(phone)}
+                    inputStyle={{
+                      border: "1px solid var(--input-border)",
+                      backgroundColor: "var(--color-header)",
+                      borderRadius: "0.3rem",
+                      fontSize: "1.6rem",
+                      padding: "0 10px",
+                      width: "100%",
+                      height: "auto",
+                      margin: "0 0 0 5px",
+                      color: "var(--color-main)",
+                    }}
+                    buttonStyle={false}
+                    style={{
+                      "--react-international-phone-dropdown-item-background-color":
+                        "var(--color-header)",
+                      "--react-international-phone-country-selector-background-color":
+                        "var(--color-header)",
+                      "--react-international-phone-country-selector-background-color-hover":
+                        "var(--color-header)",
+                      "--react-international-phone-country-selector-border-color":
+                        "none",
+                      "--react-international-phone-country-selector-arrow-color":
+                        "var(--color-main)",
+                      "--react-international-phone-dropdown-item-text-color":
+                        "var(--color-main)",
+                      "--react-international-phone-dropdown-item-dial-code-color":
+                        "var(--color-main)",
+                      "--react-international-phone-selected-dropdown-item-background-color":
+                        "var(--input-border)",
+                    }}
+                  />
                 </div>
 
                 {/* Additional field */}
@@ -414,7 +476,7 @@ function UnregisteredUser() {
                     name={"textArea"}
                     {...register}
                     rows={3}
-                    onChange={valueHandler}
+                    onBlur={valueHandler}
                   />
                   <label
                     htmlFor={"textArea"}
@@ -445,7 +507,7 @@ function UnregisteredUser() {
                     <Button
                       type={"primary"}
                       // onClick={bookHandler}
-                      // disabled={!selectedDate && sign.length === 0}
+                      disabled={!selectedDate}
                     >
                       {lang.addSkater}
                     </Button>
