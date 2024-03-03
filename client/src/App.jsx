@@ -34,9 +34,6 @@ import ListSubscriptionOptions from "./features/admin/subscriptionOption/ListSub
 import Booking from "./features/booking/Booking.jsx";
 import Conditions from "./pages/terms_&_Conditions/Conditions.jsx";
 
-import { ErrorBoundary } from "react-error-boundary";
-import ErrorBoundaryPage from "./pages/errorBoundary/ErrorBoundaryPage.jsx";
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -47,73 +44,71 @@ const queryClient = new QueryClient({
 
 function App() {
   return (
-    <ErrorBoundary FallbackComponent={ErrorBoundaryPage}>
-      <DarkModeProvider>
-        <LanguageProvider>
-          <QueryClientProvider client={queryClient}>
-            <PathContextProvider>
-              <div style={{ fontSize: "16px" }}>
-                <ReactQueryDevtools initialIsOpen={false} />
-              </div>
-              <AutContextProvider>
-                <BrowserRouter>
-                  <Routes>
-                    <Route element={<AppLayout />}>
-                      <Route index element={<Navigate replace to={"home"} />} />
-                      <Route path={"home"} element={<Home />} />
-                      <Route path={"lessons"} element={<LessonsList />} />
-                      <Route path={"booking"} element={<Booking />} />
-                      <Route path={"conditions"} element={<Conditions />} />
-                      <Route
-                        path={"reset-password/:resetToken"}
-                        element={<ResetPassword />}
-                      />
+    <DarkModeProvider>
+      <LanguageProvider>
+        <QueryClientProvider client={queryClient}>
+          <PathContextProvider>
+            <div style={{ fontSize: "16px" }}>
+              <ReactQueryDevtools initialIsOpen={false} />
+            </div>
+            <AutContextProvider>
+              <BrowserRouter>
+                <Routes>
+                  <Route element={<AppLayout />}>
+                    <Route index element={<Navigate replace to={"home"} />} />
+                    <Route path={"home"} element={<Home />} />
+                    <Route path={"lessons"} element={<LessonsList />} />
+                    <Route path={"booking"} element={<Booking />} />
+                    <Route path={"conditions"} element={<Conditions />} />
+                    <Route
+                      path={"reset-password/:resetToken"}
+                      element={<ResetPassword />}
+                    />
 
-                      <Route element={<RouteGuardAuthenticated />}>
-                        <Route path={"profile"} element={<Profile />}>
-                          <Route index element={<UserInfo />} />
-                          <Route path={"edit"} element={<UpdateUser />} />
-                          <Route path={"skaters"} element={<SkatersList />} />
-                          <Route path={"history"} element={<History />} />
-                        </Route>
+                    <Route element={<RouteGuardAuthenticated />}>
+                      <Route path={"profile"} element={<Profile />}>
+                        <Route index element={<UserInfo />} />
+                        <Route path={"edit"} element={<UpdateUser />} />
+                        <Route path={"skaters"} element={<SkatersList />} />
+                        <Route path={"history"} element={<History />} />
+                      </Route>
 
-                        <Route element={<RouteGuardAdmin />}>
-                          <Route path={"settings"} element={<Admin />}>
-                            <Route index element={<AdminInfo />} />
-                            <Route
-                              path={"skates"}
-                              element={<ListSkatesOptions />}
-                            />
-                            <Route
-                              path={"protections"}
-                              element={<ListProtectionOptions />}
-                            />
-                            <Route
-                              path={"levels"}
-                              element={<ListLevelOptions />}
-                            />
-                            <Route
-                              path={"age-range"}
-                              element={<ListAgeOptions />}
-                            />
-                            <Route
-                              path={"subscription"}
-                              element={<ListSubscriptionOptions />}
-                            />
-                          </Route>
+                      <Route element={<RouteGuardAdmin />}>
+                        <Route path={"settings"} element={<Admin />}>
+                          <Route index element={<AdminInfo />} />
+                          <Route
+                            path={"skates"}
+                            element={<ListSkatesOptions />}
+                          />
+                          <Route
+                            path={"protections"}
+                            element={<ListProtectionOptions />}
+                          />
+                          <Route
+                            path={"levels"}
+                            element={<ListLevelOptions />}
+                          />
+                          <Route
+                            path={"age-range"}
+                            element={<ListAgeOptions />}
+                          />
+                          <Route
+                            path={"subscription"}
+                            element={<ListSubscriptionOptions />}
+                          />
                         </Route>
                       </Route>
                     </Route>
-                    <Route path={"*"} element={<PageNotFound />} />
-                  </Routes>
-                </BrowserRouter>
-                <ToasterComponent />
-              </AutContextProvider>
-            </PathContextProvider>
-          </QueryClientProvider>
-        </LanguageProvider>
-      </DarkModeProvider>
-    </ErrorBoundary>
+                  </Route>
+                  <Route path={"*"} element={<PageNotFound />} />
+                </Routes>
+              </BrowserRouter>
+              <ToasterComponent />
+            </AutContextProvider>
+          </PathContextProvider>
+        </QueryClientProvider>
+      </LanguageProvider>
+    </DarkModeProvider>
   );
 }
 
