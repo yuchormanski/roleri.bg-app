@@ -161,6 +161,7 @@
   padding: 0.2rem 1rem;
   align-self: center;
   border-radius: 0.3rem;
+  outline: none;
 }
 .select:disabled {
   border: 1px solid transparent;
@@ -198,13 +199,16 @@
   }
 }
 @media (max-width: 765px) {
+  .userChoice {
+    padding: 0;
+  }
 }
 @media (max-width: 480px) {
   .secondaryContainer {
     padding: 1rem 1.2rem;
   }
-  .userChoice {
-    padding: 0;
+  .select {
+    padding: 0.2rem;
   }
 }
 @media (max-width: 375px) {
