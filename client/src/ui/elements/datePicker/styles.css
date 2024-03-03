@@ -150,6 +150,13 @@
     width: 37px !important;
     height: 37px !important;
   } */
+  .react-datepicker__day,
+  .react-datepicker__month-text,
+  .react-datepicker__quarter-text,
+  .react-datepicker__year-text {
+    width: 35px !important;
+    height: 35px !important;
+  }
 }
 @media (max-width: 375px) {
   /* .div {

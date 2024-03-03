@@ -26,10 +26,12 @@
     --action-btn: #11a2db;
     --color-lesson-info: #f6f6f6;
     --calendar-disabled: rgb(180, 180, 180);
+    --placeholder: #818080;
   }
 
   /* dark mode */
   &.dark {
+    --placeholder: #818080;
     --action-btn: #888888;
     --box: #1c2029;
     --button: #ffd723b4;

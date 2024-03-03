@@ -12,9 +12,24 @@ import { useGetSkaterOptionsQuery } from "../skaters/useGetSkaterOptionsQuery.js
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 import toast from "react-hot-toast";
 
+const initialFieldsValues = {
+  firstName: "",
+  lastName: "",
+  ageGroup: "",
+  type: "",
+  level: "",
+  skates: "",
+  protection: "",
+  contactName: "",
+  email: "",
+  phone: "",
+  textArea: "",
+};
+
 function UnregisteredUser() {
   const [selectedDate, setSelectedDate] = useState();
   const [ageVerifier, setAgeVerifier] = useState(false);
+  const [fieldValues, setFieldValues] = useState(initialFieldsValues);
   const { lang } = useLanguage();
   const { translatePhrase: translate } = useTranslate();
   const { register, unregister, handleSubmit, reset, getValues } = useForm();
@@ -26,18 +41,28 @@ function UnregisteredUser() {
     setSelectedDate((d) => (d = date));
   }
 
-  console.log(getValues("ageGroup"));
-  function ageHandler(formAge) {
-    console.log(formAge);
-    // const age = Number(e.target.value.slice(-2));
-    // if (age < 18) setAgeVerifier(true);
-  }
-
   function formSuccessHandler(data) {
     console.log(data);
   }
   function formErrorHandler(error) {
     toast.error(error.message);
+  }
+
+  // HELPER
+  function ageHandler(e) {
+    if (!e.target.value) return;
+    const age = Number(e.target.value.slice(-2));
+    if (age < 18) setAgeVerifier(true);
+  }
+
+  function valueHandler(e) {
+    const valueName = e.target.name;
+    const value = e.target.value;
+    setFieldValues({ ...fieldValues, [valueName]: value });
+  }
+  function onFocusHandler(e) {
+    const valueName = e.target.name;
+    setFieldValues({ ...fieldValues, [valueName]: "" });
   }
 
   return (
@@ -95,214 +120,217 @@ function UnregisteredUser() {
 
               <h3 className={styles.secondaryHeading}>Fill the form</h3>
 
-              <form onSubmit={handleSubmit()}>
-                {/* First Name */}
-                <div className={styles.element}>
-                  <label htmlFor={"firstName"}>{lang.firstName}</label>
-                  <input
-                    className={styles.textInput}
-                    type="text"
-                    id="firstName"
-                    name={"firstName"}
-                    {...register("firstName", {
-                      required: "First name is required",
-                      maxLength: {
-                        value: 20,
-                        message:
-                          "First name can't be more than 20 characters long!",
-                      },
-                    })}
-                    // placeholder={lang.s_firstName}
-                    autoComplete="given-name"
-                  />
+              <form onSubmit={handleSubmit()} className={styles.form}>
+                <div className={styles.fieldContainer_double}>
+                  {/* First Name */}
+                  <div className={styles.element}>
+                    <input
+                      className={styles.textInput}
+                      type="text"
+                      id="firstName"
+                      name={"firstName"}
+                      {...register("firstName", {
+                        required: "First name is required",
+                        maxLength: {
+                          value: 20,
+                          message:
+                            "First name can't be more than 20 characters long!",
+                        },
+                      })}
+                      onChange={valueHandler}
+                      autoComplete="given-name"
+                    />
+                    <label
+                      htmlFor={"firstName"}
+                      className={`${styles.label} ${
+                        fieldValues.firstName ? styles.filled : null
+                      }`}
+                    >
+                      {lang.firstName}
+                    </label>
+                  </div>
+
+                  {/* Last Name */}
+                  <div className={styles.element}>
+                    <input
+                      className={styles.textInput}
+                      type="text"
+                      id="lastName"
+                      name={"lastName"}
+                      {...register("lastName", {
+                        required: "Last name is required",
+                        maxLength: {
+                          value: 20,
+                          message:
+                            "Last name can't be more than 20 characters long!",
+                        },
+                      })}
+                      onChange={valueHandler}
+                      autoComplete="family-name"
+                    />
+                    <label
+                      htmlFor={"lastName"}
+                      className={`${styles.label} ${
+                        fieldValues.lastName ? styles.filled : null
+                      }`}
+                    >
+                      {lang.lastName}
+                    </label>
+                  </div>
                 </div>
 
-                {/* Last Name */}
-                <div className={styles.element}>
-                  <label htmlFor={"lastName"}>{lang.lastName}</label>
-                  <input
-                    className={styles.textInput}
-                    type="text"
-                    id="lastName"
-                    name={"lastName"}
-                    {...register("lastName", {
-                      required: "Last name is required",
-                      maxLength: {
-                        value: 20,
-                        message:
-                          "Last name can't be more than 20 characters long!",
-                      },
-                    })}
-                    // placeholder={lang.s_lastName}
-                    autoComplete="family-name"
-                  />
+                <div className={styles.fieldContainer_triple}>
+                  {/* Age */}
+                  <div className={styles.element}>
+                    <select
+                      name="ageGroup"
+                      id={`ageGroup`}
+                      className={styles.select}
+                      defaultValue=""
+                      {...register("ageGroup", {
+                        required: "Age is required",
+                      })}
+                      onBlur={ageHandler}
+                      onChange={valueHandler}
+                    >
+                      <option value="" disabled hidden></option>
+                      {data.groupsAgeData.map((age) => (
+                        <option value={age.typeGroup} key={age._id}>
+                          {age.typeGroup}
+                        </option>
+                      ))}
+                    </select>
+                    <label
+                      htmlFor={`ageGroup`}
+                      className={`${styles.selectLabel} ${
+                        fieldValues.ageGroup ? styles.filled : null
+                      }`}
+                    >
+                      <span>{lang.ageGroup}</span>
+                    </label>
+                  </div>
+
+                  {/* Skates */}
+                  <div className={styles.element}>
+                    <select
+                      name="skates"
+                      id={`skates`}
+                      className={styles.select}
+                      defaultValue=""
+                      {...register("skates", {
+                        required: "Skates are required",
+                      })}
+                      onChange={valueHandler}
+                    >
+                      <option value="" disabled hidden></option>
+                      <option value={"hasOwn"}>{lang.haveOwn}</option>
+                      {data.skatesData.map((skate) => (
+                        <option key={skate._id} value={skate.size}>
+                          {skate.size}
+                        </option>
+                      ))}
+                    </select>
+                    <label
+                      htmlFor={`skates`}
+                      className={`${styles.selectLabel} ${
+                        fieldValues.skates ? styles.filled : null
+                      }`}
+                    >
+                      <span>{lang.skates}</span>
+                    </label>
+                  </div>
+
+                  {/* Protection */}
+                  <div className={styles.element}>
+                    <select
+                      name="protection"
+                      id={`protection`}
+                      className={styles.select}
+                      defaultValue=""
+                      {...register("protection", {
+                        required: "Protection is required",
+                      })}
+                      onChange={valueHandler}
+                    >
+                      <option value="" disabled hidden></option>
+                      <option value={"hasOwn"}>{lang.haveOwn}</option>
+                      {data.protectionsData.map((protection) => (
+                        <option key={protection._id} value={protection.size}>
+                          {protection.size}
+                        </option>
+                      ))}
+                    </select>
+                    <label
+                      htmlFor={`protection`}
+                      className={`${styles.selectLabel} ${
+                        fieldValues.protection ? styles.filled : null
+                      }`}
+                    >
+                      <span>{lang.protection}</span>
+                    </label>
+                  </div>
                 </div>
 
-                {/* Age */}
-                <div className={styles.element}>
-                  <label
-                    htmlFor={`ageGroup`}
-                    // className={
-                    //   hasSkater(s._id)
-                    //     ? styles.enabledLevel
-                    //     : styles.disabledLabel
-                    // }
-                  >
-                    <span>Age group:</span>
-                  </label>
-                  <select
-                    name="ageGroup"
-                    id={`ageGroup`}
-                    className={styles.select}
-                    // disabled={hasSkater(s._id) ? false : true}
-                    defaultValue=""
-                    // onChange={(e) => selection(e, s._id)}
-                    {...register("ageGroup", {
-                      required: "Age is required",
-                    })}
-                    placeholder={lang.age}
-                    autoComplete="skater-age"
-                  >
-                    <option value="" disabled hidden></option>
-                    {data.groupsAgeData.map((age) => (
-                      <option value={age.typeGroup} key={age._id}>
-                        {age.typeGroup}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                <div className={styles.fieldContainer_double}>
+                  {/* Lesson type */}
+                  <div className={styles.element}>
+                    <select
+                      name="type"
+                      id={`type`}
+                      className={styles.select}
+                      defaultValue=""
+                      {...register("type", {
+                        required: "Lesson type is required",
+                      })}
+                      onChange={valueHandler}
+                    >
+                      <option value="" disabled hidden></option>
+                      <option value="group">One time group</option>
+                      <option value="subscription">Group Subscription</option>
+                    </select>
+                    <label
+                      htmlFor={`type`}
+                      className={`${styles.selectLabel} ${
+                        fieldValues.type ? styles.filled : null
+                      }`}
+                    >
+                      <span>{lang.type}</span>
+                    </label>
+                  </div>
 
-                {/* Lesson type */}
-                <div className={styles.element}>
-                  <label
-                    htmlFor={`type`}
-                    // className={
-                    //   hasSkater(s._id)
-                    //     ? styles.enabledLevel
-                    //     : styles.disabledLabel
-                    // }
-                  >
-                    <span>{lang.type}:</span>
-                  </label>
-                  <select
-                    name="type"
-                    id={`type`}
-                    className={styles.select}
-                    // disabled={hasSkater(s._id) ? false : true}
-                    defaultValue=""
-                    // onChange={(e) => selection(e, s._id)}
-                    {...register("type", {
-                      required: "Lesson type is required",
-                    })}
-                  >
-                    <option value="" disabled hidden></option>
-                    <option value="group">One time group</option>
-                    <option value="subscription">Group Subscription</option>
-                  </select>
-                </div>
-
-                {/* Level */}
-                <div className={styles.element}>
-                  <label
-                    htmlFor={`level`}
-                    // className={
-                    //   hasSkater(s._id)
-                    //     ? styles.enabledLevel
-                    //     : styles.disabledLabel
-                    // }
-                  >
-                    <span>{lang.level}:</span>
-                  </label>
-                  <select
-                    name="level"
-                    id={`level`}
-                    className={styles.select}
-                    // disabled={hasSkater(s._id) ? false : true}
-                    defaultValue=""
-                    // onChange={(e) => selection(e, s._id)}
-                    {...register("level", {
-                      required: "Level is required",
-                    })}
-                  >
-                    <option value="" disabled hidden></option>
-                    {data.groupsLevelData.map((level) => (
-                      <option key={level._id} value={level.typeGroup}>
-                        {translate(level.typeGroup)}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Skates */}
-                <div className={styles.element}>
-                  <label
-                    htmlFor={`skates`}
-                    // className={
-                    //   hasSkater(s._id)
-                    //     ? styles.enabledLevel
-                    //     : styles.disabledLabel
-                    // }
-                  >
-                    <span>{lang.skates}:</span>
-                  </label>
-                  <select
-                    name="skates"
-                    id={`skates`}
-                    className={styles.select}
-                    // disabled={hasSkater(s._id) ? false : true}
-                    defaultValue=""
-                    // onChange={(e) => selection(e, s._id)}
-                    {...register("skates", {
-                      required: "Skates are required",
-                    })}
-                  >
-                    <option value="" disabled hidden></option>
-                    <option value={"hasOwn"}>{lang.haveOwn}</option>
-                    {data.skatesData.map((skate) => (
-                      <option key={skate._id} value={skate.size}>
-                        {skate.size}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Protection */}
-                <div className={styles.element}>
-                  <label
-                    htmlFor={`protection`}
-                    // className={
-                    //   hasSkater(s._id)
-                    //     ? styles.enabledLevel
-                    //     : styles.disabledLabel
-                    // }
-                  >
-                    <span>{lang.protection}:</span>
-                  </label>
-                  <select
-                    name="protection"
-                    id={`protection`}
-                    className={styles.select}
-                    // disabled={hasSkater(s._id) ? false : true}
-                    defaultValue=""
-                    // onChange={(e) => selection(e, s._id)}
-                    {...register("protection", {
-                      required: "Protection is required",
-                    })}
-                  >
-                    <option value="" disabled hidden></option>
-                    <option value={"hasOwn"}>{lang.haveOwn}</option>
-                    {data.protectionsData.map((protection) => (
-                      <option key={protection._id} value={protection.size}>
-                        {protection.size}
-                      </option>
-                    ))}
-                  </select>
+                  {/* Level */}
+                  <div className={styles.element}>
+                    <select
+                      name="level"
+                      id={`level`}
+                      className={styles.select}
+                      defaultValue=""
+                      {...register("level", {
+                        required: "Level is required",
+                      })}
+                      onChange={valueHandler}
+                    >
+                      <option value="" disabled hidden></option>
+                      {data.groupsLevelData.map((level) => (
+                        <option key={level._id} value={level.typeGroup}>
+                          {translate(level.typeGroup)}
+                        </option>
+                      ))}
+                    </select>
+                    <label
+                      htmlFor={`level`}
+                      className={`${styles.selectLabel} ${
+                        fieldValues.level ? styles.filled : null
+                      }`}
+                    >
+                      <span>{lang.level}</span>
+                    </label>
+                  </div>
                 </div>
 
                 {/* Contact name */}
                 {ageVerifier && (
                   <div className={styles.element}>
-                    <label htmlFor={"contact"}>{lang.contactName}:</label>
                     <input
                       className={styles.textInput}
                       type="text"
@@ -311,51 +339,91 @@ function UnregisteredUser() {
                       {...register("contactName", {
                         validate: {
                           required: (value) => {
-                            if (!value) return "Contact name is required";
+                            if (!value && ageVerifier)
+                              return "Contact name is required";
                             return true;
                           },
                         },
                       })}
+                      onChange={valueHandler}
                     />
+                    <label
+                      htmlFor={"contactName"}
+                      className={`${styles.label} ${
+                        fieldValues.contactName ? styles.filled : null
+                      }`}
+                    >
+                      {lang.contactName}
+                    </label>
                   </div>
                 )}
 
-                {/* Email */}
-                <div className={styles.element}>
-                  <label htmlFor={"email"}>{lang.email}:</label>
-                  <input
-                    className={styles.textInput}
-                    type="email"
-                    id="email"
-                    name={"email"}
-                    {...register}
-                  />
-                </div>
+                <div
+                  className={`${styles.fieldContainer_double} ${styles.fieldContainer_double_extended}`}
+                >
+                  {/* Email */}
+                  <div className={styles.element}>
+                    <input
+                      className={styles.textInput}
+                      type="email"
+                      id="email"
+                      name={"email"}
+                      {...register}
+                      onChange={valueHandler}
+                    />
+                    <label
+                      htmlFor={"email"}
+                      className={`${styles.label} ${
+                        fieldValues.email ? styles.filled : null
+                      }`}
+                    >
+                      {lang.email}
+                    </label>
+                  </div>
 
-                {/* Phone */}
-                <div className={styles.element}>
-                  <label htmlFor={"phone"}>{lang.phone}:</label>
-                  <input
-                    className={styles.textInput}
-                    type="number"
-                    id="phone"
-                    name={"phone"}
-                    {...register}
-                  />
+                  {/* Phone */}
+                  <div className={styles.element}>
+                    <input
+                      className={styles.textInput}
+                      type="number"
+                      id="phone"
+                      name={"phone"}
+                      {...register}
+                      onChange={valueHandler}
+                    />
+                    <label
+                      htmlFor={"phone"}
+                      className={`${styles.label} ${
+                        fieldValues.phone ? styles.filled : null
+                      }`}
+                    >
+                      {lang.phone}
+                    </label>
+                  </div>
                 </div>
 
                 {/* Additional field */}
                 <div className={styles.element}>
-                  <label htmlFor={"textArea"}>{lang.requirements}:</label>
                   <textarea
-                    className={styles.textInput}
+                    className={styles.textarea}
                     type="text"
                     id="textArea"
                     name={"textArea"}
                     {...register}
                     rows={3}
+                    onChange={valueHandler}
                   />
+                  <label
+                    htmlFor={"textArea"}
+                    className={`${styles.label} ${
+                      fieldValues.textArea ? styles.filled : null
+                    }`}
+                  >
+                    {lang.requirements}
+                  </label>
                 </div>
+
+                {/* Conditions */}
                 <div className={styles.conditions}>
                   <p>
                     Съгласявам се с{" "}
