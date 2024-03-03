@@ -155,8 +155,8 @@
   .react-datepicker__month-text,
   .react-datepicker__quarter-text,
   .react-datepicker__year-text {
-    width: 40px !important;
-    height: 40px !important;
+    width: 36.5px !important;
+    height: 38.5px !important;
   }
   .react-datepicker__day-names {
     gap: 2.3rem !important;
@@ -178,7 +178,7 @@
   .react-datepicker__month-text,
   .react-datepicker__quarter-text,
   .react-datepicker__year-text {
-    width: 34px !important;
-    height: 36px !important;
+    width: 32.5px !important;
+    height: 33.5px !important;
   }
 }
