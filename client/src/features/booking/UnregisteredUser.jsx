@@ -120,7 +120,10 @@ function UnregisteredUser() {
 
               <h3 className={styles.secondaryHeading}>Fill the form</h3>
 
-              <form onSubmit={handleSubmit()} className={styles.form}>
+              <form
+                onSubmit={handleSubmit(formSuccessHandler, formErrorHandler)}
+                className={styles.form}
+              >
                 <div className={styles.fieldContainer_double}>
                   {/* First Name */}
                   <div className={styles.element}>

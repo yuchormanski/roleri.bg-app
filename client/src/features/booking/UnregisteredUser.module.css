@@ -150,13 +150,15 @@ label.label {
 
 .form input.textInput:is(:focus) ~ label.label,
 .filled {
-  color: var(--color-nav-link);
-  transform: translate(10%, -110%) scale(0.9);
+  /* color: var(--color-nav-link); */
+  /* text-transform: uppercase; */
+  /* transform: translate(10%, -110%) scale(0.9); */
+  transform: translate(10%, -110%);
 }
 
 .select {
   background-color: var(--color-header);
-  padding: 0.6rem 1rem 0.4rem;
+  padding: 0.8rem 1rem 0.4rem;
   font-size: 1.6rem;
   color: var(--color-nav-link);
   border: 1px solid var(--input-border);
@@ -182,10 +184,15 @@ label.label {
   padding-inline: 0.6rem;
 }
 select.select:focus ~ label.selectLabel,
-/* select.select:active ~ label.selectLabel,
-select.select:visited ~ label.selectLabel, */
+select.select:active ~ label.selectLabel,
+select.select:visited ~ label.selectLabel,
 .filled {
+  color: var(--placeholder);
+
   transform: translate(10%, -110%) scale(0.8);
+}
+.filled span {
+  color: var(--placeholder);
 }
 
 .textarea {
