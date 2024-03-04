@@ -40,6 +40,58 @@ function History() {
           >
             Toast test
           </button>
+          <p style={{ fontSize: "16px" }}>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
+            illum.
+          </p>
+          <p style={{ fontSize: "18px" }}>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
+            illum.
+          </p>
+          <p style={{ fontSize: "20px" }}>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
+            illum.
+          </p>
+          <p style={{ fontSize: "22px" }}>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
+            illum.
+          </p>
+          <p style={{ fontSize: "24px" }}>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
+            illum.
+          </p>
+          <p style={{ fontSize: "26px" }}>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
+            illum.
+          </p>
+          <p style={{ fontSize: "28px" }}>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
+            illum.
+          </p>
+          <p style={{ fontSize: "30px" }}>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
+            illum.
+          </p>
+          <p style={{ fontSize: "32px" }}>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
+            illum.
+          </p>
+          <p style={{ fontSize: "34px" }}>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
+            illum.
+          </p>
+          <p style={{ fontSize: "36px" }}>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
+            illum.
+          </p>
+          <p style={{ fontSize: "38px" }}>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
+            illum.
+          </p>
+          <p style={{ fontSize: "40px" }}>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
+            illum.
+          </p>
         </div>
       </div>
     </>

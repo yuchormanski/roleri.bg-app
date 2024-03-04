@@ -53,6 +53,7 @@ export const EN = {
   settings: "Settings",
   adminPanel: "Admin panel",
   subscription: "Subscription type",
+  subscriptionCount: "Subscription visit count",
   ageGroup: "Age group",
   noAddedOptions: "No options added yet!",
   addOptions: "Add option",

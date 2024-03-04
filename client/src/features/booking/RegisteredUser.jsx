@@ -62,6 +62,11 @@ function RegisteredUser() {
       return toast.error("You should make a selection!");
     }
 
+    // if selected date is before the current
+    if (new Date(selectedDate) < new Date()) {
+      return toast.error("The selected date is before the current!");
+    }
+
     // preview on date
     // const lessonDate = selectedDate.toDateString();
 
@@ -193,8 +198,17 @@ function RegisteredUser() {
                           onChange={(e) => selection(e, s._id)}
                         >
                           <option value="" disabled hidden></option>
-                          <option value="group">One time group</option>
-                          <option value="subscription">Subscription</option>
+                          {data?.subscriptionData.map((subscription) => (
+                            <option
+                              value={subscription._id}
+                              key={subscription._id}
+                            >
+                              {translate(subscription.typePayment)}
+                            </option>
+                          ))}
+
+                          {/* <option value="group">One time group</option>
+                          <option value="subscription">Subscription</option> */}
                         </select>
                       </div>
 
@@ -225,7 +239,7 @@ function RegisteredUser() {
                         >
                           <option value="" disabled hidden></option>
                           {data?.groupsLevelData.map((level) => (
-                            <option value={level.typeGroup} key={level._id}>
+                            <option value={level._id} key={level._id}>
                               {translate(level.typeGroup)}
                             </option>
                           ))}

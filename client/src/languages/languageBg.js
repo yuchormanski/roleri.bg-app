@@ -48,6 +48,7 @@ export const BG = {
   settings: "Настройки",
   adminPanel: "Админ панел",
   subscription: "Вид урок",
+  subscriptionCount: "Брой посещения за абонамент",
   ageGroup: "Възраст",
   // ageGroup: "Възрастова група",
   noAddedOptions: "Няма добавени опции!",

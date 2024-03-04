@@ -34,13 +34,13 @@ const skaterModelSchema = new Schema(
       type: Types.ObjectId,
       ref: "GroupLevel",
     },
-    courseHistory: [
-      {
-        courseLevel: String,
-        lessonsCompleted: Number,
-        timestamp: { type: Date, default: Date.now },
-      },
-    ],
+    // courseHistory: [
+    //   {
+    //     courseLevel: String,
+    //     lessonsCompleted: Number,
+    //     timestamp: { type: Date, default: Date.now },
+    //   },
+    // ],
     owner: {
       type: Types.ObjectId,
       ref: "UserParent",
