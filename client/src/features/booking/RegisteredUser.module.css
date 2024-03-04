@@ -76,7 +76,7 @@
   font-size: 1.6rem;
   font-weight: 300;
   /* color: var(--color-header-dim); */
-  color: var(--color-selected-shade);
+  color: var(--paragraph);
 }
 .paragraph span {
   font-size: clamp(1.2rem, 3vw, 1.8rem);
@@ -140,7 +140,7 @@
 }
 
 .label label {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 300;
   padding: 0 0 0.2rem 0rem;
   text-transform: uppercase;
@@ -177,6 +177,36 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
+}
+
+.textarea {
+  width: 100%;
+  background-color: var(--color-header);
+  padding: 0.4rem 1rem 0.2rem;
+  font-size: 1.8rem;
+  color: var(--color-nav-link);
+  border: 1px solid var(--input-border);
+  border-radius: 0.3rem;
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.textarea:is(:focus) {
+  outline: none;
+}
+.textarea:is(:focus) ~ label.label,
+.filled {
+  color: var(--color-nav-link);
+  transform: translate(10%, -120%) scale(0.9);
+}
+.textareaLabel {
+  background-color: var(--color-header);
+  /* color: var(--placeholder); */
+  padding-inline: 0.6rem;
+  top: 1rem;
+  left: 0.5rem;
+  font-size: 1.2rem;
+  pointer-events: none;
+  text-transform: uppercase;
 }
 
 .conditions {

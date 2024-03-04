@@ -27,6 +27,7 @@
     --color-lesson-info: #f6f6f6;
     --calendar-disabled: rgb(180, 180, 180);
     --placeholder: #818080;
+    --paragraph: #535f74;
   }
 
   /* dark mode */
@@ -54,6 +55,7 @@
     --color-main-btn: #ffd723ab;
     --color-lesson-info: #aaa;
     --calendar-disabled: #2e3644;
+    --paragraph: #adb6c5;
   }
   /* main styles */
   --text-dark: #222;

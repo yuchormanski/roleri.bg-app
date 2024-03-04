@@ -23,6 +23,7 @@ function RegisteredUser() {
   const { translatePhrase: translate } = useTranslate();
   const [selectedDate, setSelectedDate] = useState();
   const [sign, setSign] = useState([]);
+  const [additional, setAdditional] = useState("");
   const navigate = useNavigate();
 
   // SELECTING DATE
@@ -75,6 +76,7 @@ function RegisteredUser() {
       const objToFetch = {
         date: selectedDate.toLocaleDateString(),
         skaters: sign,
+        additional: additional,
       };
 
       console.log(objToFetch);
@@ -137,6 +139,12 @@ function RegisteredUser() {
                 <span>&#9737;</span>
                 При лошо време урока се прехвърля за следващата дата.{" "}
               </p>
+              <p className={styles.paragraph}>
+                <span>&#9737;</span>
+                Ако по някаква причина не можете да използвате оборудването,
+                което сте заявили при регистрацията си, напишете го в полето
+                &apos;Допълнително&apos;
+              </p>
             </div>
 
             <div className={styles.rightPanel}>
@@ -144,9 +152,7 @@ function RegisteredUser() {
                 {lang.book_sec_heading_2}
               </h3>
               <DatePickerCalendar selectedDateProp={selectedDateHandler} />
-
               <h3 className={styles.secondaryHeading}>{lang.select_skaters}</h3>
-
               <div className={` ${styles.userChoice} `}>
                 {skaters.map((s) => (
                   <div className={styles.skaterWrapper} key={s._id}>
@@ -228,8 +234,29 @@ function RegisteredUser() {
                     </div>
                   </div>
                 ))}
+                {/* Additional field */}
+                <div className={styles.element}>
+                  <label
+                    htmlFor={"textArea"}
+                    className={`${styles.enabledLevel} ${styles.textareaLabel} `}
+                    //  ${
+                    //   fieldValues.textArea ? styles.filled : null
+                    // }
+                  >
+                    {lang.requirements}
+                  </label>
+                  <textarea
+                    className={styles.textarea}
+                    type="text"
+                    id="textArea"
+                    name={"textArea"}
+                    rows={3}
+                    onBlur={(e) => setAdditional(e.target.value)}
+                  />
+                </div>
               </div>
 
+              {/* CONDITIONS */}
               <div className={styles.conditions}>
                 <p>
                   Съгласявам се с{" "}
