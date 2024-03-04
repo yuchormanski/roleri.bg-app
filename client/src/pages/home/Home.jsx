@@ -11,7 +11,13 @@ import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 function Home() {
   const { lang } = useLanguage();
 
-  const { isLoading, isError, error, data: news } = useGetAllNewsQueries();
+  const {
+    isLoading,
+    isFetching,
+    isError,
+    error,
+    data: news,
+  } = useGetAllNewsQueries();
 
   if (isError) {
     toast.error(error.message);
@@ -20,7 +26,7 @@ function Home() {
   return (
     <>
       <h1 className={styles.heading}>{lang.home}</h1>
-      {isLoading ? (
+      {isFetching ? (
         <Spinner />
       ) : (
         <div className={styles.container}>
