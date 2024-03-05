@@ -14,10 +14,6 @@ const skaterModelSchema = new Schema(
       type: Number,
       required: [true, "Age is require"],
     },
-    // gender: {
-    //   type: String,
-    //   required: [true, "Gender is require"],
-    // },
     additionalRequirements: {
       type: String,
       default: null,
@@ -30,17 +26,6 @@ const skaterModelSchema = new Schema(
       type: Types.ObjectId,
       ref: "Protection",
     },
-    groupLevel: {
-      type: Types.ObjectId,
-      ref: "GroupLevel",
-    },
-    // courseHistory: [
-    //   {
-    //     courseLevel: String,
-    //     lessonsCompleted: Number,
-    //     timestamp: { type: Date, default: Date.now },
-    //   },
-    // ],
     owner: {
       type: Types.ObjectId,
       ref: "UserParent",

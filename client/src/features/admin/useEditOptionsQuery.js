@@ -9,7 +9,6 @@ function useEditOptionsQuery(actionType) {
     const endPoints = {
         skates: SERVER_ENDPOINTS.EDIT_SKATES_OPTIONS,
         protection: SERVER_ENDPOINTS.EDIT_PROTECTION_OPTIONS,
-        level: SERVER_ENDPOINTS.EDIT_LEVEL_OPTIONS,
         age: SERVER_ENDPOINTS.EDIT_AGE_OPTIONS,
         subscription: SERVER_ENDPOINTS.EDIT_SUBSCRIPTION_OPTIONS,
     }

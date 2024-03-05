@@ -9,7 +9,6 @@ function useAddOptionsQuery(actionType) {
     const endPoints = {
         skates: SERVER_ENDPOINTS.ADD_SKATES_OPTIONS,
         protection: SERVER_ENDPOINTS.ADD_PROTECTION_OPTIONS,
-        level: SERVER_ENDPOINTS.ADD_LEVEL_OPTIONS,
         age: SERVER_ENDPOINTS.ADD_AGE_OPTIONS,
         subscription: SERVER_ENDPOINTS.ADD_SUBSCRIPTION_OPTIONS,
     }

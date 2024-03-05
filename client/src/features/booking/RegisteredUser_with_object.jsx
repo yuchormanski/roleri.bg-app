@@ -153,33 +153,6 @@ function RegisteredUser() {
                       </select>
                     </div>
 
-                    <div className={styles.label}>
-                      <label
-                        htmlFor="level"
-                        className={
-                          sign[s._id]
-                            ? styles.enabledLabel
-                            : styles.disabledLabel
-                        }
-                      >
-                        <span>Група:</span>
-                      </label>
-                      <select
-                        name=""
-                        id="level"
-                        className={styles.select}
-                        disabled={sign[s._id] ? false : true}
-                        defaultValue=""
-                        onChange={(e) => selection(e, s._id)}
-                      >
-                        <option value="" disabled hidden></option>
-                        {data?.groupsLevelData.map((level) => (
-                          <option value={level.typeGroup} key={level._id}>
-                            {translate(level.typeGroup)}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
                   </div>
                 </div>
               ))}
@@ -195,7 +168,7 @@ function RegisteredUser() {
               <input
                 className={styles.checkbox}
                 type="checkbox"
-                // onChange={(e) => checkboxHandler(e, s._id)}
+              // onChange={(e) => checkboxHandler(e, s._id)}
               />
             </div>
             <div className={styles.btnContainer}>

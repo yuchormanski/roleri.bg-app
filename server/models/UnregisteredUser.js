@@ -41,10 +41,6 @@ const unregisteredUser = new Schema({
         type: Types.ObjectId,
         ref: "SubscriptionType",
     },
-    groupLevel: {
-        type: Types.ObjectId,
-        ref: "GroupLevel",
-    },
 }, { timestamps: true });
 
 unregisteredUser.index({ email: 1 }, {

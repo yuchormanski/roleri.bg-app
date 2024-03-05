@@ -69,7 +69,7 @@ function AddLessonOption({ onClose }) {
   }
 
   // SUBMITTING THE FORM
-  function onFormSubmit(ageData) {}
+  function onFormSubmit(ageData) { }
 
   //ERROR IN FORM
   function onErrorSubmit(errors) {
@@ -125,9 +125,8 @@ function AddLessonOption({ onClose }) {
                 />
                 <label
                   htmlFor={"title"}
-                  className={`${styles.label} ${
-                    fieldValues.title ? styles.filled : null
-                  }`}
+                  className={`${styles.label} ${fieldValues.title ? styles.filled : null
+                    }`}
                 >
                   {lang.title}
                 </label>
@@ -152,9 +151,8 @@ function AddLessonOption({ onClose }) {
                 />
                 <label
                   htmlFor={"titleBG"}
-                  className={`${styles.label} ${
-                    fieldValues.title ? styles.filled : null
-                  }`}
+                  className={`${styles.label} ${fieldValues.title ? styles.filled : null
+                    }`}
                 >
                   {lang.title}
                   {lang.onBul}
@@ -171,12 +169,11 @@ function AddLessonOption({ onClose }) {
                   options={transformDataToSelect(optionData.groupsAgeData)}
                   styles={customStyles}
                   placeholder={<div style={{ fontSize: 14 }}>Age group</div>}
-                  // isMulti
+                // isMulti
                 />
                 <label
-                  className={`${styles.selectLabel} ${
-                    fieldValues.age ? styles.filled : null
-                  }`}
+                  className={`${styles.selectLabel} ${fieldValues.age ? styles.filled : null
+                    }`}
                 >
                   <span>{lang.protection}</span>
                 </label>
@@ -189,12 +186,11 @@ function AddLessonOption({ onClose }) {
                   options={transformDataToSelect(optionData.subscriptionData)}
                   styles={customStyles}
                   placeholder={<div style={{ fontSize: 14 }}>Visits count</div>}
-                  // isMulti
+                // isMulti
                 />
                 <label
-                  className={`${styles.selectLabel} ${
-                    fieldValues.visits ? styles.filled : null
-                  }`}
+                  className={`${styles.selectLabel} ${fieldValues.visits ? styles.filled : null
+                    }`}
                 >
                   <span>{lang.visits}</span>
                 </label>
@@ -227,9 +223,8 @@ function AddLessonOption({ onClose }) {
                 />
                 <label
                   htmlFor={"participants"}
-                  className={`${styles.label} ${
-                    fieldValues.participants ? styles.filled : null
-                  }`}
+                  className={`${styles.label} ${fieldValues.participants ? styles.filled : null
+                    }`}
                 >
                   {lang.participants}
                 </label>
@@ -255,9 +250,8 @@ function AddLessonOption({ onClose }) {
                 />
                 <label
                   htmlFor={"price"}
-                  className={`${styles.label} ${
-                    fieldValues.price ? styles.filled : null
-                  }`}
+                  className={`${styles.label} ${fieldValues.price ? styles.filled : null
+                    }`}
                 >
                   {lang.price}
                 </label>
@@ -266,24 +260,6 @@ function AddLessonOption({ onClose }) {
 
             {/* Type &  Location */}
             <div className={styles.fieldContainer_double}>
-              {/* Type */}
-              <div className={styles.element}>
-                <Select
-                  name={"type"}
-                  defaultValue={selectedOption}
-                  onChange={selectHandler}
-                  options={transformDataToSelect(optionData?.groupsLevelData)}
-                  styles={customStyles}
-                  placeholder={<div style={{ fontSize: 14 }}>Level group</div>}
-                />
-                <label
-                  className={`${styles.selectLabel} ${
-                    fieldValues.type ? styles.filled : null
-                  }`}
-                >
-                  <span>{lang.type}</span>
-                </label>
-              </div>
 
               {/*Location */}
               <div className={styles.element}>
@@ -305,9 +281,8 @@ function AddLessonOption({ onClose }) {
                 />
                 <label
                   htmlFor={"price"}
-                  className={`${styles.label} ${
-                    fieldValues.price ? styles.filled : null
-                  }`}
+                  className={`${styles.label} ${fieldValues.price ? styles.filled : null
+                    }`}
                 >
                   {lang.price}
                 </label>

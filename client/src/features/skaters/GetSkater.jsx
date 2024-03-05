@@ -49,11 +49,6 @@ function GetSkater({ onClose, skaterData: skater }) {
             </p>
 
             <p className={styles.element}>
-              <span className={styles.elSpan}>{lang.level}: </span>
-              {translatePhrase(skater?.groupLevel?.typeGroup)}
-            </p>
-
-            <p className={styles.element}>
               <span className={styles.elSpan}>{lang.s_protections}: </span>
               {skater?.protection?.size}
             </p>

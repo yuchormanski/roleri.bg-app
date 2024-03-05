@@ -156,23 +156,7 @@ function AddSkater({ onClose }) {
               ))}
             </select>
           </div>
-          <select
-            className={styles.input}
-            id="groupLevel"
-            {...register("groupLevel", {
-              required: "Level is required",
-            })}
-            defaultValue=""
-          >
-            <option value="" disabled hidden className={styles.selected}>
-              {lang.level}
-            </option>
-            {options_data?.groupsLevelData?.map((l) => (
-              <option key={l._id} value={l._id}>
-                {translatePhrase(l.typeGroup)}
-              </option>
-            ))}
-          </select>
+
           <textarea
             className={`${styles.input}`}
             type="text"

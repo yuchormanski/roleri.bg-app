@@ -28,7 +28,6 @@ import Admin from "./pages/admin/Admin.jsx";
 import AdminInfo from "./features/admin/AdminInfo.jsx";
 import ListSkatesOptions from "./features/admin/skatesOption/ListSkatesOptions.jsx";
 import ListProtectionOptions from "./features/admin/protectionOption/ListProtectionOptions.jsx";
-import ListLevelOptions from "./features/admin/levelOption/ListLevelOptions.jsx";
 import ListAgeOptions from "./features/admin/ageOption/ListAgeOptions.jsx";
 import ListSubscriptionOptions from "./features/admin/subscriptionOption/ListSubscriptionOptions.jsx";
 import Booking from "./features/booking/Booking.jsx";
@@ -84,10 +83,6 @@ function App() {
                           <Route
                             path={"protections"}
                             element={<ListProtectionOptions />}
-                          />
-                          <Route
-                            path={"levels"}
-                            element={<ListLevelOptions />}
                           />
                           <Route
                             path={"age-range"}

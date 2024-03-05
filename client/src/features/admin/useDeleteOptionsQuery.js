@@ -9,7 +9,6 @@ function useDeleteOptionsQuery(actionType) {
     const endPoints = {
         skates: SERVER_ENDPOINTS.DELETE_SKATES_OPTIONS,
         protection: SERVER_ENDPOINTS.DELETE_PROTECTION_OPTIONS,
-        level: SERVER_ENDPOINTS.DELETE_LEVEL_OPTIONS,
         age: SERVER_ENDPOINTS.DELETE_AGE_OPTIONS,
         subscription: SERVER_ENDPOINTS.DELETE_SUBSCRIPTION_OPTIONS,
     }
