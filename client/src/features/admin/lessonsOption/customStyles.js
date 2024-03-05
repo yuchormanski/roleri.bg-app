@@ -59,3 +59,11 @@ export const customStyles = {
     color: "red",
   }),
 };
+
+// export const extended = {
+//   ...customStyles,
+//   input: (base) => ({
+//     ...base,
+//     color: "red",
+//   }),
+// };

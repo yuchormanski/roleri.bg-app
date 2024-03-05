@@ -34,24 +34,15 @@ function LessonListElement({ lm }) {
       </div>
 
       <div className={styles.content}>
-        <h2 className={styles.heading}>
-          {getCurrentLangHandler(lm.title)}
-        </h2>
-        <p className={styles.titleInfo}>
-          <span className={styles.additional}>* </span>
-          {getCurrentLangHandler(lm.titleInfo)}
-        </p>
+        <h2 className={styles.heading}>{getCurrentLangHandler(lm.title)}</h2>
 
         <div className={styles.description}>
-
-          {
-            properties.map((prop, index) => (
-              <div className={styles.line} key={index}>
-                <span>{lang[prop]}: </span>
-                {getCurrentLangHandler(lm[prop])}
-              </div>
-            ))
-          }
+          {properties.map((prop, index) => (
+            <div className={styles.line} key={index}>
+              <span>{lang[prop]}: </span>
+              {getCurrentLangHandler(lm[prop])}
+            </div>
+          ))}
 
           {/* <div className={styles.line}>
             <span>{lang.price}: </span>
@@ -59,7 +50,9 @@ function LessonListElement({ lm }) {
 
           </div> */}
           <div className={styles.btnContainer}>
-            <button className={styles.lessonBtn} onClick={lessonHandler}>{lang.more}</button>
+            <button className={styles.lessonBtn} onClick={lessonHandler}>
+              {lang.more}
+            </button>
           </div>
         </div>
       </div>

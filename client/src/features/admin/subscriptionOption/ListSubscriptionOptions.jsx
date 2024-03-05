@@ -52,20 +52,24 @@ function ListSubscriptionOptions() {
               <figure className={styles.figure} key={subscriptionOption._id}>
                 <div className={styles.content}>
                   <div className={styles.skateItem}>
-                    <p className={styles.element}>
-                      <span className={styles.elSpan}>{lang.number}:</span>
-                      {translate(subscriptionOption.typePayment)}
-                    </p>
-                    <p className={styles.element}>
-                      <span className={styles.elSpan}>{lang.price}:</span>
-                      {formatCurrency(subscriptionOption.price)}
-                    </p>
-                    <p className={styles.element}>
-                      <span className={styles.elSpan}>
-                        {lang.subscriptionCount}:
-                      </span>
-                      {subscriptionOption.subscriptionCount ?? 1}
-                    </p>
+                    <div className={styles.itemContainer}>
+                      <p className={styles.element}>
+                        <span className={styles.elSpan}>{lang.type}:</span>
+                        {translate(subscriptionOption.typePayment)}
+                      </p>
+                    </div>
+                    <div className={styles.itemContainer}>
+                      <p className={styles.element}>
+                        <span className={styles.elSpan}>{lang.price}:</span>
+                        {formatCurrency(subscriptionOption.price)}
+                      </p>
+                      <p className={styles.element}>
+                        <span className={styles.elSpan}>
+                          {lang.subscriptionCount}:
+                        </span>
+                        {subscriptionOption.subscriptionCount ?? 1}
+                      </p>
+                    </div>
                   </div>
                   <div className={styles.actionContainer}>
                     <button

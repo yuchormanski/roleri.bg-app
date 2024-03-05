@@ -14,7 +14,7 @@ const lessonModelSchema = new Schema(
       type: String,
       required: true,
     },
-    titleInfo: {
+    titleBG: {
       type: String,
       required: true,
     },
