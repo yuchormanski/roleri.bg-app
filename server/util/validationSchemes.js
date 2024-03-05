@@ -89,12 +89,10 @@ const lessonCreateSchema = joi.object({
     .required()
     .regex(/^https?:\/\/.+/),
   title: joi.string().required(),
-  titleBG: joi.string().required(),
   age: joi.string().required(),
   skills: joi.string().required(),
   participants: joi.string().required(),
   type: joi.string().required(),
-  count: joi.string().required(),
   location: joi.string().required(),
   price: joi.string().required(),
   geoLocation: joi.object({

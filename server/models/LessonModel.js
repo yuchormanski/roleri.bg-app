@@ -14,10 +14,7 @@ const lessonModelSchema = new Schema(
       type: String,
       required: true,
     },
-    titleBG: {
-      type: String,
-      required: true,
-    },
+
     age: {
       type: String,
       required: true,
@@ -34,10 +31,7 @@ const lessonModelSchema = new Schema(
       type: String,
       required: true,
     },
-    visits: {
-      type: String,
-      required: true,
-    },
+
     location: {
       type: String,
       required: true,

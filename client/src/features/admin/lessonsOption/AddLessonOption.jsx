@@ -25,20 +25,28 @@ import { formatCurrency } from "../../../util/formatCurrency.js";
 // ];
 
 const initial = {
-  imageUrl: "",
   title: "", // *
   titleBG: "", //*
+  //
   age: "", // възрастова група   // *
-  visits: "", // брой посещения  // *
-  participants: "", //брой учасници // *
   type: "", //edinichen/abonament
+  //
+  participants: "", //брой учасници // *
   price: "", // цена // *
+  //
   skills: "", // какво ще се научи в урока
-  titleInfo: "", // ненужно!!!!
+  skillsBG: "", // какво ще се научи в урока
+  //
   location: "",
-  geoLocation: { lat: "", lon: "" },
+  locationBG: "",
+  //
   description: "",
+  descriptionBG: "",
+  //
+  imageUrl: "",
   validTo: "",
+  //
+  geoLocation: {},
 };
 
 function AddLessonOption({ onClose }) {
@@ -55,11 +63,18 @@ function AddLessonOption({ onClose }) {
     const transformedData = dataToTransform.reduce((acc, dataObj) => {
       const checkLabel = (inputString) =>
         inputString.includes("&/&") ? translate(inputString) : inputString;
+
+      function nameCheck() {
+        if (dataObj.typeGroup) return "age";
+        else if (dataObj.typePayment) return "type";
+      }
+
       const temporaryData = {
         value: dataObj._id,
         label: checkLabel(
           dataObj["size"] || dataObj["typeGroup"] || dataObj["typePayment"]
         ),
+        name: nameCheck(),
       };
 
       return [...acc, temporaryData];
@@ -69,7 +84,23 @@ function AddLessonOption({ onClose }) {
   }
 
   // SUBMITTING THE FORM
-  function onFormSubmit(ageData) {}
+  function onFormSubmit(formData) {
+    const result = {
+      title: `${fieldValues.title}&/&${fieldValues.titleBG}`, // *
+      age: fieldValues.age,
+      type: fieldValues.type,
+      participants: Number(fieldValues.participants),
+      price: Number(fieldValues.price),
+      skills: `${fieldValues.skills}&/&${fieldValues.skilsBG}`,
+      location: `${fieldValues.location}&/&${fieldValues.locationBG}`,
+      description: `${fieldValues.description}&/&${fieldValues.descriptionBG}`,
+      imageUrl: fieldValues.imageUrl,
+      validTo: fieldValues.validTo,
+      geoLocation: fieldValues.geoLocation,
+    };
+
+    console.log(result);
+  }
 
   //ERROR IN FORM
   function onErrorSubmit(errors) {
@@ -83,9 +114,15 @@ function AddLessonOption({ onClose }) {
     const value = e.target.value;
     setFieldValues({ ...fieldValues, [valueName]: value });
   }
+  function locationHandler(e) {
+    const valueName = e.target.name;
+    const value = e.target.value;
+    const obj = { ...fieldValues.geoLocation, [valueName]: value };
+    setFieldValues({ ...fieldValues, geoLocation: obj });
+  }
 
   function selectHandler(data) {
-    console.log(data);
+    // console.log(data);
     setFieldValues((field) => ({ ...field, [data.name]: data.value }));
   }
   return (
@@ -162,7 +199,9 @@ function AddLessonOption({ onClose }) {
               </div>
             </div>
 
+            {/* Age & Type */}
             <div className={styles.fieldContainer_double}>
+              {/* Age */}
               <div className={styles.element}>
                 <Select
                   name={"age"}
@@ -178,25 +217,25 @@ function AddLessonOption({ onClose }) {
                     fieldValues.age ? styles.filled : null
                   }`}
                 >
-                  <span>{lang.protection}</span>
+                  <span>{lang.age}</span>
                 </label>
               </div>
+              {/* Type */}
               <div className={styles.element}>
                 <Select
-                  name={"visits"}
+                  name={"type"}
                   defaultValue={selectedOption}
                   onChange={selectHandler}
-                  options={transformDataToSelect(optionData.subscriptionData)}
+                  options={transformDataToSelect(optionData?.subscriptionData)}
                   styles={customStyles}
-                  placeholder={<div style={{ fontSize: 14 }}>Visits count</div>}
-                  // isMulti
+                  placeholder={<div style={{ fontSize: 14 }}>{lang.type}</div>}
                 />
                 <label
                   className={`${styles.selectLabel} ${
-                    fieldValues.visits ? styles.filled : null
+                    fieldValues.type ? styles.filled : null
                   }`}
                 >
-                  <span>{lang.visits}</span>
+                  <span>{lang.type}</span>
                 </label>
               </div>
             </div>
@@ -240,6 +279,9 @@ function AddLessonOption({ onClose }) {
                 <input
                   className={styles.textInput}
                   type="number"
+                  min="0.00"
+                  max="10000.00"
+                  step="0.01"
                   id="price"
                   name={"price"}
                   {...register("price", {
@@ -264,41 +306,48 @@ function AddLessonOption({ onClose }) {
               </div>
             </div>
 
-            {/* Type &  Location */}
+            {/* Location & LocationBG */}
             <div className={styles.fieldContainer_double}>
-              {/* Type */}
-              <div className={styles.element}>
-                <Select
-                  name={"type"}
-                  defaultValue={selectedOption}
-                  onChange={selectHandler}
-                  options={transformDataToSelect(optionData?.groupsLevelData)}
-                  styles={customStyles}
-                  placeholder={<div style={{ fontSize: 14 }}>Level group</div>}
-                />
-                <label
-                  className={`${styles.selectLabel} ${
-                    fieldValues.type ? styles.filled : null
-                  }`}
-                >
-                  <span>{lang.type}</span>
-                </label>
-              </div>
-
-              {/*Location */}
+              {/* Location */}
               <div className={styles.element}>
                 <input
                   className={styles.textInput}
-                  type="number"
-                  id="price"
-                  name={"price"}
-                  {...register("price", {
-                    required: "Price is required",
-                    min: {
-                      value: 0.01,
-                      message: `The Price can't be less than ${formatCurrency(
-                        0.01
-                      )}`,
+                  type="text"
+                  id="location"
+                  name={"location"}
+                  {...register("location", {
+                    required: "Location info is required",
+                    maxLength: {
+                      value: 200,
+                      message:
+                        "Location info can't be more than 200 characters long!",
+                    },
+                  })}
+                  onBlur={valueHandler}
+                />
+                <label
+                  htmlFor={"location"}
+                  className={`${styles.label} ${
+                    fieldValues.location ? styles.filled : null
+                  }`}
+                >
+                  {lang.location}
+                </label>
+              </div>
+
+              {/* locationBG*/}
+              <div className={styles.element}>
+                <input
+                  className={styles.textInput}
+                  type="text"
+                  id="locationBG"
+                  name={"locationBG"}
+                  {...register("locationBG", {
+                    required: "Location on Bulgarian is required",
+                    maxLength: {
+                      value: 200,
+                      message:
+                        "Location info can't be more than 200 characters long!",
                     },
                   })}
                   onBlur={valueHandler}
@@ -306,13 +355,274 @@ function AddLessonOption({ onClose }) {
                 <label
                   htmlFor={"price"}
                   className={`${styles.label} ${
-                    fieldValues.price ? styles.filled : null
+                    fieldValues.locationBG ? styles.filled : null
                   }`}
                 >
-                  {lang.price}
+                  {lang.location}
+                  {lang.onBul}
                 </label>
               </div>
             </div>
+
+            {/* Skills &  SkillsBG */}
+            <div className={styles.fieldContainer_double}>
+              {/* Skills */}
+              <div className={styles.element}>
+                <input
+                  className={`${styles.textInput}`}
+                  type="text"
+                  id="skills"
+                  name={"skills"}
+                  {...register("skills", {
+                    required: "Skills is required",
+                    maxLength: {
+                      value: 200,
+                      message:
+                        "Lesson title can't be more than 200 characters long!",
+                    },
+                  })}
+                  onBlur={valueHandler}
+                />
+                <label
+                  htmlFor={"skills"}
+                  className={`${styles.label} ${
+                    fieldValues.skills ? styles.filled : null
+                  }`}
+                >
+                  {lang.skills}
+                </label>
+              </div>
+
+              {/* SkillsBG */}
+              <div className={styles.element}>
+                <input
+                  className={`${styles.textInput}`}
+                  type="text"
+                  id="skillsBG"
+                  name={"skillsBG"}
+                  {...register("skillsBG", {
+                    required: "Skills on Bulgarian is required",
+                    maxLength: {
+                      value: 200,
+                      message:
+                        "Lesson title can't be more than 200 characters long!",
+                    },
+                  })}
+                  onBlur={valueHandler}
+                />
+                <label
+                  htmlFor={"skillsBG"}
+                  className={`${styles.label} ${
+                    fieldValues.skillsBG ? styles.filled : null
+                  }`}
+                >
+                  {lang.skills}
+                  {lang.onBul}
+                </label>
+              </div>
+            </div>
+
+            {/* Description &  DescriptionBG */}
+            <div className={styles.fieldContainer_double}>
+              {/* Description */}
+              <div className={styles.element}>
+                <textarea
+                  className={`${styles.textarea}`}
+                  type="text"
+                  id="description"
+                  name={"description"}
+                  {...register("description", {
+                    required: "The description is required",
+                    maxLength: {
+                      value: 250,
+                      message:
+                        "The description can't be more than 250 characters long!",
+                    },
+                  })}
+                  onBlur={valueHandler}
+                  rows={3}
+                />
+                <label
+                  htmlFor={"description"}
+                  className={`${styles.label} ${
+                    fieldValues.description ? styles.filled : null
+                  }`}
+                >
+                  {lang.description}
+                </label>
+              </div>
+
+              {/* DescriptionBG */}
+              <div className={styles.element}>
+                <textarea
+                  className={`${styles.textarea}`}
+                  type="text"
+                  id="descriptionBG"
+                  name={"descriptionBG"}
+                  {...register("descriptionBG", {
+                    required: "The description is required",
+                    maxLength: {
+                      value: 250,
+                      message:
+                        "The description can't be more than 250 characters long!",
+                    },
+                  })}
+                  onBlur={valueHandler}
+                  rows={3}
+                />
+                <label
+                  htmlFor={"descriptionBG"}
+                  className={`${styles.label} ${
+                    fieldValues.descriptionBG ? styles.filled : null
+                  }`}
+                >
+                  {lang.description}
+                  {lang.onBul}
+                </label>
+              </div>
+            </div>
+
+            {/* Image URL &  Valid to*/}
+            <div className={styles.fieldContainer_double}>
+              {/* Image URL  */}
+              <div className={styles.element}>
+                <input
+                  className={`${styles.textInput}`}
+                  type="text"
+                  id="imageUrl"
+                  name={"imageUrl"}
+                  {...register("imageUrl", {
+                    // required: "Skills is required",
+                    // maxLength: {
+                    //   value: 200,
+                    //   message:
+                    //     "Lesson title can't be more than 200 characters long!",
+                    // },
+                  })}
+                  onBlur={valueHandler}
+                />
+                <label
+                  htmlFor={"imageUrl"}
+                  className={`${styles.label} ${
+                    fieldValues.imageUrl ? styles.filled : null
+                  }`}
+                >
+                  {lang.image} || imageUrl
+                </label>
+              </div>
+
+              {/* Valid to */}
+              <div className={styles.element}>
+                <input
+                  className={`${styles.textInput}`}
+                  type="date"
+                  id="validTo"
+                  name={"validTo"}
+                  {...register("validTo", {
+                    // required: "Skills on Bulgarian is required",
+                    // maxLength: {
+                    //   value: 200,
+                    //   message:
+                    //     "Lesson title can't be more than 200 characters long!",
+                    // },
+                  })}
+                  onBlur={valueHandler}
+                />
+                <label
+                  htmlFor={"validTo"}
+                  className={`${styles.label} ${
+                    fieldValues.validTo ? styles.filled : styles.hidden
+                  }`}
+                >
+                  {lang.validTo || "Valid to"}
+                </label>
+              </div>
+            </div>
+
+            {/* Lat &  Lon */}
+            <div className={styles.fieldContainer_double}>
+              {/* Lat */}
+              <div className={styles.element}>
+                <input
+                  className={`${styles.textInput}`}
+                  type="text"
+                  id="lat"
+                  name={"lat"}
+                  // {...register("lat", {
+                  // required: "Skills is required",
+                  // maxLength: {
+                  //   value: 200,
+                  //   message:
+                  //     "Lesson title can't be more than 200 characters long!",
+                  // },
+                  // })}
+                  onChange={locationHandler}
+                  value={fieldValues.geoLocation.lat}
+                />
+                <label
+                  htmlFor={"lat"}
+                  className={`${styles.label} ${
+                    fieldValues.geoLocation.lat ? styles.filled : null
+                  }`}
+                >
+                  {lang.latitude}
+                </label>
+              </div>
+
+              {/* Longitude */}
+              <div className={styles.element}>
+                <input
+                  className={`${styles.textInput}`}
+                  type="text"
+                  id="lon"
+                  name={"lon"}
+                  // {...register("lon", {
+                  //   required: "Skills on Bulgarian is required",
+                  //   maxLength: {
+                  //     value: 200,
+                  //     message:
+                  //       "Lesson title can't be more than 200 characters long!",
+                  //   },
+                  // })}
+                  onChange={locationHandler}
+                  value={fieldValues.geoLocation.lon}
+                />
+                <label
+                  htmlFor={"lon"}
+                  className={`${styles.label} ${
+                    fieldValues.location.lon ? styles.filled : null
+                  }`}
+                >
+                  {lang.longitude}
+                </label>
+              </div>
+            </div>
+
+            {/* <div className={styles.element}>
+              <input
+                className={`${styles.textInput}`}
+                type="location"
+                id="geoLocation"
+                name={"geoLocation"}
+                {...register("geoLocation", {
+                  // required: "Skills on Bulgarian is required",
+                  // maxLength: {
+                  //   value: 200,
+                  //   message:
+                  //     "Lesson title can't be more than 200 characters long!",
+                  // },
+                })}
+                onBlur={valueHandler}
+              />
+              <label
+                htmlFor={"geoLocation"}
+                className={`${styles.label} ${
+                  fieldValues.geoLocation.lat ? styles.filled : null
+                }`}
+              >
+                {lang.geoLocation || "Geo location"}
+              </label>
+            </div> */}
 
             <div className={styles.btnContainer}>
               <div style={{ marginLeft: "auto" }}>
@@ -320,6 +630,15 @@ function AddLessonOption({ onClose }) {
               </div>
             </div>
           </form>
+
+          <section className={styles.description}>
+            <p className={styles.info}>
+              <span>&#9737;</span>
+              {lang.s_list_1} Lorem ipsum dolor sit amet consectetur adipisicing
+              elit. Voluptatum, itaque ullam. Amet magni autem nesciunt aliquid
+              deserunt numquam inventore dignissimos!
+            </p>
+          </section>
         </div>
       )}
     </Popup>
