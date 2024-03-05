@@ -69,4 +69,11 @@ button.closeIcon {
 }
 
 @media (max-width: 760px) {
+  .width600,
+  .width700,
+  .width800 {
+    width: unset;
+    max-width: 500px;
+    min-width: 90%;
+  }
 }

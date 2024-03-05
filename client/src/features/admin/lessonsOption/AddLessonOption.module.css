@@ -154,3 +154,12 @@ select.select:visited ~ label.selectLabel,
 .filled span {
   color: var(--placeholder);
 }
+
+@media (max-width: 560px) {
+  .fieldContainer_double,
+  .fieldContainer_triple,
+  .fieldContainer_double_extended {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
