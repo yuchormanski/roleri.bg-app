@@ -1,6 +1,6 @@
 import { SkaterModel } from "../models/SkaterModel.js";
 
-const populateFields = ["skatesSize", "protection", "groupLevel"];
+const populateFields = ["skatesSize", "protection"];
 
 const populateSkater = (query) => {
   return query.populate(populateFields.join(" "));

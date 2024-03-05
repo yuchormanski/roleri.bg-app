@@ -25,10 +25,8 @@ function EditSkater({ onClose, skaterData }) {
       firstName: skaterData.firstName,
       lastName: skaterData.lastName,
       age: skaterData.age,
-      // gender: skaterData.gender,
       skatesSize: skaterData.skatesSize?._id,
       protection: skaterData.protection?._id,
-      groupLevel: skaterData.groupLevel?._id,
     },
   });
 
@@ -151,20 +149,6 @@ function EditSkater({ onClose, skaterData }) {
             {options_data?.protectionsData?.map((p) => (
               <option key={p._id} value={p._id}>
                 {p.size}
-              </option>
-            ))}
-          </select>
-
-          <select
-            className={styles.input}
-            id="groupLevel"
-            {...register("groupLevel", {})}
-            autoComplete="groupLevel"
-          >
-            <option value="">{lang.level}</option>
-            {options_data?.groupsLevelData?.map((l) => (
-              <option key={l._id} value={l._id}>
-                {translate(l.typeGroup)}
               </option>
             ))}
           </select>

@@ -19,10 +19,6 @@ function Admin() {
       label: lang.s_protections,
     },
     {
-      path: "levels",
-      label: lang.level,
-    },
-    {
       path: "age-range",
       label: lang.ageGroup,
     },

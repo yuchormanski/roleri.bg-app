@@ -107,10 +107,8 @@ const skaterCreateSchema = joi.object({
   firstName: joi.string().required().max(20),
   lastName: joi.string().required().max(20),
   age: joi.number().required(),
-  // gender: joi.string().required(),
   skatesSize: joi.string().optional(),
   protection: joi.string().optional(),
-  groupLevel: joi.string().optional(),
   additionalRequirements: joi.string().allow("").allow(null).optional(),
 });
 

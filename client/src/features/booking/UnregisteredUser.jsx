@@ -327,7 +327,7 @@ function UnregisteredUser() {
 										</label>
 									</div>
 
-									{/* Level */}
+									{/* Lesson */}
 									<div className={styles.element}>
 										<select
 											name="lessonId"

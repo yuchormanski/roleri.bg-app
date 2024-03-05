@@ -9,7 +9,6 @@ function useGetOptionsQuery(actionType) {
   const endPoints = {
     skates: SERVER_ENDPOINTS.GET_SKATES_OPTIONS,
     protection: SERVER_ENDPOINTS.GET_PROTECTION_OPTIONS,
-    level: SERVER_ENDPOINTS.GET_LEVEL_OPTIONS,
     age: SERVER_ENDPOINTS.GET_AGE_OPTIONS,
     subscription: SERVER_ENDPOINTS.GET_SUBSCRIPTION_OPTIONS,
   };

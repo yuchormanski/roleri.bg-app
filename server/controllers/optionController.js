@@ -9,23 +9,19 @@ import { getUserById } from "../services/userService.js";
 import {
   getAgeOptions,
   getAllOptionsSkatesData,
-  getLevelOptions,
   getProtectionOptions,
   getSkatesOptions,
   getSubscriptionOptions,
   addSkatesOptions,
   addProtectionOptions,
-  addLevelOptions,
   addAgeOptions,
   addSubscriptionOptions,
   editSkatesOptions,
   editProtectionOptions,
-  editLevelOptions,
   editAgeOptions,
   editSubscriptionOptions,
   deleteSkatesOptions,
   deleteProtectionOptions,
-  deleteLevelOptions,
   deleteAgeOptions,
   deleteSubscriptionOptions,
 } from "../services/optionService.js";
@@ -65,21 +61,6 @@ optionController.get(
   async (req, res, next) => {
     try {
       const protectionOptions = await getProtectionOptions();
-
-      res.status(200).json(protectionOptions);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-// Get level options
-optionController.get(
-  endpoints.get_level_options,
-  isUserLogged,
-  async (req, res, next) => {
-    try {
-      const protectionOptions = await getLevelOptions();
 
       res.status(200).json(protectionOptions);
     } catch (error) {
@@ -148,25 +129,6 @@ optionController.post(
       const protectionData = req.body;
 
       const newOption = await addProtectionOptions(protectionData);
-
-      res.status(201).json(newOption);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-// Create level options
-optionController.post(
-  endpoints.add_level_options,
-  isUserLogged,
-  preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
-  async (req, res, next) => {
-    try {
-      const levelData = req.body;
-
-      const newOption = await addLevelOptions(levelData);
 
       res.status(201).json(newOption);
     } catch (error) {
@@ -251,25 +213,6 @@ optionController.put(
   }
 );
 
-// Update level options
-optionController.put(
-  endpoints.edit_level_options,
-  isUserLogged,
-  preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
-  async (req, res, next) => {
-    try {
-      const levelData = req.body;
-
-      const updatedOption = await editLevelOptions(levelData);
-
-      res.status(200).json(updatedOption);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
 // Update age options
 optionController.put(
   endpoints.edit_age_options,
@@ -338,25 +281,6 @@ optionController.delete(
       const optionId = req.params.optionId;
 
       const deletedOption = await deleteProtectionOptions(optionId);
-
-      res.status(200).json(deletedOption);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-// Delete level options
-optionController.delete(
-  endpoints.delete_level_options,
-  isUserLogged,
-  preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
-  async (req, res, next) => {
-    try {
-      const optionId = req.params.optionId;
-
-      const deletedOption = await deleteLevelOptions(optionId);
 
       res.status(200).json(deletedOption);
     } catch (error) {
