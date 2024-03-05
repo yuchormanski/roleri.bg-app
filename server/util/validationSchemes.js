@@ -22,43 +22,21 @@ const passwordSchema = joi
 
 // User register validation
 const validateRegisterSchema = joi.object({
-  firstName: joi.string().required().trim().max(100),
-  lastName: joi.string().required().trim().max(100),
+  firstName: joi.string().required().trim().max(20),
+  lastName: joi.string().required().trim().max(20),
   email: joi.string().required().trim().email().lowercase(),
-  phone: joi
-    .string()
-    .required()
-    .regex(
-      /(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/
-    ),
-  role: joi
-    .string()
-    .allow("")
-    .optional()
-    .valid(userRole.admin, userRole.user, userRole.instructor)
-    .trim()
-    .lowercase(),
+  phone: joi.string().required().regex(/(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/),
+  role: joi.string().allow("").optional().valid(userRole.admin, userRole.user, userRole.instructor).trim().lowercase(),
   password: passwordSchema,
 });
 
 // User update validation
 const updateUserSchema = joi.object({
-  firstName: joi.string().required().trim().max(100),
-  lastName: joi.string().required().trim().max(100),
+  firstName: joi.string().required().trim().max(20),
+  lastName: joi.string().required().trim().max(20),
   email: joi.string().required().trim().email().lowercase(),
-  phone: joi
-    .string()
-    .required()
-    .regex(
-      /(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/
-    ),
-  role: joi
-    .string()
-    .allow("")
-    .optional()
-    .valid(userRole.admin, userRole.user, userRole.instructor)
-    .trim()
-    .lowercase(),
+  phone: joi.string().required().regex(/(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/),
+  role: joi.string().allow("").optional().valid(userRole.admin, userRole.user, userRole.instructor).trim().lowercase(),
 });
 
 // User login validation
@@ -98,10 +76,26 @@ const skaterCreateSchema = joi.object({
   lastName: joi.string().required().max(20),
   age: joi.number().required(),
   gender: joi.string().required(),
-  skatesSize: joi.string().required().optional(),
-  protection: joi.string().required().optional(),
-  groupLevel: joi.string().required().optional(),
+  skatesSize: joi.string().optional(),
+  protection: joi.string().optional(),
+  groupLevel: joi.string().optional(),
   additionalRequirements: joi.string().allow('').allow(null).optional(),
+});
+
+// Unregistered user validation
+const unregisteredUSerCreateSchema = joi.object({
+  firstName: joi.string().trim().required().max(20),
+  lastName: joi.string().trim().required().max(20),
+  email: joi.string().trim().required().trim().email().lowercase(),
+  phone: joi.string().trim().required().regex(/(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/),
+  gender: joi.string().trim().required(),
+  additionalRequirements: joi.string().trim().allow('').allow(null).optional(),
+  groupAge: joi.string().required(),
+  skatesSize: joi.string().required(),
+  protection: joi.string().required(),
+  subscriptionType: joi.string().required(),
+  groupLevel: joi.string().required(),
+  date: joi.date().required(),
 });
 
 export {
@@ -111,4 +105,5 @@ export {
   updateUserSchema,
   lessonCreateSchema,
   skaterCreateSchema,
+  unregisteredUSerCreateSchema,
 };

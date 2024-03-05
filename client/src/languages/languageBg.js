@@ -49,6 +49,7 @@ export const BG = {
   adminPanel: "Админ панел",
   subscription: "Вид урок",
   subscriptionCount: "Брой посещения за абонамент",
+  visit: 'посещени', // Do not add any letter is used for singular and plural (client/src/features/booking/UnregisteredUser.jsx --> subscriptionData)
   ageGroup: "Възраст",
   // ageGroup: "Възрастова група",
   noAddedOptions: "Няма добавени опции!",

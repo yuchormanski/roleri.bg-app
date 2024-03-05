@@ -9,7 +9,6 @@ function useGetSkaterOptionsQuery() {
   const { isLoading, isFetching, isError, error, data } = useQuery({
     queryKey: ["skaters_options_data"],
     queryFn: async () => get(SERVER_ENDPOINTS.GET_ALL_OPTIONS),
-    // initialData: [],
   });
 
   if (isError) {
