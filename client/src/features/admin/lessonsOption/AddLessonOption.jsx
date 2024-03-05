@@ -148,7 +148,7 @@ function AddLessonOption({ onClose }) {
                 styles={customStyles}
                 placeholder={<div style={{ fontSize: 14 }}>Age group</div>}
                 // isMulti
-isSearchable={false}
+//isSearchable={false}
               />
               <label
                 className={`${styles.selectLabel} ${
@@ -167,7 +167,7 @@ isSearchable={false}
                 styles={customStyles}
                 placeholder={<div style={{ fontSize: 14 }}>Visits count</div>}
                 // isMulti
-isSearchable={false}
+//isSearchable={false}
               />
               <label
                 className={`${styles.selectLabel} ${
