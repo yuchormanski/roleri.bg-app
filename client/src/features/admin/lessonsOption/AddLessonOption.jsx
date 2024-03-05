@@ -598,32 +598,6 @@ function AddLessonOption({ onClose }) {
               </div>
             </div>
 
-            {/* <div className={styles.element}>
-              <input
-                className={`${styles.textInput}`}
-                type="location"
-                id="geoLocation"
-                name={"geoLocation"}
-                {...register("geoLocation", {
-                  // required: "Skills on Bulgarian is required",
-                  // maxLength: {
-                  //   value: 200,
-                  //   message:
-                  //     "Lesson title can't be more than 200 characters long!",
-                  // },
-                })}
-                onBlur={valueHandler}
-              />
-              <label
-                htmlFor={"geoLocation"}
-                className={`${styles.label} ${
-                  fieldValues.geoLocation.lat ? styles.filled : null
-                }`}
-              >
-                {lang.geoLocation || "Geo location"}
-              </label>
-            </div> */}
-
             <div className={styles.btnContainer}>
               <div style={{ marginLeft: "auto" }}>
                 <Button type={"primary"}>{lang.addOptions}</Button>
