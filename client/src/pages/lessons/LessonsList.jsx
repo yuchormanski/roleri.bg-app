@@ -10,12 +10,7 @@ import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 
 function LessonsList() {
   const { lang } = useLanguage();
-  const { isLoading, isError, error, data, isFetching } =
-    useGetAllLessonQueries();
-
-  if (isError) {
-    toast.error(error.message);
-  }
+  const { data, isFetching } = useGetAllLessonQueries();
 
   return (
     <>

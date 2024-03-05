@@ -5,6 +5,7 @@ export const mainRoutes = {
   lessons: "/lessons",
   skaters: "/skaters",
   options: "/options",
+  bookings: "/bookings",
 };
 
 export const endpoints = {
@@ -44,4 +45,5 @@ export const endpoints = {
   delete_level_options: "/delete-group-levels/:optionId",
   delete_age_options: "/delete-group-age/:optionId",
   delete_subscription_options: "/delete-subscriptions/:optionId",
+  unregistered_booking_user: "/unregistered-booking",
 };

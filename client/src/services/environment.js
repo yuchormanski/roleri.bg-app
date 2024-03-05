@@ -37,18 +37,16 @@ const SERVER_ENDPOINTS = {
   EDIT_AGE_OPTIONS: "options/edit-group-age",
   EDIT_SUBSCRIPTION_OPTIONS: "options/edit-subscriptions",
   DELETE_SKATES_OPTIONS: (optionId) => `options/delete-skates/${optionId}`,
-  DELETE_PROTECTION_OPTIONS: (optionId) =>
-    `options/delete-protections/${optionId}`,
+  DELETE_PROTECTION_OPTIONS: (optionId) => `options/delete-protections/${optionId}`,
   DELETE_LEVEL_OPTIONS: (optionId) => `options/delete-group-levels/${optionId}`,
   DELETE_AGE_OPTIONS: (optionId) => `options/delete-group-age/${optionId}`,
-  DELETE_SUBSCRIPTION_OPTIONS: (optionId) =>
-    `options/delete-subscriptions/${optionId}`,
+  DELETE_SUBSCRIPTION_OPTIONS: (optionId) => `options/delete-subscriptions/${optionId}`,
+  UNREGISTERED_BOOKING_USER: "bookings/unregistered-booking",
 };
 
 // const EMAIL_REGEX =
 //   /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?: \.[a - z0 - 9!#$ %& '*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-const EMAIL_REGEX =
-  /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+const EMAIL_REGEX = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 
 const PASS_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/;
 

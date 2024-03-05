@@ -54,6 +54,7 @@ export const EN = {
   adminPanel: "Admin panel",
   subscription: "Subscription type",
   subscriptionCount: "Subscription visit count",
+  visit: 'visit',
   ageGroup: "Age group",
   noAddedOptions: "No options added yet!",
   addOptions: "Add option",

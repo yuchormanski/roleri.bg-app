@@ -26,15 +26,14 @@ const userParentSchema = new Schema({
         type: String,
         require: [true, 'Password is require']
     }
-});
+}, { timestamps: true });
 
 userParentSchema.index({ email: 1 }, {
     collation: {
         locale: 'en',
         strength: 2
     }
-
-}, { timestamps: true });
+});
 
 const UserParent = model('UserParent', userParentSchema);
 
