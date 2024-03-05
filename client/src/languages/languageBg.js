@@ -67,6 +67,7 @@ export const BG = {
   schedule: "График",
   title: "Име",
   onBul: " на Български",
+  visits: "Брой посещения",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Добавете номер и количество",

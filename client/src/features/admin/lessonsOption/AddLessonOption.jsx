@@ -14,13 +14,14 @@ import Popup from "../../../ui/elements/popupModal/Popup.jsx";
 import Button from "../../../ui/elements/button/Button.jsx";
 import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 import { customStyles } from "./customStyles.js";
+import { options } from "./data/selectData.js";
 const isPending = false;
 
-const ageOptions = [
-  { value: "4-7", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
-];
+// const ageOptions = [
+//   { value: "4-7", label: "Chocolate" },
+//   { value: "strawberry", label: "Strawberry" },
+//   { value: "vanilla", label: "Vanilla" },
+// ];
 
 const initial = {
   imageUrl: "",
@@ -62,6 +63,10 @@ function AddLessonOption({ onClose }) {
     setFieldValues({ ...fieldValues, [valueName]: value });
   }
 
+  function selectHandler(data) {
+    console.log(data);
+    setFieldValues((field) => ({ ...field, [data.name]: data.value }));
+  }
   return (
     <Popup onClose={onClose} backgroundClick={false} userWidth={"width800"}>
       {isPending && <Spinner />}
@@ -134,13 +139,45 @@ function AddLessonOption({ onClose }) {
           </div>
 
           <div className={styles.fieldContainer_double}>
-            <Select
-              defaultValue={selectedOption}
-              onChange={setSelectedOption}
-              options={ageOptions}
-              styles={customStyles}
-            />
+            <div className={styles.element}>
+              <Select
+                name={"age"}
+                defaultValue={selectedOption}
+                onChange={selectHandler}
+                options={options.ageOptions}
+                styles={customStyles}
+                placeholder={<div style={{ fontSize: 14 }}>Age group</div>}
+                // isMulti
+              />
+              <label
+                className={`${styles.selectLabel} ${
+                  fieldValues.age ? styles.filled : null
+                }`}
+              >
+                <span>{lang.protection}</span>
+              </label>
+            </div>
+            <div className={styles.element}>
+              <Select
+                name={"visits"}
+                defaultValue={selectedOption}
+                onChange={selectHandler}
+                options={options.visitsOptions}
+                styles={customStyles}
+                placeholder={<div style={{ fontSize: 14 }}>Visits count</div>}
+                // isMulti
+              />
+              <label
+                className={`${styles.selectLabel} ${
+                  fieldValues.visits ? styles.filled : null
+                }`}
+              >
+                <span>{lang.visits}</span>
+              </label>
+            </div>
           </div>
+
+          <div className={styles.fieldContainer_double}></div>
 
           <div className={styles.btnContainer}>
             <div style={{ marginLeft: "auto" }}>
@@ -154,3 +191,5 @@ function AddLessonOption({ onClose }) {
 }
 
 export default AddLessonOption;
+
+// imageUrl	title	titleInfo	age	skills	count participants	type	visits	location	price	geoLocation	description	available to
