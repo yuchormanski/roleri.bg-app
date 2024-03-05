@@ -12,9 +12,9 @@ function GetSkater({ onClose, skaterData: skater }) {
   const { translatePhrase } = useTranslate();
   console.log(skater);
 
-  function genderHandler(gender) {
-    return gender === "male" ? lang.s_genderMale : lang.s_genderFemale;
-  }
+  // function genderHandler(gender) {
+  //   return gender === "male" ? lang.s_genderMale : lang.s_genderFemale;
+  // }
   return (
     <Popup onClose={onClose} backgroundClick={false}>
       <div className={styles.container}>
@@ -33,10 +33,10 @@ function GetSkater({ onClose, skaterData: skater }) {
           </header>
 
           <div className={styles.content}>
-            <p className={styles.element}>
+            {/* <p className={styles.element}>
               <span className={styles.elSpan}>{lang.gender}: </span>
               {genderHandler(skater.gender)}
-            </p>
+            </p> */}
 
             <p className={styles.element}>
               <span className={styles.elSpan}>{lang.age}: </span>

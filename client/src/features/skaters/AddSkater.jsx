@@ -104,7 +104,7 @@ function AddSkater({ onClose }) {
               autoComplete="skater-age"
             />
 
-            <select
+            {/* <select
               className={`${styles.halfWidth} ${styles.select}`}
               id="gender"
               {...register("gender", {
@@ -117,7 +117,7 @@ function AddSkater({ onClose }) {
               </option>
               <option value="male">{lang.s_genderMale}</option>
               <option value="female">{lang.s_genderFemale}</option>
-            </select>
+            </select> */}
           </div>
           <div className={styles.fieldsContainer}>
             <select

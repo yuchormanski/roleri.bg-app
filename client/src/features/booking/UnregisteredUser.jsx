@@ -24,7 +24,6 @@ const initialFieldsValues = {
 	groupAge: "",
 	subscriptionType: "",
 	lessonId: "",
-	gender: "",
 	skatesSize: "",
 	protection: "",
 	contactName: "",
@@ -32,6 +31,7 @@ const initialFieldsValues = {
 	phone: "",
 	textArea: "",
 	additionalRequirements: "",
+	// gender: "",
 };
 
 function UnregisteredUser() {
@@ -42,7 +42,7 @@ function UnregisteredUser() {
 
 	const { lang, index: selectedLangIndex } = useLanguage();
 	const { translatePhrase: translate } = useTranslate();
-	const { register, unregister, handleSubmit, reset, getValues } = useForm();
+	const { register, handleSubmit, reset } = useForm();
 
 	const { isFetching, error, data } = useGetSkaterOptionsQuery();
 	const { isFetching: isFetchingLesson, data: lessonData } = useGetAllLessonQueries();
@@ -53,13 +53,13 @@ function UnregisteredUser() {
 		setSelectedDate((d) => (d = date));
 	}
 
-	function formSuccessHandler(data) {
+	function formSuccessHandler(formData) {
 		if (!PHONE_REGEX.test(phone)) return toast.error("Invalid phone number!");
 
 		const date = new Date(selectedDate);
 		const isoDate = date.toISOString();
-		// groupLevel
-		const dataToServer = { ...data, phone: phone, date: isoDate };
+
+		const dataToServer = { ...formData, phone: phone, date: isoDate };
 		mutate(dataToServer);
 
 		reset();
@@ -140,7 +140,7 @@ function UnregisteredUser() {
 							<h3 className={styles.secondaryHeading}>{lang.selectDay}</h3>
 							<DatePickerCalendar selectedDateProp={selectedDateHandler} />
 
-							<h3 className={styles.secondaryHeading}>Fill the form</h3>
+							<h3 className={styles.secondaryHeading}>{lang.unregistered_user_form_title}</h3>
 
 							<form
 								onSubmit={handleSubmit(formSuccessHandler, formErrorHandler)}
@@ -292,7 +292,7 @@ function UnregisteredUser() {
 									</div>
 								</div>
 
-								<div className={styles.fieldContainer_triple}>
+								<div className={styles.fieldContainer_double}>
 									{/* Lesson type */}
 									<div className={styles.element}>
 										<select
@@ -356,7 +356,8 @@ function UnregisteredUser() {
 									</div>
 
 									{/* Gender */}
-									<div className={styles.element}>
+
+									{/* <div className={styles.element}>
 										<select
 											className={styles.select}
 											id="gender"
@@ -377,7 +378,7 @@ function UnregisteredUser() {
 										>
 											<span>{lang.gender}</span>
 										</label>
-									</div>
+									</div> */}
 								</div>
 
 								{/* Contact name */}

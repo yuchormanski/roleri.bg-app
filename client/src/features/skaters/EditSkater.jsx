@@ -25,7 +25,7 @@ function EditSkater({ onClose, skaterData }) {
       firstName: skaterData.firstName,
       lastName: skaterData.lastName,
       age: skaterData.age,
-      gender: skaterData.gender,
+      // gender: skaterData.gender,
       skatesSize: skaterData.skatesSize?._id,
       protection: skaterData.protection?._id,
       groupLevel: skaterData.groupLevel?._id,
@@ -114,7 +114,7 @@ function EditSkater({ onClose, skaterData }) {
             placeholder={lang.age}
             autoComplete="skater-age"
           />
-          <select
+          {/* <select
             className={styles.input}
             id="gender"
             {...register("gender", {
@@ -125,7 +125,7 @@ function EditSkater({ onClose, skaterData }) {
             <option value="">{lang.gender}</option>
             <option value="male">{lang.s_genderMale}</option>
             <option value="female">{lang.s_genderFemale}</option>
-          </select>
+          </select> */}
 
           <select
             className={styles.input}

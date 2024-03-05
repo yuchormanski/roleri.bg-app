@@ -14,10 +14,10 @@ const skaterModelSchema = new Schema(
       type: Number,
       required: [true, "Age is require"],
     },
-    gender: {
-      type: String,
-      required: [true, "Gender is require"],
-    },
+    // gender: {
+    //   type: String,
+    //   required: [true, "Gender is require"],
+    // },
     additionalRequirements: {
       type: String,
       default: null,

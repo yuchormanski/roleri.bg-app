@@ -17,10 +17,10 @@ const unregisteredUser = new Schema({
         type: String,
         required: [true, 'Phone is require']
     },
-    gender: {
-        type: String,
-        required: [true, "Gender is require"],
-    },
+    // gender: {
+    //     type: String,
+    //     required: [true, "Gender is require"],
+    // },
     additionalRequirements: {
         type: String,
         default: null,

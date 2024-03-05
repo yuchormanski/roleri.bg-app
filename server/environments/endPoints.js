@@ -46,4 +46,5 @@ export const endpoints = {
   delete_age_options: "/delete-group-age/:optionId",
   delete_subscription_options: "/delete-subscriptions/:optionId",
   unregistered_booking_user: "/unregistered-booking",
+  registered_booking_user: "/registered-booking",
 };

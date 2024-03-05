@@ -27,19 +27,23 @@ function checkOptions(option, req) {
   switch (option) {
     case preloadOptions.editSkater:
       result.params = [req.body._id];
-      result.errorMessage = "Error on update skater!";
+      result.errorMessage = "Error on update skater (from preloader)";
       break;
     case preloadOptions.deleteSkater:
       result.params = [req.params.skaterId];
-      result.errorMessage = "Error on delete Skater";
+      result.errorMessage = "Error on delete Skater (from preloader)";
       break;
     case preloadOptions.getSkater:
       result.params = [req.params.skaterId];
-      result.errorMessage = "Error on getting Skater";
+      result.errorMessage = "Error on getting Skater (from preloader)";
       break;
     case preloadOptions.getUserById:
       result.params = [req.user._id];
-      result.errorMessage = "Error on get user by ID";
+      result.errorMessage = "Error on get user by ID (from preloader)";
+      break;
+    case preloadOptions.checkSkater:
+      result.params = [req.body[0]['skaterId']];
+      result.errorMessage = "Error on check booking skater by ID (from preloader)";
       break;
 
     default:

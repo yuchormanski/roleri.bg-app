@@ -57,9 +57,9 @@ function SkatersList() {
     toggleDeleteSkaterModalHandler();
   }
 
-  function genderHandler(gender) {
-    return gender === "male" ? lang.s_genderMale : lang.s_genderFemale;
-  }
+  // function genderHandler(gender) {
+  //   return gender === "male" ? lang.s_genderMale : lang.s_genderFemale;
+  // }
 
   return (
     <div className={styles.container}>

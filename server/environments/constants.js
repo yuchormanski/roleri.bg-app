@@ -9,4 +9,5 @@ export const preloadOptions = {
   deleteSkater: "deleteSkater",
   getUserById: "getUserById",
   getSkater: "getSkater",
+  checkSkater: "checkSkater",
 };

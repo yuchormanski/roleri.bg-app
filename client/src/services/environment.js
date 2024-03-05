@@ -42,6 +42,7 @@ const SERVER_ENDPOINTS = {
   DELETE_AGE_OPTIONS: (optionId) => `options/delete-group-age/${optionId}`,
   DELETE_SUBSCRIPTION_OPTIONS: (optionId) => `options/delete-subscriptions/${optionId}`,
   UNREGISTERED_BOOKING_USER: "bookings/unregistered-booking",
+  REGISTERED_BOOKING_USER: "bookings/registered-booking",
 };
 
 // const EMAIL_REGEX =

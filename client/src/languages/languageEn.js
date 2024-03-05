@@ -36,7 +36,7 @@ export const EN = {
   send: "Send",
   addSkater: "Add skater",
   addSkaters: "Add skaters",
-  gender: "Gender",
+  // gender: "Gender",
   level: "Level",
   levelEn: "Level on English",
   levelBg: "Level on Bulgarian",
@@ -73,6 +73,7 @@ export const EN = {
   title: "Title",
   onBul: " on Bulgarian",
   visits: "Visits count",
+  unregistered_user_form_title: "Fill the form",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",
