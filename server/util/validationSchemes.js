@@ -24,18 +24,29 @@ const passwordSchema = joi
 // MongoDB ObjectId validation
 const objectIdSchema = joi.string().custom((value, helpers) => {
   if (!Types.ObjectId.isValid(value)) {
-    return helpers.error('any.invalid');
+    return helpers.error("any.invalid");
   }
   return value;
-}, 'MongoDB ObjectId');
+}, "MongoDB ObjectId");
 
 // User register validation
 const validateRegisterSchema = joi.object({
   firstName: joi.string().required().trim().max(20),
   lastName: joi.string().required().trim().max(20),
   email: joi.string().required().trim().email().lowercase(),
-  phone: joi.string().required().regex(/(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/),
-  role: joi.string().allow("").optional().valid(userRole.admin, userRole.user, userRole.instructor).trim().lowercase(),
+  phone: joi
+    .string()
+    .required()
+    .regex(
+      /(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/
+    ),
+  role: joi
+    .string()
+    .allow("")
+    .optional()
+    .valid(userRole.admin, userRole.user, userRole.instructor)
+    .trim()
+    .lowercase(),
   password: passwordSchema,
 });
 
@@ -44,8 +55,19 @@ const updateUserSchema = joi.object({
   firstName: joi.string().required().trim().max(20),
   lastName: joi.string().required().trim().max(20),
   email: joi.string().required().trim().email().lowercase(),
-  phone: joi.string().required().regex(/(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/),
-  role: joi.string().allow("").optional().valid(userRole.admin, userRole.user, userRole.instructor).trim().lowercase(),
+  phone: joi
+    .string()
+    .required()
+    .regex(
+      /(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/
+    ),
+  role: joi
+    .string()
+    .allow("")
+    .optional()
+    .valid(userRole.admin, userRole.user, userRole.instructor)
+    .trim()
+    .lowercase(),
 });
 
 // User login validation
@@ -62,9 +84,12 @@ const validateResetPasswordSchema = joi.object({
 
 // Lesson validation
 const lessonCreateSchema = joi.object({
-  imageUrl: joi.string().required().regex(/^https?:\/\/.+/),
+  imageUrl: joi
+    .string()
+    .required()
+    .regex(/^https?:\/\/.+/),
   title: joi.string().required(),
-  titleInfo: joi.string().required(),
+  titleBG: joi.string().required(),
   age: joi.string().required(),
   skills: joi.string().required(),
   participants: joi.string().required(),
@@ -74,7 +99,7 @@ const lessonCreateSchema = joi.object({
   price: joi.string().required(),
   geoLocation: joi.object({
     lat: joi.string().allow(null).default(null),
-    lon: joi.string().allow(null).default(null)
+    lon: joi.string().allow(null).default(null),
   }),
   description: joi.string().required(),
 });
@@ -88,7 +113,7 @@ const skaterCreateSchema = joi.object({
   skatesSize: joi.string().optional(),
   protection: joi.string().optional(),
   groupLevel: joi.string().optional(),
-  additionalRequirements: joi.string().allow('').allow(null).optional(),
+  additionalRequirements: joi.string().allow("").allow(null).optional(),
 });
 
 // Unregistered booking user validation
@@ -97,8 +122,14 @@ const unregisteredUSerCreateSchema = joi.object({
   lastName: joi.string().trim().required().max(20),
   email: joi.string().trim().required().trim().email().lowercase(),
   // gender: joi.string().trim().required(),
-  phone: joi.string().trim().required().regex(/(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/),
-  additionalRequirements: joi.string().trim().allow('').allow(null).optional(),
+  phone: joi
+    .string()
+    .trim()
+    .required()
+    .regex(
+      /(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/
+    ),
+  additionalRequirements: joi.string().trim().allow("").allow(null).optional(),
   groupAge: objectIdSchema,
   skatesSize: objectIdSchema,
   protection: objectIdSchema,
@@ -108,13 +139,15 @@ const unregisteredUSerCreateSchema = joi.object({
 });
 
 // Registered user booking validation
-const registeredUserCreateSchema = joi.array().items(joi.object({
-  additionalRequirements: joi.string().trim().required().max(300),
-  date: joi.date().required(),
-  lessonId: objectIdSchema,
-  skaterId: objectIdSchema,
-  subscriptionType: objectIdSchema,
-}));
+const registeredUserCreateSchema = joi.array().items(
+  joi.object({
+    additionalRequirements: joi.string().trim().required().max(300),
+    date: joi.date().required(),
+    lessonId: objectIdSchema,
+    skaterId: objectIdSchema,
+    subscriptionType: objectIdSchema,
+  })
+);
 
 export {
   validateRegisterSchema,

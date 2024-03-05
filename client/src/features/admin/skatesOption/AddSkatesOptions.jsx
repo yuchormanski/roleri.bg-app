@@ -12,8 +12,13 @@ import { useAddOptionsQuery } from "../useAddOptionsQuery.js";
 import Popup from "../../../ui/elements/popupModal/Popup.jsx";
 import Button from "../../../ui/elements/button/Button.jsx";
 import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
+import { useState } from "react";
 
 function AddSkatesOptions({ onClose }) {
+  const [fieldValues, setFieldValues] = useState({
+    size: "",
+    quantity: "",
+  });
   const { lang } = useLanguage();
 
   const queryClient = useQueryClient();
@@ -24,7 +29,7 @@ function AddSkatesOptions({ onClose }) {
   // SUBMITTING THE FORM
   function onFormSubmit(skatesData) {
     const skatesAvailableData = queryClient.getQueryData(["skates"]);
-    if (skatesAvailableData.some(s => s.size == skatesData.size)) {
+    if (skatesAvailableData.some((s) => s.size == skatesData.size)) {
       return toast.error(`Skates ${skatesData.size} already exist`);
     }
 
@@ -37,6 +42,11 @@ function AddSkatesOptions({ onClose }) {
   function onErrorSubmit(errors) {
     console.log(errors);
     Object.keys(errors).forEach((error) => toast.error(errors[error].message));
+  }
+
+  // HELPER
+  function inputHandle(e) {
+    setFieldValues((state) => ({ ...state, [e.target.id]: e.target.value }));
   }
 
   return (
@@ -53,34 +63,52 @@ function AddSkatesOptions({ onClose }) {
           onSubmit={handleSubmit(onFormSubmit, onErrorSubmit)}
           className={styles.form}
         >
-          <input
-            className={styles.input}
-            type="number"
-            id="size"
-            {...register("size", {
-              required: "Skate size is required",
-              min: {
-                value: 0,
-                message: "Skate size cannot be a negative number.",
-              },
-            })}
-            placeholder={lang.s_skates}
-            autoComplete="skate-size"
-          />
-          <input
-            className={styles.input}
-            type="number"
-            id="quantity"
-            {...register("quantity", {
-              required: "Skate quantity is required",
-              min: {
-                value: 0,
-                message: "Skate quantity cannot be a negative number.",
-              },
-            })}
-            placeholder={lang.quantity}
-            autoComplete="skate-size"
-          />
+          <div className={styles.element}>
+            <input
+              className={styles.input}
+              type="number"
+              id="size"
+              {...register("size", {
+                required: "Skate size is required",
+                min: {
+                  value: 0,
+                  message: "Skate size cannot be a negative number.",
+                },
+              })}
+              onChange={inputHandle}
+            />
+            <label
+              htmlFor={"title"}
+              className={`${styles.label} ${
+                fieldValues.size ? styles.filled : null
+              }`}
+            >
+              {lang.number}
+            </label>
+          </div>
+          <div className={styles.element}>
+            <input
+              className={styles.input}
+              type="number"
+              id="quantity"
+              {...register("quantity", {
+                required: "Skate quantity is required",
+                min: {
+                  value: 0,
+                  message: "Skate quantity cannot be a negative number.",
+                },
+              })}
+              onChange={inputHandle}
+            />
+            <label
+              htmlFor={"quantity"}
+              className={`${styles.label} ${
+                fieldValues.quantity ? styles.filled : null
+              }`}
+            >
+              {lang.quantity}
+            </label>
+          </div>
 
           <div className={styles.btnContainer}>
             <div style={{ marginLeft: "auto" }}>
