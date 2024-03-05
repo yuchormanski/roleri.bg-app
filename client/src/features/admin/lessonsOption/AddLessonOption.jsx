@@ -5,17 +5,17 @@ import { useForm } from "react-hook-form";
 import Select from "react-select";
 
 import { GoX } from "react-icons/go";
-import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 import { useLanguage } from "../../../context/Language.jsx";
+import { useGetSkaterOptionsQuery } from "../../skaters/useGetSkaterOptionsQuery.js";
 
 import Popup from "../../../ui/elements/popupModal/Popup.jsx";
 import Button from "../../../ui/elements/button/Button.jsx";
 import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 import { customStyles } from "./customStyles.js";
 import { options } from "./data/selectData.js";
-const isPending = false;
+import { useTranslate } from "../../../hooks/useTranslate.js";
 
 // const ageOptions = [
 //   { value: "4-7", label: "Chocolate" },
@@ -45,9 +45,27 @@ function AddLessonOption({ onClose }) {
   const [selectedOption, setSelectedOption] = useState(null);
   const { register, handleSubmit, reset } = useForm();
   const { lang } = useLanguage();
+  const { translatePhrase: translate } = useTranslate();
+
+  const { isFetching, data: optionData } = useGetSkaterOptionsQuery();
+
+  // TRANSFORM INPUT DATA TO BE VISUALIZED WITH REACT-SELECT
+  function transformDataToSelect(dataToTransform) {
+    const transformedData = dataToTransform.reduce((acc, dataObj) => {
+      const checkLabel = (inputString) => inputString.includes("&/&") ? translate(inputString) : inputString;
+      const temporaryData = {
+        value: dataObj._id,
+        label: checkLabel(dataObj["size"] || dataObj["typeGroup"] || dataObj["typePayment"]),
+      };
+
+      return [...acc, temporaryData];
+    }, []);
+
+    return transformedData;
+  }
 
   // SUBMITTING THE FORM
-  function onFormSubmit(ageData) {}
+  function onFormSubmit(ageData) { }
 
   //ERROR IN FORM
   function onErrorSubmit(errors) {
@@ -56,7 +74,6 @@ function AddLessonOption({ onClose }) {
   }
 
   // HELPER
-
   function valueHandler(e) {
     const valueName = e.target.name;
     const value = e.target.value;
@@ -69,7 +86,7 @@ function AddLessonOption({ onClose }) {
   }
   return (
     <Popup onClose={onClose} backgroundClick={false} userWidth={"width800"}>
-      {isPending && <Spinner />}
+      {isFetching && <Spinner />}
       <div className={styles.container}>
         <div className={styles.closeBtn}>
           <button onClick={onClose} className={styles.closeIcon}>
@@ -101,9 +118,8 @@ function AddLessonOption({ onClose }) {
               />
               <label
                 htmlFor={"title"}
-                className={`${styles.label} ${
-                  fieldValues.title ? styles.filled : null
-                }`}
+                className={`${styles.label} ${fieldValues.title ? styles.filled : null
+                  }`}
               >
                 {lang.title}
               </label>
@@ -128,9 +144,8 @@ function AddLessonOption({ onClose }) {
               />
               <label
                 htmlFor={"titleBG"}
-                className={`${styles.label} ${
-                  fieldValues.title ? styles.filled : null
-                }`}
+                className={`${styles.label} ${fieldValues.title ? styles.filled : null
+                  }`}
               >
                 {lang.title}
                 {lang.onBul}
@@ -144,15 +159,14 @@ function AddLessonOption({ onClose }) {
                 name={"age"}
                 defaultValue={selectedOption}
                 onChange={selectHandler}
-                options={options.ageOptions}
+                options={transformDataToSelect(optionData.groupsAgeData)}
                 styles={customStyles}
                 placeholder={<div style={{ fontSize: 14 }}>Age group</div>}
-                // isMulti
+              // isMulti
               />
               <label
-                className={`${styles.selectLabel} ${
-                  fieldValues.age ? styles.filled : null
-                }`}
+                className={`${styles.selectLabel} ${fieldValues.age ? styles.filled : null
+                  }`}
               >
                 <span>{lang.protection}</span>
               </label>
@@ -162,15 +176,14 @@ function AddLessonOption({ onClose }) {
                 name={"visits"}
                 defaultValue={selectedOption}
                 onChange={selectHandler}
-                options={options.visitsOptions}
+                options={transformDataToSelect(optionData.subscriptionData)}
                 styles={customStyles}
                 placeholder={<div style={{ fontSize: 14 }}>Visits count</div>}
-                // isMulti
+              // isMulti
               />
               <label
-                className={`${styles.selectLabel} ${
-                  fieldValues.visits ? styles.filled : null
-                }`}
+                className={`${styles.selectLabel} ${fieldValues.visits ? styles.filled : null
+                  }`}
               >
                 <span>{lang.visits}</span>
               </label>
