@@ -8,6 +8,7 @@ import { useLanguage } from "../../context/Language.jsx";
 import { useGetUserDataQuery } from "../users/useGetUserDataQuery.js";
 
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
+import { useTheme } from "../../context/DarkMode.jsx";
 
 function AdminInfo() {
   const { newPath } = usePath();
@@ -44,7 +45,9 @@ function AdminInfo() {
 export default AdminInfo;
 
 function ListOptions({ option }) {
-  const src = "/wheel.webp";
+  const { isDark } = useTheme();
+
+  const src = isDark ? "android-chrome-512x512.png" : "/wheel.webp";
   return (
     <li className={styles.listItem}>
       <img src={src} alt="bullet dot" className={styles.bullet} />

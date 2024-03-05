@@ -69,6 +69,8 @@ export const EN = {
   contactName: "Contact name",
   select_skaters: "Select skaters",
   schedule: "schedule",
+  title: "Title",
+  onBul: " on Bulgarian",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",
@@ -84,6 +86,8 @@ export const EN = {
   a_list_level_1: "Add new lesson type, including the description",
   a_list_level_2:
     "You have the ability to edit and delete every item on the list",
+  a_active_days: "Active days",
+  a_lessons: "Lessons",
 
   // SKATER OPTIONS
   s_firstName: "First name",

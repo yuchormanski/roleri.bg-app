@@ -33,6 +33,7 @@ import ListAgeOptions from "./features/admin/ageOption/ListAgeOptions.jsx";
 import ListSubscriptionOptions from "./features/admin/subscriptionOption/ListSubscriptionOptions.jsx";
 import Booking from "./features/booking/Booking.jsx";
 import Conditions from "./pages/terms_&_Conditions/Conditions.jsx";
+import ListLessonsOption from "./features/admin/lessonsOption/ListLessonsOption.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -95,6 +96,10 @@ function App() {
                           <Route
                             path={"subscription"}
                             element={<ListSubscriptionOptions />}
+                          />
+                          <Route
+                            path={"lessons"}
+                            element={<ListLessonsOption />}
                           />
                         </Route>
                       </Route>

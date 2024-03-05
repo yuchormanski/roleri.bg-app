@@ -65,6 +65,8 @@ export const BG = {
   contactName: "Име за контакт",
   select_skaters: "Изберете кънкьори",
   schedule: "График",
+  title: "Име",
+  onBul: " на Български",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Добавете номер и количество",
@@ -84,6 +86,8 @@ export const BG = {
   a_list_level_1: "Добавете тип (начинаещи, напреднали) група и описание.",
   a_list_level_2:
     "Имате възможност да прегледате и редактирате всеки един от записите в списъка.",
+  a_active_days: "Дни за уроци",
+  a_lessons: "Уроци",
 
   // SKATER OPTIONS
   s_firstName: "Име",

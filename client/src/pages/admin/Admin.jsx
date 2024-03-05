@@ -34,6 +34,10 @@ function Admin() {
       path: "lessons",
       label: lang.s_lessons,
     },
+    {
+      path: "activeDays",
+      label: lang.a_active_days,
+    },
   ];
 
   return (

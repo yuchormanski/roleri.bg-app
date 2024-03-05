@@ -36,7 +36,8 @@
   border-radius: 0.3rem;
 }
 
-.profileLink:hover {
+.profileLink:hover,
+.profileLink:active {
   border-bottom: 1px var(--border-bottom);
 }
 
