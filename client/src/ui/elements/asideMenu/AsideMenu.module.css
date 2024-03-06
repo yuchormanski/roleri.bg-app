@@ -28,7 +28,7 @@
   width: 100%;
   position: relative;
   color: var(--active-text);
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   text-decoration: none;
   text-align: center;
   padding: 0.6rem 0;
@@ -53,9 +53,9 @@
 }
 
 @media (max-width: 850px) {
-  .profileLink {
+  /* .profileLink {
     font-size: 1.4rem;
-  }
+  } */
 }
 
 @media (max-width: 760px) {
@@ -97,8 +97,8 @@
   }
   .profileLink {
     padding: 2rem 0;
-    /* font-size: 1.8rem; */
-    font-size: clamp(1.4rem, 3vw, 2rem);
+    /* font-size: 1.6rem; */
+    /* font-size: clamp(1.4rem, 90%, 2rem); */
     font-weight: 300;
   }
   .icon {
@@ -118,4 +118,10 @@
 }
 
 @media (max-width: 375px) {
+  .profileLink {
+    padding: 2rem 0;
+    font-size: 1.6rem;
+    /* font-size: clamp(1.4rem, 90%, 2rem); */
+    font-weight: 300;
+  }
 }

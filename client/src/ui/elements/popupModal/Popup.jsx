@@ -6,13 +6,16 @@ function Popup({
   noBackground = false,
   backgroundClick,
   userWidth = null,
+  userHeight = false,
 }) {
   return (
     <div className={styles.modalBg} onClick={backgroundClick ? onClose : null}>
       <figure
         className={`${styles.fullInfo} ${noBackground && styles.noBackground} ${
           userWidth && styles[userWidth]
-        }`}
+        } 
+        ${userHeight && styles["userHeight"]}
+        `}
         onClick={(e) => e.stopPropagation()}
       >
         <button className={styles.closeIcon} onClick={onClose}>

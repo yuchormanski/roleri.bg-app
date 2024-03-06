@@ -41,13 +41,12 @@ function EditLessonOption({ onClose, lessonData }) {
     //
     imageUrl: lessonData.imageUrl,
     time: lessonData.time,
-    validTo: new Date(lessonData.validTo).toISOString().split('T')[0],
+    validTo: new Date(lessonData.validTo).toISOString().split("T").at(0),
     //
     geoLocation: {
       lat: lessonData.geoLocation.lat,
       lon: lessonData.geoLocation.lon,
     },
-
   };
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -88,7 +87,7 @@ function EditLessonOption({ onClose, lessonData }) {
   // SUBMITTING THE FORM
   function onFormSubmit(formData) {
     const lessonAvailableData = queryClient.getQueryData(["lessons"]);
-    if (lessonAvailableData.some(a => a.title == fieldValues.title)) {
+    if (lessonAvailableData.some((a) => a.title == fieldValues.title)) {
       return toast.error(`Title ${fieldValues.title} already exist`);
     }
 
@@ -141,12 +140,14 @@ function EditLessonOption({ onClose, lessonData }) {
   function selectInitialDataHandler(data) {
     const temporaryData = {
       value: data._id,
-      label: checkLabel(data["size"] || data["typeGroup"] || data["typePayment"]),
+      label: checkLabel(
+        data["size"] || data["typeGroup"] || data["typePayment"]
+      ),
       name: nameCheck(),
     };
 
     function checkLabel(inputString) {
-      return inputString.includes("&/&") ? translate(inputString) : inputString
+      return inputString.includes("&/&") ? translate(inputString) : inputString;
     }
 
     function nameCheck() {
@@ -160,7 +161,7 @@ function EditLessonOption({ onClose, lessonData }) {
   return (
     <Popup onClose={onClose} backgroundClick={false} userWidth={"width800"}>
       <>
-        {(isFetching || isPending) ? (
+        {isFetching || isPending ? (
           <Spinner />
         ) : (
           <div className={styles.container}>
@@ -195,8 +196,9 @@ function EditLessonOption({ onClose, lessonData }) {
                   />
                   <label
                     htmlFor={"title"}
-                    className={`${styles.label} ${fieldValues.title ? styles.filled : null
-                      }`}
+                    className={`${styles.label} ${
+                      fieldValues.title ? styles.filled : null
+                    }`}
                   >
                     {lang.title}
                   </label>
@@ -221,8 +223,9 @@ function EditLessonOption({ onClose, lessonData }) {
                   />
                   <label
                     htmlFor={"titleBG"}
-                    className={`${styles.label} ${fieldValues.title ? styles.filled : null
-                      }`}
+                    className={`${styles.label} ${
+                      fieldValues.title ? styles.filled : null
+                    }`}
                   >
                     {lang.title}
                     {lang.onBul}
@@ -241,11 +244,12 @@ function EditLessonOption({ onClose, lessonData }) {
                     options={transformDataToSelect(optionData.groupsAgeData)}
                     styles={customStyles}
                     placeholder={<div style={{ fontSize: 14 }}>Age group</div>}
-                  // isMulti
+                    // isMulti
                   />
                   <label
-                    className={`${styles.selectLabel} ${fieldValues.age ? styles.filled : null
-                      }`}
+                    className={`${styles.selectLabel} ${
+                      fieldValues.age ? styles.filled : null
+                    }`}
                   >
                     <span>{lang.age}</span>
                   </label>
@@ -265,8 +269,9 @@ function EditLessonOption({ onClose, lessonData }) {
                     }
                   />
                   <label
-                    className={`${styles.selectLabel} ${fieldValues.type ? styles.filled : null
-                      }`}
+                    className={`${styles.selectLabel} ${
+                      fieldValues.type ? styles.filled : null
+                    }`}
                   >
                     <span>{lang.type}</span>
                   </label>
@@ -299,8 +304,9 @@ function EditLessonOption({ onClose, lessonData }) {
                   />
                   <label
                     htmlFor={"participants"}
-                    className={`${styles.label} ${fieldValues.participants ? styles.filled : null
-                      }`}
+                    className={`${styles.label} ${
+                      fieldValues.participants ? styles.filled : null
+                    }`}
                   >
                     {lang.participants}
                   </label>
@@ -329,8 +335,9 @@ function EditLessonOption({ onClose, lessonData }) {
                   />
                   <label
                     htmlFor={"price"}
-                    className={`${styles.label} ${fieldValues.price ? styles.filled : null
-                      }`}
+                    className={`${styles.label} ${
+                      fieldValues.price ? styles.filled : null
+                    }`}
                   >
                     {lang.price}
                   </label>
@@ -358,8 +365,9 @@ function EditLessonOption({ onClose, lessonData }) {
                   />
                   <label
                     htmlFor={"location"}
-                    className={`${styles.label} ${fieldValues.location ? styles.filled : null
-                      }`}
+                    className={`${styles.label} ${
+                      fieldValues.location ? styles.filled : null
+                    }`}
                   >
                     {lang.location}
                   </label>
@@ -384,8 +392,9 @@ function EditLessonOption({ onClose, lessonData }) {
                   />
                   <label
                     htmlFor={"locationBG"}
-                    className={`${styles.label} ${fieldValues.locationBG ? styles.filled : null
-                      }`}
+                    className={`${styles.label} ${
+                      fieldValues.locationBG ? styles.filled : null
+                    }`}
                   >
                     {`${lang.location} ${lang.onBul}`}
                   </label>
@@ -413,8 +422,9 @@ function EditLessonOption({ onClose, lessonData }) {
                   />
                   <label
                     htmlFor={"skills"}
-                    className={`${styles.label} ${fieldValues.skills ? styles.filled : null
-                      }`}
+                    className={`${styles.label} ${
+                      fieldValues.skills ? styles.filled : null
+                    }`}
                   >
                     {lang.skills}
                   </label>
@@ -439,8 +449,9 @@ function EditLessonOption({ onClose, lessonData }) {
                   />
                   <label
                     htmlFor={"skillsBG"}
-                    className={`${styles.label} ${fieldValues.skillsBG ? styles.filled : null
-                      }`}
+                    className={`${styles.label} ${
+                      fieldValues.skillsBG ? styles.filled : null
+                    }`}
                   >
                     {lang.skills}
                     {lang.onBul}
@@ -470,8 +481,9 @@ function EditLessonOption({ onClose, lessonData }) {
                   />
                   <label
                     htmlFor={"description"}
-                    className={`${styles.label} ${fieldValues.description ? styles.filled : null
-                      }`}
+                    className={`${styles.label} ${
+                      fieldValues.description ? styles.filled : null
+                    }`}
                   >
                     {lang.description}
                   </label>
@@ -497,8 +509,9 @@ function EditLessonOption({ onClose, lessonData }) {
                   />
                   <label
                     htmlFor={"descriptionBG"}
-                    className={`${styles.label} ${fieldValues.descriptionBG ? styles.filled : null
-                      }`}
+                    className={`${styles.label} ${
+                      fieldValues.descriptionBG ? styles.filled : null
+                    }`}
                   >
                     {lang.description}
                     {lang.onBul}
@@ -529,8 +542,9 @@ function EditLessonOption({ onClose, lessonData }) {
                   />
                   <label
                     htmlFor={"imageUrl"}
-                    className={`${styles.label} ${fieldValues.imageUrl ? styles.filled : null
-                      }`}
+                    className={`${styles.label} ${
+                      fieldValues.imageUrl ? styles.filled : null
+                    }`}
                   >
                     {lang.imageUrl}
                   </label>
@@ -550,8 +564,9 @@ function EditLessonOption({ onClose, lessonData }) {
                   />
                   <label
                     htmlFor={"time"}
-                    className={`${styles.label} ${fieldValues.time ? styles.filled : styles.hidden
-                      }`}
+                    className={`${styles.label} ${
+                      fieldValues.time ? styles.filled : styles.hidden
+                    }`}
                   >
                     {lang.time}
                   </label>
@@ -576,8 +591,9 @@ function EditLessonOption({ onClose, lessonData }) {
                   />
                   <label
                     htmlFor={"validTo"}
-                    className={`${styles.label} ${fieldValues.validTo ? styles.filled : styles.hidden
-                      }`}
+                    className={`${styles.label} ${
+                      fieldValues.validTo ? styles.filled : styles.hidden
+                    }`}
                   >
                     {lang.validTo}
                   </label>
@@ -606,8 +622,9 @@ function EditLessonOption({ onClose, lessonData }) {
                   />
                   <label
                     htmlFor={"lat"}
-                    className={`${styles.label} ${fieldValues.geoLocation.lat ? styles.filled : null
-                      }`}
+                    className={`${styles.label} ${
+                      fieldValues.geoLocation.lat ? styles.filled : null
+                    }`}
                   >
                     {lang.latitude}
                   </label>
@@ -633,8 +650,9 @@ function EditLessonOption({ onClose, lessonData }) {
                   />
                   <label
                     htmlFor={"lon"}
-                    className={`${styles.label} ${fieldValues.geoLocation.lon ? styles.filled : null
-                      }`}
+                    className={`${styles.label} ${
+                      fieldValues.geoLocation.lon ? styles.filled : null
+                    }`}
                   >
                     {lang.longitude}
                   </label>

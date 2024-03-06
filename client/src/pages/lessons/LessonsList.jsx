@@ -23,7 +23,7 @@ function LessonsList() {
             <div className={styles.secondaryContainer}>
               <div className={styles.lessons}>
                 {data.map((lm) => (
-                  <LessonListElement key={lm._id} lm={lm} />
+                  <LessonListElement key={lm._id} lesson={lm} />
                 ))}
               </div>
               <div className={styles.scrollToTop}>

@@ -85,13 +85,16 @@
 }
 
 .element {
-  font-size: clamp(1.6rem, 2vw, 2rem);
+  /* font-size: clamp(1.6rem, 2vw, 2rem); */
+  font-size: 2rem;
   text-transform: uppercase;
   color: var(--color-menu-btn);
 }
 
 .elSpan {
-  font-size: clamp(0.6rem, 2vw, 1rem);
+  /* font-size: clamp(0.6rem, 2vw, 1rem); */
+  font-size: 1.2rem;
+
   color: var(--color-header-dim);
   margin-right: 0.5rem;
 }
@@ -126,13 +129,17 @@
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 480px) {
   .skateItem {
     padding: 1.5rem;
   }
+  .actionContainer {
+    margin: 0;
+    place-items: center;
+  }
 
   .actionBtn {
-    padding: 0.2rem 1.4rem;
+    padding: 1rem;
   }
 }
 
@@ -145,12 +152,8 @@
     padding: 1rem;
   }
 
-  .actionContainer {
-    margin: 0;
-  }
-
-  .actionBtn {
-    padding: 1rem;
+  .element {
+    font-size: 1.8rem;
   }
 }
 
@@ -160,15 +163,7 @@
     font-weight: 400;
   }
 
-  .actionContainer {
-    flex-direction: column;
-  }
-
   .skateItem {
     padding: 1rem;
-  }
-
-  .actionBtn {
-    padding: 0.1rem 1rem;
   }
 }

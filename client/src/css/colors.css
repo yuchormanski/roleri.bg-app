@@ -43,7 +43,8 @@
     --color-input: #626872;
     --color-nav-hover: #626872;
     --color-header: #2e3644;
-    --color-header-even: #3c4658;
+    /* --color-header-even: #3c4658; */
+    --color-header-even: #3c465847;
     --color-header-dim: #aaaaaa;
     --color-footer-bg: #2e3644;
     --input-border: #ccac1c80;

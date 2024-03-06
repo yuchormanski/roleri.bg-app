@@ -80,13 +80,16 @@
   border-radius: 0.3rem;
 }
 .element {
-  font-size: clamp(1.6rem, 2vw, 2rem);
+  /* font-size: clamp(1.6rem, 2vw, 2rem); */
+  font-size: 2rem;
   text-transform: uppercase;
   color: var(--color-menu-btn);
 }
 
 .elSpan {
-  font-size: clamp(0.6rem, 2vw, 1rem);
+  /* font-size: clamp(0.6rem, 2vw, 1rem); */
+  font-size: 1.2rem;
+
   color: var(--color-header-dim);
   margin-right: 0.5rem;
 }
@@ -128,6 +131,13 @@
 
   .actionBtn {
     padding: 0.2rem 1.4rem;
+  }
+  .element {
+    font-size: 1.8rem;
+  }
+
+  .elSpan {
+    font-size: 1.2rem;
   }
 }
 

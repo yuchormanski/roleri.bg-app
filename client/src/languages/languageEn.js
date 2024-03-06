@@ -79,6 +79,7 @@ export const EN = {
   time: "Time",
   imageUrl: "Image URL",
   validTo: "Valid to date",
+  learnMore: "Learn more",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",

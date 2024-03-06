@@ -33,6 +33,7 @@ import ListSubscriptionOptions from "./features/admin/subscriptionOption/ListSub
 import Booking from "./features/booking/Booking.jsx";
 import Conditions from "./pages/terms_&_Conditions/Conditions.jsx";
 import ListLessonsOption from "./features/admin/lessonsOption/ListLessonsOption.jsx";
+import LessonElement from "./features/lessons/LessonElement.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -58,6 +59,7 @@ function App() {
                     <Route index element={<Navigate replace to={"home"} />} />
                     <Route path={"home"} element={<Home />} />
                     <Route path={"lessons"} element={<LessonsList />} />
+                    <Route path={"lesson/:id"} element={<LessonElement />} />
                     <Route path={"booking"} element={<Booking />} />
                     <Route path={"conditions"} element={<Conditions />} />
                     <Route

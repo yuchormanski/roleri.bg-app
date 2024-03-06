@@ -92,13 +92,15 @@
 }
 
 .element {
-  font-size: clamp(1.6rem, 2vw, 2rem);
+  /* font-size: clamp(1.6rem, 2vw, 2rem); */
+  font-size: 1.8rem;
   text-transform: uppercase;
   color: var(--color-menu-btn);
 }
 
 .elSpan {
-  font-size: clamp(0.6rem, 2vw, 1rem);
+  /* font-size: clamp(0.6rem, 2vw, 1rem); */
+  font-size: 1.2rem;
   color: var(--color-header-dim);
   margin-right: 0.5rem;
 }

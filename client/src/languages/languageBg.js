@@ -75,6 +75,7 @@ export const BG = {
   time: "Час",
   imageUrl: "Адрес на изображение",
   validTo: "Дата на валидност",
+  learnMore: "Научете повече",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Добавете номер и количество",
