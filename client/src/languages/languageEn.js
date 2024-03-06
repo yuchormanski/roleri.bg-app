@@ -78,6 +78,7 @@ export const EN = {
   longitude: "Longitude",
   time: "Time",
   imageUrl: "Image URL",
+  validTo: "Valid to date",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",

@@ -81,7 +81,7 @@
   position: relative;
   width: 100%;
   display: grid;
-  grid-template-columns: 49.3% 24.3% 24.3%;
+  grid-template-columns: 49.3% 22.3% 26.3%;
   /* grid-template-columns: repeat(3, 1fr); */
   gap: 1%;
 }
@@ -195,6 +195,9 @@ select.select:visited ~ label.selectLabel,
   font-size: clamp(1.2rem, 3vw, 1.8rem);
   color: var(--color-main-btn);
   margin-right: 1rem;
+}
+input.timeInput {
+  text-align: center !important;
 }
 
 @media (max-width: 560px) {

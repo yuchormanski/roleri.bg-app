@@ -74,6 +74,7 @@ export const BG = {
   longitude: "Географска дължина",
   time: "Час",
   imageUrl: "Адрес на изображение",
+  validTo: "Дата на валидност",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Добавете номер и количество",

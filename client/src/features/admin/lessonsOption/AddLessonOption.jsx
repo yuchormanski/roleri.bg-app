@@ -524,7 +524,7 @@ function AddLessonOption({ onClose }) {
                 {/* Time*/}
                 <div className={styles.element}>
                   <input
-                    className={`${styles.textInput}`}
+                    className={`${styles.textInput} ${styles.timeInput}`}
                     type="time"
                     id="time"
                     name={"time"}
@@ -546,7 +546,7 @@ function AddLessonOption({ onClose }) {
                 {/* Valid to */}
                 <div className={styles.element}>
                   <input
-                    className={`${styles.textInput}`}
+                    className={`${styles.textInput} ${styles.dateInput}`}
                     type="date"
                     id="validTo"
                     name={"validTo"}
