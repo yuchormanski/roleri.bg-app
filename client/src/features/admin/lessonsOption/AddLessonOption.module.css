@@ -198,11 +198,11 @@ select.select:visited ~ label.selectLabel,
 }
 input.timeInput {
   text-align: center !important;
-  min-height: 2.4rem;
+  min-height: 2.4rem !important;
 }
 input.dateInput {
   /* text-align: center !important; */
-  min-height: 2.4rem;
+  min-height: 2.4rem !important;
 }
 
 @media (max-width: 560px) {
