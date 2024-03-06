@@ -49,7 +49,7 @@ export const BG = {
   adminPanel: "Админ панел",
   subscription: "Вид урок",
   subscriptionCount: "Брой посещения за абонамент",
-  visit: 'посещени', // Do not add any letter is used for singular and plural (client/src/features/booking/UnregisteredUser.jsx --> subscriptionData)
+  visit: "посещени", // Do not add any letter is used for singular and plural (client/src/features/booking/UnregisteredUser.jsx --> subscriptionData)
   ageGroup: "Възраст",
   // ageGroup: "Възрастова група",
   noAddedOptions: "Няма добавени опции!",
@@ -70,6 +70,10 @@ export const BG = {
   onBul: " на Български",
   visits: "Брой посещения",
   unregistered_user_form_title: "Попълнете формата",
+  latitude: "Географска ширина",
+  longitude: "Географска дължина",
+  time: "Час",
+  imageUrl: "Адрес на изображение",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Добавете номер и количество",

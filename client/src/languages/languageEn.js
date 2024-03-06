@@ -54,7 +54,7 @@ export const EN = {
   adminPanel: "Admin panel",
   subscription: "Subscription type",
   subscriptionCount: "Subscription visit count",
-  visit: 'visit',
+  visit: "visit",
   ageGroup: "Age group",
   noAddedOptions: "No options added yet!",
   addOptions: "Add option",
@@ -74,6 +74,10 @@ export const EN = {
   onBul: " on Bulgarian",
   visits: "Visits count",
   unregistered_user_form_title: "Fill the form",
+  latitude: "Latitude",
+  longitude: "Longitude",
+  time: "Time",
+  imageUrl: "Image URL",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",

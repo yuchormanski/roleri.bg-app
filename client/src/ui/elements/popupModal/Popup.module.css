@@ -21,6 +21,7 @@
 .fullInfo {
   /* background-color: var(--color-header); */
   max-width: 500px;
+  max-height: 600px;
   margin-inline: 5px;
   background-color: var(--color-header);
   display: flex;
@@ -32,6 +33,7 @@
   border-radius: 0.5rem;
   opacity: 0;
   animation: modalFadeIn 0.3s ease-in-out forwards;
+  overflow-y: scroll;
 }
 .noBackground {
   animation-duration: 0s;

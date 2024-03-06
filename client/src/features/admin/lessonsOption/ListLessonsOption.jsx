@@ -65,16 +65,15 @@ function ListLessonsOption() {
                 </figure>
               ))
             ) : (
-              <h2 className={styles.headingNoSkaters}>{lang.noAddedOptions}</h2>
+              <h3 className={styles.headingNoSkaters}>{lang.noAddedOptions}</h3>
             )}
           </div>
         )}
-      </div>
-
-      <div className={styles.addSkaterBtnContainer}>
-        <button className={styles.addBtn} onClick={toggleAddModalHandler}>
-          {lang.addOptions}
-        </button>
+        <div className={styles.addSkaterBtnContainer}>
+          <button className={styles.addBtn} onClick={toggleAddModalHandler}>
+            {lang.addOptions}
+          </button>
+        </div>
       </div>
 
       <section className={styles.description}>

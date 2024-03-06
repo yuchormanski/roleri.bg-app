@@ -36,6 +36,11 @@
   border-bottom: var(--card-border);
 }
 
+.headingNoSkaters {
+  font-size: 2rem;
+  font-weight: 300;
+}
+
 .figure:nth-child(odd) {
   background-color: var(--color-header-even);
 }

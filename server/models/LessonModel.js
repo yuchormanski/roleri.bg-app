@@ -58,6 +58,10 @@ const lessonModelSchema = new Schema(
       type: String,
       required: true,
     },
+    time: {
+      type: Date,
+      default: null,
+    },
     availableTo: {
       type: Date,
       default: null,
