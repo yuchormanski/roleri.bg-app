@@ -18,7 +18,6 @@ const SERVER_ENDPOINTS = {
   ADD_SKATER: "skaters/add",
   EDIT_SKATER: "skaters/edit",
   DELETE_SKATER: (skaterId) => `skaters/delete/${skaterId}`,
-  GET_ALL_LESSONS: "lessons",
   GET_ALL_NEWS: "news",
   GET_ALL_OPTIONS: "options",
   GET_SKATES_OPTIONS: "options/skates",
@@ -39,6 +38,10 @@ const SERVER_ENDPOINTS = {
   DELETE_SUBSCRIPTION_OPTIONS: (optionId) => `options/delete-subscriptions/${optionId}`,
   UNREGISTERED_BOOKING_USER: "bookings/unregistered-booking",
   REGISTERED_BOOKING_USER: "bookings/registered-booking",
+  GET_ALL_LESSONS: "lessons",
+  ADD_LESSON: "lessons/add-lesson",
+  EDIT_LESSON: "lessons/edit-lesson",
+  DELETE_LESSON: (lessonId) => `lessons/delete-lesson/${lessonId}`,
 };
 
 // const EMAIL_REGEX =

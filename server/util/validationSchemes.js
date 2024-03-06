@@ -84,22 +84,21 @@ const validateResetPasswordSchema = joi.object({
 
 // Lesson validation
 const lessonCreateSchema = joi.object({
-  imageUrl: joi
-    .string()
-    .required()
-    .regex(/^https?:\/\/.+/),
-  title: joi.string().required(),
-  age: joi.string().required(),
-  skills: joi.string().required(),
-  participants: joi.string().required(),
-  type: joi.string().required(),
-  location: joi.string().required(),
-  price: joi.string().required(),
+  imageUrl: joi.string().required().trim().regex(/^https?:\/\/.+/),
+  title: joi.string().max(110).trim().required(),
+  age: objectIdSchema,
+  skills: joi.string().max(410).trim().required(),
+  participants: joi.number().max(20).required(),
+  type: objectIdSchema,
+  location: joi.string().max(410).trim().required(),
+  price: joi.number().max(10000).required(),
   geoLocation: joi.object({
-    lat: joi.string().allow(null).default(null),
-    lon: joi.string().allow(null).default(null),
+    lat: joi.string().trim().allow(null).default(null),
+    lon: joi.string().trim().allow(null).default(null),
   }),
-  description: joi.string().required(),
+  description: joi.string().max(510).trim().required(),
+  time: joi.string().trim().regex(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/).required(),
+  validTo: joi.date().required(),
 });
 
 // Skater validation
@@ -107,9 +106,9 @@ const skaterCreateSchema = joi.object({
   firstName: joi.string().required().max(20),
   lastName: joi.string().required().max(20),
   age: joi.number().required(),
-  skatesSize: joi.string().optional(),
-  protection: joi.string().optional(),
-  additionalRequirements: joi.string().allow("").allow(null).optional(),
+  skatesSize: objectIdSchema,
+  protection: objectIdSchema,
+  additionalRequirements: joi.string().trim().allow("").allow(null).optional(),
 });
 
 // Unregistered booking user validation
@@ -125,7 +124,7 @@ const unregisteredUSerCreateSchema = joi.object({
     .regex(
       /(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/
     ),
-  additionalRequirements: joi.string().trim().allow("").allow(null).optional(),
+  additionalRequirements: joi.string().trim().max(300).allow("").allow(null).optional(),
   groupAge: objectIdSchema,
   skatesSize: objectIdSchema,
   protection: objectIdSchema,
@@ -137,7 +136,7 @@ const unregisteredUSerCreateSchema = joi.object({
 // Registered user booking validation
 const registeredUserCreateSchema = joi.array().items(
   joi.object({
-    additionalRequirements: joi.string().trim().required().max(300),
+    additionalRequirements: joi.string().trim().max(300).allow("").allow(null).optional(),
     date: joi.date().required(),
     lessonId: objectIdSchema,
     skaterId: objectIdSchema,

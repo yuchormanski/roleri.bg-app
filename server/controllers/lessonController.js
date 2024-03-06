@@ -1,11 +1,17 @@
 import { Router } from "express";
 
+import preloader from "../middlewares/preloader.js";
+import { endpoints } from "../environments/endPoints.js";
+import { getUserById } from "../services/userService.js";
+import { preloadOptions, userRole } from "../environments/constants.js";
+import { isUserLogged, isUserRole } from "../middlewares/guards.js";
 import { lessonCreateSchema } from "../util/validationSchemes.js";
-import { getAllLessons } from "../services/lessonService.js";
+import { addLesson, deleteLesson, getAllLessons, updateLesson } from "../services/lessonService.js";
 
 const lessonController = Router();
 
-lessonController.get("/", async (req, res, next) => {
+// Get all lessons
+lessonController.get(endpoints.get_all_lessons, async (req, res, next) => {
   try {
     // const allLessons = [
     //   {
@@ -50,5 +56,42 @@ lessonController.get("/", async (req, res, next) => {
     next(error);
   }
 });
+
+// Add new lesson
+lessonController.post(
+  endpoints.add_lesson,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
+    try {
+      const lessonData = req.body;
+      const userId = req.user._id;
+
+      const newLesson = await addLesson(lessonData, userId);
+
+      res.status(201).json(newLesson);
+    } catch (error) {
+      next(error);
+    }
+  });
+
+// Edit lesson
+lessonController.delete(
+  endpoints.delete_lesson,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
+    try {
+      const lessonId = req.params.lessonId;
+
+      const deletedLesson = await deleteLesson(lessonId);
+
+      res.status(200).json(deletedLesson);
+    } catch (error) {
+      next(error);
+    }
+  });
 
 export { lessonController };

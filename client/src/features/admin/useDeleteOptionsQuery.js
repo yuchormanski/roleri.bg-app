@@ -11,17 +11,18 @@ function useDeleteOptionsQuery(actionType) {
         protection: SERVER_ENDPOINTS.DELETE_PROTECTION_OPTIONS,
         age: SERVER_ENDPOINTS.DELETE_AGE_OPTIONS,
         subscription: SERVER_ENDPOINTS.DELETE_SUBSCRIPTION_OPTIONS,
+        lessons: SERVER_ENDPOINTS.DELETE_LESSON,
     }
 
     const queryClient = useQueryClient();
 
     const { mutate, isPending } = useMutation({
         enabled: false,
-        mutationFn: (skatesData) => del(endPoints[actionType](skatesData._id)),
-        onSuccess: (skatesData) => {
+        mutationFn: (optionData) => del(endPoints[actionType](optionData._id)),
+        onSuccess: (optionData) => {
             toast.success("Option deleted successfully!");
             // Save the data to the cache
-            queryClient.setQueryData([actionType], oldData => oldData.filter(skates => skates._id !== skatesData._id));
+            queryClient.setQueryData([actionType], oldData => oldData.filter(skates => skates._id !== optionData._id));
             queryClient.invalidateQueries(actionType);
         },
         onError: (error) => {

@@ -3,11 +3,13 @@ import styles from "./AddLessonOption.module.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Select from "react-select";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { GoX } from "react-icons/go";
 import toast from "react-hot-toast";
 
 import { useLanguage } from "../../../context/Language.jsx";
+import { useAddOptionsQuery } from "../useAddOptionsQuery.js";
 import { useGetSkaterOptionsQuery } from "../../skaters/useGetSkaterOptionsQuery.js";
 
 import Popup from "../../../ui/elements/popupModal/Popup.jsx";
@@ -57,7 +59,9 @@ function AddLessonOption({ onClose }) {
   const { lang } = useLanguage();
   const { translatePhrase: translate } = useTranslate();
 
+  const queryClient = useQueryClient();
   const { isFetching, data: optionData } = useGetSkaterOptionsQuery();
+  const { isPending, mutate } = useAddOptionsQuery("lessons");
 
   // TRANSFORM INPUT DATA TO BE VISUALIZED WITH REACT-SELECT
   function transformDataToSelect(dataToTransform) {
@@ -86,22 +90,27 @@ function AddLessonOption({ onClose }) {
 
   // SUBMITTING THE FORM
   function onFormSubmit(formData) {
-    const result = {
-      title: `${fieldValues.title}&/&${fieldValues.titleBG}`, // *
+    const lessonAvailableData = queryClient.getQueryData(["lessons"]);
+    if (lessonAvailableData.some(a => a.title == fieldValues.title)) {
+      return toast.error(`Title ${fieldValues.title} already exist`);
+    }
+
+    const dataToServer = {
+      title: `${fieldValues.titleBG}&/&${fieldValues.title}`, // *
       age: fieldValues.age,
       type: fieldValues.type,
       participants: Number(fieldValues.participants),
       price: Number(fieldValues.price),
-      skills: `${fieldValues.skills}&/&${fieldValues.skilsBG}`,
-      location: `${fieldValues.location}&/&${fieldValues.locationBG}`,
-      description: `${fieldValues.description}&/&${fieldValues.descriptionBG}`,
+      skills: `${fieldValues.skillsBG}&/&${fieldValues.skills}`,
+      location: `${fieldValues.locationBG}&/&${fieldValues.location}`,
+      description: `${fieldValues.descriptionBG}&/&${fieldValues.description}`,
       imageUrl: fieldValues.imageUrl,
       validTo: fieldValues.validTo,
       geoLocation: fieldValues.geoLocation,
       time: fieldValues.time,
     };
 
-    console.log(result);
+    mutate(dataToServer);
     onClose();
   }
 
@@ -117,6 +126,7 @@ function AddLessonOption({ onClose }) {
     const value = e.target.value;
     setFieldValues({ ...fieldValues, [valueName]: value });
   }
+
   function locationHandler(e) {
     const valueName = e.target.name;
     const value = e.target.value;
@@ -131,7 +141,7 @@ function AddLessonOption({ onClose }) {
   return (
     <Popup onClose={onClose} backgroundClick={false} userWidth={"width800"}>
       <>
-        {isFetching ? (
+        {(isFetching || isPending) ? (
           <Spinner />
         ) : (
           <div className={styles.container}>
@@ -166,9 +176,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"title"}
-                    className={`${styles.label} ${
-                      fieldValues.title ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.title ? styles.filled : null
+                      }`}
                   >
                     {lang.title}
                   </label>
@@ -193,9 +202,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"titleBG"}
-                    className={`${styles.label} ${
-                      fieldValues.title ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.title ? styles.filled : null
+                      }`}
                   >
                     {lang.title}
                     {lang.onBul}
@@ -214,12 +222,11 @@ function AddLessonOption({ onClose }) {
                     options={transformDataToSelect(optionData.groupsAgeData)}
                     styles={customStyles}
                     placeholder={<div style={{ fontSize: 14 }}>Age group</div>}
-                    // isMulti
+                  // isMulti
                   />
                   <label
-                    className={`${styles.selectLabel} ${
-                      fieldValues.age ? styles.filled : null
-                    }`}
+                    className={`${styles.selectLabel} ${fieldValues.age ? styles.filled : null
+                      }`}
                   >
                     <span>{lang.age}</span>
                   </label>
@@ -239,9 +246,8 @@ function AddLessonOption({ onClose }) {
                     }
                   />
                   <label
-                    className={`${styles.selectLabel} ${
-                      fieldValues.type ? styles.filled : null
-                    }`}
+                    className={`${styles.selectLabel} ${fieldValues.type ? styles.filled : null
+                      }`}
                   >
                     <span>{lang.type}</span>
                   </label>
@@ -274,9 +280,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"participants"}
-                    className={`${styles.label} ${
-                      fieldValues.participants ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.participants ? styles.filled : null
+                      }`}
                   >
                     {lang.participants}
                   </label>
@@ -305,9 +310,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"price"}
-                    className={`${styles.label} ${
-                      fieldValues.price ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.price ? styles.filled : null
+                      }`}
                   >
                     {lang.price}
                   </label>
@@ -335,9 +339,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"location"}
-                    className={`${styles.label} ${
-                      fieldValues.location ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.location ? styles.filled : null
+                      }`}
                   >
                     {lang.location}
                   </label>
@@ -362,9 +365,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"price"}
-                    className={`${styles.label} ${
-                      fieldValues.locationBG ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.locationBG ? styles.filled : null
+                      }`}
                   >
                     {lang.location}
                     {lang.onBul}
@@ -393,9 +395,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"skills"}
-                    className={`${styles.label} ${
-                      fieldValues.skills ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.skills ? styles.filled : null
+                      }`}
                   >
                     {lang.skills}
                   </label>
@@ -420,9 +421,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"skillsBG"}
-                    className={`${styles.label} ${
-                      fieldValues.skillsBG ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.skillsBG ? styles.filled : null
+                      }`}
                   >
                     {lang.skills}
                     {lang.onBul}
@@ -452,9 +452,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"description"}
-                    className={`${styles.label} ${
-                      fieldValues.description ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.description ? styles.filled : null
+                      }`}
                   >
                     {lang.description}
                   </label>
@@ -480,9 +479,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"descriptionBG"}
-                    className={`${styles.label} ${
-                      fieldValues.descriptionBG ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.descriptionBG ? styles.filled : null
+                      }`}
                   >
                     {lang.description}
                     {lang.onBul}
@@ -513,9 +511,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"imageUrl"}
-                    className={`${styles.label} ${
-                      fieldValues.imageUrl ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.imageUrl ? styles.filled : null
+                      }`}
                   >
                     {lang.imageUrl}
                   </label>
@@ -535,9 +532,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"time"}
-                    className={`${styles.label} ${
-                      fieldValues.time ? styles.filled : styles.hidden
-                    }`}
+                    className={`${styles.label} ${fieldValues.time ? styles.filled : styles.hidden
+                      }`}
                   >
                     {lang.time}
                   </label>
@@ -562,9 +558,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"validTo"}
-                    className={`${styles.label} ${
-                      fieldValues.validTo ? styles.filled : styles.hidden
-                    }`}
+                    className={`${styles.label} ${fieldValues.validTo ? styles.filled : styles.hidden
+                      }`}
                   >
                     {lang.validTo}
                   </label>
@@ -593,9 +588,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"lat"}
-                    className={`${styles.label} ${
-                      fieldValues.geoLocation.lat ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.geoLocation.lat ? styles.filled : null
+                      }`}
                   >
                     {lang.latitude}
                   </label>
@@ -621,9 +615,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"lon"}
-                    className={`${styles.label} ${
-                      fieldValues.location.lon ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.location.lon ? styles.filled : null
+                      }`}
                   >
                     {lang.longitude}
                   </label>

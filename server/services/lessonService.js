@@ -1,12 +1,28 @@
 import { LessonModel } from '../models/LessonModel.js';
 
-const getAllLessons = async () => LessonModel.find();
+const populateFields = [
+    { path: "age", select: "typeGroup" },
+    { path: "type", select: "-__v -createdAt -updatedAt" },
+    { path: "owner", select: "firstName lastName" }
+];
 
-const getLessonById = async (lessonId) => LessonModel.findById(lessonId);
+const populateLesson = (query) => {
+    return query.populate(populateFields);
+};
 
-const addLesson = async (lessonData) => LessonModel.create(lessonData); // TODO To decide if the user can reference to this model or not
+const getAllLessons = async () => populateLesson(LessonModel.find());
 
-const updateLesson = async (lessonId, lessonData) => LessonModel.findByIdAndUpdate(lessonId, lessonData, { runValidators: true, new: true });
+const getLessonById = async (lessonId) => populateLesson(LessonModel.findById(lessonId));
+
+const addLesson = async (lessonData, userId) => {
+    const lesson = await LessonModel.create({ ...lessonData, owner: userId });
+    return populateLesson(LessonModel.findById(lesson._id));
+};
+
+const updateLesson = async (lessonData) => {
+    const lesson = await LessonModel.findByIdAndUpdate(lessonData._id, lessonData, { runValidators: true, new: true });
+    return populateLesson(LessonModel.findById(lesson._id));
+};
 
 const deleteLesson = async (lessonId) => LessonModel.findByIdAndDelete(lessonId);
 

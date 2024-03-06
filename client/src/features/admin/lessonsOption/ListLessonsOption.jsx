@@ -18,17 +18,19 @@ function ListLessonsOption() {
   const [isShownEditModal, toggleEditModalHandler] = useToggleModal();
   const [isShownDeleteModal, toggleDeleteModalHandler] = useToggleModal();
   const [selectedOptionData, setSelectedOptionData] = useState({});
-  const {
-    isLoading,
-    isError,
-    error,
-    data: lessonData,
-    isFetching,
-  } = useGetAllLessonQueries();
 
-  if (isError) {
-    toast.error(error.message);
+  const { data: lessonData, isFetching } = useGetAllLessonQueries();
+
+  function onEditLesson(lessonData) {
+    setSelectedOptionData(lessonData);
+    toggleEditModalHandler();
   }
+
+  function onDeleteLesson(lessonData) {
+    setSelectedOptionData(lessonData);
+    toggleDeleteModalHandler();
+  }
+
   return (
     <>
       <div className={styles.container}>
@@ -50,13 +52,13 @@ function ListLessonsOption() {
                     <div className={styles.actionContainer}>
                       <button
                         className={styles.actionBtn}
-                        // onClick={() => onEditAge(lesson)}
+                        onClick={() => onEditLesson(lesson)}
                       >
                         <LiaEditSolid />
                       </button>
                       <button
                         className={styles.actionBtn}
-                        // onClick={() => onDeleteAge(lesson)}
+                        onClick={() => onDeleteLesson(lesson)}
                       >
                         <LiaTrashAlt />
                       </button>

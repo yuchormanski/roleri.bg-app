@@ -83,12 +83,10 @@ function RegisteredUser() {
 
         // const result = sign.filter((s) => !!s.skaterId && !!s.subscriptionType && !!s.lessonId);
 
-        const date = new Date(selectedDate);
-        const isoDate = date.toISOString();
         const dataToServer = sign.reduce((acc, valueObj) => {
             return (
                 !!valueObj.skaterId && !!valueObj.subscriptionType && !!valueObj.lessonId
-                    ? [...acc, { ...valueObj, date: isoDate, additionalRequirements: additional }]
+                    ? [...acc, { ...valueObj, date: selectedDate, additionalRequirements: additional }]
                     : acc
             );
         }, []);

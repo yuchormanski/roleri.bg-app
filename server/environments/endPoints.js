@@ -43,4 +43,8 @@ export const endpoints = {
   delete_subscription_options: "/delete-subscriptions/:optionId",
   unregistered_booking_user: "/unregistered-booking",
   registered_booking_user: "/registered-booking",
+  get_all_lessons: "/",
+  add_lesson: "/add-lesson",
+  edit_lesson: "/edit-lesson",
+  delete_lesson: "/delete-lesson/:lessonId",
 };

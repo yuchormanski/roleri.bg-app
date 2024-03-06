@@ -11,6 +11,7 @@ function useEditOptionsQuery(actionType) {
         protection: SERVER_ENDPOINTS.EDIT_PROTECTION_OPTIONS,
         age: SERVER_ENDPOINTS.EDIT_AGE_OPTIONS,
         subscription: SERVER_ENDPOINTS.EDIT_SUBSCRIPTION_OPTIONS,
+        lessons: SERVER_ENDPOINTS.EDIT_LESSON,
     }
 
     const queryClient = useQueryClient();

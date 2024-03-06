@@ -11,6 +11,7 @@ function useAddOptionsQuery(actionType) {
         protection: SERVER_ENDPOINTS.ADD_PROTECTION_OPTIONS,
         age: SERVER_ENDPOINTS.ADD_AGE_OPTIONS,
         subscription: SERVER_ENDPOINTS.ADD_SUBSCRIPTION_OPTIONS,
+        lessons: SERVER_ENDPOINTS.ADD_LESSON,
     }
 
     const queryClient = useQueryClient();

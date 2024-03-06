@@ -56,10 +56,7 @@ function UnregisteredUser() {
 	function formSuccessHandler(formData) {
 		if (!PHONE_REGEX.test(phone)) return toast.error("Invalid phone number!");
 
-		const date = new Date(selectedDate);
-		const isoDate = date.toISOString();
-
-		const dataToServer = { ...formData, phone: phone, date: isoDate };
+		const dataToServer = { ...formData, phone: phone, date: selectedDate };
 		mutate(dataToServer);
 
 		reset();

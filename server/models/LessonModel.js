@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
 const lessonModelSchema = new Schema(
   {
@@ -14,24 +14,22 @@ const lessonModelSchema = new Schema(
       type: String,
       required: true,
     },
-
     age: {
-      type: String,
-      required: true,
+      type: Types.ObjectId,
+      ref: "GroupAge"
     },
     skills: {
       type: String,
       required: true,
     },
     participants: {
-      type: String,
+      type: Number,
       required: true,
     },
     type: {
-      type: String,
-      required: true,
+      type: Types.ObjectId,
+      ref: "SubscriptionType"
     },
-
     location: {
       type: String,
       required: true,
@@ -39,10 +37,6 @@ const lessonModelSchema = new Schema(
     price: {
       type: String,
       required: true,
-    },
-    courseLocation: {
-      type: String,
-      default: null,
     },
     geoLocation: {
       lat: {
@@ -59,13 +53,23 @@ const lessonModelSchema = new Schema(
       required: true,
     },
     time: {
+      type: String,
+      validate: {
+        validator: function (v) {
+          return /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(v);
+        },
+        message: props => `${props.value} is not a valid time format!`
+      },
+      required: true
+    },
+    validTo: {
       type: Date,
       default: null,
     },
-    availableTo: {
-      type: Date,
-      default: null,
-    },
+    owner: {
+      type: Types.ObjectId,
+      ref: "UserParent"
+    }
   },
   { timestamps: true }
 );
