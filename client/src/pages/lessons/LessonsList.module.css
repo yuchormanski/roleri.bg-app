@@ -30,19 +30,24 @@
 .lessons {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem 4rem;
+  gap: 2rem 4rem 6rem;
+  place-items: center;
 }
 
 .scrollToTop {
   display: none;
 }
 
+@media (max-width: 960px) {
+}
+
 @media (max-width: 760px) {
   .lessons {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
     align-items: center;
-    gap: 4rem;
+    row-gap: 18rem;
   }
   .scrollToTop {
     display: block;
@@ -57,7 +62,7 @@
 }
 @media (max-width: 600px) {
   .lessons {
-    gap: 4rem;
+    gap: 8rem;
   }
 }
 

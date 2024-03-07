@@ -50,12 +50,15 @@ button.closeIcon {
 
 .width600 {
   min-width: 600px;
+  max-width: 1000px;
 }
 .width700 {
   min-width: 700px;
+  max-width: 1000px;
 }
 .width800 {
   min-width: 800px;
+  max-width: 1200px;
 }
 
 .userHeight {

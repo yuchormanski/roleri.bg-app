@@ -18,6 +18,7 @@
   filter: grayscale(0) brightness(1);
   scale: 1.2;
   transition: scale 0.8s ease-in-out, filter 0.5s ease-in-out;
+  border-radius: 0.3rem;
 }
 
 .card:hover .imgBox img {
@@ -35,8 +36,22 @@
   /* color: var(--color-main-btn-shade); */
   color: var(--color-main);
   padding: 1rem 2rem;
-  text-align: center;
   border-radius: 0.3rem;
+  text-align: center;
+}
+
+a {
+  display: none;
+}
+
+.main {
+  width: 90%;
+  position: absolute;
+  top: 10%;
+  opacity: 0;
+  color: rgb(255, 255, 255);
+  padding: 2rem 1rem;
+  text-align: unset;
 }
 
 .card:hover .textBox {
@@ -49,21 +64,19 @@
   padding: 1rem 2rem 1.4rem;
   border-bottom-left-radius: 0.7rem;
   border-bottom-right-radius: 0.7rem;
+  touch-action: auto;
 }
-
-.main {
-  position: absolute;
-  top: 10%;
-
-  opacity: 0;
-  color: rgb(255, 255, 255);
+.card:hover a {
+  width: 100%;
+  display: block;
+  text-decoration: none;
 }
 
 .card:hover .main {
   /* transform: translate(0, 20%); */
-  top: 60%;
+  top: 56%;
   opacity: 1;
-  transition: opacity top;
+  transition: all;
   transition-timing-function: ease-out;
   transition-duration: 1000ms;
 }
@@ -71,6 +84,8 @@
 .info {
   font-size: 1.8rem;
   font-weight: 200;
+  max-height: 50px;
+  overflow: hidden;
 }
 
 .button {
@@ -79,8 +94,14 @@
   text-align: right;
   padding: 1rem 0 0;
   font-size: 2rem;
-  font-weight: 200;
+  font-weight: 400;
   border-bottom: 1px solid var(--input-border);
+}
+
+@media (max-width: 960px) {
+  .card {
+    width: 25rem;
+  }
 }
 
 @media (max-width: 760px) {
