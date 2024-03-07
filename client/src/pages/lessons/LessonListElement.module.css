@@ -23,7 +23,6 @@
 
 .card:hover .imgBox img {
   filter: grayscale(1) brightness(0.5);
-  /* filter: grayscale(0.7) brightness(0.5);  for light version */
   scale: 1;
 }
 
@@ -40,7 +39,7 @@
   text-align: center;
 }
 
-a {
+a.link {
   display: none;
 }
 
@@ -66,7 +65,7 @@ a {
   border-bottom-right-radius: 0.7rem;
   touch-action: auto;
 }
-.card:hover a {
+.card:hover .link {
   width: 100%;
   display: block;
   text-decoration: none;

@@ -40,7 +40,7 @@ function LessonListElement({ lesson }) {
           <p>{translate(lesson.skills)}</p>
           <p>{translate(lesson.location)}</p>
         </div>
-        <Link to={`/lesson/${lesson._id}`}>
+        <Link to={`/lesson/${lesson._id}`} className={styles.link}>
           <p className={styles.button}>{lang.learnMore}</p>
         </Link>
       </div>
