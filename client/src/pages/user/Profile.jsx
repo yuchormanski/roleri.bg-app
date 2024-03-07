@@ -14,7 +14,7 @@ import { usePath } from "../../context/PathContext.jsx";
 import AsideMenu from "../../ui/elements/asideMenu/AsideMenu.jsx";
 
 function Profile() {
-  const { lang } = useLanguage();
+  const { lang, index } = useLanguage();
   const { path } = usePath();
   const urlPath = path === "profile";
 

@@ -11,30 +11,30 @@ import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 
 function UserInfo() {
   const { newPath } = usePath();
-  const { lang } = useLanguage();
+  const { lang, index } = useLanguage();
 
-  const { isLoading, data } = useGetUserDataQuery();
+  const { isLoading, isFetching, data } = useGetUserDataQuery();
   const lessons = {};
 
   useEffect(() => newPath("profile"), [newPath]);
 
   return (
     <>
-      {isLoading
-        ? (
-          <Spinner />
-        ) : (
-          <div className={styles.container}>
-            <h3 className={styles.heading}>
-              {`${data?.firstName} ${data?.lastName}'s ${lang.dashboard}`}
-            </h3>
-            {lessons && <h3>You have no active lessons.</h3>}
-            <p>
-              Трябва да се зарежда информация дали има предстоящи записани уроци.
-            </p>
-          </div >
-        )
-      }
+      {isFetching ? (
+        <Spinner />
+      ) : (
+        <div className={styles.container}>
+          <h3 className={styles.heading}>
+            {index === 1
+              ? `${data?.firstName}'s ${lang.dashboard}`
+              : ` ${lang.dashboard} на ${data?.firstName}`}
+          </h3>
+          {lessons && <h3>You have no active lessons.</h3>}
+          <p>
+            Трябва да се зарежда информация дали има предстоящи записани уроци.
+          </p>
+        </div>
+      )}
     </>
   );
 }

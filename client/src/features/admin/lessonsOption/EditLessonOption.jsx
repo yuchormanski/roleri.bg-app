@@ -159,7 +159,12 @@ function EditLessonOption({ onClose, lessonData }) {
   }
 
   return (
-    <Popup onClose={onClose} backgroundClick={false} userWidth={"width800"}>
+    <Popup
+      onClose={onClose}
+      backgroundClick={false}
+      userWidth={"width800"}
+      userHeight={"userHeight"}
+    >
       <>
         {isFetching || isPending ? (
           <Spinner />

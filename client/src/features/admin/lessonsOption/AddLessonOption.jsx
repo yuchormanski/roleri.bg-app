@@ -20,12 +20,6 @@ import { options } from "./data/selectData.js";
 import { useTranslate } from "../../../hooks/useTranslate.js";
 import { formatCurrency } from "../../../util/formatCurrency.js";
 
-// const ageOptions = [
-//   { value: "4-7", label: "Chocolate" },
-//   { value: "strawberry", label: "Strawberry" },
-//   { value: "vanilla", label: "Vanilla" },
-// ];
-
 function AddLessonOption({ onClose }) {
   const initial = {
     title: "", // *

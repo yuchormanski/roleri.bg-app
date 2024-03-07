@@ -15,7 +15,7 @@ function useGetAllLessonQueries() {
     toast.error(error.message);
   }
 
-  return { data, isFetching };
+  return { data, isFetching, error };
 }
 
 export { useGetAllLessonQueries };

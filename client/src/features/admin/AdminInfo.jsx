@@ -12,9 +12,9 @@ import { useTheme } from "../../context/DarkMode.jsx";
 
 function AdminInfo() {
   const { newPath } = usePath();
-  const { lang } = useLanguage();
+  const { lang, index: langIndex } = useLanguage();
 
-  const { isLoading, data } = useGetUserDataQuery();
+  const { isFetching, data } = useGetUserDataQuery();
 
   useEffect(() => newPath("settings"), [newPath]);
 
@@ -22,12 +22,14 @@ function AdminInfo() {
 
   return (
     <>
-      {isLoading ? (
+      {isFetching ? (
         <Spinner />
       ) : (
         <div className={styles.container}>
           <h3 className={styles.heading}>
-            {`${data?.firstName} ${data?.lastName}'s ${lang.adminPanel}`}
+            {langIndex === 1
+              ? `${data?.firstName}'s ${lang.adminPanel}`
+              : `${lang.adminPanel} на ${data?.firstName} `}
           </h3>
           <div className={styles.innerContainer}>
             <ul className={styles.list}>
@@ -51,7 +53,7 @@ function ListOptions({ option }) {
   return (
     <li className={styles.listItem}>
       <img src={src} alt="bullet dot" className={styles.bullet} />
-      <p>{option}</p>
+      <p className={styles.bulletText}>{option}</p>
     </li>
   );
 }

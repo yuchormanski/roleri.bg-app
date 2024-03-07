@@ -37,13 +37,15 @@
   display: flex;
   align-items: flex-start;
   gap: 2rem;
-  /* font-size: 1.6rem; */
-  font-size: clamp(1rem, 3vw, 1.8rem);
   color: var(--color-header-dim);
 }
 .bullet {
   width: 25px;
   aspect-ratio: 1/1;
+}
+.bulletText {
+  font-size: 2rem;
+  font-weight: 300;
 }
 
 @media (max-width: 760px) {

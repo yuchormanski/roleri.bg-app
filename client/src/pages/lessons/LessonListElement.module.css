@@ -39,8 +39,11 @@
   text-align: center;
 }
 
-a.link {
+a.link:link,
+a.visited,
+a.focus {
   display: none;
+  color: #fff;
 }
 
 .main {
@@ -69,6 +72,7 @@ a.link {
   width: 100%;
   display: block;
   text-decoration: none;
+  color: #fff;
 }
 
 .card:hover .main {

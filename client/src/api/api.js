@@ -5,7 +5,6 @@ async function request(method, url, data) {
     method,
     headers: {},
   };
-
   if (data !== undefined) {
     options.headers["Content-Type"] = "application/json";
     options.body = JSON.stringify(data);
@@ -13,9 +12,8 @@ async function request(method, url, data) {
 
   const userData = JSON.parse(localStorage.getItem(USER_LOCAL_STORAGE_KEY));
   if (userData) {
-    options.headers['X-Authorization'] = userData.accessToken;
+    options.headers["X-Authorization"] = userData.accessToken;
   }
-
   const response = await fetch(BASE_URL + url, options);
 
   if (response.ok == false) {
