@@ -5,7 +5,7 @@ import styles from "./ActiveDaysOption.module.css";
 function ActiveDaysOption() {
   const { lang } = useLanguage();
 
-  const inactive = [1, 2, 3, 4, 5];
+  const inactive = [0,1, 2, 3, 4, 5];
   const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   function dayCheck(day) {
