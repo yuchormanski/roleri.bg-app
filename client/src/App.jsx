@@ -34,6 +34,7 @@ import Booking from "./features/booking/Booking.jsx";
 import Conditions from "./pages/terms_&_Conditions/Conditions.jsx";
 import ListLessonsOption from "./features/admin/lessonsOption/ListLessonsOption.jsx";
 import LessonElement from "./features/lessons/LessonElement.jsx";
+import ActiveDaysOption from "./features/admin/activeDays/ActiveDaysOption.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -97,6 +98,10 @@ function App() {
                           <Route
                             path={"lessons"}
                             element={<ListLessonsOption />}
+                          />
+                          <Route
+                            path={"activeDays"}
+                            element={<ActiveDaysOption />}
                           />
                         </Route>
                       </Route>

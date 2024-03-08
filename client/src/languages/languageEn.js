@@ -26,7 +26,7 @@ export const EN = {
   more: "More info",
   profile: "Profile",
   back: "Back",
-  edit: "Edit profile",
+  edit: "Edit",
   skaters: "Skaters",
   history: "History",
   hello: "Hello",
@@ -80,6 +80,7 @@ export const EN = {
   imageUrl: "Image URL",
   validTo: "Valid to date",
   learnMore: "Learn more",
+  activeDays: "Lessons active days",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",
