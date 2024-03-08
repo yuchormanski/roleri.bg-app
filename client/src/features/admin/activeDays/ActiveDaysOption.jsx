@@ -1,17 +1,38 @@
+import { useReducer } from "react";
 import { useLanguage } from "../../../context/Language.jsx";
 import Button from "../../../ui/elements/button/Button.jsx";
 import styles from "./ActiveDaysOption.module.css";
+import { incoming } from "../../../util/test.js";
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "day/mon":
+      return { ...state, mon: !state.mon };
+    case "day/tue":
+      return { ...state, tue: !state.tue };
+    case "day/wed":
+      return { ...state, wed: !state.wed };
+    case "day/thu":
+      return { ...state, thu: !state.thu };
+    case "day/fri":
+      return { ...state, fri: !state.fri };
+    case "day/sat":
+      return { ...state, sat: !state.sat };
+    case "day/sun":
+      return { ...state, sun: !state.sun };
+
+    default:
+      throw new Error("Unknown action type");
+  }
+}
 
 function ActiveDaysOption() {
   const { lang } = useLanguage();
 
-  const inactive = [0,1, 2, 3, 4, 5];
-  const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const [state, dispatch] = useReducer(reducer, incoming);
 
-  function dayCheck(day) {
-    console.log(day);
-    const current = (day + 1 === 7) ? !inactive.includes(0):!inactive.includes(day+1);
-    return current;
+  function wordModifier(day) {
+    return day.at(0).toUpperCase() + day.slice(1).toLowerCase();
   }
 
   return (
@@ -22,14 +43,12 @@ function ActiveDaysOption() {
         <div className={styles.secondaryContainer}>
           <div className={styles.daysContainer}>
             {Array.from({ length: 7 }, (_, i) => (
-              <div
+              <DayName
                 key={i}
-                className={`${styles.dayBox} ${
-                  dayCheck(i) ? styles.activeDay : ""
-                }`}
-              >
-                <p className={`${styles.dayName}`}>{dayNames.at(i)}</p>
-              </div>
+                isValid={state[Object.keys(incoming).at(i)]}
+                dispatch={dispatch}
+                text={wordModifier(Object.keys(incoming).at(i))}
+              />
             ))}
           </div>
           <div className={styles.btnContainer}>
@@ -44,3 +63,14 @@ function ActiveDaysOption() {
 }
 
 export default ActiveDaysOption;
+
+function DayName({ isValid, dispatch, text }) {
+  return (
+    <button
+      className={`${styles.dayBox} ${isValid ? styles.activeDay : ""}`}
+      onClick={() => dispatch({ type: `day/${text.toLowerCase()}` })}
+    >
+      {text}
+    </button>
+  );
+}
