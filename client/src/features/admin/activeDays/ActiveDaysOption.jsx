@@ -10,8 +10,8 @@ function ActiveDaysOption() {
 
   function dayCheck(day) {
     console.log(day);
-    if (day + 1 === 7) return !inactive.includes(day);
-    return !inactive.includes(day + 1);
+    const current = (day + 1 === 7) ? !inactive.includes(0):!inactive.includes(day+1);
+    return current;
   }
 
   return (
