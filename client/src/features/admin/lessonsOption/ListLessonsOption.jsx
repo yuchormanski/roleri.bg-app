@@ -1,12 +1,15 @@
 import styles from "./ListLessonsOption.module.css";
+import { useState } from "react";
+
 import toast from "react-hot-toast";
+import { PiCheckBold, PiCheck, PiX, PiXBold } from "react-icons/pi";
+import { LiaEditSolid, LiaTrashAlt } from "react-icons/lia";
+
 import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 import { useLanguage } from "../../../context/Language.jsx";
 import { useGetAllLessonQueries } from "../../../pages/lessons/useGetAllLessonQueries.js";
-import { LiaEditSolid, LiaTrashAlt } from "react-icons/lia";
 import { useTranslate } from "../../../hooks/useTranslate.js";
 import { useToggleModal } from "../../../hooks/useToggleModal.js";
-import { useState } from "react";
 import AddLessonOption from "./AddLessonOption.jsx";
 import EditLessonOption from "./EditLessonOption.jsx";
 import DeleteLessonOption from "./DeleteLessonOption.jsx";
@@ -31,6 +34,12 @@ function ListLessonsOption() {
     toggleDeleteModalHandler();
   }
 
+  function calChecker(date) {
+    const valid = new Date(date) >= new Date();
+
+    return valid;
+  }
+
   return (
     <>
       <div className={styles.container}>
@@ -50,6 +59,15 @@ function ListLessonsOption() {
                       </p>
                     </div>
                     <div className={styles.actionContainer}>
+                      <p
+                        className={`${styles.isValid} ${
+                          calChecker(lesson.validTo)
+                            ? styles.isOK
+                            : styles.isNotOK
+                        }`}
+                      >
+                        {calChecker(lesson.validTo) ? <PiCheck /> : <PiX />}
+                      </p>
                       <button
                         className={styles.actionBtn}
                         onClick={() => onEditLesson(lesson)}

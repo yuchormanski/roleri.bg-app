@@ -64,7 +64,8 @@
 
 .actionContainer {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 30px 1fr 1fr;
+  align-items: center;
   /* width: 100%;
   height: 100%; */
 }
@@ -79,18 +80,33 @@
   border: var(--card-border);
   border-radius: 0.3rem;
 }
+
+.isValid {
+  display: block;
+  font-size: 2.7rem;
+  line-height: 0.5;
+  margin-right: 20px;
+}
+
+.isOK {
+  color: green;
+}
+.isNotOK {
+  color: red;
+}
+
 .element {
   /* font-size: clamp(1.6rem, 2vw, 2rem); */
   font-size: 2rem;
-  text-transform: uppercase;
   color: var(--color-menu-btn);
 }
 
 .elSpan {
+  display: none;
   /* font-size: clamp(0.6rem, 2vw, 1rem); */
   font-size: 1.2rem;
-
   color: var(--color-header-dim);
+  /* text-transform: uppercase; */
   margin-right: 0.5rem;
 }
 

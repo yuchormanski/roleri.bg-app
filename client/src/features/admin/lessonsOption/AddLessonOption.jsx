@@ -166,9 +166,9 @@ function AddLessonOption({ onClose }) {
                     {...register("title", {
                       required: "Lesson title is required",
                       maxLength: {
-                        value: 20,
+                        value: 50,
                         message:
-                          "Lesson title can't be more than 20 characters long!",
+                          "Lesson title can't be more than 50 characters long!",
                       },
                     })}
                     onBlur={valueHandler}
@@ -193,9 +193,9 @@ function AddLessonOption({ onClose }) {
                     {...register("titleBG", {
                       required: "Lesson title on Bulgarian is required",
                       maxLength: {
-                        value: 20,
+                        value: 50,
                         message:
-                          "The Lesson title can't be more than 20 characters long!",
+                          "The Lesson title can't be more than 50 characters long!",
                       },
                     })}
                     onBlur={valueHandler}
