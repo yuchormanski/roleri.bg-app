@@ -1,7 +1,7 @@
+import styles from "./ActiveDaysOption.module.css";
 import { useReducer } from "react";
 import { useLanguage } from "../../../context/Language.jsx";
 import Button from "../../../ui/elements/button/Button.jsx";
-import styles from "./ActiveDaysOption.module.css";
 import { incoming } from "../../../util/test.js";
 
 function reducer(state, action) {
