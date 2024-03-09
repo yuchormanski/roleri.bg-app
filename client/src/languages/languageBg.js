@@ -84,6 +84,7 @@ export const BG = {
   fri: "Петък",
   sat: "СЪбота",
   sun: "Неделя",
+  team: "Екипът",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Добавете номер и количество",
@@ -108,6 +109,7 @@ export const BG = {
   a_selectedDays:
     "Тук може да изберете дните, в които ще се провеждат уроците. Тази селекция ще е валидна само за редовните уроци. няма да важи за индивидуалните",
   a_selectedDays_election: "Избраните дни за тренировки са:",
+  a_team_management: "Екип",
 
   // SKATER OPTIONS
   s_firstName: "Име",

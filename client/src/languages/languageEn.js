@@ -88,6 +88,7 @@ export const EN = {
   fri: "Friday",
   sat: "Saturday",
   sun: "Sunday",
+  team: "The Team",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",
@@ -108,6 +109,7 @@ export const EN = {
   a_selectedDays:
     "Here you could select days in which will be done the lessons. This selection will be valid only for the regular group lessons. It will not affect individual lessons",
   a_selectedDays_election: "The current selection is:",
+  a_team_management: "Team",
 
   // SKATER OPTIONS
   s_firstName: "First name",

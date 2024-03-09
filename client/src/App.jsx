@@ -35,6 +35,7 @@ import Conditions from "./pages/terms_&_Conditions/Conditions.jsx";
 import ListLessonsOption from "./features/admin/lessonsOption/ListLessonsOption.jsx";
 import LessonElement from "./features/lessons/LessonElement.jsx";
 import ActiveDaysOption from "./features/admin/activeDays/ActiveDaysOption.jsx";
+import TeamList from "./features/admin/team/TeamList.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -102,6 +103,10 @@ function App() {
                           <Route
                             path={"activeDays"}
                             element={<ActiveDaysOption />}
+                          />
+                          <Route
+                            path={"team-management"}
+                            element={<TeamList />}
                           />
                         </Route>
                       </Route>

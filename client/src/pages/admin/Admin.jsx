@@ -34,6 +34,10 @@ function Admin() {
       path: "activeDays",
       label: lang.a_active_days,
     },
+    {
+      path: "team-management",
+      label: lang.a_team_management,
+    },
   ];
 
   return (
