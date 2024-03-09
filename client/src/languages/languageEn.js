@@ -81,6 +81,13 @@ export const EN = {
   validTo: "Valid to date",
   learnMore: "Learn more",
   activeDays: "Lessons active days",
+  mon: "Monday",
+  tue: "Tuesday",
+  wed: "Wednesday",
+  thu: "Thursday",
+  fri: "Friday",
+  sat: "Saturday",
+  sun: "Sunday",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",
@@ -98,6 +105,9 @@ export const EN = {
     "You have the ability to edit and delete every item on the list",
   a_active_days: "Active days",
   a_lessons: "Lessons",
+  a_selectedDays:
+    "Here you could select days in which will be done the lessons. This selection will be valid only for the regular group lessons. It will not affect individual lessons",
+  a_selectedDays_election: "The current selection is:",
 
   // SKATER OPTIONS
   s_firstName: "First name",

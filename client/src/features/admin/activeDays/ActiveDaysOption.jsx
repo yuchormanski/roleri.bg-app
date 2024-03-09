@@ -57,6 +57,27 @@ function ActiveDaysOption() {
             </div>
           </div>
         </div>
+
+        <section className={styles.description}>
+          <p className={styles.info}>
+            <span>&#9737;</span>
+            {lang.a_selectedDays}
+          </p>
+
+          <p className={styles.info}>
+            <span>&#9737;</span>
+            {lang.a_selectedDays_election}
+          </p>
+          <ul className={styles.selectedList}>
+            {Object.keys(state)
+              .filter((x) => state[x])
+              .map((el, i) => (
+                <li key={i} className={styles.listItem}>
+                  {lang[el]}
+                </li>
+              ))}
+          </ul>
+        </section>
       </div>
     </>
   );
@@ -67,7 +88,9 @@ export default ActiveDaysOption;
 function DayName({ isValid, dispatch, text }) {
   return (
     <button
-      className={`${styles.dayBox} ${isValid ? styles.activeDay : ""}`}
+      className={`${styles.dayBox} ${
+        isValid ? styles.activeDay : styles.inactiveDay
+      }`}
       onClick={() => dispatch({ type: `day/${text.toLowerCase()}` })}
     >
       {text}
