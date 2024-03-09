@@ -144,4 +144,17 @@
   .list {
     width: 100%;
   }
+  .listItemBtn {
+    width: 52%;
+    position: absolute;
+    top: 0;
+    left: 0.8rem;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+  .lang,
+  .iconBtn {
+    width: auto;
+  }
 }

@@ -107,3 +107,13 @@
   font-size: 2rem;
   cursor: pointer;
 }
+
+@media (max-width: 480px) {
+  .container {
+    /* padding: 1rem 0 2rem; */
+    min-width: 340px;
+  }
+  .secondaryContainer {
+    padding: 5rem 0rem;
+  }
+}

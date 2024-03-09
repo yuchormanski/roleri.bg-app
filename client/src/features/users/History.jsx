@@ -41,57 +41,53 @@ function History() {
             Toast test
           </button>
           <p style={{ fontSize: "16px" }}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
-            illum.
+            16 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
           </p>
           <p style={{ fontSize: "18px" }}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
-            illum.
+            18 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
           </p>
           <p style={{ fontSize: "20px" }}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
-            illum.
+            20 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
           </p>
           <p style={{ fontSize: "22px" }}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
-            illum.
+            22 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
           </p>
           <p style={{ fontSize: "24px" }}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
-            illum.
+            24 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
           </p>
           <p style={{ fontSize: "26px" }}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
-            illum.
+            26 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
           </p>
           <p style={{ fontSize: "28px" }}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
-            illum.
+            28 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
           </p>
           <p style={{ fontSize: "30px" }}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
-            illum.
+            30 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
           </p>
           <p style={{ fontSize: "32px" }}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
-            illum.
+            32 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
           </p>
           <p style={{ fontSize: "34px" }}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
-            illum.
+            34 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
           </p>
           <p style={{ fontSize: "36px" }}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
-            illum.
+            36 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
           </p>
           <p style={{ fontSize: "38px" }}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
-            illum.
+            38 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
           </p>
           <p style={{ fontSize: "40px" }}>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto,
-            illum.
+            40 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
           </p>
+        </div>
+
+        <div className={styles.outerBox}>
+          <div className={styles.innerBox}></div>
+          <div className={styles.content}>
+            <p>Edit</p>
+            <span className={styles.border}></span>
+            <p>Delete</p>
+          </div>
         </div>
       </div>
     </>

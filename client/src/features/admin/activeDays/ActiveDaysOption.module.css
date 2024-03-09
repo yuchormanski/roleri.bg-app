@@ -64,6 +64,9 @@
 }
 
 @media (max-width: 480px) {
+  .container {
+    padding: 1rem 0 2rem;
+  }
   .secondaryContainer {
     padding: 4rem 1rem;
   }
@@ -74,9 +77,6 @@
 }
 
 @media (max-width: 430px) {
-  .container {
-    padding: 0;
-  }
 }
 
 @media (max-width: 375px) {

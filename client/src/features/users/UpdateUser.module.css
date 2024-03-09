@@ -113,10 +113,18 @@ label.label {
     opacity: 0.8;
   }
 }
-@media (max-width: 430px) {
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem 0rem 2rem;
+  }
+  /* .heading {
+    margin: 0 1rem 3rem auto;
+  } */
   .form {
     width: 90%;
   }
+}
+@media (max-width: 430px) {
 }
 @media (max-width: 375px) {
   .form {

@@ -16,6 +16,6 @@
 }
 @media (max-width: 480px) {
   .main {
-    padding: 5rem 0;
+    padding: 5rem 1rem;
   }
 }

@@ -29,10 +29,14 @@ function UserInfo() {
               ? `${data?.firstName}'s ${lang.dashboard}`
               : ` ${lang.dashboard} на ${data?.firstName}`}
           </h3>
-          {lessons && <h3>You have no active lessons.</h3>}
-          <p>
-            Трябва да се зарежда информация дали има предстоящи записани уроци.
-          </p>
+
+          <div className={styles.secondaryContainer}>
+            {lessons && <h3>You have no active lessons.</h3>}
+            <p>
+              Трябва да се зарежда информация дали има предстоящи записани
+              уроци.
+            </p>
+          </div>
         </div>
       )}
     </>

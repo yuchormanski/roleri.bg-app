@@ -1,8 +1,8 @@
 export const incoming = {
-  mon: true,
-  tue: true,
-  wed: true,
-  thu: true,
+  mon: false,
+  tue: false,
+  wed: false,
+  thu: false,
   fri: false,
   sat: true,
   sun: true,

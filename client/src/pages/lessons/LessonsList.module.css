@@ -68,7 +68,7 @@
 
 @media (max-width: 480px) {
   .container {
-    padding: 1rem;
+    padding: 1rem 0 2rem;
   }
   .secondaryContainer {
     padding: 5rem 0rem;
