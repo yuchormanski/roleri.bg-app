@@ -43,7 +43,7 @@ function SkatersList() {
   }
 
   function onGetSkater(skaterData) {
-    console.log(skaterData);
+    // console.log(skaterData);
     setSelectedSkaterData(skaterData);
     toggleGetSkaterModalHandler();
   }
@@ -96,46 +96,6 @@ function SkatersList() {
                     </button>
                   </div>
                 </header>
-
-                {/* <div className={styles.content}>
-                  <p className={styles.element}>
-                    <span className={styles.elSpan}>{lang.gender}: </span>
-                    {genderHandler(skater.gender)}
-                  </p>
-
-                  <p className={styles.element}>
-                    <span className={styles.elSpan}>{lang.age}: </span>
-                    {skater.age}
-                  </p>
-
-                  <p className={styles.element}>
-                    <span className={styles.elSpan}>{lang.s_skates}: </span>
-                    {skater?.skatesSize?.size}
-                  </p>
-
-                  <p className={styles.element}>
-                    <span className={styles.elSpan}>{lang.level}: </span>
-                    {translatePhrase(skater?.groupLevel?.typeGroup)}
-                  </p>
-
-                  <p className={styles.element}>
-                    <span className={styles.elSpan}>
-                      {lang.s_protections}:{" "}
-                    </span>
-                    {skater?.protection?.size}
-                  </p>
-
-                  <p className={`${styles.element} ${styles.additional}`}>
-                    <span className={styles.elSpan}>
-                      {lang.s_requirements}:{" "}
-                    </span>
-                    {skater.additionalRequirements
-                      ? skater.additionalRequirements
-                      : index
-                      ? "No"
-                      : "Няма"}
-                  </p>
-                </div> */}
               </figure>
             ))
           ) : (

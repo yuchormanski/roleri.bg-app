@@ -48,7 +48,7 @@
 
 .figureHeading {
   align-self: start;
-  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-size: 2rem;
   font-weight: 300;
   line-height: 1.5;
   margin-bottom: 2rem;
@@ -65,14 +65,14 @@
   grid-row-end: 5;
 }
 .element {
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
-  color: var(--color-header-dim);
+  font-size: 1.8rem;
+  color: var(--color-menu-btn);
 }
 
 .elSpan {
-  font-size: clamp(0.9rem, 2vw, 1.2rem);
-  color: var(--color-menu-btn);
+  font-size: 1.4rem;
   margin-right: 0.3rem;
+  color: var(--color-header-dim);
 }
 
 @media (max-width: 765px) {

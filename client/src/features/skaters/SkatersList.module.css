@@ -50,7 +50,7 @@
 
 .figureHeading {
   align-self: start;
-  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-size: clamp(1.6rem, 1.8vw, 2rem);
   font-weight: 300;
   line-height: 1.5;
   margin-bottom: 2rem;
@@ -164,6 +164,11 @@
   .figureHeading {
     margin: 0;
     font-weight: 400;
+  }
+}
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem 0 2rem;
   }
 }
 @media (max-width: 375px) {
