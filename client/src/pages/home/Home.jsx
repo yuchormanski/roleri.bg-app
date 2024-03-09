@@ -7,6 +7,7 @@ import { useLanguage } from "../../context/Language.jsx";
 
 import { useGetAllNewsQueries } from "./useGetAllNewsQueries.js";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
+import { Link } from "react-router-dom";
 
 function Home() {
   const { lang } = useLanguage();
@@ -48,14 +49,14 @@ function Home() {
                   </div>
                   <div className={styles.articleBody}>
                     <p>{n.content}</p>
-                    <a
-                      href={n.newsUrl}
+                    <Link
+                      to={n.newsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={styles.linkPrimary}
                     >
                       {lang.details}
-                    </a>
+                    </Link>
                   </div>
                 </article>
               ))}

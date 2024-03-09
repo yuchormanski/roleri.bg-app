@@ -96,6 +96,7 @@
   padding: 0.2rem 1.5rem;
   border-radius: 0.3rem;
   transition: all 0.3s ease;
+  margin-left: auto;
 }
 
 .linkPrimary:hover {
