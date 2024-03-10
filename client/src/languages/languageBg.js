@@ -85,6 +85,12 @@ export const BG = {
   sat: "СЪбота",
   sun: "Неделя",
   team: "Екипът",
+  agree: "Съгласявам се с",
+  terms: "Общите условия",
+  haveAccount: "Вече сте се регистрирали?",
+  doNotHaveAccount: "Нямате регистрация?",
+  signIn: "Влез!",
+  signUp: "Регистрирай се!",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Добавете номер и количество",
