@@ -13,19 +13,21 @@ import { useAuthQueries } from "./useAuthQueries.js";
 import Button from "../../ui/elements/button/Button.jsx";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 
+const initialFieldsValues = { email: "", password: "" };
+
 function Login({ onClose, authToggle }) {
+  const { lang } = useLanguage();
   const { loginMutation, forgotPasswordMutation } = useAuthQueries();
   const { register, handleSubmit, reset, getValues, formState } = useForm();
   const [isNotForgotten, setIsNotForgotten] = useState(false);
   const [visible, setVisible] = useState(false);
-  const { lang } = useLanguage();
+  const [fieldValues, setFieldValues] = useState(initialFieldsValues);
 
   // SUBMITTING THE FORM
   async function onFormSubmit(loginData) {
     try {
       if (!isNotForgotten) {
         await loginMutation.mutateAsync(loginData);
-
       } else {
         const { email, ...data } = loginData;
         await forgotPasswordMutation.mutateAsync({ email });
@@ -56,9 +58,17 @@ function Login({ onClose, authToggle }) {
     }, 3000);
   }
 
+  function valueHandler(e) {
+    const valueName = e.target.name;
+    const value = e.target.value;
+    setFieldValues({ ...fieldValues, [valueName]: value });
+  }
+
   return (
     <>
-      {(loginMutation.isPending || forgotPasswordMutation.isPending) && <Spinner />}
+      {(loginMutation.isPending || forgotPasswordMutation.isPending) && (
+        <Spinner />
+      )}
       <div className={styles.container}>
         <div className={styles.closeBtn}>
           <button onClick={onClose} className={styles.closeIcon}>
@@ -73,7 +83,7 @@ function Login({ onClose, authToggle }) {
           onSubmit={handleSubmit(onFormSubmit, onErrorSubmit)}
           className={styles.form}
         >
-          <input
+          {/* <input
             className={styles.input}
             type="text"
             id="email"
@@ -90,7 +100,39 @@ function Login({ onClose, authToggle }) {
             })}
             placeholder={"Email"}
             autoComplete="email"
-          />
+          /> */}
+
+          <div className={styles.element}>
+            <input
+              className={styles.textInput}
+              type="text"
+              id="email"
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: EMAIL_REGEX,
+                  message: "Invalid email address",
+                },
+                maxLength: {
+                  value: 30,
+                  message: "Email can't be more than 30 characters long!",
+                },
+              })}
+              // placeholder={"Email"}
+              autoComplete="email"
+              onBlur={valueHandler}
+              // autoComplete="given-name"
+              // autoComplete="family-name"
+            />
+            <label
+              htmlFor={"email"}
+              className={`${styles.label} ${
+                fieldValues.email ? styles.filled : null
+              }`}
+            >
+              {lang.email}
+            </label>
+          </div>
 
           {!isNotForgotten && (
             <div className={styles.passContainer}>
@@ -102,13 +144,13 @@ function Login({ onClose, authToggle }) {
                   "password",
                   !isNotForgotten
                     ? {
-                      required: "Password is required",
-                      minLength: {
-                        value: 3,
-                        message:
-                          "The password should be at least 3 characters long ",
-                      },
-                    }
+                        required: "Password is required",
+                        minLength: {
+                          value: 3,
+                          message:
+                            "The password should be at least 3 characters long ",
+                        },
+                      }
                     : null
                 )}
                 placeholder={"Password"}
