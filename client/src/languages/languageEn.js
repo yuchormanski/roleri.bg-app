@@ -117,6 +117,7 @@ export const EN = {
     "Here you could select days in which will be done the lessons. This selection will be valid only for the regular group lessons. It will not affect individual lessons",
   a_selectedDays_election: "The current selection is:",
   a_team_management: "Team",
+  a_user_management: "Users",
 
   // SKATER OPTIONS
   s_firstName: "First name",

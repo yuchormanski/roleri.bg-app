@@ -27,6 +27,11 @@
   padding: 2rem;
 }
 
+.criteriaContainer {
+  width: 200px;
+  margin: 0 0 2rem auto;
+}
+
 .info {
   width: 100%;
   font-size: clamp(1.4rem, 1.7vw, 1.8rem);

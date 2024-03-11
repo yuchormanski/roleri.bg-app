@@ -105,7 +105,7 @@ function App() {
                             element={<ActiveDaysOption />}
                           />
                           <Route
-                            path={"team-management"}
+                            path={"users-management"}
                             element={<TeamList />}
                           />
                         </Route>

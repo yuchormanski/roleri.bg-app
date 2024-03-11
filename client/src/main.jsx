@@ -10,10 +10,8 @@ import "./css/index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    {/* <ErrorBoundary> */}
     <ErrorBoundary FallbackComponent={ErrorBoundaryPage}>
       <App />
     </ErrorBoundary>
-    {/* </ErrorBoundary> */}
   </React.StrictMode>
 );

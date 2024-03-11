@@ -47,7 +47,6 @@ export const customStyles = {
   }),
   indicatorSeparator: (base) => ({
     ...base,
-    // display: "none",
     backgroundColor: "var(--input-border)",
   }),
   dropdownIndicator: (base) => ({

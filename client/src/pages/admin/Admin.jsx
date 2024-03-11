@@ -35,8 +35,8 @@ function Admin() {
       label: lang.a_active_days,
     },
     {
-      path: "team-management",
-      label: lang.a_team_management,
+      path: "users-management",
+      label: lang.a_user_management,
     },
   ];
 
