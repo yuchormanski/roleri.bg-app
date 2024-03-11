@@ -102,6 +102,7 @@ function Login({ onClose, authToggle }) {
               })}
               autoComplete="email"
               onBlur={valueHandler}
+              // placeholder={lang.email}
             />
             <label
               htmlFor={"email"}
