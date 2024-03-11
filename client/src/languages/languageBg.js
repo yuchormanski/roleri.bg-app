@@ -118,6 +118,11 @@ export const BG = {
   a_selectedDays_election: "Избраните дни за тренировки са:",
   a_team_management: "Екип",
   a_user_management: "Потребители",
+  a_all: "Всички",
+  a_instructors: "Инструктори",
+  a_admins: "Администратори",
+  a_search: "Търси",
+  a_users_p1: "Търси във всички регистрирани потребители",
 
   // SKATER OPTIONS
   s_firstName: "Име",

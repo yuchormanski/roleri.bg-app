@@ -3,6 +3,14 @@ import { useLanguage } from "../../../context/Language.jsx";
 import Select from "react-select";
 import { useEffect, useState } from "react";
 import { customStyles } from "./customStyles.js";
+import { Link } from "react-router-dom";
+import Button from "../../../ui/elements/button/Button.jsx";
+import { useTheme } from "../../../context/DarkMode.jsx";
+
+import { TfiEmail } from "react-icons/tfi";
+import { PiPhoneOutgoingThin } from "react-icons/pi";
+import { GoIssueOpened } from "react-icons/go";
+import Popup from "../../../ui/elements/popupModal/Popup.jsx";
 
 const usersList = [
   {
@@ -15,7 +23,7 @@ const usersList = [
     updatedAt: "2024-03-07T19:22:21.505Z",
   },
   {
-    _id: "65d1e25875c58bac29f86ea7",
+    _id: "65d1e25875c58bac29f86ea8",
     firstName: "Petar",
     lastName: "Petrov",
     email: "petar@bv.bg",
@@ -27,88 +35,147 @@ const usersList = [
 
 function TeamList() {
   const { lang } = useLanguage();
+  const { isDark } = useTheme();
+  const [openModal, setOpenModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
-  const [criteria, setCriteria] = useState({ value: "all", label: "All" });
+  const [criteria, setCriteria] = useState({ value: "all", label: lang.a_all });
   const [options, setOptions] = useState([]);
 
   const listOptions = [
-    { value: "all", label: "All" },
-    { value: "user", label: "Users" },
-    { value: "instructor", label: "Instructors" },
-    { value: "admin", label: "Admins" },
+    { value: "all", label: lang.a_all },
+    { value: "user", label: lang.a_user_management },
+    { value: "instructor", label: lang.a_instructors },
+    { value: "admin", label: lang.a_admins },
   ];
 
-  // Until have a endpoint to do the request
   useEffect(() => {
     let res = [];
-    console.log();
+
+    setSelectedOption(null);
+
     if (criteria.value === "all") {
       res = usersList.map((el) => {
         return {
+          ...el,
           value: el._id,
           label: `${el.firstName} ${el.lastName}`,
-          role: el.role,
         };
       });
     } else {
-      const filtered = usersList.filter((el) =>
-        el.role === criteria.value ? { value: "test", label: "Test" } : null
-      );
+      const filtered = usersList.filter((el) => el.role === criteria.value);
       res = filtered.map((el) => {
         return {
+          ...el,
           value: el._id,
           label: `${el.firstName} ${el.lastName}`,
-          role: el.role,
         };
       });
     }
     setOptions((opt) => [...res]);
   }, [criteria]);
 
+  function close(e) {
+    setOpenModal(false);
+  }
   return (
     <>
       <div className={styles.container}>
-        <h3 className={styles.heading}>{lang.team}</h3>
+        <h3 className={styles.heading}>{lang.a_user_management}</h3>
 
         <div className={styles.secondaryContainer}>
           <div className={styles.criteriaContainer}>
-            <Select
-              defaultValue={criteria}
-              onChange={setCriteria}
-              options={listOptions}
-              styles={customStyles}
-              placeholder={
-                <div style={{ fontSize: 16 }}>Select list criteria</div>
-              }
-              // isMulti
-            />
+            <p className={styles.bulletText}>{lang.a_users_p1}</p>
+            <div className={styles.criteriaBlock}>
+              <Select
+                // defaultValue={criteria}
+                value={criteria}
+                onChange={setCriteria}
+                options={listOptions}
+                styles={customStyles}
+              />
+            </div>
           </div>
           <div className={styles.element}>
             <Select
               isSearchable
-              defaultValue={selectedOption}
+              value={selectedOption}
               onChange={setSelectedOption}
               options={options}
               styles={customStyles}
-              placeholder={<div style={{ fontSize: 16 }}>Search user</div>}
-              // isMulti
+              placeholder={<div style={{ fontSize: 16 }}>{lang.a_search}</div>}
             />
           </div>
+
+          {selectedOption && (
+            <>
+              <section className={styles.resultContainer}>
+                <p className={styles.resValue}>
+                  <TfiEmail />
+                  <Link
+                    to="#"
+                    onClick={(e) => {
+                      window.location = `mailto:${selectedOption.email}`;
+                      e.preventDefault();
+                    }}
+                  >
+                    {selectedOption.email}
+                  </Link>
+                </p>
+                <p className={styles.resValue}>
+                  <PiPhoneOutgoingThin />
+                  <Link
+                    to="#"
+                    onClick={(e) => {
+                      window.location = `callto:${selectedOption.phone}`;
+                      e.preventDefault();
+                    }}
+                  >
+                    {selectedOption.phone}
+                  </Link>
+                </p>
+
+                <p className={styles.resValue}>
+                  <span>User role:</span>
+                  {selectedOption.role}
+                </p>
+                <p className={styles.resValue}>
+                  <span>Registration date: </span>
+                  {new Date(selectedOption.updatedAt).toLocaleDateString(
+                    "fr-CH"
+                  )}
+                </p>
+              </section>
+              <div className={styles.actionContainer}>
+                <Button type={"primary"} onClick={() => setOpenModal(true)}>
+                  Change role
+                </Button>
+                <Button type={"primary"}>Delete</Button>
+              </div>
+            </>
+          )}
         </div>
 
         <section className={styles.description}>
           <p className={styles.info}>
-            <span>&#9737;</span>
-            {/* {lang.} */}
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. At
-            accusamus dolorem reprehenderit, voluptatum cumque ea pariatur? Est
-            eaque similique aperiam quae placeat. Sunt, necessitatibus nostrum
-            perferendis voluptatum exercitationem deserunt accusamus dignissimos
-            libero veritatis cum porro non mollitia vel, eaque nobis! Dolor,
-            magnam excepturi? Neque inventore corrupti nesciunt, doloribus
-            obcaecati eum.
+            <span>
+              <GoIssueOpened />
+            </span>
+            To create an instructor select him from the list and change his role
+          </p>
+          <p className={styles.info}>
+            <span>
+              <GoIssueOpened />
+            </span>
+            If needed her could be added a tex
           </p>
         </section>
+        {openModal && (
+          <Popup onClose={close} backgroundClick={true}>
+            <div className={styles.container}>
+              <h2 className={styles.heading}>{lang.edit}</h2>
+            </div>
+          </Popup>
+        )}
       </div>
     </>
   );

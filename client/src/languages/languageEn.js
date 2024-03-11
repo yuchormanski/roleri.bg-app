@@ -118,6 +118,9 @@ export const EN = {
   a_selectedDays_election: "The current selection is:",
   a_team_management: "Team",
   a_user_management: "Users",
+  a_all: "All",
+  a_instructors: "Instructors",
+  a_admins: "Admins",
 
   // SKATER OPTIONS
   s_firstName: "First name",
@@ -131,6 +134,8 @@ export const EN = {
     "Skaters from this list will be accessible from lesson signing page. The necessary equipment will be added automatically to selected training",
   s_list_2: "You have ability to review and edit everyone from the list.",
   s_lessons: "Lessons",
+  a_search: "Search",
+  a_users_p1: "Select from registered users in database",
 
   // USER OPTIONS
   u_add_skater_info:
