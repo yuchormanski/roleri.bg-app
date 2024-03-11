@@ -9,6 +9,7 @@ export const BG = {
   logout: "Изход",
   register: "Регистрация",
   forgotten: "Забравена парола",
+  password: "Парола",
   news: "Новини",
   for: "За",
   age: "Възраст",

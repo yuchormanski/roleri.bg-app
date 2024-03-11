@@ -14,6 +14,7 @@ export const EN = {
   logout: "Logout",
   register: "Register",
   forgotten: "Forgotten password",
+  password: "Password",
   news: "News",
   for: "For",
   age: "Age",
@@ -93,8 +94,8 @@ export const EN = {
   terms: "Terms and conditions",
   haveAccount: "Already have an account?",
   doNotHaveAccount: "Don't have an account?",
-  signIn: "Sign In!",
-  signUp: "Sign Up!",
+  signIn: "Sign In",
+  signUp: "Sign Up",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",

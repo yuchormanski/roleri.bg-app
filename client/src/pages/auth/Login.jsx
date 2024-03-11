@@ -76,32 +76,14 @@ function Login({ onClose, authToggle }) {
           </button>
         </div>
         <h2 className={styles.heading}>
-          {isNotForgotten ? "Forgotten Password" : "Sign In"}
+          {isNotForgotten ? lang.forgotten : lang.signIn}
         </h2>
 
         <form
           onSubmit={handleSubmit(onFormSubmit, onErrorSubmit)}
           className={styles.form}
+          autoComplete="off"
         >
-          {/* <input
-            className={styles.input}
-            type="text"
-            id="email"
-            {...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: EMAIL_REGEX,
-                message: "Invalid email address",
-              },
-              maxLength: {
-                value: 30,
-                message: "Email can't be more than 30 characters long!",
-              },
-            })}
-            placeholder={"Email"}
-            autoComplete="email"
-          /> */}
-
           <div className={styles.element}>
             <input
               className={styles.textInput}
@@ -118,11 +100,8 @@ function Login({ onClose, authToggle }) {
                   message: "Email can't be more than 30 characters long!",
                 },
               })}
-              // placeholder={"Email"}
               autoComplete="email"
               onBlur={valueHandler}
-              // autoComplete="given-name"
-              // autoComplete="family-name"
             />
             <label
               htmlFor={"email"}
@@ -136,25 +115,37 @@ function Login({ onClose, authToggle }) {
 
           {!isNotForgotten && (
             <div className={styles.passContainer}>
-              <input
-                className={styles.input}
-                type={visible ? "text" : "password"}
-                id="password"
-                {...register(
-                  "password",
-                  !isNotForgotten
-                    ? {
-                        required: "Password is required",
-                        minLength: {
-                          value: 3,
-                          message:
-                            "The password should be at least 3 characters long ",
-                        },
-                      }
-                    : null
-                )}
-                placeholder={"Password"}
-              />
+              <div className={styles.element}>
+                <input
+                  className={styles.textInput}
+                  type={visible ? "text" : "password"}
+                  id="password"
+                  {...register(
+                    "password",
+                    !isNotForgotten
+                      ? {
+                          required: "Password is required",
+                          minLength: {
+                            value: 3,
+                            message:
+                              "The password should be at least 3 characters long ",
+                          },
+                        }
+                      : null
+                  )}
+                  // autoComplete="email"
+                  onBlur={valueHandler}
+                />
+                <label
+                  htmlFor={"password"}
+                  className={`${styles.label} ${
+                    fieldValues.password ? styles.filled : null
+                  }`}
+                >
+                  {lang.password}
+                </label>
+              </div>
+
               <div className={styles.passEyeBtn} onClick={eyeHandler}>
                 {visible ? <GoEyeClosed /> : <GoEye />}
               </div>
