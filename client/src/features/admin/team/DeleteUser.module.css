@@ -50,7 +50,16 @@
   justify-content: space-between;
 }
 
+.confirmContainer {
+  width: 100%;
+  display: grid;
+  place-items: start;
+  padding-top: 2rem;
+  margin: 0rem 0 0 2rem;
+  font-size: 1.8rem;
+}
 .figureHeading {
+  width: fit-content;
   align-self: start;
   font-size: 2rem;
   font-weight: 300;

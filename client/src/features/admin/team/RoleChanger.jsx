@@ -16,6 +16,7 @@ function RoleChanger({ onClose, selectedOption }) {
     const { value, label, ...res } = mid;
 
     // console.log(res);
+    redirectTo("/settings");
   }
 
   return (
