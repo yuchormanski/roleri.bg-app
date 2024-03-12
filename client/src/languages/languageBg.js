@@ -123,6 +123,11 @@ export const BG = {
   a_admins: "Администратори",
   a_search: "Търси",
   a_users_p1: "Търси във всички регистрирани потребители",
+  a_available_roles: "Възможни роли",
+  a_user: "Потребител",
+  a_instructor: "Инструктор",
+  a_admin: "Администратор",
+  a_change: "Смени",
 
   // SKATER OPTIONS
   s_firstName: "Име",

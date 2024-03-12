@@ -10,11 +10,7 @@ import { useTranslate } from "../../hooks/useTranslate.js";
 function GetSkater({ onClose, skaterData: skater }) {
   const { lang, index } = useLanguage();
   const { translatePhrase } = useTranslate();
-  console.log(skater);
 
-  // function genderHandler(gender) {
-  //   return gender === "male" ? lang.s_genderMale : lang.s_genderFemale;
-  // }
   return (
     <Popup onClose={onClose} backgroundClick={false}>
       <div className={styles.container}>
@@ -23,7 +19,6 @@ function GetSkater({ onClose, skaterData: skater }) {
             <GoX />
           </button>
         </div>
-        {/* <h2 className={styles.heading}>{lang.editSkater}</h2> */}
 
         <figure className={styles.figure} key={skater._id}>
           <header className={styles.header}>
@@ -33,11 +28,6 @@ function GetSkater({ onClose, skaterData: skater }) {
           </header>
 
           <div className={styles.content}>
-            {/* <p className={styles.element}>
-              <span className={styles.elSpan}>{lang.gender}: </span>
-              {genderHandler(skater.gender)}
-            </p> */}
-
             <p className={styles.element}>
               <span className={styles.elSpan}>{lang.age}: </span>
               {skater.age}

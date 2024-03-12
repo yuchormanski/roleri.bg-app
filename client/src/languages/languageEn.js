@@ -121,6 +121,11 @@ export const EN = {
   a_all: "All",
   a_instructors: "Instructors",
   a_admins: "Admins",
+  a_available_roles: "Available roles",
+  a_user: "User",
+  a_instructor: "Instructor",
+  a_admin: "Administrator",
+  a_change: "Change",
 
   // SKATER OPTIONS
   s_firstName: "First name",

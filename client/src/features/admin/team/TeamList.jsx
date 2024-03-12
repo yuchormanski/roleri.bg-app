@@ -9,8 +9,10 @@ import { useTheme } from "../../../context/DarkMode.jsx";
 
 import { TfiEmail } from "react-icons/tfi";
 import { PiPhoneOutgoingThin } from "react-icons/pi";
+
 import { GoIssueOpened } from "react-icons/go";
-import Popup from "../../../ui/elements/popupModal/Popup.jsx";
+import RoleChanger from "./RoleChanger.jsx";
+import DeleteUser from "./DeleteUser.jsx";
 
 const usersList = [
   {
@@ -40,6 +42,7 @@ function TeamList() {
   const [selectedOption, setSelectedOption] = useState(null);
   const [criteria, setCriteria] = useState({ value: "all", label: lang.a_all });
   const [options, setOptions] = useState([]);
+  const [modalOption, setModalOption] = useState(1);
 
   const listOptions = [
     { value: "all", label: lang.a_all },
@@ -74,9 +77,15 @@ function TeamList() {
     setOptions((opt) => [...res]);
   }, [criteria]);
 
-  function close(e) {
+  function toggleModal(state) {
+    setModalOption(state);
+    setOpenModal(true);
+  }
+
+  function onClose(e) {
     setOpenModal(false);
   }
+
   return (
     <>
       <div className={styles.container}>
@@ -146,10 +155,12 @@ function TeamList() {
                 </p>
               </section>
               <div className={styles.actionContainer}>
-                <Button type={"primary"} onClick={() => setOpenModal(true)}>
+                <Button type={"primary"} onClick={() => toggleModal(1)}>
                   Change role
                 </Button>
-                <Button type={"primary"}>Delete</Button>
+                <Button type={"primary"} onClick={() => toggleModal(0)}>
+                  Delete
+                </Button>
               </div>
             </>
           )}
@@ -169,12 +180,11 @@ function TeamList() {
             If needed her could be added a tex
           </p>
         </section>
-        {openModal && (
-          <Popup onClose={close} backgroundClick={true}>
-            <div className={styles.container}>
-              <h2 className={styles.heading}>{lang.edit}</h2>
-            </div>
-          </Popup>
+        {openModal && modalOption && (
+          <RoleChanger onClose={onClose} selectedOption={selectedOption} />
+        )}
+        {openModal && !modalOption && (
+          <DeleteUser onClose={onClose} selectedOption={selectedOption} />
         )}
       </div>
     </>
