@@ -36,6 +36,9 @@ import ListLessonsOption from "./features/admin/lessonsOption/ListLessonsOption.
 import LessonElement from "./features/lessons/LessonElement.jsx";
 import ActiveDaysOption from "./features/admin/activeDays/ActiveDaysOption.jsx";
 import TeamList from "./features/admin/team/TeamList.jsx";
+import OnDuty from "./features/instructors/OnDuty.jsx";
+import ActiveLessonsList from "./features/instructors/ActiveLessonsList.jsx";
+import EquipmentList from "./features/instructors/EquipmentList.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -70,6 +73,10 @@ function App() {
                     />
 
                     <Route element={<RouteGuardAuthenticated />}>
+                      <Route path={"on-duty"} element={<OnDuty />}>
+                        <Route index element={<ActiveLessonsList />} />
+                        <Route path={"equipment"} element={<EquipmentList />} />
+                      </Route>
                       <Route path={"profile"} element={<Profile />}>
                         <Route index element={<UserInfo />} />
                         <Route path={"edit"} element={<UpdateUser />} />

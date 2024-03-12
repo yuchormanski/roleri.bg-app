@@ -29,10 +29,13 @@ function RegisteredUser() {
   const { isFetching: isSkatersLoading, data: skaters } = useGetSkatersQuery();
   const { isFetching: isOptionsLoading, data: optionData } =
     useGetSkaterOptionsQuery();
-  const { isFetching: isLessonsLoading, data: lessonData } =
+  const { isFetching: isLessonsLoading, data: incoming } =
     useGetAllLessonQueries();
   const { mutate, isPending: isAddBookingLoading } =
     useAddRegisteredBookQuery();
+
+  const lessonData = incoming.filter((el) => new Date(el.validTo) > new Date());
+
 
   // SELECTING DATE
   function selectedDateHandler(date) {

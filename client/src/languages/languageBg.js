@@ -92,6 +92,7 @@ export const BG = {
   doNotHaveAccount: "Нямате регистрация?",
   signIn: "Влез!",
   signUp: "Регистрирай се!",
+  onDuty: "Настоящи уроци",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Добавете номер и количество",
@@ -146,6 +147,11 @@ export const BG = {
   // USER OPTIONS
   u_add_skater_info:
     "Ако имате допълнителни изисквания или персонализирани нужди, добавете ги към полето 'Допълнителни изисквания'.",
+
+  // INSTRUCTOR
+
+  i_signedLessons: "Записани уроци",
+  i_equipment: "Оборудване",
 
   // Book lessons
   book_headInfo_1:

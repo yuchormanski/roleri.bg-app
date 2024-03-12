@@ -96,6 +96,7 @@ export const EN = {
   doNotHaveAccount: "Don't have an account?",
   signIn: "Sign In",
   signUp: "Sign Up",
+  onDuty: "Active lessons",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",
@@ -141,6 +142,11 @@ export const EN = {
   s_lessons: "Lessons",
   a_search: "Search",
   a_users_p1: "Select from registered users in database",
+
+  // INSTRUCTOR
+
+  i_signedLessons: "Signed lessons",
+  i_equipment: "Equipment",
 
   // USER OPTIONS
   u_add_skater_info:

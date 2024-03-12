@@ -62,6 +62,18 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
               </li>
             ))}
 
+            {true && (
+              <li className={styles.listItem}>
+                <NavLink
+                  to={"on-duty"}
+                  className={styles.link}
+                  onClick={toggleMobile}
+                >
+                  {lang.onDuty}
+                  <span className={styles.linkBorder}></span>
+                </NavLink>
+              </li>
+            )}
             {checkIsUserAdmin() && (
               <li className={styles.listItem}>
                 <NavLink
