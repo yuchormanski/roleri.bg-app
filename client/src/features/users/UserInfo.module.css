@@ -13,9 +13,18 @@
   text-transform: uppercase;
   font-size: 2rem;
   font-weight: 300;
+  word-spacing: 0.3rem;
   margin-left: auto;
   border-bottom: 1px var(--border-bottom);
   margin-bottom: 1rem;
+}
+
+.secondaryContainer {
+  background-color: var(--color-header);
+  width: 100%;
+  border-radius: 0.3rem;
+  box-shadow: inset 0 1px 6px var(--box);
+  padding: 2rem;
 }
 
 .profileImg {
@@ -25,4 +34,13 @@
   .heading {
     margin-bottom: 3rem;
   }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem 0rem 2rem;
+  }
+  /* .heading {
+    margin: 0 1rem 3rem auto;
+  } */
 }

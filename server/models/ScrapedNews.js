@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 
-const newsSchema = new mongoose.Schema({
+const newsSchema = new Schema({
     title: {
         type: String,
         default: null
@@ -21,8 +21,8 @@ const newsSchema = new mongoose.Schema({
         type: String,
         default: null
     }
-});
+}, { timestamps: true });
 
-const ScrapedNews = mongoose.model('ScrapedNews', newsSchema);
+const ScrapedNews = model('ScrapedNews', newsSchema);
 
 export { ScrapedNews };

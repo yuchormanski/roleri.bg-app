@@ -1,7 +1,6 @@
 import { json, urlencoded } from 'express';
 
 import cors from 'cors';
-import cookieParser from 'cookie-parser';
 import jwtMiddleware from '../middlewares/jwtMiddleware.js';
 import checkBlackListToken from '../middlewares/checkBlackListToken.js';
 import { scrapingNewsOnInterval, stopScrapingNewsOnInterval } from '../util/scrapingNewsOnInterval.js';
@@ -15,7 +14,6 @@ const expressConfig = async (app, config) => {
 
     app.use(json());
     app.use(urlencoded({ extended: false }));
-    app.use(cookieParser());
     app.use(await checkBlackListToken());
     app.use(jwtMiddleware());
 

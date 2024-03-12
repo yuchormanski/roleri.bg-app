@@ -28,7 +28,7 @@
   width: 100%;
   position: relative;
   color: var(--active-text);
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   text-decoration: none;
   text-align: center;
   padding: 0.6rem 0;
@@ -36,7 +36,8 @@
   border-radius: 0.3rem;
 }
 
-.profileLink:hover {
+.profileLink:hover,
+.profileLink:active {
   border-bottom: 1px var(--border-bottom);
 }
 
@@ -50,6 +51,13 @@
 
 .label {
 }
+
+@media (max-width: 850px) {
+  /* .profileLink {
+    font-size: 1.4rem;
+  } */
+}
+
 @media (max-width: 760px) {
   .aside {
     grid-row: 1;
@@ -63,6 +71,7 @@
     padding: 1.5rem 2rem 1rem;
     position: absolute;
     top: -0.3rem;
+    left: 0rem;
     font-size: 2rem;
     border-radius: 0.3rem;
   }
@@ -89,7 +98,8 @@
   }
   .profileLink {
     padding: 2rem 0;
-    font-size: 2rem;
+    /* font-size: 1.6rem; */
+    /* font-size: clamp(1.4rem, 90%, 2rem); */
     font-weight: 300;
   }
   .icon {
@@ -105,5 +115,14 @@
       opacity: 1;
       transform: translate(0, 0);
     }
+  }
+}
+
+@media (max-width: 480px) {
+  .profileLink {
+    padding: 2rem 0;
+    font-size: 1.8rem;
+    /* font-size: clamp(1.4rem, 90%, 2rem); */
+    font-weight: 300;
   }
 }

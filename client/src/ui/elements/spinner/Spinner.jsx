@@ -1,13 +1,12 @@
-// import Popup from "../popupModal/Popup.jsx";
+import { useTheme } from "../../../context/DarkMode.jsx";
 import styles from "./Spinner.module.css";
 
 function Spinner() {
+  const { isDark } = useTheme();
+  const src = isDark ? "/apple-touch-icon.png" : "/wheel2.png";
   return (
-    // <div style={{ zIndex: 999 }}>
     <div className={styles.spinnerBlock}>
-      {/* <Popup noBackground={true}> */}
-      <img src="/wheel2.png" alt="Loading image" className={styles.rotate} />
-      {/* </Popup> */}
+      <img src={src} alt="Loading image" className={styles.rotate} />
     </div>
   );
 }

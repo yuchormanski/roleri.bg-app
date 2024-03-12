@@ -14,9 +14,8 @@ const isUserLogged = (req, res, next) => {
     next();
 };
 
-// TODO CHECK PROPERTY NAME OWNER IS IT CORRECT
 const isOwner = (req, res, next) => {
-    if (req.user._id !== res.locals.preloadData.owner?._id) {
+    if (req.user._id != res.locals.preloadData.owner?._id) {
         return res.status(403).json({ message: 'Forbidden', statusCode: 403 });
     }
 
@@ -25,7 +24,7 @@ const isOwner = (req, res, next) => {
 
 const isUserRole = (role) => {
     return (req, res, next) => {
-        if (req.user.role !== res.locals.preloadData.role || req.user.role !== role) {
+        if (req.user.role != res.locals.preloadData.role || req.user.role != role) {
             return res.status(403).json({ message: 'Forbidden', statusCode: 403 });
         }
 

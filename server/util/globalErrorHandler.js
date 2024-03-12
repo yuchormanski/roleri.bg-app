@@ -44,7 +44,7 @@ const globalErrorHandler = (err, req, res, next) => {
     res.status(statusCode).json({ message, statusCode });
 
     // Log the error for debugging purposes
-    console.error(err);
+    console.error('This console.log is from /util/globalErrorHandler.js Only for debugging purpose: ', err);
 };
 
 export default globalErrorHandler;

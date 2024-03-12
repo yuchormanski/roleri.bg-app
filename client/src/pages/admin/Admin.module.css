@@ -1,0 +1,14 @@
+.adminContent {
+  display: grid;
+  grid-template-columns: auto 20%;
+}
+
+@media (max-width: 760px) {
+  .adminContent {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 430px) {
+}
+@media (max-width: 375px) {
+}

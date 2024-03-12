@@ -1,33 +1,44 @@
-import { useEffect } from "react";
-import { usePath } from "../../context/PathContext.jsx";
 import styles from "./UserInfo.module.css";
-import { useQuery } from "@tanstack/react-query";
+
+import { useEffect } from "react";
+
+import { usePath } from "../../context/PathContext.jsx";
 import { useLanguage } from "../../context/Language.jsx";
 
-function UserInfo() {
-  const { path, newPath } = usePath();
-  const { lang } = useLanguage();
+import { useGetUserDataQuery } from "./useGetUserDataQuery.js";
 
-  const {
-    isLoading,
-    data: lessons,
-    error,
-  } = useQuery({
-    queryKey: ["signedLessons"],
-    queryFn: () => null,
-  });
+import Spinner from "../../ui/elements/spinner/Spinner.jsx";
+
+function UserInfo() {
+  const { newPath } = usePath();
+  const { lang, index } = useLanguage();
+
+  const { isLoading, isFetching, data } = useGetUserDataQuery();
+  const lessons = {};
 
   useEffect(() => newPath("profile"), [newPath]);
-  console.log(lessons);
+
   return (
     <>
-      <div className={styles.container}>
-        <h3 className={styles.heading}>{lang.dashboard}</h3>
-        {lessons === null && <h3>You have no active lessons.</h3>}
-        <p>
-          Трябва да се зарежда информация дали има предстоящи записани уроци.
-        </p>
-      </div>
+      {isFetching ? (
+        <Spinner />
+      ) : (
+        <div className={styles.container}>
+          <h3 className={styles.heading}>
+            {index === 1
+              ? `${data?.firstName}'s ${lang.dashboard}`
+              : ` ${lang.dashboard} на ${data?.firstName}`}
+          </h3>
+
+          <div className={styles.secondaryContainer}>
+            {lessons && <h3>You have no active lessons.</h3>}
+            <p>
+              Трябва да се зарежда информация дали има предстоящи записани
+              уроци.
+            </p>
+          </div>
+        </div>
+      )}
     </>
   );
 }

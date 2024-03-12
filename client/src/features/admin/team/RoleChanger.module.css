@@ -1,0 +1,113 @@
+.container {
+  width: 100%;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+  padding: 1rem 2rem 2rem;
+  position: relative;
+}
+
+.heading {
+  width: fit-content;
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: 300;
+  word-spacing: 0.3rem;
+  margin-left: auto;
+  border-bottom: 1px var(--border-bottom);
+  margin-bottom: 1rem;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 0rem;
+  right: 0rem;
+  font-size: 2.4rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.closeBtn:hover {
+  transform: rotate(90deg) translate(-0.4rem, 0.3rem);
+}
+
+.closeIcon {
+  font-size: 3rem;
+}
+.figure {
+  min-width: 430px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem 0 3rem;
+  border-bottom: var(--card-border);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.figureHeading {
+  align-self: start;
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+  border-bottom: 1px var(--border-bottom);
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.element {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--color-menu-btn);
+}
+
+.elSpan {
+  font-size: 1.4rem;
+  margin-right: 0.3rem;
+  color: var(--color-header-dim);
+}
+
+.boxHeading {
+  font-size: 1.4rem;
+}
+.checkbox {
+  width: 33.3%;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1/0.4;
+  border: var(--card-border);
+  border-radius: 0.3rem;
+}
+
+.selected {
+  background-color: green;
+}
+
+@media (max-width: 480px) {
+  .figure {
+    min-width: 280px;
+  }
+  .element {
+    gap: 0.2rem;
+  }
+  .boxHeading {
+    font-size: 1.2rem;
+  }
+  .checkbox {
+    aspect-ratio: 1/0.5;
+  }
+}

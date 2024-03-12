@@ -10,7 +10,13 @@
 @media (max-width: 760px) {
   .main {
     max-width: 105rem;
-    padding: 2rem 3rem;
+    /* padding: 5rem 0; */
     margin: 0;
+  }
+}
+@media (max-width: 480px) {
+  .main {
+    /* padding: 5rem 1rem; */
+    padding: 2rem 1rem;
   }
 }

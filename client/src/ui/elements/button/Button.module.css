@@ -7,8 +7,13 @@
   border-radius: 0.3rem;
   transition: all 0.3s ease;
 }
-.primary:hover {
+
+.primary:hover:not(:disabled) {
   background-color: var(--color-main-btn-tint);
+}
+
+.primary:disabled {
+  opacity: 0.5;
 }
 
 .secondary {

@@ -4,7 +4,6 @@ const PathContext = createContext();
 
 function PathContextProvider({ children }) {
   const [path, setPath] = useState(window.location.pathname.split("/").at(-1));
-
   function newPath(newPath) {
     setPath((p) => (p = newPath));
   }

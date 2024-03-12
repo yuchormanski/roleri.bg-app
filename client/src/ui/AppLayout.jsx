@@ -1,13 +1,16 @@
 import styles from "./AppLayout.module.css";
+
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 import { useToggleModal } from "../hooks/useToggleModal.js";
 
+import Popup from "./elements/popupModal/Popup.jsx";
+
 import Navigation from "./navigation/Navigation.jsx";
 import Footer from "./footer/Footer.jsx";
+
 import Login from "../pages/auth/Login.jsx";
-import Popup from "./elements/popupModal/Popup.jsx";
 import Register from "../pages/auth/Register.jsx";
 
 function AppLayout() {

@@ -1,25 +1,22 @@
-import { BASE_URL } from "../services/environment.js";
+import { BASE_URL, USER_LOCAL_STORAGE_KEY } from "../services/environment.js";
 
 async function request(method, url, data) {
   const options = {
     method,
     headers: {},
-    credentials: "include",
   };
-
   if (data !== undefined) {
     options.headers["Content-Type"] = "application/json";
     options.body = JSON.stringify(data);
   }
 
+  const userData = JSON.parse(localStorage.getItem(USER_LOCAL_STORAGE_KEY));
+  if (userData) {
+    options.headers["X-Authorization"] = userData.accessToken;
+  }
   const response = await fetch(BASE_URL + url, options);
 
   if (response.ok == false) {
-    if (response.status == 403) {
-      // clear cookie data
-      document.cookie = "";
-    }
-
     const error = await response.json();
 
     throw error;

@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { userRole } from '../environments/constants.js';
 
-const userParentSchema = new mongoose.Schema({
+const userParentSchema = new Schema({
     firstName: {
         type: String,
         required: [true, 'First Name is require']
@@ -26,16 +26,15 @@ const userParentSchema = new mongoose.Schema({
         type: String,
         require: [true, 'Password is require']
     }
-});
+}, { timestamps: true });
 
 userParentSchema.index({ email: 1 }, {
     collation: {
         locale: 'en',
         strength: 2
     }
+});
 
-}, { timestamps: true });
-
-const UserParent = mongoose.model('UserParent', userParentSchema);
+const UserParent = model('UserParent', userParentSchema);
 
 export { UserParent };

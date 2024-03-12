@@ -1,66 +1,48 @@
-import { useLanguage } from "../../context/Language.jsx";
-import { useTranslate } from "../../hooks/useTranslate.js";
 import styles from "./LessonListElement.module.css";
 
-function LessonListElement({ lm }) {
+import { Link } from "react-router-dom";
+
+import { useLanguage } from "../../context/Language.jsx";
+import { useTranslate } from "../../hooks/useTranslate.js";
+
+function LessonListElement({ lesson }) {
   const { lang } = useLanguage();
-  const { translatePhrase: getCurrentLangHandler } = useTranslate();
+  const { translatePhrase: translate } = useTranslate();
 
-  const properties = Object.keys({
-    age: lm.age,
-    skills: lm.skills,
-    participants: lm.participants,
-    type: lm.type,
-    count: lm.count,
-    location: lm.location,
-  });
+  function reveal() {
+    let reveals = document.querySelectorAll(".card");
 
-  // TODO - Create component for details on one lesson
-  function lessonHandler() {
-    console.log(lm._id);
+    for (let i = 0; i < reveals.length; i++) {
+      let windowHeight = window.innerHeight;
+      let elementTop = reveals[i].getBoundingClientRect().top;
+      let elementVisible = 10;
+
+      if (elementTop < windowHeight - elementVisible) {
+        reveals[i].classList.add("active");
+      } else {
+        reveals[i].classList.remove("active");
+      }
+    }
   }
 
+  window.addEventListener("scroll", reveal);
+
   return (
-    <figure className={styles.figure} key={lm.id}>
-      <div className={styles.imgContainer}>
-        <a href="https://roleri.bg/course/advanced-group/">
-          <img
-            src={lm.imageUrl}
-            className={styles.img}
-            alt="Picture of inline skate lesson"
-          />
-        </a>
+    <figure className={styles.card}>
+      <div className={styles.imgBox}>
+        <img src={lesson.imageUrl} alt="" />
       </div>
-
-      <div className={styles.content}>
-        <h2 className={styles.heading}>
-          {getCurrentLangHandler(lm.title)}
-        </h2>
-        <p className={styles.titleInfo}>
-          <span className={styles.additional}>* </span>
-          {getCurrentLangHandler(lm.titleInfo)}
-        </p>
-
-        <div className={styles.description}>
-
-          {
-            properties.map((prop, index) => (
-              <div className={styles.line} key={index}>
-                <span>{lang[prop]}: </span>
-                {getCurrentLangHandler(lm[prop])}
-              </div>
-            ))
-          }
-
-          {/* <div className={styles.line}>
-            <span>{lang.price}: </span>
-            {getCurrentLangHandler(lm.price)}
-
-          </div> */}
-          <div className={styles.btnContainer}>
-            <button className={styles.lessonBtn} onClick={lessonHandler}>{lang.more}</button>
-          </div>
+      <div className={styles.textBox}>
+        <span className={styles.title}>{translate(lesson.title)}</span>
+      </div>
+      <div className={styles.main}>
+        <div className={styles.info}>
+          <p>{translate(lesson.skills)}</p>
+          <p>{translate(lesson.location)}</p>
         </div>
+        <Link to={`/lesson/${lesson._id}`} className={styles.link}>
+          <p className={styles.button}>{lang.learnMore}</p>
+        </Link>
       </div>
     </figure>
   );

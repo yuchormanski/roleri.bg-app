@@ -20,6 +20,8 @@
 
 .fullInfo {
   /* background-color: var(--color-header); */
+  min-width: 250px;
+  margin-inline: 5px;
   background-color: var(--color-header);
   display: flex;
   flex-direction: column;
@@ -30,6 +32,7 @@
   border-radius: 0.5rem;
   opacity: 0;
   animation: modalFadeIn 0.3s ease-in-out forwards;
+  overflow-y: auto;
 }
 .noBackground {
   animation-duration: 0s;
@@ -45,6 +48,23 @@ button.closeIcon {
   cursor: pointer;
 }
 
+.width600 {
+  min-width: 600px;
+  max-width: 1000px;
+}
+.width700 {
+  min-width: 700px;
+  max-width: 1000px;
+}
+.width800 {
+  min-width: 800px;
+  max-width: 1200px;
+}
+
+.userHeight {
+  max-height: 600px;
+}
+
 @keyframes modalFadeIn {
   from {
     opacity: 0;
@@ -53,5 +73,15 @@ button.closeIcon {
   to {
     opacity: 1;
     transform: translate(0, 0);
+  }
+}
+
+@media (max-width: 760px) {
+  .width600,
+  .width700,
+  .width800 {
+    width: unset;
+    max-width: 500px;
+    min-width: 90%;
   }
 }

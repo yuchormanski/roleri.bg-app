@@ -32,7 +32,7 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 1.5rem;
 }
 
 .form .input {
@@ -106,4 +106,51 @@
   margin-top: 0.5rem;
   font-size: 2rem;
   cursor: pointer;
+}
+.element {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.form input.textInput {
+  padding: 0.4rem 1rem 0.2rem;
+  font-size: 1.8rem;
+  color: var(--color-nav-link);
+  border: 1px solid var(--input-border);
+  border-radius: 0.3rem;
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+label.label {
+  position: absolute;
+  background-color: var(--color-header);
+  color: var(--placeholder);
+  padding-inline: 0.6rem;
+  top: 1rem;
+  left: 0.5rem;
+  font-size: 1.4rem;
+  pointer-events: none;
+  /* opacity: 0; */
+  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+/*  */
+.form input.textInput:is(:focus) ~ label.label,
+.filled {
+  transform: translate(10%, -110%);
+  color: var(--color-nav-link);
+  opacity: 0.9;
+}
+.filled span {
+  color: var(--placeholder);
+}
+
+@media (max-width: 480px) {
+  .container {
+    /* padding: 1rem 0 2rem; */
+    min-width: 310px;
+  }
+  .secondaryContainer {
+    padding: 5rem 0rem;
+  }
 }

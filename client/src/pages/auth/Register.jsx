@@ -1,19 +1,28 @@
 import styles from "./Register.module.css";
-import { useForm } from "react-hook-form";
-import { GoChevronLeft, GoX, GoEye, GoEyeClosed } from "react-icons/go";
 
-import Button from "../../ui/elements/button/Button.jsx";
-import toast from "react-hot-toast";
 import { useState } from "react";
-import { EMAIL_REGEX, PHONE_REGEX } from "../../services/environment.js";
-import Spinner from "../../ui/elements/spinner/Spinner.jsx";
-import { useAuthQueries } from "./useAuthQueries.js";
-// import PhoneComponent from "../../ui/elements/phone/PhoneComponent.jsx";
+import { useForm } from "react-hook-form";
+import { GoX, GoEye, GoEyeClosed } from "react-icons/go";
+import toast from "react-hot-toast";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 
+import {
+  EMAIL_REGEX,
+  PASS_REGEX,
+  PHONE_REGEX,
+} from "../../services/environment.js";
+import { useAuthQueries } from "./useAuthQueries.js";
+import { useLanguage } from "../../context/Language.jsx";
+
+import Button from "../../ui/elements/button/Button.jsx";
+import Spinner from "../../ui/elements/spinner/Spinner.jsx";
+import { Link } from "react-router-dom";
+
 function Register({ onClose, authToggle }) {
+  const { lang } = useLanguage();
   const [isNotForgotten, setIsNotForgotten] = useState(false);
+  const [terms, setTerms] = useState(false);
   const { register, handleSubmit, reset, getValues, formState } = useForm();
 
   const { registerMutation } = useAuthQueries();
@@ -27,7 +36,6 @@ function Register({ onClose, authToggle }) {
       if (!PHONE_REGEX.test(phone)) throw new Error("Invalid phone number!");
 
       const resultData = {
-        // name: `${regData.firstName} ${regData.lastName}`,
         firstName: regData.firstName,
         lastName: regData.lastName,
         email: regData.email,
@@ -35,8 +43,7 @@ function Register({ onClose, authToggle }) {
         phone: phone,
       };
 
-      // await registerMutation.mutateAsync({ ...regData, phone: phone });
-      await registerMutation.mutateAsync(resultData); //REMOVE this
+      await registerMutation.mutateAsync(resultData);
       onClose();
       reset();
     } catch (error) {
@@ -56,6 +63,13 @@ function Register({ onClose, authToggle }) {
     setTimeout(() => {
       setVisible(false);
     }, 3000);
+  }
+
+  // SELECTING SKATER
+  function checkboxHandler(e, id) {
+    if (e.target.checked) {
+      setTerms(true);
+    } else setTerms(false);
   }
 
   return (
@@ -129,13 +143,18 @@ function Register({ onClose, authToggle }) {
                 "password",
                 !isNotForgotten
                   ? {
-                    required: "Password is required",
-                    minLength: {
-                      value: 3,
-                      message:
-                        "The password should be at least 3 characters long ",
-                    },
-                  }
+                      required: "Password is required",
+                      minLength: {
+                        value: 3,
+                        message:
+                          "The password should be at least 3 characters long ",
+                      },
+                      pattern: {
+                        value: PASS_REGEX,
+                        message:
+                          "Password must contain at least one lowercase letter, one uppercase letter, and one digit",
+                      },
+                    }
                   : null
               )}
               placeholder={"Password"}
@@ -154,6 +173,11 @@ function Register({ onClose, authToggle }) {
               required: "Repeat password is required",
               validate: (value) =>
                 value === getValues().password || "Passwords don't match",
+              pattern: {
+                value: PASS_REGEX,
+                message:
+                  "Password must contain at least one lowercase letter, one uppercase letter, and one digitt",
+              },
             })}
             placeholder={"Repeat password"}
             autoComplete="new-password"
@@ -174,18 +198,29 @@ function Register({ onClose, authToggle }) {
               borderRadius: "3px",
               fontSize: "1.6rem",
               padding: "0 2px",
-              width: "100%",
+              width: "81%",
               height: "auto",
               margin: "0 0 0 5px",
               color: "var(--color-main)",
             }}
             buttonStyle={true}
             style={{
-              "--react-international-phone-dropdown-item-background-color": "var(--color-input)",
-              "--react-international-phone-country-selector-background-color": "var(--color-input)",
-              "--react-international-phone-country-selector-background-color-hover": "var(--color-input)",
-              "--react-international-phone-country-selector-border-color": "var(--input-border)",
-              "--react-international-phone-country-selector-arrow-color": "var(--color-main)",
+              "--react-international-phone-dropdown-item-background-color":
+                "var(--color-input)",
+              "--react-international-phone-country-selector-background-color":
+                "var(--color-input)",
+              "--react-international-phone-country-selector-background-color-hover":
+                "var(--color-input)",
+              "--react-international-phone-country-selector-border-color":
+                "var(--input-border)",
+              "--react-international-phone-country-selector-arrow-color":
+                "var(--color-main)",
+              "--react-international-phone-dropdown-item-text-color":
+                "var(--color-main)",
+              "--react-international-phone-dropdown-item-dial-code-color":
+                "var(--color-main)",
+              "--react-international-phone-selected-dropdown-item-background-color":
+                "var(--input-border)",
             }}
           />
 
@@ -194,13 +229,28 @@ function Register({ onClose, authToggle }) {
               <Button type={"primary"}>Register</Button>
             </div>
           </div>
+
+          {/* CONDITIONS */}
+          <div className={styles.conditions}>
+            <p>
+              {lang.agree}{" "}
+              <Link className={styles.link} to={"/conditions"}>
+                {lang.terms}
+              </Link>
+            </p>
+            <input
+              className={styles.checkbox}
+              type="checkbox"
+              onChange={checkboxHandler}
+            />
+          </div>
         </form>
 
         <div className={styles.authInfo}>
           <p>
-            Already have an account?{" "}
+            {lang.haveAccount}{" "}
             <button onClick={() => authToggle(true)} className={styles.authBtn}>
-              Sign In!
+              {lang.signIn}
             </button>
           </p>
         </div>

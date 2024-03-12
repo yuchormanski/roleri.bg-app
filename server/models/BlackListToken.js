@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
+import { Schema, model } from 'mongoose';
 
-const blackListTokenSchema = new mongoose.Schema({
+const blackListTokenSchema = new Schema({
     token: String,
 
 }, { timestamps: true });
 
-const BlackListToken = mongoose.model('TokenBlackList', blackListTokenSchema);
+const BlackListToken = model('TokenBlackList', blackListTokenSchema);
 
 export { BlackListToken };

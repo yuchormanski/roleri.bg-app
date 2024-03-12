@@ -1,7 +1,7 @@
 import verifyJwtToken from "../util/verifyJwtToken.js";
 
 const jwtMiddleware = () => (req, res, next) => {
-    const token = req.cookies[process.env.COOKIE_NAME];
+    const token = req.headers['x-authorization'];;
 
     if (token) {
         try {

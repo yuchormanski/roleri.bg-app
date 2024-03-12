@@ -1,10 +1,11 @@
 import styles from "./Navigation.module.css";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { VscMenu, VscClose } from "react-icons/vsc";
+
+import { useTheme } from "../../context/DarkMode.jsx";
 
 import Button from "../elements/button/Button.jsx";
 import NavigationMenu from "./NavigationMenu.jsx";
-import { useTheme } from "../../context/DarkMode.jsx";
 
 function Navigation({ onLogin }) {
   const [isMobile, setIsMobile] = useState(false);
@@ -57,4 +58,4 @@ function Navigation({ onLogin }) {
   );
 }
 
-export default Navigation;
+export default memo(Navigation);

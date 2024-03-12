@@ -1,49 +1,22 @@
-import { NavLink } from "react-router-dom";
 import styles from "./AsideMenu.module.css";
-import { useLanguage } from "../../../context/Language.jsx";
+
+import { useState } from "react";
+import { NavLink } from "react-router-dom";
+
 import {
-  PiUsersThin,
-  PiCalendarBlankThin,
-  PiNotePencilThin,
-  PiUserListThin,
   PiCaretDoubleDownDuotone,
   PiCaretDoubleUpDuotone,
 } from "react-icons/pi";
 
-import { usePath } from "../../../context/PathContext.jsx";
-import { useState } from "react";
-
-function AsideMenu() {
-  const { lang } = useLanguage();
-  const { path } = usePath();
-  const urlPath = path === "profile";
+function AsideMenu({ links }) {
   const [isMobile, setIsMobile] = useState(true);
-
-  const links = [
-    {
-      path: "skaters",
-      label: lang.skaters,
-      // icon: <PiUsersThin />,
-    },
-    {
-      path: "history",
-      label: lang.history,
-      // icon: <PiCalendarBlankThin />,
-    },
-    {
-      path: urlPath ? "edit" : "/profile",
-      label: urlPath ? lang.edit : lang.profile,
-      // icon: urlPath ? <PiNotePencilThin /> : <PiUserListThin />,
-    },
-  ];
 
   return (
     <aside className={styles.aside}>
       <button
         onClick={() => setIsMobile((x) => !x)}
-        className={`${styles.mobileMenuBtn} ${
-          isMobile ? styles.notClicked : styles.clicked
-        }`}
+        className={`${styles.mobileMenuBtn} ${isMobile ? styles.notClicked : styles.clicked
+          }`}
       >
         {isMobile ? <PiCaretDoubleDownDuotone /> : <PiCaretDoubleUpDuotone />}
       </button>
