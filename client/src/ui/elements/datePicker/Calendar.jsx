@@ -3,6 +3,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import "./styles.css";
 
+// days from datatabase
+// 0 for Sunday, 1 for monday ... 6 for Saturday
+const daysForFilter = [0, 6];
+
 function DatePickerCalendar({ selectedDateProp }) {
   const [selectedDay, setSelectedDay] = useState(null);
 
@@ -10,10 +14,25 @@ function DatePickerCalendar({ selectedDateProp }) {
     selectedDateProp(selectedDay);
   }, [selectedDateProp, selectedDay]);
 
-  const isWeekend = (date) => {
+  function isWeekend(date, [a, b, c, d, e, f, g] = daysForFilter) {
     const day = date.getDay();
-    return day === 0 || day === 6; // 0 for Sunday, 6 for Saturday
-  };
+    return (
+      day === a ||
+      day === b ||
+      day === c ||
+      day === d ||
+      day === e ||
+      day === f ||
+      day === g
+    );
+  }
+
+  // two days forward can't book a lesson
+  function twoDaysForward() {
+    let result = new Date();
+    result.setDate(result.getDate() + 2);
+    return result;
+  }
 
   return (
     <div className="div">
@@ -23,7 +42,9 @@ function DatePickerCalendar({ selectedDateProp }) {
         selected={selectedDay}
         onChange={(date) => setSelectedDay(date)}
         // disabling past dates and weekdays
+        // filterDate={(date) => date >= new Date() && isWeekend(date)}
         filterDate={(date) => date >= new Date() && isWeekend(date)}
+        excludeDates={[{ date: twoDaysForward() }]}
         format
         calendarClassName="calendar-styles"
       />
@@ -32,13 +53,6 @@ function DatePickerCalendar({ selectedDateProp }) {
 }
 
 export default DatePickerCalendar;
-
-
-
-
-
-
-
 
 // import { useEffect, useState } from "react";
 
