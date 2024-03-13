@@ -14,14 +14,19 @@ import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 function EditAgeOption({ onClose, ageData }) {
     const { lang } = useLanguage();
 
-    const { mutate, isPending } = useEditOptionsQuery("age");
+    const { mutateAsync, isPending } = useEditOptionsQuery("age");
     const { register, handleSubmit, reset } = useForm({ defaultValues: ageData });
 
     // SUBMITTING THE FORM
-    function onFormSubmit(ageData) {
-        mutate(ageData);
-        onClose();
-        reset();
+    async function onFormSubmit(ageData) {
+        try {
+            await mutateAsync(ageData);
+
+            onClose();
+            reset();
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 
     //ERROR IN FORM

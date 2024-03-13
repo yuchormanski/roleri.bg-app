@@ -4,7 +4,7 @@ const lessonModelSchema = new Schema(
   {
     imageUrl: {
       type: String,
-      required: true,
+      default: null,
       match: [
         /^https?:\/\/.+/,
         "Image URL must start with http:// or https://",
@@ -54,17 +54,20 @@ const lessonModelSchema = new Schema(
     },
     time: {
       type: String,
-      validate: {
-        validator: function (v) {
-          return /^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/.test(v);
-        },
-        message: props => `${props.value} is not a valid time format!`
+      default: () => {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
       },
-      required: true
     },
     validTo: {
       type: Date,
-      default: null,
+      default: () => {
+        const date = new Date();
+        date.setFullYear(date.getFullYear() + 100); // Set to current date + 100 years
+        return date;
+      },
     },
     owner: {
       type: Types.ObjectId,

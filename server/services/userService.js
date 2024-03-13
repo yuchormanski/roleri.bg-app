@@ -9,7 +9,15 @@ import { userRole } from "../environments/constants.js";
 import { generateUserToken, signJwtToken } from "../util/signJwtToken.js";
 import { passwordResetTemplate } from "../util/passwordResetTemplate.js";
 import verifyJwtToken from "../util/verifyJwtToken.js";
-import { UnregisteredUser } from "../models/UnregisteredUser.js";
+
+// Get one user
+const getAllUsers = async () => UserParent.find().select("-password -__v");
+
+// Get one user
+const getUserById = async (userId) => UserParent.findById(userId).select("-password -__v");
+
+// Update user
+const updateUserById = async (userId, userData) => UserParent.findByIdAndUpdate(userId, userData, { runValidators: true, new: true }).select("-password -__v");
 
 // Register
 const userRegister = async ({
@@ -169,12 +177,6 @@ async function resetUserPassword({ password, resetToken }) {
     return createUserDetailsObject(user, userToken);
 }
 
-// Get one user
-const getUserById = async (userId) => UserParent.findById(userId).select("-password -__v");
-
-// Update user
-const updateUserById = async (userId, userData) => UserParent.findByIdAndUpdate(userId, userData, { runValidators: true, new: true }).select("-password -__v");
-
 // Helper functions
 
 // Data to return to front-end
@@ -191,11 +193,12 @@ function createUserDetailsObject(user, userToken) {
 }
 
 export {
+    getAllUsers,
+    getUserById,
+    updateUserById,
     userRegister,
     userLogin,
     userLogout,
     createResetLink,
     resetUserPassword,
-    getUserById,
-    updateUserById,
 };

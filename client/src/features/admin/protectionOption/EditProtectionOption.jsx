@@ -14,14 +14,19 @@ import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 function EditProtectionOption({ onClose, protectionData }) {
     const { lang } = useLanguage();
 
-    const { mutate, isPending } = useEditOptionsQuery("protection");
+    const { mutateAsync, isPending } = useEditOptionsQuery("protection");
     const { register, handleSubmit, reset } = useForm({ defaultValues: protectionData });
 
     // SUBMITTING THE FORM
-    function onFormSubmit(protectionData) {
-        mutate(protectionData);
-        onClose();
-        reset();
+    async function onFormSubmit(protectionData) {
+        try {
+            await mutateAsync(protectionData);
+
+            onClose();
+            reset();
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 
     //ERROR IN FORM

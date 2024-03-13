@@ -16,7 +16,7 @@ function useAddOptionsQuery(actionType) {
 
     const queryClient = useQueryClient();
 
-    const { mutate, isPending } = useMutation({
+    const { mutateAsync, mutate, isPending } = useMutation({
         enabled: false,
         mutationFn: (optionsData) => post(endPoints[actionType], optionsData),
         onSuccess: (optionsData) => {
@@ -30,7 +30,7 @@ function useAddOptionsQuery(actionType) {
         },
     });
 
-    return { mutate, isPending };
+    return { mutateAsync, mutate, isPending };
 }
 
 export { useAddOptionsQuery };

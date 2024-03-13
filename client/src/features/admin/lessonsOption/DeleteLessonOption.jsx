@@ -13,11 +13,15 @@ function DeleteLessonOption({ onClose, lessonData }) {
   const { lang } = useLanguage();
   const { translatePhrase: translate } = useTranslate();
 
-  const { mutate, isPending } = useDeleteOptionsQuery("lessons");
+  const { mutateAsync, isPending } = useDeleteOptionsQuery("lessons");
 
-  function onDelete() {
-    mutate(lessonData);
-    onClose();
+  async function onDelete() {
+    try {
+      await mutateAsync(lessonData);
+      onClose();
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   return (
