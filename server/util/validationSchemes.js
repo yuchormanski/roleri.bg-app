@@ -87,8 +87,14 @@ const lessonCreateSchema = joi.object({
     lon: joi.string().trim().allow("").allow(null).default(null).optional(),
   }),
   description: joi.string().max(510).trim().required(),
-  time: joi.string().trim().regex(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/).allow(null).optional(),
-  validTo: joi.date().allow(null).optional(),
+  time: joi.string().trim().regex(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/).required(),
+  validTo: joi.date().custom((value, helpers) => {
+    if (new Date > new Date(value)) {
+      throw new Error('Invalid date')
+    }
+    return value;
+    
+  }).allow(null).optional(),
 });
 
 // Skater validation

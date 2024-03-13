@@ -101,7 +101,7 @@ function AddLessonOption({ onClose }) {
       imageUrl: fieldValues.imageUrl || null,
       validTo: fieldValues.validTo || null,
       geoLocation: fieldValues.geoLocation,
-      time: fieldValues.time || null,
+      time: fieldValues.time,
     };
 
     try {
@@ -529,7 +529,7 @@ function AddLessonOption({ onClose }) {
                     id="time"
                     name={"time"}
                     {...register("time", {
-                      // required: "Time is required",
+                      required: "Time is required",
                     })}
                     onBlur={valueHandler}
                   />

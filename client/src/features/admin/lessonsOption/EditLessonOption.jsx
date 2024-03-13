@@ -104,7 +104,7 @@ function EditLessonOption({ onClose, lessonData }) {
       imageUrl: fieldValues.imageUrl || null,
       validTo: new Date(fieldValues.validTo).toISOString()  || null,
       geoLocation: fieldValues.geoLocation,
-      time: fieldValues.time || null,
+      time: fieldValues.time,
     };
 
     try {
@@ -554,7 +554,7 @@ function EditLessonOption({ onClose, lessonData }) {
                     id="time"
                     name={"time"}
                     {...register("time", {
-                      // required: "Time is required",
+                      required: "Time is required",
                     })}
                     onBlur={valueHandler}
                   />
