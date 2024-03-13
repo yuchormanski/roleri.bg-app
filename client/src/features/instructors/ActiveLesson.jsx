@@ -17,9 +17,11 @@ function ActiveLesson() {
           тук: Лист със всички участници в този урок
         </div>
 
-        <Button type={"primary"} onClick={moveBack}>
-          Back
-        </Button>
+        <div className={styles.hiddenOnMobile}>
+          <Button type={"primary"} onClick={moveBack}>
+            Back
+          </Button>
+        </div>
       </div>
     </>
   );
