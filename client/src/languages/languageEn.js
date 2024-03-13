@@ -147,6 +147,7 @@ export const EN = {
 
   i_signedLessons: "Signed lessons",
   i_equipment: "Equipment",
+  i_noNeededEquipment: "There is no equipment required for this lesson",
 
   // USER OPTIONS
   u_add_skater_info:
