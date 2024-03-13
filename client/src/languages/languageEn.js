@@ -82,6 +82,7 @@ export const EN = {
   validTo: "Valid to date",
   learnMore: "Learn more",
   activeDays: "Lessons active days",
+  individualDays: "Individual days",
   mon: "Monday",
   tue: "Tuesday",
   wed: "Wednesday",

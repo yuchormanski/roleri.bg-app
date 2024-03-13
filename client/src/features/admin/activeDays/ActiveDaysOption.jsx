@@ -20,6 +20,8 @@ function reducer(state, action) {
       return { ...state, sat: !state.sat };
     case "day/sun":
       return { ...state, sun: !state.sun };
+    case "subscription/changed":
+      return { ...state, type: !state.type };
 
     default:
       throw new Error("Unknown action type");
@@ -38,7 +40,18 @@ function ActiveDaysOption() {
   return (
     <>
       <div className={styles.container}>
-        <h3 className={styles.heading}>{lang.activeDays}</h3>
+        <h3 className={styles.heading}>
+          {state.type ? lang.individualDays : lang.activeDays}
+        </h3>
+
+        <div className={styles.toggleSwitch}>
+          <div
+            className={`${styles.switchBtn} ${
+              state.type ? styles.toggleRight : styles.toggleLeft
+            }`}
+            onClick={() => dispatch({ type: "subscription/changed" })}
+          ></div>
+        </div>
 
         <div className={styles.secondaryContainer}>
           <div className={styles.daysContainer}>
@@ -51,6 +64,12 @@ function ActiveDaysOption() {
               />
             ))}
           </div>
+          {state.type && (
+            <div className={styles.timePickerCOntainer}>
+              <input type="time" />
+              <input type="time" />
+            </div>
+          )}
           <div className={styles.btnContainer}>
             <div style={{ marginLeft: "auto" }}>
               <Button type={"primary"}>{lang.edit}</Button>
@@ -70,7 +89,7 @@ function ActiveDaysOption() {
           </p>
           <ul className={styles.selectedList}>
             {Object.keys(state)
-              .filter((x) => state[x])
+              .filter((x) => state[x] && x !== "type")
               .map((el, i) => (
                 <li key={i} className={styles.listItem}>
                   {lang[el]}

@@ -19,6 +19,29 @@
   margin-bottom: 1rem;
 }
 
+.toggleSwitch {
+  width: 60px;
+  height: 28px;
+  background-color: #ededed;
+  border-radius: 13px;
+  position: relative;
+  /* transition: margin 5.8s ease-in-out; */
+}
+.switchBtn {
+  width: 30px;
+  aspect-ratio: 1/1;
+  background-color: var(--color-selected-shade);
+  position: absolute;
+  top: -1px;
+  border-radius: 100%;
+  opacity: 0.8;
+}
+.toggleRight {
+  transform: translateX(31px);
+}
+.toggleLeft {
+  transform: translateX(-1px);
+}
 .secondaryContainer {
   background-color: var(--color-header);
   width: 100%;
@@ -103,6 +126,9 @@
   .dayBox {
     font-size: 1.8rem;
     font-weight: 300;
+  }
+  .toggleSwitch {
+    margin: 0 1rem 0 auto;
   }
 }
 

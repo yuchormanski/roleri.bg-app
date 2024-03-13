@@ -78,6 +78,7 @@ export const BG = {
   validTo: "Дата на валидност",
   learnMore: "Научете повече",
   activeDays: "Активни дни за уроци",
+  individualDays: "Индивидуални уроци",
   mon: "Понеделник",
   tue: "Вторник",
   wed: "Сряда",

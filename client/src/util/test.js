@@ -6,4 +6,5 @@ export const incoming = {
   fri: false,
   sat: true,
   sun: true,
+  type: false,
 };
