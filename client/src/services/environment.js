@@ -5,11 +5,12 @@ const BASE_URL =
     : "http://localhost:3000/";
 
 const SERVER_ENDPOINTS = {
+  GET_ALL_USERS: "users/",
+  GET_USER: "users/get-user",
+  UPDATE_USER: "users/update-user",
   REGISTER: "users/register",
   LOGIN: "users/login",
   LOGOUT: "users/logout",
-  GET_USER: "users/get-user",
-  UPDATE_USER: "users/update-user",
   FORGOT_PASSWORD: "users/forgot-password",
   RESET_PASSWORD: "users/reset-password",
   GET_ALL_SKATERS: "skaters",

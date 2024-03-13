@@ -17,12 +17,12 @@ function AddProtectionOptions({ onClose }) {
   const { lang } = useLanguage();
 
   const queryClient = useQueryClient();
-  const { mutate, isPending } = useAddOptionsQuery("protection");
+  const { mutateAsync, isPending } = useAddOptionsQuery("protection");
 
   const { register, handleSubmit, reset } = useForm();
 
   // SUBMITTING THE FORM
-  function onFormSubmit(protectionData) {
+  async function onFormSubmit(protectionData) {
     const result = {
       size: protectionData.size.toUpperCase(),
       quantity: Number(protectionData.quantity),
@@ -33,9 +33,14 @@ function AddProtectionOptions({ onClose }) {
       return toast.error(`Protector size ${result.size} already exist`);
     }
 
-    mutate(result);
-    onClose();
-    reset();
+    try {
+      await mutateAsync(result);
+
+      onClose();
+      reset();
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   //ERROR IN FORM

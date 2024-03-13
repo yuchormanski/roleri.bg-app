@@ -16,7 +16,7 @@ function useDeleteOptionsQuery(actionType) {
 
     const queryClient = useQueryClient();
 
-    const { mutate, isPending } = useMutation({
+    const { mutateAsync, mutate, isPending } = useMutation({
         enabled: false,
         mutationFn: (optionData) => del(endPoints[actionType](optionData._id)),
         onSuccess: (optionData) => {
@@ -30,7 +30,7 @@ function useDeleteOptionsQuery(actionType) {
         },
     });
 
-    return { mutate, isPending };
+    return { mutateAsync, mutate, isPending };
 }
 
 export { useDeleteOptionsQuery };

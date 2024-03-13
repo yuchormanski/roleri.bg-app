@@ -11,11 +11,13 @@ function useGetOptionsQuery(actionType) {
     protection: SERVER_ENDPOINTS.GET_PROTECTION_OPTIONS,
     age: SERVER_ENDPOINTS.GET_AGE_OPTIONS,
     subscription: SERVER_ENDPOINTS.GET_SUBSCRIPTION_OPTIONS,
+    users: SERVER_ENDPOINTS.GET_ALL_USERS,
   };
 
   const { isFetching, isError, error, data } = useQuery({
     queryKey: [actionType],
     queryFn: async () => get(endPoints[actionType]),
+    initialData: [],
   });
 
   if (isError) {

@@ -1,7 +1,9 @@
 import { Router } from "express";
 
 import { endpoints } from "../environments/endPoints.js";
-import { isUserGuest, isUserLogged } from "../middlewares/guards.js";
+import { preloadOptions, userRole } from "../environments/constants.js";
+import preloader from "../middlewares/preloader.js";
+import { isUserGuest, isUserLogged, isUserRole } from "../middlewares/guards.js";
 import {
     updateUserSchema,
     validateLoginSchema,
@@ -11,6 +13,7 @@ import {
 
 import {
     createResetLink,
+    getAllUsers,
     getUserById,
     resetUserPassword,
     updateUserById,
@@ -20,6 +23,17 @@ import {
 } from "../services/userService.js";
 
 const userController = Router();
+
+// Get all users
+userController.get(endpoints.get_all_users, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+    try {
+        const allUsers = await getAllUsers();
+
+        res.status(200).json(allUsers);
+    } catch (error) {
+        next(error);
+    }
+});
 
 // Register
 userController.post(endpoints.register, isUserGuest, async (req, res, next) => {

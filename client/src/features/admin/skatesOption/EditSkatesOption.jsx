@@ -19,16 +19,21 @@ function EditSkatesOption({ onClose, skatesData }) {
   });
   const { lang } = useLanguage();
 
-  const { mutate, isPending } = useEditOptionsQuery("skates");
+  const { mutateAsync, isPending, status } = useEditOptionsQuery("skates");
   const { register, handleSubmit, reset } = useForm({
     defaultValues: skatesData,
   });
 
   // SUBMITTING THE FORM
-  function onFormSubmit(skatesData) {
-    mutate(skatesData);
-    onClose();
-    reset();
+  async function onFormSubmit(skatesData) {
+    try {
+      await mutateAsync(skatesData);
+
+      onClose();
+      reset();
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   //ERROR IN FORM

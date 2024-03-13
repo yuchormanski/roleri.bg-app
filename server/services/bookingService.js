@@ -10,7 +10,15 @@ const unregisteredUser = async ({ date, lessonId, ...userData }) => {
         SubscriptionTypeModel.findById(userData.subscriptionType),
     ]);
 
-    const bookingWithDate = bookUserHelper(date, lessonId, unregisteredUserData._id, userData.additionalRequirements, subscriptionData.subscriptionCount);
+    const bookingWithDate = bookUserHelper(
+        date,
+        subscriptionData.subscriptionCount,
+        lessonId,
+        unregisteredUserData._id,
+        userData.additionalRequirements,
+        subscriptionData._id,
+    );
+
     const newLessonBooked = await BookingModel.insertMany(bookingWithDate);
 
     return newLessonBooked;
@@ -20,7 +28,15 @@ const unregisteredUser = async ({ date, lessonId, ...userData }) => {
 const registeredUser = async (bookingDataArray, ownerId) => {
     const bookingData = await Promise.all(bookingDataArray.map(async (b) => {
         const subscriptionData = await SubscriptionTypeModel.findById(b.subscriptionType);
-        const bookingWithDate = bookUserHelper(b.date, b.lessonId, b.skaterId, b.additionalRequirements, subscriptionData.subscriptionCount, ownerId);
+        const bookingWithDate = bookUserHelper(
+            b.date,
+            subscriptionData.subscriptionCount,
+            b.lessonId,
+            b.skaterId,
+            b.additionalRequirements,
+            b.subscriptionType,
+            ownerId,
+        );
         return bookingWithDate;
     }));
 

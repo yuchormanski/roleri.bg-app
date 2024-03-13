@@ -17,21 +17,19 @@ function AddSubscriptionOptions({ onClose }) {
   const { lang } = useLanguage();
 
   const queryClient = useQueryClient();
-  const { mutate, isPending } = useAddOptionsQuery("subscription");
+  const { mutateAsync, isPending } = useAddOptionsQuery("subscription");
 
   const { register, handleSubmit, reset } = useForm();
 
   // SUBMITTING THE FORM
-  function onFormSubmit(subscriptionData) {
+  async function onFormSubmit(subscriptionData) {
     const result = {
       typePayment: `${subscriptionData.typePaymentBg}&/&${subscriptionData.typePaymentEn}`,
       price: subscriptionData.price,
       subscriptionCount: subscriptionData.subscriptionCount,
     };
 
-    const subscriptionAvailableData = queryClient.getQueryData([
-      "subscription",
-    ]);
+    const subscriptionAvailableData = queryClient.getQueryData(["subscription"]);
     if (
       subscriptionAvailableData.some((p) => p.typePayment == result.typePayment)
     ) {
@@ -40,9 +38,13 @@ function AddSubscriptionOptions({ onClose }) {
       );
     }
 
-    mutate(result);
-    onClose();
-    reset();
+    try {
+      await mutateAsync(result);
+      onClose();
+      reset();
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   //ERROR IN FORM
