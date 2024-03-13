@@ -93,7 +93,7 @@ const lessonCreateSchema = joi.object({
       throw new Error('Invalid date')
     }
     return value;
-    
+
   }).allow(null).optional(),
 });
 
@@ -108,7 +108,7 @@ const skaterCreateSchema = joi.object({
 });
 
 // Unregistered booking user validation
-const unregisteredUSerCreateSchema = joi.object({
+const unregisteredBookingUserSchema = joi.object({
   firstName: joi.string().trim().required().max(20),
   lastName: joi.string().trim().required().max(20),
   email: joi.string().trim().required().trim().email().lowercase(),
@@ -130,7 +130,7 @@ const unregisteredUSerCreateSchema = joi.object({
 });
 
 // Registered user booking validation
-const registeredUserCreateSchema = joi.array().items(
+const registeredBookingUserSchema = joi.array().items(
   joi.object({
     additionalRequirements: joi.string().trim().max(300).allow("").allow(null).optional(),
     date: joi.date().required(),
@@ -140,6 +140,8 @@ const registeredUserCreateSchema = joi.array().items(
   })
 );
 
+
+
 export {
   validateRegisterSchema,
   validateLoginSchema,
@@ -147,6 +149,6 @@ export {
   updateUserSchema,
   lessonCreateSchema,
   skaterCreateSchema,
-  unregisteredUSerCreateSchema,
-  registeredUserCreateSchema,
+  unregisteredBookingUserSchema,
+  registeredBookingUserSchema,
 };

@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import { endpoints } from "../environments/endPoints.js";
 import { isOwner, isUserGuest, isUserLogged } from "../middlewares/guards.js";
-import { registeredUserCreateSchema, unregisteredUSerCreateSchema } from "../util/validationSchemes.js";
+import { registeredBookingUserSchema, unregisteredBookingUserSchema } from "../util/validationSchemes.js";
 import preloader from "../middlewares/preloader.js";
 import { preloadOptions } from "../environments/constants.js";
 import { getSkaterById } from "../services/skaterService.js";
@@ -15,7 +15,7 @@ bookingController.post(endpoints.unregistered_booking_user, isUserGuest, async (
   try {
     const userData = req.body;
 
-    await unregisteredUSerCreateSchema.validateAsync(userData);
+    await unregisteredBookingUserSchema.validateAsync(userData);
     const newLessonBooked = await unregisteredUser(userData);
 
     res.status(200).json(newLessonBooked);
@@ -30,7 +30,7 @@ bookingController.post(endpoints.registered_booking_user, isUserLogged, preloade
     const bookingData = req.body;
     const ownerId = req.user._id;
 
-    await registeredUserCreateSchema.validateAsync(bookingData);
+    await registeredBookingUserSchema.validateAsync(bookingData);
     const newLessonsBooked = await registeredUser(bookingData, ownerId);
 
     res.status(200).json(newLessonsBooked);

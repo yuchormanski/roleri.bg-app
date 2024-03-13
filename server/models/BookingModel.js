@@ -5,9 +5,21 @@ const bookingSchema = new Schema({
         type: Date,
         required: true
     },
-    present: {
+    isPresent: {
         type: Boolean,
         default: false
+    },
+    isPaid: {
+        type: Boolean,
+        default: false
+    },
+    additionalRequirements: {
+        type: String,
+        default: null,
+    },
+    lessonIndex: {
+        type: Number,
+        default: 1,
     },
     lessonId: {
         type: Types.ObjectId,
@@ -17,9 +29,9 @@ const bookingSchema = new Schema({
         type: Types.ObjectId,
         ref: 'Skater'
     },
-    additionalRequirements: {
-        type: String,
-        default: null,
+    subscriptionId: {
+        type: Types.ObjectId,
+        ref: "SubscriptionType",
     },
     owner: {
         type: Types.ObjectId,
