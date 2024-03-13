@@ -153,6 +153,7 @@ export const BG = {
   i_signedLessons: "Записани уроци",
   i_equipment: "Оборудване",
   i_noNeededEquipment: "За този урок не е необходимо оборудване",
+  i_noSignedLessons: "Няма записани уроци",
 
   // Book lessons
   book_headInfo_1:

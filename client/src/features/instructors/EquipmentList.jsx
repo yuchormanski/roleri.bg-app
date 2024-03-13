@@ -94,21 +94,6 @@ function EquipmentList() {
                           {equipment.quantity}
                         </p>
                       </div>
-
-                      <div className={styles.actionContainer}>
-                        {/* <button
-                      className={styles.actionBtn}
-                      onClick={() => onEditSkates(equipment)}
-                    >
-                      <LiaEditSolid />
-                    </button>
-                    <button
-                      className={styles.actionBtn}
-                      onClick={() => onDeleteSkates(equipment)}
-                    >
-                      <LiaTrashAlt />
-                    </button> */}
-                      </div>
                     </div>
                   </figure>
                 ))}
