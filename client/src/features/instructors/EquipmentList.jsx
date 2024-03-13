@@ -21,7 +21,6 @@ const equipmentData = [
     ],
   },
 ];
-console.log(equipmentData.at(0).skates);
 
 function EquipmentList() {
   const { lang } = useLanguage();
