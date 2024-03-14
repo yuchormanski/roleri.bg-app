@@ -98,6 +98,8 @@ export const EN = {
   signIn: "Sign In",
   signUp: "Sign Up",
   onDuty: "Active lessons",
+  from: "From",
+  to: "To",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",

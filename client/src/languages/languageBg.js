@@ -94,6 +94,8 @@ export const BG = {
   signIn: "Влез!",
   signUp: "Регистрирай се!",
   onDuty: "Настоящи уроци",
+  from: "От",
+  to: "До",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Добавете номер и количество",

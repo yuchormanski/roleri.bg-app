@@ -7,4 +7,6 @@ export const incoming = {
   sat: true,
   sun: true,
   type: false,
+  start: "07:00",
+  end: "20:00",
 };

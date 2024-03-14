@@ -22,26 +22,65 @@
 .toggleSwitch {
   width: 60px;
   height: 28px;
-  background-color: #ededed;
+  background-color: var(--color-footer-bg);
   border-radius: 13px;
   position: relative;
   /* transition: margin 5.8s ease-in-out; */
 }
 .switchBtn {
-  width: 30px;
+  width: 29px;
   aspect-ratio: 1/1;
-  background-color: var(--color-selected-shade);
+  background-color: var(--toggle-switch);
   position: absolute;
   top: -1px;
   border-radius: 100%;
   opacity: 0.8;
+  border: 1px solid #0000003f;
 }
 .toggleRight {
   transform: translateX(31px);
+  filter: drop-shadow(-4px 2px 5px #0b0b139a);
 }
 .toggleLeft {
   transform: translateX(-1px);
+  filter: drop-shadow(4px 2px 5px #0b0b139a);
 }
+
+.timePickerCOntainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.timeWrapper {
+  width: 100%;
+  align-self: center;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+.timeElement {
+  /* width: 100%; */
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.timeElement label {
+  font-size: 1.4rem;
+  color: var(--color-header-dim);
+}
+.timeElement input.timeInput {
+  width: 100%;
+  /* min-height: 2rem; */
+  font-size: 1.8rem;
+  text-align: center;
+  padding: 0.2rem 0 0.2rem 0.4rem;
+  border: var(--card-border);
+  border-radius: 0.3rem;
+}
+
 .secondaryContainer {
   background-color: var(--color-header);
   width: 100%;

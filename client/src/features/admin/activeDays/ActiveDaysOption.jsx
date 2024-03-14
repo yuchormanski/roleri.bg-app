@@ -22,6 +22,8 @@ function reducer(state, action) {
       return { ...state, sun: !state.sun };
     case "subscription/changed":
       return { ...state, type: !state.type };
+    case "time/changed":
+      return { ...state, [action.name]: [action.payload].at(0) };
 
     default:
       throw new Error("Unknown action type");
@@ -35,6 +37,12 @@ function ActiveDaysOption() {
 
   function wordModifier(day) {
     return day.at(0).toUpperCase() + day.slice(1).toLowerCase();
+  }
+
+  function timeHandler(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+    dispatch({ type: "time/changed", name: name, payload: value });
   }
 
   return (
@@ -66,8 +74,36 @@ function ActiveDaysOption() {
           </div>
           {state.type && (
             <div className={styles.timePickerCOntainer}>
-              <input type="time" />
-              <input type="time" />
+              {/* <p className={styles.timeINfo}>Time interval</p> */}
+              <div className={styles.timeWrapper}>
+                <div className={styles.timeElement}>
+                  <label htmlFor="startTime">{lang.from}</label>
+                  <input
+                    id={"startTime"}
+                    type="time"
+                    name={"start"}
+                    className={styles.timeInput}
+                    value={state.start}
+                    onChange={timeHandler}
+                    min="07:00"
+                    max="20:00"
+                  />
+                </div>
+
+                <div className={styles.timeElement}>
+                  <label htmlFor="endTime">{lang.to}</label>
+                  <input
+                    id={"endTime"}
+                    type="time"
+                    name={"end"}
+                    className={styles.timeInput}
+                    value={state.end}
+                    onChange={timeHandler}
+                    min="07:00"
+                    max="20:00"
+                  />
+                </div>
+              </div>
             </div>
           )}
           <div className={styles.btnContainer}>
