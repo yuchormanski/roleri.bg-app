@@ -22,7 +22,7 @@
 .toggleSwitch {
   width: 60px;
   height: 28px;
-  background-color: var(--color-footer-bg);
+  background-color: var(--toggle-switch-bg);
   border-radius: 13px;
   position: relative;
   /* transition: margin 5.8s ease-in-out; */
