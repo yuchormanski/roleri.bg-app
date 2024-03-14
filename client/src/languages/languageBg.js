@@ -77,7 +77,7 @@ export const BG = {
   imageUrl: "Адрес на изображение",
   validTo: "Дата на валидност",
   learnMore: "Научете повече",
-  activeDays: "Активни дни за уроци",
+  activeDays: "Редовни уроци",
   individualDays: "Индивидуални уроци",
   mon: "Понеделник",
   tue: "Вторник",

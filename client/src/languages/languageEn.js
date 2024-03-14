@@ -81,7 +81,7 @@ export const EN = {
   imageUrl: "Image URL",
   validTo: "Valid to date",
   learnMore: "Learn more",
-  activeDays: "Lessons active days",
+  activeDays: "Regular days",
   individualDays: "Individual days",
   mon: "Monday",
   tue: "Tuesday",
