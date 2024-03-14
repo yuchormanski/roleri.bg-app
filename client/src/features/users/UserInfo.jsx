@@ -8,13 +8,15 @@ import { useLanguage } from "../../context/Language.jsx";
 import { useGetUserDataQuery } from "./useGetUserDataQuery.js";
 
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
+import UserLessonItem from "./UserLessonItem.jsx";
 
 function UserInfo() {
   const { newPath } = usePath();
   const { lang, index } = useLanguage();
 
+  // TODO: трябват две заявки, една за профила на юзъра и една за листа с уроците, ако той не се съдржа в самия юзър
   const { isLoading, isFetching, data } = useGetUserDataQuery();
-  const lessons = {};
+  const lessons = [{}, {}];
 
   useEffect(() => newPath("profile"), [newPath]);
 
@@ -31,11 +33,15 @@ function UserInfo() {
           </h3>
 
           <div className={styles.secondaryContainer}>
-            {lessons && <h3>You have no active lessons.</h3>}
-            <p>
-              Трябва да се зарежда информация дали има предстоящи записани
-              уроци.
-            </p>
+            {lessons.length === 0 ? (
+              <h3>You have no active lessons.</h3>
+            ) : (
+              <div className={styles.lessonsContainer}>
+                {lessons.map((lesson, i) => (
+                  <UserLessonItem key={lesson._id || i} />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}

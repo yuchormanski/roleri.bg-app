@@ -27,6 +27,11 @@
   padding: 2rem;
 }
 
+.lessonsContainer {
+  display: flex;
+  flex-direction: column;
+}
+
 .profileImg {
   font-size: 24rem;
 }
