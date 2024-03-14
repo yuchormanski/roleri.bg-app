@@ -58,4 +58,9 @@ export const endpoints = {
   // main path: /bookings/
   unregistered_booking_user: "/unregistered-booking",
   registered_booking_user: "/registered-booking",
+  get_active_days_admin: "/active-days-admin",
+  get_active_days_individual: "/active-days-individuals",
+  get_active_days_regular: "/active-days-regular",
+  edit_active_days_individual: "/edit-active-days-individuals",
+  edit_active_days_regular: "/edit-active-days-regular",
 };

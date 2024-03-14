@@ -5,6 +5,8 @@ const BASE_URL =
     : "http://localhost:3000/";
 
 const SERVER_ENDPOINTS = {
+  GET_ALL_NEWS: "news",
+
   GET_ALL_USERS: "users/",
   GET_USER: "users/get-user",
   UPDATE_USER: "users/update-user",
@@ -13,13 +15,14 @@ const SERVER_ENDPOINTS = {
   LOGOUT: "users/logout",
   FORGOT_PASSWORD: "users/forgot-password",
   RESET_PASSWORD: "users/reset-password",
+
   GET_ALL_SKATERS: "skaters",
   GET_ALL_USER_SKATERS: "skaters/owned-by",
   GET_SKATER_BY_ID: (skaterId) => `skaters/get-one/${skaterId}`,
   ADD_SKATER: "skaters/add",
   EDIT_SKATER: "skaters/edit",
   DELETE_SKATER: (skaterId) => `skaters/delete/${skaterId}`,
-  GET_ALL_NEWS: "news",
+
   GET_ALL_OPTIONS: "options",
   GET_SKATES_OPTIONS: "options/skates",
   GET_PROTECTION_OPTIONS: "options/protections",
@@ -37,8 +40,15 @@ const SERVER_ENDPOINTS = {
   DELETE_PROTECTION_OPTIONS: (optionId) => `options/delete-protections/${optionId}`,
   DELETE_AGE_OPTIONS: (optionId) => `options/delete-group-age/${optionId}`,
   DELETE_SUBSCRIPTION_OPTIONS: (optionId) => `options/delete-subscriptions/${optionId}`,
+
   UNREGISTERED_BOOKING_USER: "bookings/unregistered-booking",
   REGISTERED_BOOKING_USER: "bookings/registered-booking",
+  GET_ACTIVE_DAYS_ADMIN: "bookings/active-days-admin",
+  GET_ACTIVE_DAYS_INDIVIDUAL: "bookings/active-days-individuals",
+  GET_ACTIVE_DAYS_REGULAR: "bookings/active-days-regular",
+  EDIT_ACTIVE_DAYS_INDIVIDUAL: "bookings/edit-active-days-individuals",
+  EDIT_ACTIVE_DAYS_REGULAR: "bookings/edit-active-days-regular",
+
   GET_ALL_LESSONS: "lessons",
   ADD_LESSON: "lessons/add-lesson",
   EDIT_LESSON: "lessons/edit-lesson",

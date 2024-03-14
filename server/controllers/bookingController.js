@@ -1,12 +1,26 @@
 import { Router } from "express";
 
 import { endpoints } from "../environments/endPoints.js";
-import { isOwner, isUserGuest, isUserLogged } from "../middlewares/guards.js";
-import { registeredBookingUserSchema, unregisteredBookingUserSchema } from "../util/validationSchemes.js";
+import { isOwner, isUserGuest, isUserLogged, isUserRole } from "../middlewares/guards.js";
 import preloader from "../middlewares/preloader.js";
-import { preloadOptions } from "../environments/constants.js";
+import { preloadOptions, userRole } from "../environments/constants.js";
 import { getSkaterById } from "../services/skaterService.js";
-import { registeredUser, unregisteredUser } from "../services/bookingService.js";
+import { getUserById } from "../services/userService.js";
+import {
+  individualActiveDaysBookingSchema,
+  registeredBookingUserSchema,
+  regularActiveDaysBookingSchema,
+  unregisteredBookingUserSchema
+} from "../util/validationSchemes.js";
+import {
+  getIndividualActiveDays,
+  getRegularActiveDays,
+  getRegularAndIndividualDays,
+  registeredUser,
+  unregisteredUser,
+  updateIndividualActiveDays,
+  updateRegularActiveDays
+} from "../services/bookingService.js";
 
 const bookingController = Router();
 
@@ -34,6 +48,67 @@ bookingController.post(endpoints.registered_booking_user, isUserLogged, preloade
     const newLessonsBooked = await registeredUser(bookingData, ownerId);
 
     res.status(200).json(newLessonsBooked);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Get regular active days
+bookingController.get(endpoints.get_active_days_regular, async (req, res, next) => {
+  try {
+    const activeDaysData = await getRegularActiveDays();
+
+    res.status(200).json(activeDaysData);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Update regular active days
+bookingController.put(endpoints.edit_active_days_regular, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+  try {
+    const regularDaysData = req.body;
+
+    await regularActiveDaysBookingSchema.validateAsync(regularDaysData);
+    const editedActiveDaysData = await updateRegularActiveDays(regularDaysData);
+
+    res.status(200).json(editedActiveDaysData);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Get individual active days
+bookingController.get(endpoints.get_active_days_individual, async (req, res, next) => {
+  try {
+    const activeDaysData = await getIndividualActiveDays();
+
+    res.status(200).json(activeDaysData);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Update individual active days
+bookingController.put(endpoints.edit_active_days_individual, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+  try {
+    const individualDaysData = req.body;
+
+    await individualActiveDaysBookingSchema.validateAsync(individualDaysData);
+    const editedActiveDaysData = await updateIndividualActiveDays(individualDaysData);
+
+    res.status(200).json(editedActiveDaysData);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Get both active days regular and individual only for admin
+bookingController.get(endpoints.get_active_days_admin, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+  try {
+    const allActiveDaysData = await getRegularAndIndividualDays();
+
+    res.status(200).json(allActiveDaysData);
   } catch (error) {
     next(error);
   }
