@@ -3,6 +3,15 @@ import { Types } from "mongoose";
 
 import { userRole } from "../environments/constants.js";
 
+// Common validations
+// MongoDB ObjectId validation
+const objectIdSchema = joi.string().custom((value, helpers) => {
+  if (!Types.ObjectId.isValid(value)) {
+    return helpers.error("any.invalid");
+  }
+  return value;
+}, "MongoDB ObjectId");
+
 // User Password messages
 const commonPasswordMessages = {
   "string.base": "Password must be a string",
@@ -14,21 +23,9 @@ const commonPasswordMessages = {
 };
 
 // User Password validation
-const passwordSchema = joi
-  .string()
-  .regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,20}$/)
-  .required()
-  .trim()
-  .messages(commonPasswordMessages);
+const passwordSchema = joi.string().regex(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,20}$/).required().trim().messages(commonPasswordMessages);
 
-// MongoDB ObjectId validation
-const objectIdSchema = joi.string().custom((value, helpers) => {
-  if (!Types.ObjectId.isValid(value)) {
-    return helpers.error("any.invalid");
-  }
-  return value;
-}, "MongoDB ObjectId");
-
+// Regular validation
 // User register validation
 const validateRegisterSchema = joi.object({
   firstName: joi.string().required().trim().max(20),
@@ -140,7 +137,31 @@ const registeredBookingUserSchema = joi.array().items(
   })
 );
 
+// Booking validation to regular active days
+const regularActiveDaysBookingSchema = joi.object({
+  _id: objectIdSchema,
+  mon: joi.boolean().required(),
+  tue: joi.boolean().required(),
+  wed: joi.boolean().required(),
+  thu: joi.boolean().required(),
+  fri: joi.boolean().required(),
+  sat: joi.boolean().required(),
+  sun: joi.boolean().required(),
+});
 
+// Booking validation to individual active days
+const individualActiveDaysBookingSchema = joi.object({
+  _id: objectIdSchema,
+  mon: joi.boolean().required(),
+  tue: joi.boolean().required(),
+  wed: joi.boolean().required(),
+  thu: joi.boolean().required(),
+  fri: joi.boolean().required(),
+  sat: joi.boolean().required(),
+  sun: joi.boolean().required(),
+  start: joi.string().trim().required(),
+  end: joi.string().trim().required(),
+});
 
 export {
   validateRegisterSchema,
@@ -151,4 +172,6 @@ export {
   skaterCreateSchema,
   unregisteredBookingUserSchema,
   registeredBookingUserSchema,
+  individualActiveDaysBookingSchema,
+  regularActiveDaysBookingSchema,
 };

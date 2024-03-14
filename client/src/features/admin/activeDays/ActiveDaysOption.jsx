@@ -1,8 +1,10 @@
 import styles from "./ActiveDaysOption.module.css";
-import { useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { useLanguage } from "../../../context/Language.jsx";
 import Button from "../../../ui/elements/button/Button.jsx";
-import { incoming } from "../../../util/test.js";
+import { useGetOptionsQuery } from "../useGetOptionsQuery.js";
+import { initialState } from "../../../util/initialStateActiveDays.js";
+import { useEditActiveDaysQuery } from "./useEditActiveDaysQuery.js";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -23,7 +25,7 @@ function reducer(state, action) {
     case "subscription/changed":
       return { ...state, type: !state.type };
     case "time/changed":
-      return { ...state, [action.name]: [action.payload].at(0) };
+      return { ...state, [action.name]: action.payload };
 
     default:
       throw new Error("Unknown action type");
@@ -31,9 +33,39 @@ function reducer(state, action) {
 }
 
 function ActiveDaysOption() {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const { lang } = useLanguage();
+  const { isFetching, data: availableDays } = useGetOptionsQuery("activeDays");
+  const { mutate: mutateRegularDay, isPending: isPendingRegularDay } = useEditActiveDaysQuery("edit_regular_day");
+  const { mutate: mutateIndividualDay, isPending: isPendingInitialDay } = useEditActiveDaysQuery("edit_individual_day");
 
-  const [state, dispatch] = useReducer(reducer, incoming);
+  useEffect(() => {
+    if (isFetching) return;
+
+    if (!state.type) {
+      Object.entries(availableDays.regularDays).forEach(([d, v]) => (state[d] !== v && d !== "_id") && dispatch({ type: `day/${d}` }));
+    } else {
+      Object.entries(availableDays.individualDays).forEach(([d, v]) => {
+        if (typeof v === 'string') {
+          dispatch({ type: 'time/changed', name: d, payload: v });
+        } else if (state[d] !== v && d !== "_id") {
+          dispatch({ type: `day/${d}` })
+        }
+      });
+    }
+
+  }, [availableDays, isFetching, state.type]);
+
+  function onEditClickHandler() {
+    if (state.type) {
+      const { type, ...individualDays } = state;
+      mutateIndividualDay(individualDays);
+
+    } else {
+      const { type, start, end, ...regularDays } = state;
+      mutateRegularDay(regularDays);
+    }
+  }
 
   function wordModifier(day) {
     return day.at(0).toUpperCase() + day.slice(1).toLowerCase();
@@ -45,6 +77,7 @@ function ActiveDaysOption() {
     dispatch({ type: "time/changed", name: name, payload: value });
   }
 
+
   return (
     <>
       <div className={styles.container}>
@@ -54,9 +87,7 @@ function ActiveDaysOption() {
 
         <div className={styles.toggleSwitch}>
           <div
-            className={`${styles.switchBtn} ${
-              state.type ? styles.toggleRight : styles.toggleLeft
-            }`}
+            className={`${styles.switchBtn} ${state.type ? styles.toggleRight : styles.toggleLeft}`}
             onClick={() => dispatch({ type: "subscription/changed" })}
           ></div>
         </div>
@@ -66,9 +97,9 @@ function ActiveDaysOption() {
             {Array.from({ length: 7 }, (_, i) => (
               <DayName
                 key={i}
-                isValid={state[Object.keys(incoming).at(i)]}
+                isValid={state[Object.keys(initialState).at(i)]}
                 dispatch={dispatch}
-                text={wordModifier(Object.keys(incoming).at(i))}
+                text={wordModifier(Object.keys(initialState).at(i))}
               />
             ))}
           </div>
@@ -108,7 +139,10 @@ function ActiveDaysOption() {
           )}
           <div className={styles.btnContainer}>
             <div style={{ marginLeft: "auto" }}>
-              <Button type={"primary"}>{lang.edit}</Button>
+              <Button
+                onClick={onEditClickHandler}
+                type={"primary"}>{lang.edit}
+              </Button>
             </div>
           </div>
         </div>
@@ -143,9 +177,7 @@ export default ActiveDaysOption;
 function DayName({ isValid, dispatch, text }) {
   return (
     <button
-      className={`${styles.dayBox} ${
-        isValid ? styles.activeDay : styles.inactiveDay
-      }`}
+      className={`${styles.dayBox} ${isValid ? styles.activeDay : styles.inactiveDay}`}
       onClick={() => dispatch({ type: `day/${text.toLowerCase()}` })}
     >
       {text}

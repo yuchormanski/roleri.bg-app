@@ -25,8 +25,10 @@
   background-color: var(--toggle-switch-bg);
   border-radius: 13px;
   position: relative;
+  cursor: pointer;
   /* transition: margin 5.8s ease-in-out; */
 }
+
 .switchBtn {
   width: 29px;
   aspect-ratio: 1/1;
@@ -37,10 +39,12 @@
   opacity: 0.8;
   border: 1px solid #0000003f;
 }
+
 .toggleRight {
   transform: translateX(31px);
   filter: drop-shadow(-4px 2px 5px #0b0b139a);
 }
+
 .toggleLeft {
   transform: translateX(-1px);
   filter: drop-shadow(4px 2px 5px #0b0b139a);
@@ -61,16 +65,19 @@
   justify-content: flex-end;
   gap: 1rem;
 }
+
 .timeElement {
   /* width: 100%; */
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
 }
+
 .timeElement label {
   font-size: 1.4rem;
   color: var(--color-header-dim);
 }
+
 .timeElement input.timeInput {
   width: 100%;
   /* min-height: 2rem; */
@@ -116,6 +123,7 @@
   background-color: rgb(4, 155, 4);
   color: #ededed;
 }
+
 .inactiveDay {
   background-color: #ededed;
   color: rgb(4, 155, 4);
@@ -132,6 +140,7 @@
   width: 100%;
   font-size: clamp(1.4rem, 1.7vw, 1.8rem);
 }
+
 .info span {
   font-size: clamp(1.6rem, 2rem, 2rem);
   color: var(--color-main-btn);
@@ -141,10 +150,12 @@
 .selectedList {
   padding: 1rem 0 0 3rem;
 }
+
 .listItem {
   font-size: 1.4rem;
   color: var(--button);
 }
+
 @media (max-width: 765px) {
   .heading {
     margin-bottom: 3rem;
@@ -155,9 +166,11 @@
   .container {
     padding: 1rem 0 2rem;
   }
+
   .secondaryContainer {
     padding: 4rem 1rem;
   }
+
   /* .dayName {
     font-size: 1.8rem;
   } */
@@ -166,6 +179,7 @@
     font-size: 1.8rem;
     font-weight: 300;
   }
+
   .toggleSwitch {
     margin: 0 1rem 0 auto;
   }
