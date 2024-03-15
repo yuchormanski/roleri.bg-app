@@ -28,9 +28,9 @@ function DatePickerCalendar({ selectedDateProp }) {
   }
 
   // two days forward can't book a lesson
-  function twoDaysForward() {
+  function twoDaysForward(dayCount) {
     let result = new Date();
-    result.setDate(result.getDate() + 2);
+    result.setDate(result.getDate() + dayCount);
     return result;
   }
 
@@ -44,7 +44,10 @@ function DatePickerCalendar({ selectedDateProp }) {
         // disabling past dates and weekdays
         // filterDate={(date) => date >= new Date() && isWeekend(date)}
         filterDate={(date) => date >= new Date() && isWeekend(date)}
-        excludeDates={[{ date: twoDaysForward() }]}
+        excludeDates={[
+          { date: twoDaysForward(1) },
+          { date: twoDaysForward(2) },
+        ]}
         format
         calendarClassName="calendar-styles"
       />
