@@ -17,7 +17,7 @@ function UpdateUser() {
   const { path, newPath } = usePath();
 
   const { updateUserMutation } = useUpdateUserQuery();
-  const { getUserHandler } = useAuthContext();
+  const { getUserHandler, updateUserHandler } = useAuthContext();
   const data = getUserHandler();
   const [fieldValues, setFieldValues] = useState({ ...data });
 
@@ -30,18 +30,15 @@ function UpdateUser() {
   });
 
   async function onFormSubmit(data) {
-    // const { _id, ...dataFromServer } = data;
-    const { firstName, lastName, email, phone } = data;
-    const result = {
-      firstName,
-      lastName,
-      email,
-      phone,
-    };
+    try {
+      const { _id, createdAt, updatedAt, ...serverData } = data;
+      await updateUserMutation.mutateAsync(serverData);
+      updateUserHandler(serverData);
+      reset();
 
-    console.log(result);
-    await updateUserMutation.mutateAsync(result);
-    reset();
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   function onErrorForm(error) {
@@ -91,9 +88,8 @@ function UpdateUser() {
               />
               <label
                 htmlFor={"firstName"}
-                className={`${styles.label} ${
-                  fieldValues.firstName ? styles.filled : null
-                }`}
+                className={`${styles.label} ${fieldValues.firstName ? styles.filled : null
+                  }`}
               >
                 {lang.firstName}
               </label>
@@ -117,9 +113,8 @@ function UpdateUser() {
               />
               <label
                 htmlFor={"lastName"}
-                className={`${styles.label} ${
-                  fieldValues.lastName ? styles.filled : null
-                }`}
+                className={`${styles.label} ${fieldValues.lastName ? styles.filled : null
+                  }`}
               >
                 {lang.lastName}
               </label>
@@ -147,9 +142,8 @@ function UpdateUser() {
               />
               <label
                 htmlFor={"email"}
-                className={`${styles.label} ${
-                  fieldValues.email ? styles.filled : null
-                }`}
+                className={`${styles.label} ${fieldValues.email ? styles.filled : null
+                  }`}
               >
                 {lang.email}
               </label>
@@ -177,9 +171,8 @@ function UpdateUser() {
               />
               <label
                 htmlFor={"phone"}
-                className={`${styles.label} ${
-                  fieldValues.phone ? styles.filled : null
-                }`}
+                className={`${styles.label} ${fieldValues.phone ? styles.filled : null
+                  }`}
               >
                 {lang.phone}
               </label>
