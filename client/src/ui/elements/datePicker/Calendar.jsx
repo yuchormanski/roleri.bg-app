@@ -2,13 +2,32 @@ import { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import "./styles.css";
+import { useGetOptionsQuery } from "../../../features/admin/useGetOptionsQuery.js";
 
 // days from datatabase
 // 0 for Sunday, 1 for monday ... 6 for Saturday
-const daysForFilter = [0, 6];
+
+// const daysForFilter = [0, 6];
 
 function DatePickerCalendar({ selectedDateProp }) {
+  const [daysForFilter, setDaysForFilter] = useState([]);
   const [selectedDay, setSelectedDay] = useState(null);
+  const { isFetching, data } = useGetOptionsQuery("activeDays");
+
+  useEffect(() => {
+    if (isFetching) return;
+    const { _id, ...weekDays } = data.regularDays;
+    const res = [];
+    if (weekDays.sun) res.push(0);
+    if (weekDays.mon) res.push(1);
+    if (weekDays.tue) res.push(2);
+    if (weekDays.wed) res.push(3);
+    if (weekDays.thu) res.push(4);
+    if (weekDays.fri) res.push(5);
+    if (weekDays.sat) res.push(6);
+
+    setDaysForFilter(res);
+  }, [data, isFetching]);
 
   useEffect(() => {
     selectedDateProp(selectedDay);
@@ -25,6 +44,10 @@ function DatePickerCalendar({ selectedDateProp }) {
       day === f ||
       day === g
     );
+  }
+
+  function excludedDatesHandler() {
+    return [{ date: twoDaysForward(1) }, { date: twoDaysForward(2) }];
   }
 
   // two days forward can't book a lesson
