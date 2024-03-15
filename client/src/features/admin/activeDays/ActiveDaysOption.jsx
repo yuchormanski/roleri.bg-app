@@ -8,6 +8,14 @@ import { useEditActiveDaysQuery } from "./useEditActiveDaysQuery.js";
 
 function reducer(state, action) {
   switch (action.type) {
+    //  TODO: CHECK if this can be used to disabled
+    // case "day/mon": {
+    //   // Toggle the state of mon
+    //   const toggledMon = !state.mon;
+    //   // Conditionally update the state based on the disableBtn flag
+    //   const newState = state.disableBtn ? { ...state, mon: toggledMon, disableBtn: false } : { ...state, mon: toggledMon };
+    //   return newState;
+    // }
     case "day/mon":
       return { ...state, mon: !state.mon };
     case "day/tue":
@@ -96,9 +104,7 @@ function ActiveDaysOption() {
 
         <div className={styles.toggleSwitch}>
           <div
-            className={`${styles.switchBtn} ${
-              state.type ? styles.toggleRight : styles.toggleLeft
-            }`}
+            className={`${styles.switchBtn} ${state.type ? styles.toggleRight : styles.toggleLeft}`}
             onClick={() => dispatch({ type: "subscription/changed" })}
           ></div>
         </div>
@@ -199,9 +205,8 @@ function DayName({ isValid, dispatch, text, state }) {
 
   return (
     <button
-      className={`${styles.dayBox} ${
-        isValid ? styles.activeDay : styles.inactiveDay
-      }`}
+      className={`${styles.dayBox} ${isValid ? styles.activeDay : styles.inactiveDay
+        }`}
       onClick={clickHandler}
     >
       {text}
