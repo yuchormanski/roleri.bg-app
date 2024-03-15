@@ -9,7 +9,7 @@ import { put } from "../../api/api.js";
 
 function useUpdateUserQuery() {
   const queryClient = useQueryClient();
-  const { addUserHandler } = useAuthContext();
+  const { updateUserHandler } = useAuthContext();
 
   const { redirectTo } = useMoveBack();
 
@@ -21,7 +21,7 @@ function useUpdateUserQuery() {
       // Save the user data to the cache
       queryClient.setQueryData(["user"], userData);
       // Save the user data to local storage
-      addUserHandler(userData);
+      updateUserHandler(userData);
 
       redirectTo("/profile");
     },
