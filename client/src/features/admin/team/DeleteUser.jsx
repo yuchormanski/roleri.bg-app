@@ -3,18 +3,22 @@ import { GoX } from "react-icons/go";
 import Popup from "../../../ui/elements/popupModal/Popup.jsx";
 import Button from "../../../ui/elements/button/Button.jsx";
 import { useLanguage } from "../../../context/Language.jsx";
-import { useMoveBack } from "../../../hooks/useMoveBack.js";
+import { useDeleteOptionsQuery } from "../useDeleteOptionsQuery.js"
 
 function DeleteUser({ selectedOption, onClose }) {
   const { lang } = useLanguage();
-  const { redirectTo } = useMoveBack();
 
-  function deleteUser() {
-    if (
-      window.confirm("You can't undone that! If you understand that - proceed")
-    ) {
-      console.log("done");
-      redirectTo("/settings");
+  const { mutateAsync, isPending } = useDeleteOptionsQuery("users");
+
+  async function deleteUser() {
+    if (window.confirm("You can't undone that! If you understand that - proceed")) {
+      try {
+        await mutateAsync(selectedOption);
+
+        onClose();
+      } catch (error) {
+        console.error(error.message);
+      }
     }
   }
   return (
