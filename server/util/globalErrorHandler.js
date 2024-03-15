@@ -27,6 +27,9 @@ const globalErrorHandler = (err, req, res, next) => {
             // Cast error
             statusCode = 400;
             message = 'Invalid data type';
+        } else {
+            statusCode = 400;
+            message = 'Unhandled mongoose error';
         }
 
     } else if (err.isJoi) {

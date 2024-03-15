@@ -5,6 +5,7 @@ import { preloadOptions, userRole } from "../environments/constants.js";
 import preloader from "../middlewares/preloader.js";
 import { isUserGuest, isUserLogged, isUserRole } from "../middlewares/guards.js";
 import {
+    updateUserRoleSchema,
     updateUserSchema,
     validateLoginSchema,
     validateRegisterSchema,
@@ -13,10 +14,12 @@ import {
 
 import {
     createResetLink,
+    deleteUserById,
     getAllUsers,
     getUserById,
     resetUserPassword,
     updateUserById,
+    updateUserRoleById,
     userLogin,
     userLogout,
     userRegister,
@@ -27,7 +30,8 @@ const userController = Router();
 // Get all users
 userController.get(endpoints.get_all_users, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
     try {
-        const allUsers = await getAllUsers();
+        const currentUserId = req.user._id;
+        const allUsers = await getAllUsers(currentUserId);
 
         res.status(200).json(allUsers);
     } catch (error) {
@@ -127,6 +131,19 @@ userController.put(endpoints.update_user, isUserLogged, async (req, res, next) =
         const updatedUser = await updateUserById(userId, userData);
 
         res.status(200).json(updatedUser);
+    } catch (error) {
+        next(error);
+    }
+});
+
+// Change user role
+userController.delete(endpoints.delete_user, isUserLogged, preloader(getUserById, preloadOptions.getUserById), isUserRole(userRole.admin), async (req, res, next) => {
+    try {
+        const userId = req.params.userId;
+
+        const deletedMessage = await deleteUserById(userId);
+
+        res.status(200).json(deletedMessage);
     } catch (error) {
         next(error);
     }

@@ -56,6 +56,12 @@ const updateUserSchema = joi.object({
   role: joi.string().allow("").optional().valid(userRole.admin, userRole.user, userRole.instructor).trim().lowercase(),
 });
 
+// User update role
+const updateUserRoleSchema = joi.object({
+  _id: objectIdSchema,
+  role: joi.string().allow("").optional().valid(userRole.admin, userRole.user, userRole.instructor).trim().lowercase(),
+});
+
 // User login validation
 const validateLoginSchema = joi.object({
   email: joi.string().required().trim().email().lowercase(),
@@ -174,4 +180,5 @@ export {
   registeredBookingUserSchema,
   individualActiveDaysBookingSchema,
   regularActiveDaysBookingSchema,
+  updateUserRoleSchema,
 };

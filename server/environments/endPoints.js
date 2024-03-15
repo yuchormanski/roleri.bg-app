@@ -21,6 +21,8 @@ export const endpoints = {
   reset_password: "/reset-password",
   get_user: "/get-user",
   update_user: "/update-user",
+  edit_user_role: "/edit-user-role",
+  delete_user: "/delete-user/:userId",
 
   // main path: /lessons/
   get_all_lessons: "/",

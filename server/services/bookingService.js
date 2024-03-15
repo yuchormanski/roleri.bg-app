@@ -97,8 +97,6 @@ const getRegularAndIndividualDays = async () => {
         await IndividualDaysModel.findOne().select('-__v -createdAt -updatedAt')
     ]);
 
-
-
     const combinedActiveDays = {
         regularDays: regularDays ? regularDays : getDefaultValuesFromActiveDays(),
         individualDays: individualDays ? individualDays : getDefaultValuesFromActiveDays('individual'),
@@ -120,7 +118,6 @@ function getDefaultValuesFromActiveDays(option) {
         ...(option === 'individual' && { start: "08:00", end: "20:00" }),
     };
 }
-
 
 export {
     unregisteredUser,

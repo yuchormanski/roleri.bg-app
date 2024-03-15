@@ -17,7 +17,7 @@ function UpdateUser() {
   const { path, newPath } = usePath();
 
   const { updateUserMutation } = useUpdateUserQuery();
-  const { getUserHandler, updateUserHandler } = useAuthContext();
+  const { getUserHandler } = useAuthContext();
   const data = getUserHandler();
   const [fieldValues, setFieldValues] = useState({ ...data });
 
@@ -33,9 +33,8 @@ function UpdateUser() {
     try {
       const { _id, createdAt, updatedAt, ...serverData } = data;
       await updateUserMutation.mutateAsync(serverData);
-      updateUserHandler(serverData);
-      reset();
 
+      reset();
     } catch (error) {
       console.error(error.message);
     }

@@ -10,11 +10,13 @@ const SERVER_ENDPOINTS = {
   GET_ALL_USERS: "users/",
   GET_USER: "users/get-user",
   UPDATE_USER: "users/update-user",
+  EDIT_USER_ROLE: "users/edit-user-role",
   REGISTER: "users/register",
   LOGIN: "users/login",
   LOGOUT: "users/logout",
   FORGOT_PASSWORD: "users/forgot-password",
   RESET_PASSWORD: "users/reset-password",
+  DELETE_USER: (userId) => `users/delete-user/${userId}`,
 
   GET_ALL_SKATERS: "skaters",
   GET_ALL_USER_SKATERS: "skaters/owned-by",

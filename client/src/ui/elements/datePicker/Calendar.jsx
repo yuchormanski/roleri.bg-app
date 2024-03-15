@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import "./styles.css";
-import { useGetOptionsQuery } from "../../../features/admin/useGetOptionsQuery.js";
+import { useGetActiveRegularDaysQuery } from "./useGetActiveRegularDaysQuery.js";
 
 // days from datatabase
 // 0 for Sunday, 1 for monday ... 6 for Saturday
@@ -12,11 +12,11 @@ import { useGetOptionsQuery } from "../../../features/admin/useGetOptionsQuery.j
 function DatePickerCalendar({ selectedDateProp }) {
   const [daysForFilter, setDaysForFilter] = useState([]);
   const [selectedDay, setSelectedDay] = useState(null);
-  const { isFetching, data } = useGetOptionsQuery("activeDays");
+  const { isFetching, data: regularDaysData } = useGetActiveRegularDaysQuery();
 
   useEffect(() => {
     if (isFetching) return;
-    const { _id, ...weekDays } = data.regularDays;
+    const { _id, ...weekDays } = regularDaysData;
     const res = [];
     if (weekDays.sun) res.push(0);
     if (weekDays.mon) res.push(1);
@@ -27,7 +27,7 @@ function DatePickerCalendar({ selectedDateProp }) {
     if (weekDays.sat) res.push(6);
 
     setDaysForFilter(res);
-  }, [data, isFetching]);
+  }, [regularDaysData, isFetching]);
 
   useEffect(() => {
     selectedDateProp(selectedDay);

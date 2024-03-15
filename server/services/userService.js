@@ -9,15 +9,46 @@ import { userRole } from "../environments/constants.js";
 import { generateUserToken, signJwtToken } from "../util/signJwtToken.js";
 import { passwordResetTemplate } from "../util/passwordResetTemplate.js";
 import verifyJwtToken from "../util/verifyJwtToken.js";
+import { BookingModel } from "../models/BookingModel.js";
+import { LessonModel } from "../models/LessonModel.js";
+import { SkaterModel } from "../models/SkaterModel.js";
 
 // Get one user
-const getAllUsers = async () => UserParent.find().select("-password -__v");
+const getAllUsers = async (userIdToExclude) => UserParent.find({ _id: { $ne: userIdToExclude } }).select("-password -__v");
 
 // Get one user
 const getUserById = async (userId) => UserParent.findById(userId).select("-password -__v");
 
 // Update user
-const updateUserById = async (userId, userData) => UserParent.findByIdAndUpdate(userId, userData, { runValidators: true, new: true }).select("-password -__v");
+const updateUserById = async (userId, userData) => UserParent.findByIdAndUpdate(userId, userData, { runValidators: true, new: true }).select("-password -__v -updatedAt -createdAt");
+
+// Update user role
+const updateUserRoleById = async (userData) => UserParent.findByIdAndUpdate({ _id: userData._id }, { role: userData.role }, { runValidators: true, new: true }).select("-password -__v");
+
+// Delete user
+const deleteUserById = async (userId) => {
+    // Find the user by ID
+    const user = await UserParent.findById(userId);
+
+    if (!user) {
+        throw new Error('User not found');
+    }
+
+    // Find and delete related bookings
+    await BookingModel.deleteMany({ owner: userId });
+
+    // Find and delete related lessons
+    await LessonModel.deleteMany({ owner: userId });
+
+    // Find and delete related skaters
+    await SkaterModel.deleteMany({ owner: userId });
+
+    // Finally, delete the user
+    await UserParent.findByIdAndDelete(userId);
+
+    return { success: true, message: 'User and related models deleted successfully' };
+};
+
 
 // Register
 const userRegister = async ({
@@ -201,4 +232,6 @@ export {
     userLogout,
     createResetLink,
     resetUserPassword,
+    updateUserRoleById,
+    deleteUserById,
 };
