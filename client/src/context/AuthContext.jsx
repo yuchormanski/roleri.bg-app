@@ -36,12 +36,21 @@ function AutContextProvider({ children }) {
     return isAdmin;
   }
 
+  function updateUserHandler(data) {
+    const oldUserData = JSON.parse(localStorage.getItem(USER_LOCAL_STORAGE_KEY));
+
+    const newData = { ...oldUserData, ...data };
+
+    localStorage.setItem(USER_LOCAL_STORAGE_KEY, JSON.stringify(newData));
+  }
+
   const values = {
     addUserHandler,
     getUserHandler,
     removeUserHandler,
     checkIsUserLoggedIn,
     checkIsUserAdmin,
+    updateUserHandler,
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
