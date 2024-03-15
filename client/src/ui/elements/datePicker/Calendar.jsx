@@ -56,6 +56,10 @@ function DatePickerCalendar({ selectedDateProp }) {
     result.setDate(result.getDate() + dayCount);
     return result;
   }
+  function userDate() {
+    let result = new Date("03/26/2024");
+    return result;
+  }
 
   return (
     <div className="div">
@@ -70,6 +74,7 @@ function DatePickerCalendar({ selectedDateProp }) {
         excludeDates={[
           { date: twoDaysForward(1) },
           { date: twoDaysForward(2) },
+          { date: userDate() },
         ]}
         format
         calendarClassName="calendar-styles"
