@@ -26,6 +26,8 @@ function reducer(state, action) {
       return { ...state, type: !state.type };
     case "time/changed":
       return { ...state, [action.name]: action.payload };
+    case "form/edited":
+      return { ...state, disableBtn: false };
 
     default:
       throw new Error("Unknown action type");
@@ -36,33 +38,39 @@ function ActiveDaysOption() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { lang } = useLanguage();
   const { isFetching, data: availableDays } = useGetOptionsQuery("activeDays");
-  const { mutate: mutateRegularDay, isPending: isPendingRegularDay } = useEditActiveDaysQuery("edit_regular_day");
-  const { mutate: mutateIndividualDay, isPending: isPendingInitialDay } = useEditActiveDaysQuery("edit_individual_day");
+  const { mutate: mutateRegularDay, isPending: isPendingRegularDay } =
+    useEditActiveDaysQuery("edit_regular_day");
+  const { mutate: mutateIndividualDay, isPending: isPendingInitialDay } =
+    useEditActiveDaysQuery("edit_individual_day");
 
   useEffect(() => {
     if (isFetching) return;
 
     if (!state.type) {
-      Object.entries(availableDays.regularDays).forEach(([d, v]) => (state[d] !== v && d !== "_id") && dispatch({ type: `day/${d}` }));
+      Object.entries(availableDays.regularDays).forEach(
+        ([d, v]) =>
+          state[d] !== v && d !== "_id" && dispatch({ type: `day/${d}` })
+      );
     } else {
       Object.entries(availableDays.individualDays).forEach(([d, v]) => {
-        if (typeof v === 'string') {
-          dispatch({ type: 'time/changed', name: d, payload: v });
+        if (typeof v === "string") {
+          dispatch({ type: "time/changed", name: d, payload: v });
         } else if (state[d] !== v && d !== "_id") {
-          dispatch({ type: `day/${d}` })
+          dispatch({ type: `day/${d}` });
         }
       });
     }
-
   }, [availableDays, isFetching, state.type]);
 
   function onEditClickHandler() {
     if (state.type) {
-      const { type, ...individualDays } = state;
-      mutateIndividualDay(individualDays);
+      const { type, disableBtn, ...individualDays } = state;
 
+      ///
+
+      mutateIndividualDay(individualDays);
     } else {
-      const { type, start, end, ...regularDays } = state;
+      const { type, start, end, disableBtn, ...regularDays } = state;
       mutateRegularDay(regularDays);
     }
   }
@@ -74,9 +82,10 @@ function ActiveDaysOption() {
   function timeHandler(e) {
     const name = e.target.name;
     const value = e.target.value;
+    // NEXT enabling button
+    if (state.disableBtn) dispatch({ type: "form/edited" });
     dispatch({ type: "time/changed", name: name, payload: value });
   }
-
 
   return (
     <>
@@ -87,65 +96,72 @@ function ActiveDaysOption() {
 
         <div className={styles.toggleSwitch}>
           <div
-            className={`${styles.switchBtn} ${state.type ? styles.toggleRight : styles.toggleLeft}`}
+            className={`${styles.switchBtn} ${
+              state.type ? styles.toggleRight : styles.toggleLeft
+            }`}
             onClick={() => dispatch({ type: "subscription/changed" })}
           ></div>
         </div>
 
-        <div className={styles.secondaryContainer}>
-          <div className={styles.daysContainer}>
-            {Array.from({ length: 7 }, (_, i) => (
-              <DayName
-                key={i}
-                isValid={state[Object.keys(initialState).at(i)]}
-                dispatch={dispatch}
-                text={wordModifier(Object.keys(initialState).at(i))}
-              />
-            ))}
-          </div>
-          {state.type && (
-            <div className={styles.timePickerCOntainer}>
-              {/* <p className={styles.timeINfo}>Time interval</p> */}
-              <div className={styles.timeWrapper}>
-                <div className={styles.timeElement}>
-                  <label htmlFor="startTime">{lang.from}</label>
-                  <input
-                    id={"startTime"}
-                    type="time"
-                    name={"start"}
-                    className={styles.timeInput}
-                    value={state.start}
-                    onChange={timeHandler}
-                    min="07:00"
-                    max="20:00"
-                  />
-                </div>
+        {!isFetching && (
+          <div className={styles.secondaryContainer}>
+            <div className={styles.daysContainer}>
+              {Array.from({ length: 7 }, (_, i) => (
+                <DayName
+                  key={i}
+                  isValid={state[Object.keys(initialState).at(i)]}
+                  dispatch={dispatch}
+                  text={wordModifier(Object.keys(initialState).at(i))}
+                  state={state}
+                />
+              ))}
+            </div>
+            {state.type && (
+              <div className={styles.timePickerCOntainer}>
+                <div className={styles.timeWrapper}>
+                  <div className={styles.timeElement}>
+                    <label htmlFor="startTime">{lang.from}</label>
+                    <input
+                      id={"startTime"}
+                      type="time"
+                      name={"start"}
+                      className={styles.timeInput}
+                      value={state.start}
+                      onChange={timeHandler}
+                      min="07:00"
+                      max="20:00"
+                    />
+                  </div>
 
-                <div className={styles.timeElement}>
-                  <label htmlFor="endTime">{lang.to}</label>
-                  <input
-                    id={"endTime"}
-                    type="time"
-                    name={"end"}
-                    className={styles.timeInput}
-                    value={state.end}
-                    onChange={timeHandler}
-                    min="07:00"
-                    max="20:00"
-                  />
+                  <div className={styles.timeElement}>
+                    <label htmlFor="endTime">{lang.to}</label>
+                    <input
+                      id={"endTime"}
+                      type="time"
+                      name={"end"}
+                      className={styles.timeInput}
+                      value={state.end}
+                      onChange={timeHandler}
+                      min="07:00"
+                      max="20:00"
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-          <div className={styles.btnContainer}>
-            <div style={{ marginLeft: "auto" }}>
-              <Button
-                onClick={onEditClickHandler}
-                type={"primary"}>{lang.edit}
-              </Button>
+            )}
+            <div className={styles.btnContainer}>
+              <div style={{ marginLeft: "auto" }}>
+                <Button
+                  onClick={onEditClickHandler}
+                  type={"primary"}
+                  disabled={state.disableBtn}
+                >
+                  {lang.edit}
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         <section className={styles.description}>
           <p className={styles.info}>
@@ -174,11 +190,19 @@ function ActiveDaysOption() {
 
 export default ActiveDaysOption;
 
-function DayName({ isValid, dispatch, text }) {
+function DayName({ isValid, dispatch, text, state }) {
+  function clickHandler() {
+    // NEXT enabling button
+    if (state.disableBtn) dispatch({ type: "form/edited" });
+    dispatch({ type: `day/${text.toLowerCase()}` });
+  }
+
   return (
     <button
-      className={`${styles.dayBox} ${isValid ? styles.activeDay : styles.inactiveDay}`}
-      onClick={() => dispatch({ type: `day/${text.toLowerCase()}` })}
+      className={`${styles.dayBox} ${
+        isValid ? styles.activeDay : styles.inactiveDay
+      }`}
+      onClick={clickHandler}
     >
       {text}
     </button>

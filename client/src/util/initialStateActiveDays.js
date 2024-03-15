@@ -9,4 +9,5 @@ export const initialState = {
   type: false,
   start: "07:00",
   end: "20:00",
+  disableBtn: true,
 };
