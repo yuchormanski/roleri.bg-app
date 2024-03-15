@@ -12,6 +12,7 @@ function useDeleteOptionsQuery(actionType) {
         age: SERVER_ENDPOINTS.DELETE_AGE_OPTIONS,
         subscription: SERVER_ENDPOINTS.DELETE_SUBSCRIPTION_OPTIONS,
         lessons: SERVER_ENDPOINTS.DELETE_LESSON,
+        users: SERVER_ENDPOINTS.DELETE_USER,
     }
 
     const queryClient = useQueryClient();
