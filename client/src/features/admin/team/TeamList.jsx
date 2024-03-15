@@ -16,27 +16,6 @@ import RoleChanger from "./RoleChanger.jsx";
 import DeleteUser from "./DeleteUser.jsx";
 import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 
-// const usersList = [
-//   {
-//     _id: "65d1e25875c58bac29f86ea7",
-//     firstName: "Van",
-//     lastName: "Deribohten",
-//     email: "van@deribohten.com",
-//     phone: "+359763826480",
-//     role: "admin",
-//     updatedAt: "2024-03-07T19:22:21.505Z",
-//   },
-//   {
-//     _id: "65d1e25875c58bac29f86ea8",
-//     firstName: "Petar",
-//     lastName: "Petrov",
-//     email: "petar@bv.bg",
-//     phone: "+3597736274629",
-//     role: "user",
-//     updatedAt: "2024-03-10T19:22:21.505Z",
-//   },
-// ];
-
 function TeamList() {
   const { lang } = useLanguage();
   const { isDark } = useTheme();
