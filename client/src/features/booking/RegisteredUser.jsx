@@ -27,12 +27,14 @@ function RegisteredUser() {
   // const { isFetching: userLoading, data: user } = useGetUserDataQuery();
 
   const { isFetching: isSkatersLoading, data: skaters } = useGetSkatersQuery();
-  const { isFetching: isOptionsLoading, data: optionData } = useGetSkaterOptionsQuery();
-  const { isFetching: isLessonsLoading, data: incoming } = useGetAllLessonQueries();
-  const { mutateAsync, isPending: isAddBookingLoading } = useAddRegisteredBookQuery();
+  const { isFetching: isOptionsLoading, data: optionData } =
+    useGetSkaterOptionsQuery();
+  const { isFetching: isLessonsLoading, data: incoming } =
+    useGetAllLessonQueries();
+  const { mutateAsync, isPending: isAddBookingLoading } =
+    useAddRegisteredBookQuery();
 
   const lessonData = incoming.filter((el) => new Date(el.validTo) > new Date());
-
 
   // SELECTING DATE
   function selectedDateHandler(date) {
@@ -91,13 +93,13 @@ function RegisteredUser() {
         !!valueObj.subscriptionType &&
         !!valueObj.lessonId
         ? [
-          ...acc,
-          {
-            ...valueObj,
-            date: selectedDate,
-            additionalRequirements: additional,
-          },
-        ]
+            ...acc,
+            {
+              ...valueObj,
+              date: selectedDate,
+              additionalRequirements: additional,
+            },
+          ]
         : acc;
     }, []);
 
@@ -121,9 +123,9 @@ function RegisteredUser() {
     <>
       {" "}
       {isSkatersLoading ||
-        isOptionsLoading ||
-        isLessonsLoading ||
-        isAddBookingLoading ? (
+      isOptionsLoading ||
+      isLessonsLoading ||
+      isAddBookingLoading ? (
         <Spinner />
       ) : (
         <div className={styles.container}>
@@ -201,9 +203,9 @@ function RegisteredUser() {
                     <div className={styles.selectContainer}>
                       <div
                         className={styles.label}
-                      // className={
-                      //   hasSkater(s._id) ? styles.label : styles.hidden
-                      // }
+                        // className={
+                        //   hasSkater(s._id) ? styles.label : styles.hidden
+                        // }
                       >
                         <label
                           htmlFor={`${s._id}-subscriptionType`}
@@ -232,17 +234,19 @@ function RegisteredUser() {
                               >
                                 {`
                                                                 ${translate(
-                                  subscription.typePayment
-                                )} - ${subscription.subscriptionCount
-                                  } 
-                            							        ${lang.visit}${subscription.subscriptionCount > 1
+                                                                  subscription.typePayment
+                                                                )} - ${
+                                  subscription.subscriptionCount
+                                } 
+                            							        ${lang.visit}${
+                                  subscription.subscriptionCount > 1
                                     ? selectedLangIndex === 0
                                       ? "я"
                                       : "s"
                                     : selectedLangIndex === 0
-                                      ? "e"
-                                      : ""
-                                  }
+                                    ? "e"
+                                    : ""
+                                }
                                                             `}
                               </option>
                             ))}
@@ -263,9 +267,9 @@ function RegisteredUser() {
                       <div
                         className={styles.label}
 
-                      // className={
-                      //   hasSkater(s._id) ? styles.label : styles.hidden
-                      // }
+                        // className={
+                        //   hasSkater(s._id) ? styles.label : styles.hidden
+                        // }
                       >
                         <label
                           htmlFor={`${s._id}-lessonId`}
@@ -302,9 +306,9 @@ function RegisteredUser() {
                   <label
                     htmlFor={"textArea"}
                     className={`${styles.enabledLevel} ${styles.textareaLabel} `}
-                  //  ${
-                  //   fieldValues.textArea ? styles.filled : null
-                  // }
+                    //  ${
+                    //   fieldValues.textArea ? styles.filled : null
+                    // }
                   >
                     {lang.requirements}
                   </label>

@@ -27,7 +27,6 @@ function UserInfo() {
   async function rejectLessonHandler(bookingId) {
     try {
       await mutateAsync({ _id: bookingId });
-
     } catch (error) {
       console.error(error.message);
     }
@@ -52,7 +51,11 @@ function UserInfo() {
             ) : (
               <div className={styles.lessonsContainer}>
                 {lessons.map((lesson) => (
-                  <UserLessonItem key={lesson._id} bookedLesson={lesson} rejectLessonHandler={rejectLessonHandler} />
+                  <UserLessonItem
+                    key={lesson._id}
+                    bookedLesson={lesson}
+                    rejectLessonHandler={rejectLessonHandler}
+                  />
                 ))}
               </div>
             )}

@@ -104,7 +104,9 @@ function ActiveDaysOption() {
 
         <div className={styles.toggleSwitch}>
           <div
-            className={`${styles.switchBtn} ${state.type ? styles.toggleRight : styles.toggleLeft}`}
+            className={`${styles.switchBtn} ${
+              state.type ? styles.toggleRight : styles.toggleLeft
+            }`}
             onClick={() => dispatch({ type: "subscription/changed" })}
           ></div>
         </div>
@@ -205,8 +207,9 @@ function DayName({ isValid, dispatch, text, state }) {
 
   return (
     <button
-      className={`${styles.dayBox} ${isValid ? styles.activeDay : styles.inactiveDay
-        }`}
+      className={`${styles.dayBox} ${
+        isValid ? styles.activeDay : styles.inactiveDay
+      }`}
       onClick={clickHandler}
     >
       {text}

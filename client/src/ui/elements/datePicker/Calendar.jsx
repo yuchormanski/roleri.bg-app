@@ -4,13 +4,17 @@ import DatePicker from "react-datepicker";
 import "./styles.css";
 import { useGetActiveRegularDaysQuery } from "./useGetActiveRegularDaysQuery.js";
 
-// days from datatabase
-// 0 for Sunday, 1 for monday ... 6 for Saturday
-
-// const daysForFilter = [0, 6];
+const incomingData = {
+  daysBeforeLesson: [1, 2],
+  excludedUserDates: [
+    { date: new Date("03/26/2024") },
+    { date: new Date("03/25/2024") }, //velikden
+  ],
+};
 
 function DatePickerCalendar({ selectedDateProp }) {
   const [daysForFilter, setDaysForFilter] = useState([]);
+  const [outputArr, setOutputArr] = useState([]);
   const [selectedDay, setSelectedDay] = useState(null);
   const { isFetching, data: regularDaysData } = useGetActiveRegularDaysQuery();
 
@@ -25,6 +29,13 @@ function DatePickerCalendar({ selectedDateProp }) {
     if (weekDays.thu) res.push(4);
     if (weekDays.fri) res.push(5);
     if (weekDays.sat) res.push(6);
+
+    const userExcludes = [
+      ...excludedDatesHandler(),
+      ...incomingData.excludedUserDates,
+    ];
+
+    setOutputArr(userExcludes);
 
     setDaysForFilter(res);
   }, [regularDaysData, isFetching]);
@@ -47,18 +58,13 @@ function DatePickerCalendar({ selectedDateProp }) {
   }
 
   function excludedDatesHandler() {
-    return [{ date: twoDaysForward(1) }, { date: twoDaysForward(2) }];
-  }
-
-  // two days forward can't book a lesson
-  function twoDaysForward(dayCount) {
-    let result = new Date();
-    result.setDate(result.getDate() + dayCount);
-    return result;
-  }
-  function userDate() {
-    let result = new Date("03/26/2024");
-    return result;
+    const arr = [];
+    incomingData.daysBeforeLesson.map((inc) => {
+      let result = new Date();
+      result.setDate(result.getDate() + inc);
+      arr.push({ date: result });
+    });
+    return arr;
   }
 
   return (
@@ -71,11 +77,7 @@ function DatePickerCalendar({ selectedDateProp }) {
         // disabling past dates and weekdays
         // filterDate={(date) => date >= new Date() && isWeekend(date)}
         filterDate={(date) => date >= new Date() && isWeekend(date)}
-        excludeDates={[
-          { date: twoDaysForward(1) },
-          { date: twoDaysForward(2) },
-          { date: userDate() },
-        ]}
+        excludeDates={outputArr}
         format
         calendarClassName="calendar-styles"
       />
