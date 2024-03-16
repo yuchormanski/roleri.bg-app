@@ -43,6 +43,7 @@ const SERVER_ENDPOINTS = {
   DELETE_AGE_OPTIONS: (optionId) => `options/delete-group-age/${optionId}`,
   DELETE_SUBSCRIPTION_OPTIONS: (optionId) => `options/delete-subscriptions/${optionId}`,
 
+  GET_ALL_BOOKING: "bookings/",
   UNREGISTERED_BOOKING_USER: "bookings/unregistered-booking",
   REGISTERED_BOOKING_USER: "bookings/registered-booking",
   GET_ACTIVE_DAYS_ADMIN: "bookings/active-days-admin",
@@ -50,6 +51,7 @@ const SERVER_ENDPOINTS = {
   GET_ACTIVE_DAYS_REGULAR: "bookings/active-days-regular",
   EDIT_ACTIVE_DAYS_INDIVIDUAL: "bookings/edit-active-days-individuals",
   EDIT_ACTIVE_DAYS_REGULAR: "bookings/edit-active-days-regular",
+  REJECT_BOOKING: "bookings/reject-booking",
 
   GET_ALL_LESSONS: "lessons",
   ADD_LESSON: "lessons/add-lesson",

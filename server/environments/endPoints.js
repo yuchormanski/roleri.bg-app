@@ -58,6 +58,7 @@ export const endpoints = {
   delete_subscription_options: "/delete-subscriptions/:optionId",
 
   // main path: /bookings/
+  get_all_booking: "/",
   unregistered_booking_user: "/unregistered-booking",
   registered_booking_user: "/registered-booking",
   get_active_days_admin: "/active-days-admin",
@@ -65,4 +66,5 @@ export const endpoints = {
   get_active_days_regular: "/active-days-regular",
   edit_active_days_individual: "/edit-active-days-individuals",
   edit_active_days_regular: "/edit-active-days-regular",
+  reject_booking: "/reject-booking",
 };

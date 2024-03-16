@@ -13,16 +13,45 @@ import {
   unregisteredBookingUserSchema
 } from "../util/validationSchemes.js";
 import {
+  getAllBooking,
+  getBookingById,
   getIndividualActiveDays,
   getRegularActiveDays,
   getRegularAndIndividualDays,
   registeredUser,
+  rejectBooking,
   unregisteredUser,
   updateIndividualActiveDays,
   updateRegularActiveDays
 } from "../services/bookingService.js";
 
 const bookingController = Router();
+
+// Get all booking
+bookingController.get(endpoints.get_all_booking, isUserLogged, async (req, res, next) => {
+  try {
+    const userId = req.user._id;
+
+    const allBooking = await getAllBooking(userId);
+
+    res.status(200).json(allBooking);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Rejecting available booking
+bookingController.put(endpoints.reject_booking, isUserLogged, preloader(getBookingById, preloadOptions.editSkater), isOwner, async (req, res, next) => {
+  try {
+    const { _id: bookingId } = req.body;
+
+    const rejectedBooking = await rejectBooking(bookingId);
+
+    res.status(200).json(rejectedBooking);
+  } catch (error) {
+    next(error);
+  }
+});
 
 // Unregistered user booking
 bookingController.post(endpoints.unregistered_booking_user, isUserGuest, async (req, res, next) => {

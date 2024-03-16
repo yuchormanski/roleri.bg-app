@@ -6,6 +6,8 @@ import toast from "react-hot-toast";
 function History() {
   const { lang } = useLanguage();
 
+  // TODO: If we want to use the entire history from the database, it is a good idea to use pagination or make a request to get history from a certain time period
+    
   function toastClick() {
     toast(
       (t) => (

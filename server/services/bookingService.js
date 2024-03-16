@@ -5,6 +5,24 @@ import { UnregisteredUser } from "../models/UnregisteredUser.js";
 import { RegularDaysModel } from "../models/RegularDaysModel.js";
 import { bookUserHelper } from "../util/bookUserHelper.js";
 
+// Get all booking
+const getAllBooking = async (userId) => {
+    const today = new Date();
+    const bookings = await populateBookingData(BookingModel.find({
+        owner: userId,
+        date: { $gte: today }, // Date greater than or equal to today
+        isRejected: false
+    }));
+
+    return bookings;
+};
+
+// Get one booking
+const getBookingById = async (bookingId) => populateBookingData(BookingModel.findById(bookingId));
+
+// Reject booking
+const rejectBooking = async (bookingId) => populateBookingData(BookingModel.findByIdAndUpdate(bookingId, { isRejected: true }, { runValidators: true, new: true }));
+
 // Unregistered user booking
 const unregisteredUser = async ({ date, lessonId, ...userData }) => {
     const [unregisteredUserData, subscriptionData] = await Promise.all([
@@ -106,6 +124,7 @@ const getRegularAndIndividualDays = async () => {
 };
 
 // Helper function
+// Return default values from active days if the DB is empty
 function getDefaultValuesFromActiveDays(option) {
     return {
         mon: false,
@@ -119,7 +138,19 @@ function getDefaultValuesFromActiveDays(option) {
     };
 }
 
+// Populate booking data helper
+function populateBookingData(query) {
+    const populatedPropsWithIncludeOrExcludeProps = [
+        { path: "lessonId", select: "-__v" },       // Add or remove some property which are needed on frontend
+        { path: "skaterId", select: "-__v" },       // Add or remove some property which are needed on frontend
+        { path: "subscriptionId", select: "-__v" }, // Add or remove some property which are needed on frontend
+    ];
+
+    return query.populate(populatedPropsWithIncludeOrExcludeProps);
+}
+
 export {
+    getAllBooking,
     unregisteredUser,
     registeredUser,
     getIndividualActiveDays,
@@ -127,4 +158,6 @@ export {
     getRegularActiveDays,
     updateRegularActiveDays,
     getRegularAndIndividualDays,
+    rejectBooking,
+    getBookingById,
 }

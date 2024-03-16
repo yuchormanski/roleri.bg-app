@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import DatePickerCalendar from "../../ui/elements/datePicker/Calendar.jsx";
 import { useLanguage } from "../../context/Language.jsx";
 import { useGetSkatersQuery } from "../skaters/useGetSkatersQuery.js";
-import { useGetUserDataQuery } from "../users/useGetUserDataQuery.js";
+// import { useGetUserDataQuery } from "../users/useGetUserDataQuery.js";
 import { useGetSkaterOptionsQuery } from "../skaters/useGetSkaterOptionsQuery.js";
 import { useGetAllLessonQueries } from "../../pages/lessons/useGetAllLessonQueries.js";
 import { useAddRegisteredBookQuery } from "./useAddRegisteredBookQuery.js";
@@ -24,15 +24,12 @@ function RegisteredUser() {
   const [additional, setAdditional] = useState("");
   const navigate = useNavigate();
 
-  const { isFetching: userLoading, data: user } = useGetUserDataQuery();
+  // const { isFetching: userLoading, data: user } = useGetUserDataQuery();
 
   const { isFetching: isSkatersLoading, data: skaters } = useGetSkatersQuery();
-  const { isFetching: isOptionsLoading, data: optionData } =
-    useGetSkaterOptionsQuery();
-  const { isFetching: isLessonsLoading, data: incoming } =
-    useGetAllLessonQueries();
-  const { mutate, isPending: isAddBookingLoading } =
-    useAddRegisteredBookQuery();
+  const { isFetching: isOptionsLoading, data: optionData } = useGetSkaterOptionsQuery();
+  const { isFetching: isLessonsLoading, data: incoming } = useGetAllLessonQueries();
+  const { mutateAsync, isPending: isAddBookingLoading } = useAddRegisteredBookQuery();
 
   const lessonData = incoming.filter((el) => new Date(el.validTo) > new Date());
 
@@ -58,7 +55,7 @@ function RegisteredUser() {
     setSign((state) => (state = [...sign]));
   }
   // FINISHING REQUEST
-  function bookHandler() {
+  async function bookHandler() {
     // hardcoded disable validation
     if (!selectedDate && sign.length === 0) {
       return toast.error("You should fill the form!");
@@ -94,21 +91,25 @@ function RegisteredUser() {
         !!valueObj.subscriptionType &&
         !!valueObj.lessonId
         ? [
-            ...acc,
-            {
-              ...valueObj,
-              date: selectedDate,
-              additionalRequirements: additional,
-            },
-          ]
+          ...acc,
+          {
+            ...valueObj,
+            date: selectedDate,
+            additionalRequirements: additional,
+          },
+        ]
         : acc;
     }, []);
 
     if (dataToServer.length > 0) {
-      mutate(dataToServer);
+      try {
+        await mutateAsync(dataToServer);
 
-      setSign([]);
-      navigate("/profile");
+        setSign([]);
+        navigate("/profile");
+      } catch (error) {
+        console.log(error.message);
+      }
     } else return toast.error("You should select all option for skater");
   }
 
@@ -120,9 +121,9 @@ function RegisteredUser() {
     <>
       {" "}
       {isSkatersLoading ||
-      isOptionsLoading ||
-      isLessonsLoading ||
-      isAddBookingLoading ? (
+        isOptionsLoading ||
+        isLessonsLoading ||
+        isAddBookingLoading ? (
         <Spinner />
       ) : (
         <div className={styles.container}>
@@ -200,9 +201,9 @@ function RegisteredUser() {
                     <div className={styles.selectContainer}>
                       <div
                         className={styles.label}
-                        // className={
-                        //   hasSkater(s._id) ? styles.label : styles.hidden
-                        // }
+                      // className={
+                      //   hasSkater(s._id) ? styles.label : styles.hidden
+                      // }
                       >
                         <label
                           htmlFor={`${s._id}-subscriptionType`}
@@ -231,19 +232,17 @@ function RegisteredUser() {
                               >
                                 {`
                                                                 ${translate(
-                                                                  subscription.typePayment
-                                                                )} - ${
-                                  subscription.subscriptionCount
-                                } 
-                            							        ${lang.visit}${
-                                  subscription.subscriptionCount > 1
+                                  subscription.typePayment
+                                )} - ${subscription.subscriptionCount
+                                  } 
+                            							        ${lang.visit}${subscription.subscriptionCount > 1
                                     ? selectedLangIndex === 0
                                       ? "я"
                                       : "s"
                                     : selectedLangIndex === 0
-                                    ? "e"
-                                    : ""
-                                }
+                                      ? "e"
+                                      : ""
+                                  }
                                                             `}
                               </option>
                             ))}
@@ -264,9 +263,9 @@ function RegisteredUser() {
                       <div
                         className={styles.label}
 
-                        // className={
-                        //   hasSkater(s._id) ? styles.label : styles.hidden
-                        // }
+                      // className={
+                      //   hasSkater(s._id) ? styles.label : styles.hidden
+                      // }
                       >
                         <label
                           htmlFor={`${s._id}-lessonId`}
@@ -303,9 +302,9 @@ function RegisteredUser() {
                   <label
                     htmlFor={"textArea"}
                     className={`${styles.enabledLevel} ${styles.textareaLabel} `}
-                    //  ${
-                    //   fieldValues.textArea ? styles.filled : null
-                    // }
+                  //  ${
+                  //   fieldValues.textArea ? styles.filled : null
+                  // }
                   >
                     {lang.requirements}
                   </label>
