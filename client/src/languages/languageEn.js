@@ -130,6 +130,7 @@ export const EN = {
   a_instructor: "Instructor",
   a_admin: "Administrator",
   a_change: "Change",
+  a_select: "Select",
 
   // SKATER OPTIONS
   s_firstName: "First name",

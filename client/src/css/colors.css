@@ -35,6 +35,7 @@
     --lesson-link-border: #ccac1c;
     --toggle-switch: #ffd000;
     --toggle-switch-bg: #11a2db48;
+    --calendar-day: #eef5ec;
   }
 
   /* dark mode */
@@ -71,6 +72,7 @@
     --lesson-link-border: #ccac1c80;
     --toggle-switch: #adb6c5;
     --toggle-switch-bg: #2e3644;
+    --calendar-day: #7c7c7c;
   }
   /* main styles */
   --text-dark: #222;

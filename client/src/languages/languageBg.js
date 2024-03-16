@@ -132,6 +132,7 @@ export const BG = {
   a_instructor: "Инструктор",
   a_admin: "Администратор",
   a_change: "Смени",
+  a_select: "Избери",
 
   // SKATER OPTIONS
   s_firstName: "Име",

@@ -9,7 +9,7 @@ export const mainRoutes = {
 };
 
 export const endpoints = {
-  // main path: / 
+  // main path: /
   news: "/news",
 
   // main path: /users/
@@ -67,4 +67,6 @@ export const endpoints = {
   edit_active_days_individual: "/edit-active-days-individuals",
   edit_active_days_regular: "/edit-active-days-regular",
   reject_booking: "/reject-booking",
+  add_excluded_options: "/add-excluded-options",
+  get_excluded_options: "/get-excluded-options",
 };

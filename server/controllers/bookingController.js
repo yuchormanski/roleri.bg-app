@@ -18,8 +18,10 @@ import {
   unregisteredBookingUserSchema,
 } from "../util/validationSchemes.js";
 import {
+  addExcludedOptions,
   getAllBooking,
   getBookingById,
+  getExcludedOptions,
   getIndividualActiveDays,
   getRegularActiveDays,
   getRegularAndIndividualDays,
@@ -189,6 +191,38 @@ bookingController.get(
       const allActiveDaysData = await getRegularAndIndividualDays();
 
       res.status(200).json(allActiveDaysData);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// get excluded options
+bookingController.get(
+  endpoints.get_excluded_options,
+
+  async (req, res, next) => {
+    try {
+      const excludedOptions = await getExcludedOptions();
+      res.status(200).json(excludedOptions);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+// add excluded options
+bookingController.post(
+  endpoints.add_excluded_options,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole(userRole.admin),
+  async (req, res, next) => {
+    try {
+      const excludedData = req.body;
+      console.log(excludedData);
+      const excludedOptions = await addExcludedOptions(excludedData);
+
+      res.status(200).json(excludedOptions);
     } catch (error) {
       next(error);
     }

@@ -5,6 +5,16 @@ import Button from "../../../ui/elements/button/Button.jsx";
 import { useGetOptionsQuery } from "../useGetOptionsQuery.js";
 import { initialState } from "../../../util/initialStateActiveDays.js";
 import { useEditActiveDaysQuery } from "./useEditActiveDaysQuery.js";
+import { useExcludedOptions } from "./useGetExcludedOptions.js";
+import { useAddExcludedOptionsQuery } from "./useAddExcludedOptions.js";
+import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
+import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
+import { useTheme } from "../../../context/DarkMode.jsx";
+import { customStyles } from "../team/customStyles.js";
+
+import "react-datepicker/dist/react-datepicker.css";
+import DatePicker from "react-datepicker";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -36,6 +46,10 @@ function reducer(state, action) {
       return { ...state, [action.name]: action.payload };
     case "form/edited":
       return { ...state, disableBtn: false };
+    case "excluded/daysBefore":
+      return { ...state, daysBeforeLesson: action.payload };
+    case "excluded/userDates":
+      return { ...state, excludedUserDates: [action.payload] };
 
     default:
       throw new Error("Unknown action type");
@@ -50,6 +64,17 @@ function ActiveDaysOption() {
     useEditActiveDaysQuery("edit_regular_day");
   const { mutate: mutateIndividualDay, isPending: isPendingInitialDay } =
     useEditActiveDaysQuery("edit_individual_day");
+  const { isFetching: isFetchingExcluded, data: excludedOptions } =
+    useExcludedOptions();
+  const {
+    mutateAsync,
+    mutate,
+    isPending,
+    isFetching: addData,
+  } = useAddExcludedOptionsQuery();
+
+  const { isDark } = useTheme();
+  const src = isDark ? "/android-chrome-512x512.png" : "/wheel.webp";
 
   useEffect(() => {
     if (isFetching) return;
@@ -72,13 +97,24 @@ function ActiveDaysOption() {
 
   function onEditClickHandler() {
     if (state.type) {
-      const { type, disableBtn, ...individualDays } = state;
-
-      ///
-
+      const {
+        type,
+        disableBtn,
+        daysBeforeLesson,
+        excludedUserDates,
+        ...individualDays
+      } = state;
       mutateIndividualDay(individualDays);
     } else {
-      const { type, start, end, disableBtn, ...regularDays } = state;
+      const {
+        type,
+        start,
+        end,
+        disableBtn,
+        daysBeforeLesson,
+        excludedUserDates,
+        ...regularDays
+      } = state;
       mutateRegularDay(regularDays);
     }
   }
@@ -93,6 +129,44 @@ function ActiveDaysOption() {
     // NEXT enabling button
     if (state.disableBtn) dispatch({ type: "form/edited" });
     dispatch({ type: "time/changed", name: name, payload: value });
+  }
+  const selectOptions = [
+    { value: "none", label: 0 },
+    { value: 1, label: 1 },
+    { value: 2, label: 2 },
+    { value: 3, label: 3 },
+  ];
+
+  function excludedDaysHandler(e) {
+    const dateArr = Array.from({ length: e }, (_, i) => i + 1);
+    dispatch({ type: "excluded/daysBefore", payload: dateArr });
+  }
+
+  function selectedDateHandler(date) {
+    // const currentDates = state.excludedUserDates;
+    dispatch({ type: "excluded/userDates", payload: date });
+  }
+
+  function excludedOptionsHandler() {
+    const res = {
+      daysBeforeLesson: state.daysBeforeLesson,
+      excludedUserDates: excludedUserDatesFormatter(),
+    };
+    try {
+      mutate(res);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function excludedUserDatesFormatter() {
+    if (state.excludedUserDates.length > 0) {
+      return state.excludedUserDates.at(0).map((x) => {
+        return { date: x };
+      });
+    } else {
+      return [{ date: null }];
+    }
   }
 
   return (
@@ -111,7 +185,9 @@ function ActiveDaysOption() {
           ></div>
         </div>
 
-        {!isFetching && (
+        {isFetching ? (
+          <Spinner />
+        ) : (
           <div className={styles.secondaryContainer}>
             <div className={styles.daysContainer}>
               {Array.from({ length: 7 }, (_, i) => (
@@ -166,6 +242,86 @@ function ActiveDaysOption() {
                 >
                   {lang.edit}
                 </Button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {isFetchingExcluded ? (
+          <Spinner />
+        ) : (
+          <div className={styles.secondaryContainer}>
+            <div className={styles.selectContainer}>
+              <div className={styles.selectInfo}>
+                <div className={styles.selectInfoItem}>
+                  <img src={src} alt="bullet dot" className={styles.bullet} />
+                  <p className={styles.bulletText}>
+                    Select how many days before lesson the form should be
+                    disabled
+                  </p>
+                </div>
+                <div className={styles.selectInfoItem}>
+                  <img src={src} alt="bullet dot" className={styles.bullet} />
+                  <p className={styles.bulletText}>
+                    Current settings are :{" "}
+                    {excludedOptions?.at(-1)?.daysBeforeLesson.at(-1) || 0}
+                  </p>
+                </div>
+              </div>
+              <CreatableSelect
+                options={selectOptions}
+                onChange={(e) => excludedDaysHandler(e.value)}
+                styles={customStyles}
+                placeholder={
+                  <div style={{ fontSize: 16 }}>{lang.a_select}</div>
+                }
+              />
+              <button
+                className={styles.excludedDaysBtn}
+                onClick={excludedOptionsHandler}
+              >
+                {lang.a_select}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {isFetchingExcluded ? (
+          <Spinner />
+        ) : (
+          <div className={styles.secondaryContainer}>
+            <div className={styles.customDateContainer}>
+              <div className={styles.selectInfo}>
+                <div className={styles.selectInfoItem}>
+                  <img src={src} alt="bullet dot" className={styles.bullet} />
+                  <p className={styles.bulletText}>
+                    Select specific date to exclude it from the schedule
+                  </p>
+                </div>
+              </div>
+              <div className={styles.calendarContainer}>
+                <DatePicker
+                  calendarStartDay={1} // week start day
+                  inline={true} // always visible
+                  selectsMultiple
+                  selectedDates={state.excludedUserDates?.at(-1) || null}
+                  onChange={(date) =>
+                    dispatch({ type: "excluded/userDates", payload: date })
+                  }
+                  // disabling past dates and weekdays
+                  // filterDate={(date) => date >= new Date() && isWeekend(date)}
+                  // filterDate={(date) => date >= new Date() && isWeekend(date)}
+                  // excludeDates={outputArr}
+                  format
+                  calendarClassName="calendar-styles"
+                />
+
+                {/* <button
+                className={styles.excludedDaysBtn}
+                onClick={excludedOptionsHandler}
+                >
+                {lang.a_select}
+              </button> */}
               </div>
             </div>
           </div>

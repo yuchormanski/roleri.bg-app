@@ -10,4 +10,6 @@ export const initialState = {
   start: "07:00",
   end: "20:00",
   disableBtn: true,
+  daysBeforeLesson: [],
+  excludedUserDates: [],
 };
