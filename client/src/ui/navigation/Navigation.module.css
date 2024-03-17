@@ -45,6 +45,13 @@
 }
 
 @media (max-width: 760px) {
+  .wrapper {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+    box-shadow: 0 1px 12px #00000075;
+  }
   /* .logo {
     width: 150px;
     height: 40px;
