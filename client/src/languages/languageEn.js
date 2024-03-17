@@ -117,8 +117,10 @@ export const EN = {
     "You have the ability to edit and delete every item on the list",
   a_active_days: "Active days",
   a_lessons: "Lessons",
-  a_selectedDays:
+  a_selectedDays_regular:
     "Here you could select days in which will be done the lessons. This selection will be valid only for the regular group lessons. It will not affect individual lessons",
+  a_selectedDays_individual:
+    "Here you could select days in which will be done the lessons. This selection will be valid only for the individual lessons.",
   a_selectedDays_election: "The current selection is:",
   a_team_management: "Team",
   a_user_management: "Users",
@@ -131,6 +133,12 @@ export const EN = {
   a_admin: "Administrator",
   a_change: "Change",
   a_select: "Select",
+  a_dates_0: "Select how many days before lesson the form should be disabled",
+  a_dates_1: "Current settings are :",
+  a_dates_2: "Select specific date to exclude it from the schedule",
+  a_dates_3: "You could select more than one date",
+  a_dates_4: "After passing the date it will be removed from the list",
+  a_dates_5: "The field accepts user input",
 
   // SKATER OPTIONS
   s_firstName: "First name",

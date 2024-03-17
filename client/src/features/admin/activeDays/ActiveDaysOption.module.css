@@ -58,6 +58,10 @@
   margin-top: 1rem;
 }
 
+.double {
+  display: flex;
+}
+
 .timeWrapper {
   width: 100%;
   align-self: center;
@@ -98,6 +102,9 @@
   box-shadow: inset 0 1px 6px var(--box);
   padding: 1.5rem;
 }
+.fixedHeight {
+  min-height: 25rem;
+}
 
 .daysContainer {
   display: flex;
@@ -132,17 +139,36 @@
 .btnContainer {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 1.5rem;
+  /* align-items: center; */
+  /* margin-top: 1.5rem; */
+}
+
+.weekDaysBtn {
+  width: 20%;
+  background-color: var(--color-main-btn);
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-body);
+  margin-left: auto;
+  border-radius: 0.3rem;
+  transition: all 0.3s ease;
+}
+
+.weekDaysBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .info {
   width: 100%;
-  font-size: clamp(1.4rem, 1.7vw, 1.8rem);
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--color-nav-link);
 }
 
-.info span {
-  font-size: clamp(1.6rem, 2rem, 2rem);
+.span {
+  font-size: 1.8rem;
   color: var(--color-main-btn);
   margin-right: 1rem;
 }
@@ -159,6 +185,7 @@
   display: grid;
   grid-template-columns: 70% 20%;
   gap: 10%;
+  padding: 1rem 0 2rem;
 }
 .selectInfo {
   display: flex;
@@ -173,12 +200,17 @@
   height: 25px;
 }
 .bulletText {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 300;
-  margin-left: 1rem;
+  color: var(--color-nav-link);
+}
+.bulletText span {
+  color: var(--color-main-btn);
 }
 
 .excludedDaysBtn {
+  justify-self: end;
+  width: 12.5rem;
   grid-column: 2/3;
   background-color: var(--color-main-btn);
   font-size: 1.8rem;
@@ -188,16 +220,37 @@
   border-radius: 0.3rem;
   transition: all 0.3s ease;
 }
+.excludedDaysBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
 .customDateContainer {
   display: flex;
   flex-direction: column;
   gap: 4rem;
+  margin-bottom: 2rem;
 }
 
 .calendarContainer {
   display: grid;
   place-items: center;
+}
+
+.calendarInfo {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: end;
+}
+
+.calendarInfoItem {
+  display: flex;
+  align-items: flex-start;
+}
+
+.calendarBtn {
+  width: 20%;
+  margin: 1rem 0 2rem auto;
 }
 
 @media (max-width: 765px) {
@@ -215,9 +268,12 @@
     padding: 4rem 1rem;
   }
 
-  /* .dayName {
-    font-size: 1.8rem;
-  } */
+  .double {
+    flex-direction: column;
+  }
+  .timeWrapper {
+    justify-content: center;
+  }
 
   .dayBox {
     font-size: 1.8rem;
@@ -226,6 +282,46 @@
 
   .toggleSwitch {
     margin: 0 1rem 0 auto;
+  }
+
+  .timeElement {
+    width: 100%;
+  }
+
+  .selectContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .selectItem {
+    width: 60%;
+    align-self: center;
+  }
+
+  .weekDaysBtn {
+    width: 60%;
+    padding: 0.6rem 0;
+    margin: 2rem auto 0;
+  }
+
+  .excludedDaysBtn {
+    width: 60%;
+    padding: 0.6rem 0;
+    align-self: center;
+  }
+
+  .calendarInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .calendarBtn {
+    width: 20%;
+    margin: 1rem 0 2rem auto;
+  }
+  .calendarBtn {
+    width: 60%;
+    margin: 1rem auto 2rem;
   }
 }
 
