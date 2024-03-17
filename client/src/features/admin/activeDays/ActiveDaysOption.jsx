@@ -343,11 +343,6 @@ function ActiveDaysOption() {
                   <span className={styles.span}>&#9737;</span>
                   <p className={styles.bulletText}>{lang.a_dates_3}</p>
                 </div>
-                <div className={styles.selectInfoItem}>
-                  {/* <img src={src} alt="bullet dot" className={styles.bullet} /> */}
-                  <span className={styles.span}>&#9737;</span>
-                  <p className={styles.bulletText}>{lang.a_dates_4}</p>
-                </div>
               </div>
               <div className={styles.calendarContainer}>
                 <DatePicker
