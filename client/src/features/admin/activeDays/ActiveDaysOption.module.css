@@ -233,8 +233,43 @@
 }
 
 .calendarContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2rem;
+}
+
+.excludedDatesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.excludedDatesHeading {
+  font-size: 2rem;
+  font-weight: 200;
+  color: var(--color-header-dim);
+  border-bottom: 1px var(--border-bottom);
+}
+
+.excludedDatesList {
+  padding: 0 0 0 2rem;
+}
+.excludedDatesListItem {
+  display: flex;
+  align-items: flex-end;
+  font-size: 1.6rem;
+}
+
+.excludedDatesDelete {
   display: grid;
   place-items: center;
+  width: 3rem;
+  height: 3rem;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: red;
+  margin-bottom: -0.1rem;
 }
 
 .calendarInfo {
@@ -308,6 +343,20 @@
     width: 60%;
     padding: 0.6rem 0;
     align-self: center;
+  }
+
+  .calendarContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .excludedDatesList {
+    width: 100%;
+  }
+  .excludedDatesListItem {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
   }
 
   .calendarInfo {

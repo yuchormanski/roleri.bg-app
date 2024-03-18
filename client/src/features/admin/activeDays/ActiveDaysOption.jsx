@@ -15,7 +15,10 @@ import { customStyles } from "../team/customStyles.js";
 
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
+
 import toast from "react-hot-toast";
+
+import { VscClose } from "react-icons/vsc";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -78,7 +81,7 @@ function ActiveDaysOption() {
   const src = isDark ? "/android-chrome-512x512.png" : "/wheel.webp";
 
   useEffect(() => {
-    if (isFetching) return;
+    if (isFetching || isFetchingExcluded) return;
 
     if (!state.type) {
       Object.entries(availableDays.regularDays).forEach(
@@ -94,7 +97,29 @@ function ActiveDaysOption() {
         }
       });
     }
-  }, [availableDays, isFetching, state.type]);
+    dispatch({
+      type: "excluded/daysBefore",
+      payload: excludedOptions.at(-1)?.daysBeforeLesson,
+    });
+
+    const onlyData = excludedOptions.at(-1)?.excludedUserDates
+      ? excludedOptions.at(-1)?.excludedUserDates.map((x) => {
+          const { _id, ...result } = x;
+          return x.data;
+        })
+      : null;
+
+    dispatch({
+      type: "excluded/userDates",
+      payload: onlyData,
+    });
+  }, [
+    availableDays,
+    excludedOptions,
+    isFetching,
+    isFetchingExcluded,
+    state.type,
+  ]);
 
   function onEditClickHandler() {
     if (state.type) {
@@ -156,7 +181,7 @@ function ActiveDaysOption() {
       return;
     const res = {
       daysBeforeLesson: state.daysBeforeLesson,
-      excludedUserDates: excludedUserDatesFormatter(),
+      excludedUserDates: [...excludedUserDatesFormatter()],
     };
     try {
       mutate(res);
@@ -167,7 +192,10 @@ function ActiveDaysOption() {
   }
 
   function excludedUserDatesFormatter() {
-    if (state.excludedUserDates.length > 0) {
+    if (
+      state.excludedUserDates.length > 0 ||
+      state.excludedUserDates !== undefined
+    ) {
       return state.excludedUserDates.at(0).map((x) => {
         return { date: x };
       });
@@ -175,6 +203,10 @@ function ActiveDaysOption() {
       return [{ date: null }];
     }
   }
+
+  // function excludedDateDelete() {
+  //   const res = excludedOptions.
+  // }
 
   return (
     <>
@@ -216,10 +248,10 @@ function ActiveDaysOption() {
                     : lang.a_selectedDays_regular}
                 </p>
 
-                <p className={styles.info}>
+                <div className={styles.info}>
                   <span className={styles.span}>&#9737;</span>
                   {lang.a_selectedDays_election}
-                </p>
+                </div>
                 <ul className={styles.selectedList}>
                   {Object.keys(state)
                     .filter((x) => state[x] && x !== "type")
@@ -285,25 +317,21 @@ function ActiveDaysOption() {
             <div className={styles.selectContainer}>
               <div className={styles.selectInfo}>
                 <div className={styles.selectInfoItem}>
-                  {/* <img src={src} alt="bullet dot" className={styles.bullet} /> */}
                   <span className={styles.span}>&#9737;</span>
                   <p className={styles.bulletText}>{lang.a_dates_0}</p>
                 </div>
                 <div className={styles.selectInfoItem}>
-                  {/* <img src={src} alt="bullet dot" className={styles.bullet} /> */}
                   <span className={styles.span}>&#9737;</span>
                   <p className={styles.bulletText}>{lang.a_dates_5}</p>
                 </div>
                 <div className={styles.selectInfoItem}>
-                  {/* <img src={src} alt="bullet dot" className={styles.bullet} /> */}
                   <span className={styles.span}>&#9737;</span>
-
-                  <p className={styles.bulletText}>
+                  <div className={styles.bulletText}>
                     {lang.a_dates_1}{" "}
                     <span>
                       {excludedOptions?.at(-1)?.daysBeforeLesson.at(-1) || 0}
                     </span>
-                  </p>
+                  </div>
                 </div>
               </div>
               <div className={styles.selectItem}>
@@ -319,7 +347,9 @@ function ActiveDaysOption() {
               <button
                 className={styles.excludedDaysBtn}
                 onClick={excludedOptionsHandler}
-                disabled={state.daysBeforeLesson.length === 0}
+                disabled={
+                  state.daysBeforeLesson && state.daysBeforeLesson.length === 0
+                }
               >
                 {lang.a_select}
               </button>
@@ -334,14 +364,16 @@ function ActiveDaysOption() {
             <div className={styles.customDateContainer}>
               <div className={styles.selectInfo}>
                 <div className={styles.selectInfoItem}>
-                  {/* <img src={src} alt="bullet dot" className={styles.bullet} /> */}
                   <span className={styles.span}>&#9737;</span>
                   <p className={styles.bulletText}>{lang.a_dates_2}</p>
                 </div>
                 <div className={styles.selectInfoItem}>
-                  {/* <img src={src} alt="bullet dot" className={styles.bullet} /> */}
                   <span className={styles.span}>&#9737;</span>
                   <p className={styles.bulletText}>{lang.a_dates_3}</p>
+                </div>
+                <div className={styles.calendarInfoItem}>
+                  <span className={styles.span}>&#9737;</span>
+                  <p className={styles.bulletText}>{lang.a_dates_4}</p>
                 </div>
               </div>
               <div className={styles.calendarContainer}>
@@ -356,13 +388,32 @@ function ActiveDaysOption() {
                   format
                   calendarClassName="calendar-styles"
                 />
+                <div
+                  className={`${styles.selectInfoItem} ${styles.excludedDatesContainer}`}
+                >
+                  <h3 className={styles.excludedDatesHeading}>
+                    {lang.a_dates_6}{" "}
+                  </h3>
+                  <ul className={styles.excludedDatesList}>
+                    {excludedOptions.at(-1)?.excludedUserDates.map((excl) => (
+                      <li
+                        key={excl._id}
+                        className={styles.excludedDatesListItem}
+                      >
+                        {new Date(excl.date).toLocaleDateString("fr-CH")}
+                        <button
+                          className={styles.excludedDatesDelete}
+                          // onClick={excludedDateDelete}
+                        >
+                          <VscClose />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </div>
             <div className={styles.calendarInfo}>
-              <div className={styles.calendarInfoItem}>
-                <span className={styles.span}>&#9737;</span>
-                <p className={styles.bulletText}>{lang.a_dates_4}</p>
-              </div>
               <button
                 className={styles.excludedDaysBtn}
                 onClick={excludedOptionsHandler}

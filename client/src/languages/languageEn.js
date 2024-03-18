@@ -139,6 +139,7 @@ export const EN = {
   a_dates_3: "You could select more than one date",
   a_dates_4: "After passing the date it will be removed from the list",
   a_dates_5: "The field accepts user input",
+  a_dates_6: "The excluded dates are: ",
 
   // SKATER OPTIONS
   s_firstName: "First name",
