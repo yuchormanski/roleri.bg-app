@@ -43,6 +43,11 @@ const bookingSchema = new Schema(
       ref: "UserParent",
       default: null,
     },
+    instructorId: {
+      type: Types.ObjectId,
+      ref: "UserParent",
+      default: null,
+    },
   },
   { timestamps: true }
 );
