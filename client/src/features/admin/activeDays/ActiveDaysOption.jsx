@@ -19,17 +19,10 @@ import DatePicker from "react-datepicker";
 import toast from "react-hot-toast";
 
 import { VscClose } from "react-icons/vsc";
+import { Link } from "react-router-dom";
 
 function reducer(state, action) {
   switch (action.type) {
-    //  TODO: CHECK if this can be used to disabled
-    // case "day/mon": {
-    //   // Toggle the state of mon
-    //   const toggledMon = !state.mon;
-    //   // Conditionally update the state based on the disableBtn flag
-    //   const newState = state.disableBtn ? { ...state, mon: toggledMon, disableBtn: false } : { ...state, mon: toggledMon };
-    //   return newState;
-    // }
     case "day/mon":
       return { ...state, mon: !state.mon };
     case "day/tue":
@@ -53,7 +46,9 @@ function reducer(state, action) {
     case "excluded/daysBefore":
       return { ...state, daysBeforeLesson: action.payload };
     case "excluded/userDates":
-      return { ...state, excludedUserDates: [action.payload] };
+      return { ...state, excludedUserDates: action.payload };
+    case "excluded/removeDate":
+      return { ...state, excludedUserDates: state.excludedUserDates.filter(date => new Date(date).toISOString() !== new Date(action.payload).toISOString()) };
 
     default:
       throw new Error("Unknown action type");
@@ -64,18 +59,10 @@ function ActiveDaysOption() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { lang } = useLanguage();
   const { isFetching, data: availableDays } = useGetOptionsQuery("activeDays");
-  const { mutate: mutateRegularDay, isPending: isPendingRegularDay } =
-    useEditActiveDaysQuery("edit_regular_day");
-  const { mutate: mutateIndividualDay, isPending: isPendingInitialDay } =
-    useEditActiveDaysQuery("edit_individual_day");
-  const { isFetching: isFetchingExcluded, data: excludedOptions } =
-    useExcludedOptions();
-  const {
-    mutateAsync,
-    mutate,
-    isPending,
-    isFetching: addData,
-  } = useAddExcludedOptionsQuery();
+  const { mutate: mutateRegularDay, isPending: isPendingRegularDay } = useEditActiveDaysQuery("edit_regular_day");
+  const { mutate: mutateIndividualDay, isPending: isPendingInitialDay } = useEditActiveDaysQuery("edit_individual_day");
+  const { isFetching: isFetchingExcluded, data: excludedOptions } = useExcludedOptions();
+  const { mutateAsync, isPending, isFetching: addData, } = useAddExcludedOptionsQuery();
 
   const { isDark } = useTheme();
   const src = isDark ? "/android-chrome-512x512.png" : "/wheel.webp";
@@ -99,14 +86,11 @@ function ActiveDaysOption() {
     }
     dispatch({
       type: "excluded/daysBefore",
-      payload: excludedOptions.at(-1)?.daysBeforeLesson,
+      payload: excludedOptions?.daysBeforeLesson,
     });
 
-    const onlyData = excludedOptions.at(-1)?.excludedUserDates
-      ? excludedOptions.at(-1)?.excludedUserDates.map((x) => {
-          const { _id, ...result } = x;
-          return x.data;
-        })
+    const onlyData = excludedOptions?.excludedUserDates
+      ? excludedOptions?.excludedUserDates.map((x) => x.date)
       : null;
 
     dispatch({
@@ -173,21 +157,22 @@ function ActiveDaysOption() {
     dispatch({ type: "excluded/userDates", payload: date });
   }
 
-  function excludedOptionsHandler() {
+  async function excludedOptionsHandler() {
     if (
       state.daysBeforeLesson.length === 0 &&
       state.excludedUserDates.length === 0
     )
       return;
+
     const res = {
       daysBeforeLesson: state.daysBeforeLesson,
       excludedUserDates: [...excludedUserDatesFormatter()],
     };
     try {
-      mutate(res);
+      await mutateAsync(res);
+      toast.success("Option added successfully!");
     } catch (error) {
       console.error(error);
-      toast.error(error);
     }
   }
 
@@ -196,7 +181,7 @@ function ActiveDaysOption() {
       state.excludedUserDates.length > 0 ||
       state.excludedUserDates !== undefined
     ) {
-      return state.excludedUserDates.at(0).map((x) => {
+      return state.excludedUserDates.map((x) => {
         return { date: x };
       });
     } else {
@@ -204,9 +189,25 @@ function ActiveDaysOption() {
     }
   }
 
-  // function excludedDateDelete() {
-  //   const res = excludedOptions.
-  // }
+  async function excludedDateDelete(excludedDate) {
+    const date = excludedDate;
+    const excludedUserDatesToServer = state.excludedUserDates
+      .filter(date => new Date(date).toISOString() !== new Date(excludedDate).toISOString())
+      .map(d => ({ date: d }));
+
+    const res = {
+      daysBeforeLesson: state.daysBeforeLesson,
+      excludedUserDates: excludedUserDatesToServer,
+    };
+
+    try {
+      await mutateAsync(res);
+      toast.success("Date is removed!");
+      dispatch({ type: 'excluded/removeDate', payload: date });
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <>
@@ -217,9 +218,8 @@ function ActiveDaysOption() {
 
         <div className={styles.toggleSwitch}>
           <div
-            className={`${styles.switchBtn} ${
-              state.type ? styles.toggleRight : styles.toggleLeft
-            }`}
+            className={`${styles.switchBtn} ${state.type ? styles.toggleRight : styles.toggleLeft
+              }`}
             onClick={() => dispatch({ type: "subscription/changed" })}
           ></div>
         </div>
@@ -329,7 +329,7 @@ function ActiveDaysOption() {
                   <div className={styles.bulletText}>
                     {lang.a_dates_1}{" "}
                     <span>
-                      {excludedOptions?.at(-1)?.daysBeforeLesson.at(-1) || 0}
+                      {excludedOptions?.daysBeforeLesson?.at(-1)}
                     </span>
                   </div>
                 </div>
@@ -339,17 +339,13 @@ function ActiveDaysOption() {
                   options={selectOptions}
                   onChange={(e) => excludedDaysHandler(e.value)}
                   styles={customStyles}
-                  placeholder={
-                    <div style={{ fontSize: 16 }}>{lang.a_select}</div>
-                  }
+                  placeholder={<div style={{ fontSize: 16 }}>{lang.a_select}</div>}
                 />
               </div>
               <button
                 className={styles.excludedDaysBtn}
                 onClick={excludedOptionsHandler}
-                disabled={
-                  state.daysBeforeLesson && state.daysBeforeLesson.length === 0
-                }
+                disabled={state.daysBeforeLesson && state.daysBeforeLesson.length === 0}
               >
                 {lang.a_select}
               </button>
@@ -381,7 +377,7 @@ function ActiveDaysOption() {
                   calendarStartDay={1} // week start day
                   inline={true} // always visible
                   selectsMultiple
-                  selectedDates={state.excludedUserDates?.at(-1) || null}
+                  selectedDates={state.excludedUserDates || null}
                   onChange={(date) =>
                     dispatch({ type: "excluded/userDates", payload: date })
                   }
@@ -395,15 +391,15 @@ function ActiveDaysOption() {
                     {lang.a_dates_6}{" "}
                   </h3>
                   <ul className={styles.excludedDatesList}>
-                    {excludedOptions.at(-1)?.excludedUserDates.map((excl) => (
+                    {state.excludedUserDates.map((date, index) => (
                       <li
-                        key={excl._id}
+                        key={index}
                         className={styles.excludedDatesListItem}
                       >
-                        {new Date(excl.date).toLocaleDateString("fr-CH")}
+                        {new Date(date).toLocaleDateString("fr-CH")}
                         <button
                           className={styles.excludedDatesDelete}
-                          // onClick={excludedDateDelete}
+                          onClick={() => excludedDateDelete(date)}
                         >
                           <VscClose />
                         </button>
@@ -440,9 +436,7 @@ function DayName({ isValid, dispatch, text, state }) {
 
   return (
     <button
-      className={`${styles.dayBox} ${
-        isValid ? styles.activeDay : styles.inactiveDay
-      }`}
+      className={`${styles.dayBox} ${isValid ? styles.activeDay : styles.inactiveDay}`}
       onClick={clickHandler}
     >
       {text}
