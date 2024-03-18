@@ -9,13 +9,16 @@ import { CalendarExcludedOptions } from "../models/CalendarExcludedOptions.js";
 // Get all booking
 const getAllBooking = async (userId) => {
   const today = new Date();
+
   const bookings = await populateBookingData(
     BookingModel.find({
       owner: userId,
       date: { $gte: today }, // Date greater than or equal to today
       isRejected: false,
     })
-  );
+  ).sort({ date: 1 });
+
+
 
   return bookings;
 };
