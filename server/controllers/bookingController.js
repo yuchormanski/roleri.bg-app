@@ -219,7 +219,7 @@ bookingController.post(
   async (req, res, next) => {
     try {
       const excludedData = req.body;
-      console.log(excludedData);
+
       const excludedOptions = await addExcludedOptions(excludedData);
 
       res.status(200).json(excludedOptions);
