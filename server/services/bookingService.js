@@ -156,20 +156,45 @@ const getRegularAndIndividualDays = async () => {
   return combinedActiveDays;
 };
 
-// add excluded options
+// Add excluded options
+const addExcludedOptions = async (excludedData) => {
+  const currentDate = new Date();
 
-const addExcludedOptions = async (excludedData) =>
-  CalendarExcludedOptions.create(excludedData);
-// get excluded options
+  // Check if any of the new dates are before today
+  if (excludedData.excludedUserDates.some(dateObj => new Date(dateObj.date) < currentDate)) {
+    const wrongDates = excludedData.excludedUserDates
+      .filter(dateObj => new Date(dateObj.date) < currentDate)
+      .map(dateObj => new Date(dateObj.date).toLocaleDateString())
+      .join(', ');
+    throw new Error(`You are trying to enter an invalid date: ${wrongDates}`);
+  }
 
+  const existingDays = await CalendarExcludedOptions.findOne();
+
+  return existingDays
+    ? CalendarExcludedOptions.updateOne({}, excludedData)
+    : CalendarExcludedOptions.create(excludedData);
+};
+
+// Get excluded options
 const getExcludedOptions = async () => {
   const currentDate = new Date();
-  // return CalendarExcludedOptions.find({
-  //   excludedUserDates: {
-  //     $elemMatch: { date: { $gte: currentDate } },
-  //   },
-  // });
-  return CalendarExcludedOptions.find();
+  const defaultValues = { daysBeforeLesson: [1, 2], excludedUserDates: [] };
+
+  const foundDates = await CalendarExcludedOptions.findOne();
+  if (foundDates) {
+    // Filter out null dates or dates older than the current date
+    foundDates.excludedUserDates = foundDates.excludedUserDates.filter(dateObj => {
+      return dateObj.date && new Date(dateObj.date) > currentDate;
+    });
+
+    // Sort the excludedUserDates array by date in ascending order
+    foundDates.excludedUserDates.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    await foundDates.save();
+  }
+
+  return foundDates ? foundDates : defaultValues;
 };
 
 // Helper function
