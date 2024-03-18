@@ -20,8 +20,7 @@ function DatePickerCalendar({ selectedDateProp }) {
   const [userExcludes, setUserExcludes] = useState([]);
   const { isFetching, data: regularDaysData } = useGetActiveRegularDaysQuery();
 
-  const { isFetching: isFetchingExcluded, data: incoming } =
-    useExcludedOptions();
+  const { isFetching: isFetchingExcluded, data: incoming } = useExcludedOptions();
 
   useEffect(() => {
     if (isFetching || isFetchingExcluded) return;
@@ -35,8 +34,7 @@ function DatePickerCalendar({ selectedDateProp }) {
     if (weekDays.fri) res.push(5);
     if (weekDays.sat) res.push(6);
 
-    const incomingData = incoming.at(-1);
-    console.log(incomingData);
+    const incomingData = incoming;
 
     let userExcludes = [];
     if (incomingData) {
@@ -60,7 +58,6 @@ function DatePickerCalendar({ selectedDateProp }) {
   useEffect(() => {
     if (isFetchingExcluded) return;
 
-    console.log(incoming);
   }, [incoming, isFetchingExcluded]);
 
   function isWeekend(date, [a, b, c, d, e, f, g] = daysForFilter) {
