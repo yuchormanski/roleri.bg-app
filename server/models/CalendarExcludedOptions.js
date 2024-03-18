@@ -1,7 +1,10 @@
 import { Schema, model } from "mongoose";
 
 const CalendarExcludedOptionsSchema = new Schema({
-  daysBeforeLesson: { type: [Number], required: true },
+  daysBeforeLesson: {
+    type: [Number],
+    required: true
+  },
   excludedUserDates: {
     type: [
       {
