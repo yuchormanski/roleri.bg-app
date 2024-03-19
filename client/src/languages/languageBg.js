@@ -32,7 +32,6 @@ export const BG = {
   send: "Изпрати",
   addSkater: "Добави кънкьора",
   addSkaters: "Добави кънкьорите",
-  // gender: "Пол",
   level: "Ниво",
   levelEn: "Ниво на Английски език",
   levelBg: "Ниво на Български език",
@@ -96,6 +95,9 @@ export const BG = {
   onDuty: "Настоящи уроци",
   from: "От",
   to: "До",
+  date: "Дата",
+  sequence: "Поредност",
+  reject: "Откажи",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Добавете номер и количество",

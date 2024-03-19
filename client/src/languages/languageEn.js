@@ -37,7 +37,6 @@ export const EN = {
   send: "Send",
   addSkater: "Add skater",
   addSkaters: "Add skaters",
-  // gender: "Gender",
   level: "Level",
   levelEn: "Level on English",
   levelBg: "Level on Bulgarian",
@@ -100,6 +99,9 @@ export const EN = {
   onDuty: "Active lessons",
   from: "From",
   to: "To",
+  date: "Date",
+  sequence: "Sequence",
+  reject: "Reject",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",

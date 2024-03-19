@@ -3,13 +3,17 @@ import styles from "./UserLessonItem.module.css";
 import { useTranslate } from "../../hooks/useTranslate.js";
 import { PiCheckBold, PiCheck, PiX, PiXBold } from "react-icons/pi";
 import { Link } from "react-router-dom";
+import { useLanguage } from "../../context/Language.jsx";
 
 function UserLessonItem({ bookedLesson, rejectLessonHandler }) {
   const { translatePhrase: translate } = useTranslate();
-  // TODO: choose which property to use and then which to remove from the server population
-  // console.log(bookedLesson)
+  const { lang } = useLanguage();
   const { lessonId, skaterId, subscriptionId, ...bookingMainData } =
     bookedLesson;
+
+  // const bookingData = bookingMainData.sort(
+  //   (a, b) => new Date(a.date) - new Date(b.date)
+  // );
 
   return (
     <figure className={styles.figure} key={skaterId._id}>
@@ -17,16 +21,41 @@ function UserLessonItem({ bookedLesson, rejectLessonHandler }) {
         <h3
           className={styles.figureHeading}
         >{`${skaterId.firstName} ${skaterId.lastName}`}</h3>
+        <Link to={`/lesson/${lessonId._id}`} className={styles.link}>
+          {translate(lessonId.title)}
+        </Link>
       </header>
       <div className={styles.infoContainer}>
-        <Link to={`/lesson/${lessonId._id}`}>{lessonId.title}</Link>
-        <p>{bookingMainData.date}</p>
-        <p>{lessonId.time}</p>
-        <p>{bookingMainData.lessonIndex}</p>
-        <p>{subscriptionId.typePayment}</p>
-        <p>{subscriptionId.createdAt}</p>
+        <div className={styles.info}>
+          <p className={styles.paragraph}>
+            <span className={styles.span}>{lang.date}</span>
+            {new Date(bookingMainData.date).toLocaleDateString("fr-CH")}
+          </p>
+          <p className={styles.paragraph}>
+            <span className={styles.span}>{lang.time}</span>
+            {lessonId.time}
+          </p>
+          <p className={styles.paragraph}>
+            <span className={styles.span}>{lang.type}</span>
+            {translate(subscriptionId.typePayment)}
+          </p>
+          {subscriptionId.typePayment === "Абонамент&/&Subscription" && (
+            <p className={styles.paragraph}>
+              <span className={styles.span}>{lang.sequence}</span>
+              {bookingMainData.lessonIndex}
+            </p>
+          )}
+        </div>
+        <div className={styles.reject}>
+          <span>{lang.reject}</span>
+          <button
+            className={styles.inNotOK}
+            onClick={() => rejectLessonHandler(bookingMainData._id)}
+          >
+            <PiX />
+          </button>
+        </div>
       </div>
-      <button>reject</button>
     </figure>
   );
 }
