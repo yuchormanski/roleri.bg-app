@@ -51,6 +51,7 @@ function DatePickerCalendar({ selectedDateProp }) {
     setOutputArr(userExcludes);
 
     setDaysForFilter(res);
+    // }, [regularDaysData, isFetching]);
   }, [regularDaysData, incoming, isFetching, isFetchingExcluded]);
 
   useEffect(() => {
