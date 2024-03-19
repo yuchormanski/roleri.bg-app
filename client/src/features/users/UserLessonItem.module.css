@@ -1,12 +1,3 @@
-.figure {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 0;
-  border-radius: 0.3rem;
-  border-bottom: var(--card-border);
-}
-
 .headingNoSkaters {
   font-size: 2rem;
   font-weight: 300;
@@ -20,10 +11,27 @@
   display: flex;
   justify-content: space-between;
 }
+.figure {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1rem 0;
+  border-bottom: var(--card-border);
+}
+
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.figureHeading {
+  align-self: start;
+  font-size: clamp(1.6rem, 1.8vw, 2rem);
+  font-weight: 300;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+  border-bottom: 1px var(--border-bottom);
 }
 
 .group {
