@@ -114,7 +114,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
               <li className={styles.listItem}>
                 <NavLink
                   onClick={() => {
-                    if (isMobile) toggleMobile();
+                    if (!isMobile) toggleMobile();
                     onLogin();
                   }}
                   className={styles.link}
@@ -129,7 +129,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
               {/* TODO: ADD About Us Page */}
               <NavLink
                 onClick={() => {
-                  if (isMobile) toggleMobile();
+                  if (!isMobile) toggleMobile();
                 }}
                 className={styles.link}
                 to="todo-please-add-about-us-page"

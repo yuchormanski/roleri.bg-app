@@ -2,15 +2,111 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.2rem 1rem;
+  padding: 1rem;
   border-bottom: var(--card-border);
 }
 
+.heading,
+.headingModal {
+  font-weight: 300;
+}
+
 .additional {
+  width: 30%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.3rem;
+  font-size: 1.6rem;
+}
+
+.skaterProps {
+  background-color: var(--color-header-even);
+  width: 100%;
+  display: grid;
+  place-content: center;
+  position: relative;
+  height: 3rem;
+  border: var(--color-main);
+  border-radius: 0.3rem;
+}
+
+.skaterProps span {
+  position: absolute;
+  display: none;
+}
+
+.infoBlock {
+  color: red;
+}
+
+/* MODAL */
+
+.modalContainer {
   display: flex;
   flex-direction: column;
-  font-size: 1.4rem;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2rem 0.5rem;
 }
-.skaterProps span {
-  /* font-size: 1.8rem; */
+
+.headingModal {
+  border-bottom: 1px solid var(--lesson-link-border);
+}
+
+.parentInfo {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  font-size: 1.6rem;
+  color: var(--paragraph);
+  padding: 1rem;
+  border: 1px solid gray;
+  border-radius: 0.3rem;
+}
+.label {
+  background-color: var(--card-bg);
+  position: absolute;
+  top: -0.8rem;
+  right: 1.5rem;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: var(--lesson-link-border);
+  padding-inline: 0.8rem;
+  border-radius: 0.5rem;
+}
+.parentELement {
+  display: flex;
+  font-size: 1.6rem;
+}
+.parentName {
+  font-size: 1.8rem;
+}
+.spanIcon {
+  margin: 0.2rem 0.5rem 0 0;
+  color: var(--lesson-link-border);
+}
+.additionalContent {
+  font-size: 1.6rem;
+}
+.textarea {
+  all: unset;
+  width: 100%;
+  color: var(--color-menu-btn);
+  resize: none;
+}
+
+@media (max-width: 480px) {
+  .figure {
+    padding: 0.5rem;
+  }
+  .heading {
+    font-size: 1.8rem;
+  }
+  .additional {
+    width: 40%;
+  }
+  .skaterProps {
+    height: 3.5rem;
+  }
 }
