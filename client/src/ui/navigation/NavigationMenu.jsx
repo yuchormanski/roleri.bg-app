@@ -41,7 +41,6 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
       label: lang.lessons,
     },
   ];
-  console.log(isMobile);
   return (
     <>
       {/* next line is for keeping nav menu closed on initial render.
