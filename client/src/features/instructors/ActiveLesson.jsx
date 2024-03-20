@@ -15,6 +15,7 @@ const skatersList = [
     skates: 31,
     protection: "M",
     requirements: null,
+    instructorInfo: "",
   },
   {
     _id: "jsdhfbusgfdgddfg",
@@ -23,6 +24,7 @@ const skatersList = [
     skates: 41,
     protection: "L",
     requirements: "helmet",
+    instructorInfo: "",
   },
   {
     _id: "jsdhusgdfg",
@@ -31,6 +33,7 @@ const skatersList = [
     skates: 36,
     protection: "S",
     requirements: null,
+    instructorInfo: "lksdn;lk; popsd ",
   },
 ];
 

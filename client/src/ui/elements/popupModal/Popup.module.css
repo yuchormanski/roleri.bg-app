@@ -21,6 +21,7 @@
 .fullInfo {
   /* background-color: var(--color-header); */
   min-width: 250px;
+  min-height: 50px;
   margin-inline: 5px;
   background-color: var(--color-header);
   display: flex;
