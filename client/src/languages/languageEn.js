@@ -102,6 +102,7 @@ export const EN = {
   date: "Date",
   sequence: "Sequence",
   reject: "Reject",
+  book: "Book now",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",

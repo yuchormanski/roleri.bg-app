@@ -201,76 +201,7 @@ function RegisteredUser() {
                     </div>
 
                     <div className={styles.selectContainer}>
-                      <div
-                        className={styles.label}
-                        // className={
-                        //   hasSkater(s._id) ? styles.label : styles.hidden
-                        // }
-                      >
-                        <label
-                          htmlFor={`${s._id}-subscriptionType`}
-                          className={
-                            hasSkater(s._id)
-                              ? styles.enabledLevel
-                              : styles.disabledLabel
-                          }
-                        >
-                          <span>{lang.subscription}:</span>
-                        </label>
-                        <select
-                          name="subscriptionType"
-                          id={`${s._id}-subscriptionType`}
-                          className={styles.select}
-                          disabled={hasSkater(s._id) ? false : true}
-                          defaultValue=""
-                          onChange={(e) => selection(e, s._id)}
-                        >
-                          <option value="" hidden></option>
-                          {hasSkater(s._id) &&
-                            optionData?.subscriptionData.map((subscription) => (
-                              <option
-                                key={subscription._id}
-                                value={subscription._id}
-                              >
-                                {`
-                                                                ${translate(
-                                                                  subscription.typePayment
-                                                                )} - ${
-                                  subscription.subscriptionCount
-                                } 
-                            							        ${lang.visit}${
-                                  subscription.subscriptionCount > 1
-                                    ? selectedLangIndex === 0
-                                      ? "я"
-                                      : "s"
-                                    : selectedLangIndex === 0
-                                    ? "e"
-                                    : ""
-                                }
-                                                            `}
-                              </option>
-                            ))}
-
-                          {/* {data?.subscriptionData.map((subscription) => (
-                                                    <option
-                                                    value={subscription._id}
-                                                    key={subscription._id}
-                                                    >
-                                                    {translate(subscription.typePayment)}
-                                                    </option>
-                                                     ))} */}
-                          {/* <option value="group">One time group</option>
-                                                <option value="subscription">Subscription</option> */}
-                        </select>
-                      </div>
-
-                      <div
-                        className={styles.label}
-
-                        // className={
-                        //   hasSkater(s._id) ? styles.label : styles.hidden
-                        // }
-                      >
+                      <div className={styles.label}>
                         <label
                           htmlFor={`${s._id}-lessonId`}
                           className={
@@ -294,6 +225,38 @@ function RegisteredUser() {
                             lessonData.map((lesson) => (
                               <option value={lesson._id} key={lesson._id}>
                                 {translate(lesson.title)}
+                              </option>
+                            ))}
+                        </select>
+                      </div>
+
+                      <div className={styles.label}>
+                        <label
+                          htmlFor={`${s._id}`}
+                          className={
+                            hasSkater(s._id)
+                              ? styles.enabledLevel
+                              : styles.disabledLabel
+                          }
+                        >
+                          <span>{lang.type}:</span>
+                        </label>
+                        <select
+                          name="subscriptionType"
+                          id={`${s._id}`}
+                          className={styles.select}
+                          disabled={hasSkater(s._id) ? false : true}
+                          defaultValue=""
+                          onChange={(e) => selection(e, s._id)}
+                        >
+                          <option value="" hidden></option>
+                          {hasSkater(s._id) &&
+                            optionData?.subscriptionData.map((subscription) => (
+                              <option
+                                key={subscription._id}
+                                value={subscription._id}
+                              >
+                                {translate(subscription.typePayment)}
                               </option>
                             ))}
                         </select>
@@ -323,20 +286,6 @@ function RegisteredUser() {
                 </div>
               </div>
 
-              {/* CONDITIONS 
-                            <div className={styles.conditions}>
-                                <p>
-                                    Съгласявам се с{" "}
-                                    <Link className={styles.link} to={"/conditions"}>
-                                        Общите условия
-                                    </Link>
-                                </p>
-                                <input
-                                    className={styles.checkbox}
-                                    type="checkbox"
-                                // onChange={(e) => checkboxHandler(e, s._id)}
-                                />
-                            </div>*/}
               <div className={styles.btnContainer}>
                 <div style={{ marginLeft: "auto" }}>
                   <Button
@@ -344,7 +293,7 @@ function RegisteredUser() {
                     onClick={bookHandler}
                     disabled={!selectedDate && sign.length === 0}
                   >
-                    {skaters.length > 1 ? lang.addSkaters : lang.addSkater}
+                    {lang.book}
                   </Button>
                 </div>
               </div>
