@@ -3,6 +3,36 @@ import styles from "./ActiveLesson.module.css";
 import { useMoveBack } from "../../hooks/useMoveBack.js";
 import { useLanguage } from "../../context/Language.jsx";
 import Button from "../../ui/elements/button/Button.jsx";
+import SkaterElement from "./SkaterElement.jsx";
+
+// MOCKED DATA
+
+const skatersList = [
+  {
+    _id: "jsdhfbusgdfg",
+    firstName: "Gosho",
+    lastName: "Petrov",
+    skates: 31,
+    protection: "M",
+    requirements: null,
+  },
+  {
+    _id: "jsdhfbusgfdgddfg",
+    firstName: "Stamat",
+    lastName: "Spiridonov",
+    skates: 41,
+    protection: "L",
+    requirements: "helmet",
+  },
+  {
+    _id: "jsdhusgdfg",
+    firstName: "Gencho",
+    lastName: "Hvalipratskov",
+    skates: 36,
+    protection: "S",
+    requirements: null,
+  },
+];
 
 function ActiveLesson() {
   const { lang } = useLanguage();
@@ -14,7 +44,9 @@ function ActiveLesson() {
         <h3 className={styles.heading}>Lesson Name - {id}</h3>
 
         <div className={styles.secondaryContainer}>
-          тук: Лист със всички участници в този урок
+          {skatersList.map((skater) => (
+            <SkaterElement skater={skater} key={skater._id} />
+          ))}
         </div>
 
         <div className={styles.hiddenOnMobile}>

@@ -1,0 +1,16 @@
+.figure {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.2rem 1rem;
+  border-bottom: var(--card-border);
+}
+
+.additional {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.4rem;
+}
+.skaterProps span {
+  /* font-size: 1.8rem; */
+}
