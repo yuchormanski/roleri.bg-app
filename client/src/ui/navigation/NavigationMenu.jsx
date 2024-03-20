@@ -22,6 +22,8 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
       await logoutMutation.mutateAsync();
     } catch (error) {
       console.error(error.message);
+    } finally {
+      toggleMobile();
     }
   }
 
@@ -39,7 +41,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
       label: lang.lessons,
     },
   ];
-
+  console.log(isMobile);
   return (
     <>
       {/* next line is for keeping nav menu closed on initial render.
@@ -111,10 +113,9 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
               <li className={styles.listItem}>
                 <NavLink
                   onClick={() => {
+                    if (isMobile) toggleMobile();
                     onLogin();
-                    if (!isMobile) toggleMobile();
                   }}
-                  // className={styles.listItemBtn}
                   className={styles.link}
                   to=""
                 >
@@ -125,11 +126,9 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
             )}
             <li className={styles.listItem}>
               <NavLink
-                // onClick={() => {
-                //   onLogin();
-                //   if (!isMobile) toggleMobile();
-                // }}
-                // className={styles.listItemBtn}
+                onClick={() => {
+                  if (isMobile) toggleMobile();
+                }}
                 className={styles.link}
                 to=""
               >
