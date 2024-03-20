@@ -47,7 +47,7 @@ function UserInfo() {
           <>
             <div className={styles.secondaryContainer}>
               {lessons.length === 0 ? (
-                <h3>You have no active lessons.</h3>
+                <h3>{lang.u_no_lessons}</h3>
               ) : (
                 <div className={styles.lessonsContainer}>
                   {lessons.map((lesson) => (
@@ -60,6 +60,20 @@ function UserInfo() {
                 </div>
               )}
             </div>
+            <section className={styles.description}>
+              <p className={styles.info}>
+                <span>&#9737;</span>
+                {lang.u_info_1}
+              </p>
+              <p className={styles.info}>
+                <span>&#9737;</span>
+                {lang.u_info_2}
+              </p>
+              <p className={`${styles.info} ${styles.forFix}`}>
+                <span>&#9737;</span>
+                {lang.u_info_3}
+              </p>
+            </section>
           </>
         </div>
       )}

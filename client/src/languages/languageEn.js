@@ -101,7 +101,7 @@ export const EN = {
   to: "To",
   date: "Date",
   sequence: "Sequence",
-  reject: "Reject",
+  reject: "Cancel",
   book: "Book now",
 
   // ADMIN OPTIONS
@@ -169,6 +169,12 @@ export const EN = {
   // USER OPTIONS
   u_add_skater_info:
     "If you have additional requirements or custom needs, add them to 'Additional requirements' field.",
+  u_no_lessons: "You have no active lessons.",
+  u_info_1: "The lessons you have signed up for are sorted by date sequence",
+  u_info_2:
+    "In case of inability to attend the lesson, please use the 'Cancel' button.",
+  u_info_3:
+    "If the lesson is by subscription, following the club's requirements, you are entitled to one pass. Lessons are moved forward one week. With each subsequent refusal, you lose the corresponding lesson.",
 
   // Book lessons
   book_headInfo_1: "Before filling the form, please, check the ",
