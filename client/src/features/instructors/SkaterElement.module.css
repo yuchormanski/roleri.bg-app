@@ -2,15 +2,52 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.2rem 1rem;
+  padding: 1rem;
   border-bottom: var(--card-border);
 }
 
-.additional {
-  display: flex;
-  flex-direction: column;
-  font-size: 1.4rem;
+.heading {
+  font-weight: 300;
 }
+
+.additional {
+  width: 30%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.3rem;
+  font-size: 1.6rem;
+}
+
+.skaterProps {
+  background-color: var(--color-header-even);
+  width: 100%;
+  display: grid;
+  place-content: center;
+  position: relative;
+  height: 3rem;
+  border: var(--color-main);
+  border-radius: 0.3rem;
+}
+
 .skaterProps span {
-  /* font-size: 1.8rem; */
+  position: absolute;
+  display: none;
+}
+
+.infoBlock {
+  color: red;
+}
+@media (max-width: 480px) {
+  .figure {
+    padding: 0.5rem;
+  }
+  .heading {
+    font-size: 1.8rem;
+  }
+  .additional {
+    width: 40%;
+  }
+  .skaterProps {
+    height: 3.5rem;
+  }
 }

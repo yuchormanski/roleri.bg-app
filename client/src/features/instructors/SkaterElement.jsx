@@ -1,5 +1,8 @@
-import { useLanguage } from "../../context/Language.jsx";
 import styles from "./SkaterElement.module.css";
+
+import { useLanguage } from "../../context/Language.jsx";
+
+import { ImInfo } from "react-icons/im";
 
 function SkaterElement({ skater }) {
   const { _id, firstName, lastName, skates, protection, requirements } = skater;
@@ -7,7 +10,7 @@ function SkaterElement({ skater }) {
 
   return (
     <figure className={styles.figure}>
-      <h3>
+      <h3 className={styles.heading}>
         {firstName} {lastName}
       </h3>
 
@@ -20,9 +23,8 @@ function SkaterElement({ skater }) {
           <span>{lang.protection}</span>
           {protection}
         </p>
-        <p className={styles.skaterProps}>
-          <span>{lang.requirements}</span>
-          {requirements}
+        <p className={`${styles.skaterProps} ${styles.infoBlock}`}>
+          <ImInfo />
         </p>
       </div>
     </figure>
