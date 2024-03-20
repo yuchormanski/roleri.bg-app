@@ -14,7 +14,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
   const { isDark, themeToggle } = useTheme();
   const { lang, langChanger, toggle: language } = useLanguage();
 
-  const { checkIsUserLoggedIn, checkIsUserAdmin } = useAuthContext();
+  const { checkIsUserLoggedIn, checkIsUserAdmin, checkIsUserInstructor } = useAuthContext();
   const { logoutMutation } = useAuthQueries();
 
   async function onLogout() {
@@ -41,6 +41,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
       label: lang.lessons,
     },
   ];
+
   return (
     <>
       {/* next line is for keeping nav menu closed on initial render.
@@ -63,7 +64,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
               </li>
             ))}
 
-            {true && (
+            {(checkIsUserInstructor() || checkIsUserAdmin()) && (
               <li className={styles.listItem}>
                 <NavLink
                   to={"on-duty"}
@@ -75,6 +76,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
                 </NavLink>
               </li>
             )}
+
             {checkIsUserAdmin() && (
               <li className={styles.listItem}>
                 <NavLink
@@ -116,7 +118,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
                     onLogin();
                   }}
                   className={styles.link}
-                  to=""
+                  to="javascript:void(0)"
                 >
                   {lang.login}
                   <span className={styles.linkBorder}></span>
@@ -124,14 +126,15 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
               </li>
             )}
             <li className={styles.listItem}>
+              {/* TODO: ADD About Us Page */}
               <NavLink
                 onClick={() => {
                   if (isMobile) toggleMobile();
                 }}
                 className={styles.link}
-                to=""
+                to="todo-please-add-about-us-page"
               >
-                About
+                {lang.about}
                 <span className={styles.linkBorder}></span>
               </NavLink>
             </li>

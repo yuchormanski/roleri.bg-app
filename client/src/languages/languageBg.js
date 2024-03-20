@@ -98,6 +98,9 @@ export const BG = {
   date: "Дата",
   sequence: "Поредност",
   reject: "Откажи",
+  book: "Запиши се",
+  about: "За Нас",
+
 
   // ADMIN OPTIONS
   a_skates_info_1: "Добавете номер и количество",
@@ -144,7 +147,6 @@ export const BG = {
   a_dates_4: "След изтичане на избрана дата, автоматично ще отпадне от списъка",
   a_dates_5: "Полето приема потребителски данни",
   a_dates_6: "Изключените дати са: ",
-  book: "Запиши се",
 
   // SKATER OPTIONS
   s_firstName: "Име",

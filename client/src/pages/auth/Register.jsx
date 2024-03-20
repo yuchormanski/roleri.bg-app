@@ -33,6 +33,7 @@ function Register({ onClose, authToggle }) {
   // SUBMITTING THE FORM
   async function onFormSubmit(regData) {
     try {
+      if (!terms) throw new Error("Please read and agree to the terms!");
       if (!PHONE_REGEX.test(phone)) throw new Error("Invalid phone number!");
 
       const resultData = {
@@ -143,18 +144,18 @@ function Register({ onClose, authToggle }) {
                 "password",
                 !isNotForgotten
                   ? {
-                      required: "Password is required",
-                      minLength: {
-                        value: 3,
-                        message:
-                          "The password should be at least 3 characters long ",
-                      },
-                      pattern: {
-                        value: PASS_REGEX,
-                        message:
-                          "Password must contain at least one lowercase letter, one uppercase letter, and one digit",
-                      },
-                    }
+                    required: "Password is required",
+                    minLength: {
+                      value: 3,
+                      message:
+                        "The password should be at least 3 characters long ",
+                    },
+                    pattern: {
+                      value: PASS_REGEX,
+                      message:
+                        "Password must contain at least one lowercase letter, one uppercase letter, and one digit",
+                    },
+                  }
                   : null
               )}
               placeholder={"Password"}

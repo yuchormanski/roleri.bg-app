@@ -103,6 +103,7 @@ export const EN = {
   sequence: "Sequence",
   reject: "Cancel",
   book: "Book now",
+  about: "About",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",

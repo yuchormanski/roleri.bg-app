@@ -34,6 +34,13 @@ function AutContextProvider({ children }) {
     return isAdmin;
   }
 
+  function checkIsUserInstructor() {
+    const userData = getUserHandler();
+
+    const isInstructor = userData ? userData.role === USER_ROLE.instructor : false;
+    return isInstructor;
+  }
+
   function updateUserHandler(data) {
     const oldUserData = JSON.parse(localStorage.getItem(USER_LOCAL_STORAGE_KEY));
 
@@ -48,6 +55,7 @@ function AutContextProvider({ children }) {
     removeUserHandler,
     checkIsUserLoggedIn,
     checkIsUserAdmin,
+    checkIsUserInstructor,
     updateUserHandler,
   };
 
