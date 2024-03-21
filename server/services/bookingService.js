@@ -18,8 +18,6 @@ const getAllBooking = async (userId) => {
     })
   ).sort({ date: 1 });
 
-
-
   return bookings;
 };
 
@@ -62,9 +60,7 @@ const unregisteredUser = async ({ date, lessonId, ...userData }) => {
 const registeredUser = async (bookingDataArray, ownerId) => {
   const bookingData = await Promise.all(
     bookingDataArray.map(async (b) => {
-      const subscriptionData = await SubscriptionTypeModel.findById(
-        b.subscriptionType
-      );
+      const subscriptionData = await SubscriptionTypeModel.findById(b.subscriptionType);
       const bookingWithDate = bookUserHelper(
         b.date,
         subscriptionData.subscriptionCount,
