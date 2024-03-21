@@ -169,6 +169,13 @@ const individualActiveDaysBookingSchema = joi.object({
   end: joi.string().trim().required(),
 });
 
+// Add instructor notes validation
+const instructorCreateSchema = joi.object({
+  instructor: objectIdSchema,
+  skater: objectIdSchema,
+  content: joi.string().trim().max(800).allow(null).allow('')
+});
+
 export {
   validateRegisterSchema,
   validateLoginSchema,
@@ -181,4 +188,5 @@ export {
   individualActiveDaysBookingSchema,
   regularActiveDaysBookingSchema,
   updateUserRoleSchema,
+  instructorCreateSchema,
 };

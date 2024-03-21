@@ -36,7 +36,7 @@ userController.get(
   endpoints.get_all_users,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const currentUserId = req.user._id;
@@ -163,7 +163,7 @@ userController.put(
   endpoints.edit_user_role,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const userData = req.body;
@@ -183,7 +183,7 @@ userController.delete(
   endpoints.delete_user,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const userId = req.params.userId;

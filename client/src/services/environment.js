@@ -61,6 +61,8 @@ const SERVER_ENDPOINTS = {
   ADD_LESSON: "lessons/add-lesson",
   EDIT_LESSON: "lessons/edit-lesson",
   DELETE_LESSON: (lessonId) => `lessons/delete-lesson/${lessonId}`,
+
+  GET_COACH_LESSONS: "coach/get-coach-lessons"
 };
 
 // const EMAIL_REGEX =

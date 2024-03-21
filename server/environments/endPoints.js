@@ -6,6 +6,7 @@ export const mainRoutes = {
   skaters: "/skaters",
   options: "/options",
   bookings: "/bookings",
+  coach: "/coach",
 };
 
 export const endpoints = {
@@ -69,4 +70,7 @@ export const endpoints = {
   reject_booking: "/reject-booking",
   add_excluded_options: "/add-excluded-options",
   get_excluded_options: "/get-excluded-options",
+
+  // main path: /coach/
+  get_coach_lessons: "/get-coach-lessons"
 };

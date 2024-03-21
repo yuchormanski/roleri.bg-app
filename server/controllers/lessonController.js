@@ -26,7 +26,7 @@ lessonController.post(
   endpoints.add_lesson,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const lessonData = req.body;
@@ -46,7 +46,7 @@ lessonController.put(
   endpoints.edit_lesson,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const lessonData = req.body;
@@ -65,7 +65,7 @@ lessonController.delete(
   endpoints.delete_lesson,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const lessonId = req.params.lessonId;

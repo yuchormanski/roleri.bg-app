@@ -98,6 +98,7 @@ bookingController.post(
     try {
       const bookingData = req.body;
       const ownerId = req.user._id;
+      
       await registeredBookingUserSchema.validateAsync(bookingData);
       const newLessonsBooked = await registeredUser(bookingData, ownerId);
 
@@ -127,7 +128,7 @@ bookingController.put(
   endpoints.edit_active_days_regular,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const regularDaysData = req.body;
@@ -163,7 +164,7 @@ bookingController.put(
   endpoints.edit_active_days_individual,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const individualDaysData = req.body;
@@ -185,7 +186,7 @@ bookingController.get(
   endpoints.get_active_days_admin,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const allActiveDaysData = await getRegularAndIndividualDays();
@@ -215,7 +216,7 @@ bookingController.post(
   endpoints.add_excluded_options,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const excludedData = req.body;
