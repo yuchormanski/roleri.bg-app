@@ -7,7 +7,7 @@ import { usePath } from "../../context/PathContext.jsx";
 import { useEffect, useState } from "react";
 import { useGetActiveLessonsQuery } from "./useGetActiveLessonsQuery.js";
 import { useTranslate } from "../../hooks/useTranslate.js";
-import ActiveLesson from "./ActiveLesson.jsx";
+// import ActiveLesson from "./ActiveLesson.jsx";
 
 // // MOCKED DATA
 // const lessonsData = [
@@ -25,7 +25,7 @@ import ActiveLesson from "./ActiveLesson.jsx";
 
 function ActiveLessonsList() {
   const [lessonsData, setLessonData] = useState([]);
-  const [activeLessonId, setActiveLessonId] = useState(null);
+  // const [activeLessonId, setActiveLessonId] = useState(null);
 
   const { lang } = useLanguage();
   const { translatePhrase: translate } = useTranslate();
@@ -40,11 +40,11 @@ function ActiveLessonsList() {
       return;
     }
 
-    setLessonData(Object.keys(lessons).reduce((acc, groupName, index) => {
+    setLessonData(Object.keys(lessons).reduce((acc, groupName) => {
       const summaryObject = {
         lessonTitle: groupName,
-        participants: lessons[groupName].length,
-        _id: index,
+        participants: lessons[groupName].data.length,
+        _id: lessons[groupName]._id,
       };
 
       acc.push(summaryObject);
@@ -53,9 +53,9 @@ function ActiveLessonsList() {
 
   }, [lessons]);
 
-  function onLessonClickHandler(lessonId) {
-    setActiveLessonId(lessonId === activeLessonId ? null : lessonId);
-  }
+  // function onLessonClickHandler(lessonId) {
+  //   setActiveLessonId(lessonId === activeLessonId ? null : lessonId);
+  // }
 
   return (
     <>
@@ -70,9 +70,9 @@ function ActiveLessonsList() {
                   <div className={styles.content}>
                     <Link
                       className={styles.skateItem}
-                      // to={`/on-duty/activeLesson/${lesson._id}`}
-                      to={undefined}
-                      onClick={() => onLessonClickHandler(lesson._id)}
+                      to={`/on-duty/activeLesson/${lesson._id}`}
+                    // to={undefined}
+                    // onClick={() => onLessonClickHandler(lesson._id)}
                     >
                       <p className={styles.element}>
                         <span className={styles.elSpan}>{lang.type}:</span>
@@ -86,9 +86,9 @@ function ActiveLessonsList() {
                       </p>
                     </Link>
                   </div>
-                  {activeLessonId === lesson._id && (
+                  {/* {activeLessonId === lesson._id && (
                     <ActiveLesson lessonsData={lessons[lesson.lessonTitle]} />
-                  )}
+                  )} */}
                 </figure>
               ))}
             </div>

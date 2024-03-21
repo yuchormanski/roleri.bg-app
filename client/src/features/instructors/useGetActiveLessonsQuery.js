@@ -8,8 +8,8 @@ import { get } from "../../api/api.js";
 function useGetActiveLessonsQuery() {
 
   const { isFetching, isError, error, data } = useQuery({
-    queryKey: ["lessonsActive"],
     queryFn: async () => get(SERVER_ENDPOINTS.GET_COACH_LESSONS),
+    queryKey: ["lessonsActive"],
     // initialData: [],
   });
 
