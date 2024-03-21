@@ -57,28 +57,30 @@ function SkaterElement({ skater }) {
   return (
     <>
       <figure className={styles.figure}>
-        <button
-          className={`${styles.isNotPresent} ${
-            isPresent ? styles.isHere : null
-          }`}
-          onClick={presentHandler}
-          disabled={isPaid}
-        >
-          <PiCheck />
-        </button>
-        <button
-          className={`
+        <div className={styles.buttonContainer}>
+          <button
+            className={`${styles.isNotPresent} ${
+              isPresent ? styles.isHere : null
+            }`}
+            onClick={presentHandler}
+            disabled={isPaid}
+          >
+            <PiCheck />
+          </button>
+          <button
+            className={`
           ${styles.isNotPaid} 
           ${money ? styles.viewMoney : null} 
           ${isPaid ? styles.gotMoney : null}
           `}
-          onClick={moneyHandler}
-        >
-          <PiCurrencyDollar />
-        </button>
-        <h3 className={styles.heading}>
-          {firstName} {lastName}
-        </h3>
+            onClick={moneyHandler}
+          >
+            <PiCurrencyDollar />
+          </button>
+          <h3 className={styles.heading}>
+            {firstName} {lastName}
+          </h3>
+        </div>
 
         <div className={styles.additional}>
           <p className={styles.skaterProps}>{skates}</p>

@@ -2,18 +2,23 @@
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  padding: 0.8rem 1rem;
+  padding: 0.8rem 0rem;
   border-bottom: var(--card-border);
   position: relative;
+}
+.buttonContainer {
+  position: relative;
+  width: 65%;
 }
 
 .heading,
 .headingModal {
   font-weight: 300;
+  margin-left: 4rem;
 }
 
 .additional {
-  width: 30%;
+  width: 35%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.3rem;
@@ -23,7 +28,9 @@
 
 .isNotPresent,
 .isNotPaid {
-  width: 3.5rem;
+  position: absolute;
+  top: -0.6rem;
+  width: 3rem;
   aspect-ratio: 1/1;
   display: grid;
   place-content: center;
@@ -40,7 +47,8 @@
   opacity: 1;
   color: #fff;
   font-weight: 700;
-  transform: translateX(1245%);
+  transform: translateX(80%);
+  right: 5%;
 }
 .isHere:disabled {
   opacity: 0.6;
@@ -135,23 +143,34 @@
   resize: none;
 }
 
-@media (max-width: 1060px) {
+@media (max-width: 600px) {
+  .heading,
+  .headingModal {
+    font-size: 1.8rem;
+    /* margin-left: 4rem; */
+  }
   .isHere {
-    transform: translateX(1160%);
+    transform: translateX(80%);
   }
 }
-@media (max-width: 965px) {
-  .isHere {
-    transform: translateX(800%);
-  }
-}
-@media (max-width: 760px) {
-  .isHere {
-    transform: translateX(1050%);
-  }
-}
-@media (max-width: 480px) {
+
+@media (max-width: 430px) {
   .figure {
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem 0rem;
+  }
+  .buttonContainer {
+    width: 100%;
+  }
+  .heading,
+  .headingModal {
+    margin-left: 5rem;
+  }
+  .isHere {
+    transform: translateX(60%);
+  }
+  /* .figure {
     padding: 0.5rem;
   }
   .heading {
@@ -163,8 +182,8 @@
   .skaterProps {
     height: 3.5rem;
   }
-  .isHere {
+   .isHere {
     transform: translate(1250%, -3.5rem);
     scale: 0.4;
-  }
+  } */
 }
