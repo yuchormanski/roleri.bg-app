@@ -72,5 +72,11 @@ export const endpoints = {
   get_excluded_options: "/get-excluded-options",
 
   // main path: /coach/
-  get_coach_lessons: "/get-coach-lessons"
+  get_coach_lessons: "/get-coach-lessons",
+  edit_coach_is_present: "/edit-coach-is-present",
+  edit_coach_is_not_present: "/edit-coach-is-not-present",
+  edit_coach_is_paid: "/edit-coach-is-paid",
+  edit_coach_is_not_paid: "/edit-coach-is-not-paid",
+  add_coach_note: "/add-coach-note",
+  edit_coach_note: "/edit-coach-note",
 };
