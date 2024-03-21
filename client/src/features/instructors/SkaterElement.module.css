@@ -1,9 +1,10 @@
 .figure {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
+  gap: 1.5rem;
+  padding: 0.8rem 1rem;
   border-bottom: var(--card-border);
+  position: relative;
 }
 
 .heading,
@@ -17,6 +18,49 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 0.3rem;
   font-size: 1.6rem;
+  margin-left: auto;
+}
+
+.isNotPresent,
+.isNotPaid {
+  width: 3.5rem;
+  aspect-ratio: 1/1;
+  display: grid;
+  place-content: center;
+  font-size: 2.5rem;
+  color: var(--paragraph);
+  opacity: 0.3;
+  transition: all 0.3s ease-out;
+  border: 1px solid var(--lesson-link-border);
+  border-radius: 0.3rem;
+}
+
+.isHere {
+  background-color: green;
+  opacity: 1;
+  color: #fff;
+  font-weight: 700;
+  transform: translateX(1245%);
+}
+.isHere:disabled {
+  opacity: 0.6;
+}
+
+.isNotPaid {
+  position: absolute;
+  transform: translateX(-32rem);
+  visibility: hidden;
+  opacity: 0;
+}
+
+.viewMoney {
+  transform: translateX(0rem);
+  opacity: 0.3;
+  visibility: visible;
+}
+.gotMoney {
+  opacity: 1;
+  background-color: var(--lesson-link-border);
 }
 
 .skaterProps {
@@ -28,11 +72,6 @@
   height: 3rem;
   border: var(--color-main);
   border-radius: 0.3rem;
-}
-
-.skaterProps span {
-  position: absolute;
-  display: none;
 }
 
 .infoBlock {
@@ -96,6 +135,21 @@
   resize: none;
 }
 
+@media (max-width: 1060px) {
+  .isHere {
+    transform: translateX(1160%);
+  }
+}
+@media (max-width: 965px) {
+  .isHere {
+    transform: translateX(800%);
+  }
+}
+@media (max-width: 760px) {
+  .isHere {
+    transform: translateX(1050%);
+  }
+}
 @media (max-width: 480px) {
   .figure {
     padding: 0.5rem;
@@ -108,5 +162,9 @@
   }
   .skaterProps {
     height: 3.5rem;
+  }
+  .isHere {
+    transform: translate(1250%, -3.5rem);
+    scale: 0.4;
   }
 }

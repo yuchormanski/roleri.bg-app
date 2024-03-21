@@ -7,7 +7,8 @@ import { useLanguage } from "../../context/Language.jsx";
 
 import { ImInfo } from "react-icons/im";
 import { TfiEmail } from "react-icons/tfi";
-import { PiPhoneLight } from "react-icons/pi";
+import { PiCheck, PiPhoneLight, PiCurrencyDollar } from "react-icons/pi";
+import { MdOutlineDoNotDisturbAlt } from "react-icons/md";
 
 import Popup from "../../ui/elements/popupModal/Popup.jsx";
 import Button from "../../ui/elements/button/Button.jsx";
@@ -22,7 +23,11 @@ function SkaterElement({ skater }) {
     requirements,
     instructorInfo,
   } = skater;
+
   const [modal, setModal] = useState(false);
+  const [isPresent, setIsPresent] = useState(false);
+  const [money, setMoney] = useState(false);
+  const [isPaid, setIsPaid] = useState(false);
   const [instructorText, setInstructorText] = useState("");
   const { lang } = useLanguage();
 
@@ -31,6 +36,8 @@ function SkaterElement({ skater }) {
     setInstructorText(instructorInfo);
   }, [instructorInfo]);
 
+  //   HELEPER
+
   function toggleModal() {
     setModal((modal) => !modal);
   }
@@ -38,22 +45,44 @@ function SkaterElement({ skater }) {
   function textHandler(e) {
     setInstructorText(e.target.value);
   }
+
+  function presentHandler() {
+    setIsPresent((x) => !x);
+    setMoney((m) => !m);
+  }
+  function moneyHandler() {
+    setIsPaid((x) => !x);
+  }
+
   return (
     <>
       <figure className={styles.figure}>
+        <button
+          className={`${styles.isNotPresent} ${
+            isPresent ? styles.isHere : null
+          }`}
+          onClick={presentHandler}
+          disabled={isPaid}
+        >
+          <PiCheck />
+        </button>
+        <button
+          className={`
+          ${styles.isNotPaid} 
+          ${money ? styles.viewMoney : null} 
+          ${isPaid ? styles.gotMoney : null}
+          `}
+          onClick={moneyHandler}
+        >
+          <PiCurrencyDollar />
+        </button>
         <h3 className={styles.heading}>
           {firstName} {lastName}
         </h3>
 
         <div className={styles.additional}>
-          <p className={styles.skaterProps}>
-            <span>{lang.skates}</span>
-            {skates}
-          </p>
-          <p className={styles.skaterProps}>
-            <span>{lang.protection}</span>
-            {protection}
-          </p>
+          <p className={styles.skaterProps}>{skates}</p>
+          <p className={styles.skaterProps}>{protection}</p>
           <button
             className={`${styles.skaterProps} ${styles.infoBlock}`}
             onClick={toggleModal}
