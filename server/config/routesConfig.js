@@ -8,6 +8,7 @@ import { lessonController } from "../controllers/lessonController.js";
 import { skaterController } from "../controllers/skater.controller.js";
 import { optionController } from "../controllers/optionController.js";
 import { bookingController } from "../controllers/bookingController.js";
+import { coachController } from "../controllers/coachController.js";
 
 const routesConfig = (app) => {
     // Middleware for displaying request information
@@ -20,6 +21,7 @@ const routesConfig = (app) => {
     app.use(mainRoutes.skaters, skaterController);
     app.use(mainRoutes.options, optionController);
     app.use(mainRoutes.bookings, bookingController);
+    app.use(mainRoutes.coach, coachController);
 
     // Handle 404 errors
     app.all(mainRoutes.allRoute, (req, res, next) => {

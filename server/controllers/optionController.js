@@ -104,7 +104,7 @@ optionController.post(
   endpoints.add_skates_options,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const skatesData = req.body;
@@ -123,7 +123,7 @@ optionController.post(
   endpoints.add_protection_options,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const protectionData = req.body;
@@ -142,7 +142,7 @@ optionController.post(
   endpoints.add_age_options,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const ageData = req.body;
@@ -161,7 +161,7 @@ optionController.post(
   endpoints.add_subscription_options,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const subscriptionData = req.body;
@@ -180,7 +180,7 @@ optionController.put(
   endpoints.edit_skates_options,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const skatesData = req.body;
@@ -199,7 +199,7 @@ optionController.put(
   endpoints.edit_protection_options,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const protectionData = req.body;
@@ -218,7 +218,7 @@ optionController.put(
   endpoints.edit_age_options,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const ageData = req.body;
@@ -237,7 +237,7 @@ optionController.put(
   endpoints.edit_subscription_options,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const subscriptionData = req.body;
@@ -256,7 +256,7 @@ optionController.delete(
   endpoints.delete_skates_options,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const optionId = req.params.optionId;
@@ -275,7 +275,7 @@ optionController.delete(
   endpoints.delete_protection_options,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const optionId = req.params.optionId;
@@ -294,7 +294,7 @@ optionController.delete(
   endpoints.delete_age_options,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const optionId = req.params.optionId;
@@ -313,7 +313,7 @@ optionController.delete(
   endpoints.delete_subscription_options,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
-  isUserRole(userRole.admin),
+  isUserRole([userRole.admin]),
   async (req, res, next) => {
     try {
       const optionId = req.params.optionId;
