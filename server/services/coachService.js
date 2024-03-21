@@ -171,11 +171,15 @@ const getNearestLessonsDate = async () => {
 
     // Group lessons by title
     const groupedLessons = result.reduce((acc, lesson) => {
+        const randomId = Math.random().toString(36).slice(2);
         const title = lesson.lesson.title;
         if (!acc[title]) {
-            acc[title] = [];
+            acc[title] = {};
+            acc[title]['data'] = [];
+            acc[title]['_id'] = randomId;
         }
-        acc[title].push(lesson);
+
+        acc[title]['data'].push(lesson);
         return acc;
     }, {});
 
