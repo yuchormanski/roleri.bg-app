@@ -14,7 +14,7 @@
 .heading,
 .headingModal {
   font-weight: 300;
-  margin-left: 4rem;
+  margin-left: 5rem;
 }
 
 .additional {
@@ -170,20 +170,4 @@
   .isHere {
     transform: translateX(60%);
   }
-  /* .figure {
-    padding: 0.5rem;
-  }
-  .heading {
-    font-size: 1.8rem;
-  }
-  .additional {
-    width: 40%;
-  }
-  .skaterProps {
-    height: 3.5rem;
-  }
-   .isHere {
-    transform: translate(1250%, -3.5rem);
-    scale: 0.4;
-  } */
 }
