@@ -47,8 +47,8 @@
   opacity: 1;
   color: #fff;
   font-weight: 700;
-  transform: translateX(80%);
-  right: 5%;
+  right: 15%;
+  transform: translateX(190%);
 }
 .isHere:disabled {
   opacity: 0.6;
@@ -147,10 +147,14 @@
   .heading,
   .headingModal {
     font-size: 1.8rem;
-    /* margin-left: 4rem; */
   }
   .isHere {
-    transform: translateX(80%);
+    transform: translateX(170%);
+  }
+}
+@media (max-width: 480px) {
+  .isHere {
+    transform: translateX(150%);
   }
 }
 
@@ -168,6 +172,13 @@
     margin-left: 5rem;
   }
   .isHere {
-    transform: translateX(60%);
+    right: 17%;
+    transform: translateX(180%);
+  }
+}
+@media (max-width: 375px) {
+  .isHere {
+    right: 17%;
+    transform: translateX(160%);
   }
 }
