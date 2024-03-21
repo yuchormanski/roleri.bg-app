@@ -14,7 +14,13 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
   const { isDark, themeToggle } = useTheme();
   const { lang, langChanger, toggle: language } = useLanguage();
 
-  const { checkIsUserLoggedIn, checkIsUserAdmin, checkIsUserInstructor } = useAuthContext();
+  const {
+    checkIsUserLoggedIn,
+    checkIsUserAdmin,
+    checkIsUserInstructor,
+    checkIsUser,
+  } = useAuthContext();
+
   const { logoutMutation } = useAuthQueries();
 
   async function onLogout() {
@@ -125,6 +131,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
                 </NavLink>
               </li>
             )}
+
             <li className={styles.listItem}>
               {/* TODO: ADD About Us Page */}
               <NavLink

@@ -14,7 +14,9 @@ function AutContextProvider({ children }) {
 
   function getUserHandler() {
     const queryUserData = queryClient.getQueryData(["user"]) ?? null;
-    const localStorageUserData = JSON.parse(localStorage.getItem(USER_LOCAL_STORAGE_KEY));
+    const localStorageUserData = JSON.parse(
+      localStorage.getItem(USER_LOCAL_STORAGE_KEY)
+    );
 
     return queryUserData || localStorageUserData || null;
   }
@@ -34,15 +36,26 @@ function AutContextProvider({ children }) {
     return isAdmin;
   }
 
+  function checkIsUser() {
+    const userData = getUserHandler();
+
+    const isUser = userData ? userData.role === USER_ROLE.user : false;
+    return isUser;
+  }
+
   function checkIsUserInstructor() {
     const userData = getUserHandler();
 
-    const isInstructor = userData ? userData.role === USER_ROLE.instructor : false;
+    const isInstructor = userData
+      ? userData.role === USER_ROLE.instructor
+      : false;
     return isInstructor;
   }
 
   function updateUserHandler(data) {
-    const oldUserData = JSON.parse(localStorage.getItem(USER_LOCAL_STORAGE_KEY));
+    const oldUserData = JSON.parse(
+      localStorage.getItem(USER_LOCAL_STORAGE_KEY)
+    );
 
     const newData = { ...oldUserData, ...data };
 
@@ -56,6 +69,7 @@ function AutContextProvider({ children }) {
     checkIsUserLoggedIn,
     checkIsUserAdmin,
     checkIsUserInstructor,
+    checkIsUser,
     updateUserHandler,
   };
 
