@@ -62,7 +62,13 @@ const SERVER_ENDPOINTS = {
   EDIT_LESSON: "lessons/edit-lesson",
   DELETE_LESSON: (lessonId) => `lessons/delete-lesson/${lessonId}`,
 
-  GET_COACH_LESSONS: "coach/get-coach-lessons"
+  GET_COACH_LESSONS: "coach/get-coach-lessons",
+  EDIT_COACH_IS_PRESENT: "coach/edit-coach-is-present",
+  EDIT_COACH_IS_NOT_PRESENT: "coach/edit-coach-is-not-present",
+  EDIT_COACH_IS_PAID: "coach/edit-coach-is-paid",
+  EDIT_COACH_IS_NOT_PAID: "coach/edit-coach-is-not-paid",
+  ADD_COACH_NOTE: "coach/add-coach-note",
+  EDIT_COACH_NOTE: "coach/edit-coach-note",
 };
 
 // const EMAIL_REGEX =
