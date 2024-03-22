@@ -19,10 +19,10 @@ function Popup({
         `}
         onClick={(e) => e.stopPropagation()}
       >
-        <button className={styles.closeIcon} onClick={onClose}>
-          {/* <ion-icon name="close-outline"></ion-icon> */}
+        {/* <button className={styles.closeIcon} onClick={onClose}>
+          <ion-icon name="close-outline"></ion-icon>
           <CgClose />
-        </button>
+        </button> */}
         {children}
       </figure>
     </div>
