@@ -1,6 +1,9 @@
 import { LessonModel } from '../models/LessonModel.js';
 
-const getAllLessons = async () => populateLesson(LessonModel.find());
+const getAllLessons = async () => {
+    const currentDate = new Date();
+    return populateLesson(LessonModel.find({ validTo: { $gte: currentDate }, isIndividual: false }));
+};
 
 const getLessonById = async (lessonId) => populateLesson(LessonModel.findById(lessonId));
 

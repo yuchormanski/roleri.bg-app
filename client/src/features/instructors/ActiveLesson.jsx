@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import styles from "./ActiveLesson.module.css";
 import { useMoveBack } from "../../hooks/useMoveBack.js";
 import { useLanguage } from "../../context/Language.jsx";

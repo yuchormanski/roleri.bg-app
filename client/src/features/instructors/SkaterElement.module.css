@@ -6,9 +6,27 @@
   border-bottom: var(--card-border);
   position: relative;
 }
+
 .buttonContainer {
   position: relative;
   width: 65%;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  font-size: 2.4rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.closeBtn:hover {
+  transform: rotate(90deg) translate(-0.4rem, 0.3rem);
+  /* filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.5)); */
+}
+
+.closeIcon {
+  font-size: 3rem;
 }
 
 .heading,
@@ -50,6 +68,7 @@
   right: 15%;
   transform: translateX(190%);
 }
+
 .isHere:disabled {
   opacity: 0.6;
 }
@@ -66,6 +85,7 @@
   opacity: 0.3;
   visibility: visible;
 }
+
 .gotMoney {
   opacity: 1;
   background-color: var(--lesson-link-border);
@@ -111,6 +131,7 @@
   border: 1px solid gray;
   border-radius: 0.3rem;
 }
+
 .label {
   background-color: var(--card-bg);
   position: absolute;
@@ -122,20 +143,25 @@
   padding-inline: 0.8rem;
   border-radius: 0.5rem;
 }
+
 .parentELement {
   display: flex;
   font-size: 1.6rem;
 }
+
 .parentName {
   font-size: 1.8rem;
 }
+
 .spanIcon {
   margin: 0.2rem 0.5rem 0 0;
   color: var(--lesson-link-border);
 }
+
 .additionalContent {
   font-size: 1.6rem;
 }
+
 .textarea {
   all: unset;
   width: 100%;
@@ -144,14 +170,17 @@
 }
 
 @media (max-width: 600px) {
+
   .heading,
   .headingModal {
     font-size: 1.8rem;
   }
+
   .isHere {
     transform: translateX(170%);
   }
 }
+
 @media (max-width: 480px) {
   .isHere {
     transform: translateX(150%);
@@ -164,18 +193,22 @@
     width: 100%;
     padding: 1rem 0rem;
   }
+
   .buttonContainer {
     width: 100%;
   }
+
   .heading,
   .headingModal {
     margin-left: 5rem;
   }
+
   .isHere {
     right: 17%;
     transform: translateX(180%);
   }
 }
+
 @media (max-width: 375px) {
   .isHere {
     right: 17%;

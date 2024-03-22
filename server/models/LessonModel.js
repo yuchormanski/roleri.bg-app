@@ -26,6 +26,11 @@ const lessonModelSchema = new Schema(
       type: Number,
       required: true,
     },
+    isIndividual: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
     type: {
       type: Types.ObjectId,
       ref: "SubscriptionType"

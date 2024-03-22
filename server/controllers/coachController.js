@@ -7,6 +7,7 @@ import { preloadOptions, userRole } from '../environments/constants.js';
 import { instructorCreateSchema } from '../util/validationSchemes.js';
 import {
     addNote,
+    getEquipmentForDate,
     getNearestLessonsDate,
     setIsPaidToFalse,
     setIsPaidToTrue,
@@ -25,6 +26,21 @@ coachController.get(endpoints.get_coach_lessons,
     async (req, res, next) => {
         try {
             const allCurrentLessons = await getNearestLessonsDate();
+
+            res.status(200).json(allCurrentLessons);
+        } catch (error) {
+            next(error);
+        }
+    });
+
+// Get equipment for date
+coachController.get(endpoints.get_coach_lessons_equipment,
+    isUserLogged,
+    preloader(getUserById, preloadOptions.getUserById),
+    isUserRole([userRole.admin, userRole.instructor]),
+    async (req, res, next) => {
+        try {
+            const allCurrentLessons = await getEquipmentForDate();
 
             res.status(200).json(allCurrentLessons);
         } catch (error) {
@@ -122,7 +138,7 @@ coachController.put(endpoints.edit_coach_note,
     async (req, res, next) => {
         try {
             const noteData = req.body;
-            
+
             await instructorCreateSchema.validateAsync(noteData);
             const updatedNote = await updateNote(noteData);
 

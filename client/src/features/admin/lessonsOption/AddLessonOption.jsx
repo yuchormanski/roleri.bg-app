@@ -103,13 +103,12 @@ function AddLessonOption({ onClose }) {
       validTo: fieldValues.validTo || null,
       geoLocation: fieldValues.geoLocation,
       time: fieldValues.time,
-      // isIndividual: fieldValues.isIndividual,
+      isIndividual: fieldValues.isIndividual,
     };
 
     if (!fieldValues.age) return toast.error("Age is required");
     if (!fieldValues.type) return toast.error("Type is required");
-    if (!fieldValues.isIndividual)
-      return toast.error("Is individual is required");
+    if (!fieldValues.isIndividual) return toast.error("Is individual is required");
 
     // console.log(dataToServer);
 
@@ -142,7 +141,6 @@ function AddLessonOption({ onClose }) {
   }
 
   function selectHandler(data) {
-    console.log(data);
     setFieldValues((field) => ({ ...field, [data.name]: data.value }));
   }
   return (
@@ -188,9 +186,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"title"}
-                    className={`${styles.label} ${
-                      fieldValues.title ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.title ? styles.filled : null
+                      }`}
                   >
                     {lang.title}
                   </label>
@@ -215,9 +212,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"titleBG"}
-                    className={`${styles.label} ${
-                      fieldValues.title ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.title ? styles.filled : null
+                      }`}
                   >
                     {lang.title}
                     {lang.onBul}
@@ -236,12 +232,11 @@ function AddLessonOption({ onClose }) {
                     options={transformDataToSelect(optionData.groupsAgeData)}
                     styles={customStyles}
                     placeholder={<div style={{ fontSize: 14 }}>Age group</div>}
-                    // isMulti
+                  // isMulti
                   />
                   <label
-                    className={`${styles.selectLabel} ${
-                      fieldValues.age ? styles.filled : null
-                    }`}
+                    className={`${styles.selectLabel} ${fieldValues.age ? styles.filled : null
+                      }`}
                   >
                     <span>{lang.age}</span>
                   </label>
@@ -261,9 +256,8 @@ function AddLessonOption({ onClose }) {
                     }
                   />
                   <label
-                    className={`${styles.selectLabel} ${
-                      fieldValues.type ? styles.filled : null
-                    }`}
+                    className={`${styles.selectLabel} ${fieldValues.type ? styles.filled : null
+                      }`}
                   >
                     <span>{lang.type}</span>
                   </label>
@@ -296,9 +290,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"participants"}
-                    className={`${styles.label} ${
-                      fieldValues.participants ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.participants ? styles.filled : null
+                      }`}
                   >
                     {lang.participants}
                   </label>
@@ -327,9 +320,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"price"}
-                    className={`${styles.label} ${
-                      fieldValues.price ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.price ? styles.filled : null
+                      }`}
                   >
                     {lang.price}
                   </label>
@@ -357,9 +349,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"location"}
-                    className={`${styles.label} ${
-                      fieldValues.location ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.location ? styles.filled : null
+                      }`}
                   >
                     {lang.location}
                   </label>
@@ -384,9 +375,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"price"}
-                    className={`${styles.label} ${
-                      fieldValues.locationBG ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.locationBG ? styles.filled : null
+                      }`}
                   >
                     {lang.location}
                     {lang.onBul}
@@ -415,9 +405,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"skills"}
-                    className={`${styles.label} ${
-                      fieldValues.skills ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.skills ? styles.filled : null
+                      }`}
                   >
                     {lang.skills}
                   </label>
@@ -442,9 +431,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"skillsBG"}
-                    className={`${styles.label} ${
-                      fieldValues.skillsBG ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.skillsBG ? styles.filled : null
+                      }`}
                   >
                     {lang.skills}
                     {lang.onBul}
@@ -474,9 +462,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"description"}
-                    className={`${styles.label} ${
-                      fieldValues.description ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.description ? styles.filled : null
+                      }`}
                   >
                     {lang.description}
                   </label>
@@ -502,9 +489,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"descriptionBG"}
-                    className={`${styles.label} ${
-                      fieldValues.descriptionBG ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.descriptionBG ? styles.filled : null
+                      }`}
                   >
                     {lang.description}
                     {lang.onBul}
@@ -535,9 +521,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"imageUrl"}
-                    className={`${styles.label} ${
-                      fieldValues.imageUrl ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.imageUrl ? styles.filled : null
+                      }`}
                   >
                     {lang.imageUrl}
                   </label>
@@ -557,9 +542,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"time"}
-                    className={`${styles.label} ${
-                      fieldValues.time ? styles.filled : styles.hidden
-                    }`}
+                    className={`${styles.label} ${fieldValues.time ? styles.filled : styles.hidden
+                      }`}
                   >
                     {lang.time}
                   </label>
@@ -584,9 +568,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"validTo"}
-                    className={`${styles.label} ${
-                      fieldValues.validTo ? styles.filled : styles.hidden
-                    }`}
+                    className={`${styles.label} ${fieldValues.validTo ? styles.filled : styles.hidden
+                      }`}
                   >
                     {lang.validTo}
                   </label>
@@ -615,9 +598,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"lat"}
-                    className={`${styles.label} ${
-                      fieldValues.geoLocation.lat ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.geoLocation.lat ? styles.filled : null
+                      }`}
                   >
                     {lang.latitude}
                   </label>
@@ -643,9 +625,8 @@ function AddLessonOption({ onClose }) {
                   />
                   <label
                     htmlFor={"lon"}
-                    className={`${styles.label} ${
-                      fieldValues.location.lon ? styles.filled : null
-                    }`}
+                    className={`${styles.label} ${fieldValues.location.lon ? styles.filled : null
+                      }`}
                   >
                     {lang.longitude}
                   </label>
@@ -668,12 +649,11 @@ function AddLessonOption({ onClose }) {
                       placeholder={
                         <div style={{ fontSize: 14 }}>Is Individual</div>
                       }
-                      // isMulti
+                    // isMulti
                     />
                     <label
-                      className={`${styles.selectLabel} ${
-                        fieldValues.isIndividual ? styles.filled : null
-                      }`}
+                      className={`${styles.selectLabel} ${fieldValues.isIndividual ? styles.filled : null
+                        }`}
                     >
                       <span>isIndividual</span>
                     </label>

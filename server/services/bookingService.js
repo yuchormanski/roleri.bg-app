@@ -58,27 +58,38 @@ const unregisteredUser = async ({ date, lessonId, ...userData }) => {
 
 // Registered user booking
 const registeredUser = async (bookingDataArray, ownerId) => {
-  const bookingData = await Promise.all(
-    bookingDataArray.map(async (b) => {
-      const subscriptionData = await SubscriptionTypeModel.findById(b.subscriptionType);
-      const bookingWithDate = bookUserHelper(
-        b.date,
-        subscriptionData.subscriptionCount,
-        b.lessonId,
-        b.skaterId,
-        b.additionalRequirements,
-        b.subscriptionType,
-        ownerId
-      );
-      return bookingWithDate;
-    })
-  );
+  const newBookings = [];
 
-  const flattenedBookingDataArray = bookingData.flatMap((arr) => arr);
+  // Iterate over each booking data
+  for (const bookingData of bookingDataArray) {
+    // Check if the user has a previous booking for the same lesson on the specific date
+    const existingBooking = await BookingModel.findOne({
+      skaterId: bookingData.skaterId,
+      date: new Date(bookingData.date),
+    });
 
-  const newLessonsBooked = await BookingModel.insertMany(
-    flattenedBookingDataArray
-  );
+    // If user has a previous booking, throw an error
+    if (existingBooking) {
+      throw new Error('User already has a booking for the specified date.');
+    }
+
+    // If no previous booking found, proceed to create a new booking
+    const subscriptionData = await SubscriptionTypeModel.findById(bookingData.subscriptionType);
+    const bookingWithDate = bookUserHelper(
+      bookingData.date,
+      subscriptionData.subscriptionCount,
+      bookingData.lessonId,
+      bookingData.skaterId,
+      bookingData.additionalRequirements,
+      bookingData.subscriptionType,
+      ownerId
+    );
+    newBookings.push(...bookingWithDate);
+  }
+
+  // Insert new bookings into the database
+  const newLessonsBooked = await BookingModel.insertMany(newBookings);
+
   return newLessonsBooked;
 };
 
