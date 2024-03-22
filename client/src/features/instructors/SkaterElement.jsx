@@ -20,10 +20,16 @@ function SkaterElement({ lesson }) {
   const {
     _id,
     lesson: { title, time },
-    skater: { firstName, lastName, skatesSize: skates, protection, additionalRequirements: skaterRequirement },
+    skater: {
+      firstName,
+      lastName,
+      skatesSize: skates,
+      protection,
+      additionalRequirements: skaterRequirement,
+    },
     ownerDetails: parentDetails,
     additionalRequirements: lessonRequirements,
-    instructorNotes: instructorInfo
+    instructorNotes: instructorInfo,
   } = lesson;
 
   const [modal, setModal] = useState(false);
@@ -36,13 +42,19 @@ function SkaterElement({ lesson }) {
   const { getUserHandler } = useAuthContext();
   const currentUserDetails = getUserHandler();
 
-  const { mutateAsync: presentMutation, isPending: presentIsPending } = useEditInstructorQuery("present");
-  const { mutateAsync: notPresentMutation, isPending: notPresentIsPending } = useEditInstructorQuery("notPresent");
-  const { mutateAsync: paidMutation, isPending: paidIsPending } = useEditInstructorQuery("paid");
-  const { mutateAsync: notPaidMutation, isPending: notPaidIsPending } = useEditInstructorQuery("notPaid");
+  const { mutateAsync: presentMutation, isPending: presentIsPending } =
+    useEditInstructorQuery("present");
+  const { mutateAsync: notPresentMutation, isPending: notPresentIsPending } =
+    useEditInstructorQuery("notPresent");
+  const { mutateAsync: paidMutation, isPending: paidIsPending } =
+    useEditInstructorQuery("paid");
+  const { mutateAsync: notPaidMutation, isPending: notPaidIsPending } =
+    useEditInstructorQuery("notPaid");
 
-  const { mutateAsync: addNoteMutation, isPending: addNoteIsPending } = useAddInstructorNoteQuery();
-  const { mutateAsync: editNoteMutation, isPending: editNoteIsPending } = useEditInstructorQuery("editNote");
+  const { mutateAsync: addNoteMutation, isPending: addNoteIsPending } =
+    useAddInstructorNoteQuery();
+  const { mutateAsync: editNoteMutation, isPending: editNoteIsPending } =
+    useEditInstructorQuery("editNote");
 
   useEffect(() => {
     if (!instructorInfo) return;
@@ -75,7 +87,6 @@ function SkaterElement({ lesson }) {
       };
 
       await editNoteMutation(serverData);
-      
     } catch (error) {
       console.error(error.message);
     }
@@ -102,7 +113,6 @@ function SkaterElement({ lesson }) {
     } catch (error) {
       console.error(error.message);
     }
-
   }
 
   async function moneyHandler() {
@@ -117,16 +127,16 @@ function SkaterElement({ lesson }) {
     } catch (error) {
       console.error(error.message);
     }
-
   }
-
 
   return (
     <>
       <figure className={styles.figure}>
         <div className={styles.buttonContainer}>
           <button
-            className={`${styles.isNotPresent} ${isPresent ? styles.isHere : null}`}
+            className={`${styles.isNotPresent} ${
+              isPresent ? styles.isHere : null
+            }`}
             onClick={presentHandler}
             disabled={isPaid}
           >
@@ -175,13 +185,17 @@ function SkaterElement({ lesson }) {
                 <span className={styles.spanIcon}>
                   <PiPhoneLight />
                 </span>
-                <Link to={`tel:${parentDetails.phone}`}>{parentDetails.phone}</Link>
+                <Link to={`tel:${parentDetails.phone}`}>
+                  {parentDetails.phone}
+                </Link>
               </p>
               <p className={styles.parentELement}>
                 <span className={styles.spanIcon}>
                   <TfiEmail />
                 </span>
-                <Link to={`mailto:${parentDetails.email}`}>{parentDetails.email}</Link>
+                <Link to={`mailto:${parentDetails.email}`}>
+                  {parentDetails.email}
+                </Link>
               </p>
             </div>
 
@@ -195,9 +209,7 @@ function SkaterElement({ lesson }) {
             {skaterRequirement && (
               <div className={styles.parentInfo}>
                 <span className={styles.label}>Skater Requirements</span>
-                <p className={styles.additionalContent}>
-                  {skaterRequirement}
-                </p>
+                <p className={styles.additionalContent}>{skaterRequirement}</p>
               </div>
             )}
 
@@ -213,7 +225,11 @@ function SkaterElement({ lesson }) {
             <div style={{ marginLeft: "auto" }}>
               <Button
                 type={"primary"}
-                onClick={instructorInfo ? updateInstructorNoteHandler : addInstructorNoteHandler}
+                onClick={
+                  instructorInfo
+                    ? updateInstructorNoteHandler
+                    : addInstructorNoteHandler
+                }
               >
                 {instructorInfo ? "Update" : "Add"}
               </Button>

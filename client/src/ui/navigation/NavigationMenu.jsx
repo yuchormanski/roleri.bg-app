@@ -132,19 +132,21 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
               </li>
             )}
 
-            <li className={styles.listItem}>
-              {/* TODO: ADD About Us Page */}
-              <NavLink
-                onClick={() => {
-                  if (!isMobile) toggleMobile();
-                }}
-                className={styles.link}
-                to="todo-please-add-about-us-page"
-              >
-                {lang.about}
-                <span className={styles.linkBorder}></span>
-              </NavLink>
-            </li>
+            {checkIsUserAdmin() || checkIsUserInstructor() ? null : (
+              <li className={styles.listItem}>
+                {/* TODO: ADD About Us Page */}
+                <NavLink
+                  onClick={() => {
+                    if (!isMobile) toggleMobile();
+                  }}
+                  className={styles.link}
+                  to="todo-please-add-about-us-page"
+                >
+                  {lang.about}
+                  <span className={styles.linkBorder}></span>
+                </NavLink>
+              </li>
+            )}
 
             {/* <li className={`${styles.listItem} ${styles.themeChanger}`}> */}
             <li className={`${styles.themeChanger}`}>
