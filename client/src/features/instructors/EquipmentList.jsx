@@ -2,29 +2,33 @@ import { useEffect } from "react";
 import { usePath } from "../../context/PathContext.jsx";
 import styles from "./EquipmentList.module.css";
 import { useLanguage } from "../../context/Language.jsx";
+import { useGetEquipmentQuery } from "./useGetEquipmentQuery.js";
 
 // MOCKED DATA
-const equipmentData = [
-  {
-    skates: [
-      { skateSize: 27, quantity: 2 },
-      { skateSize: 28, quantity: 1 },
-      { skateSize: 30, quantity: 4 },
-      { skateSize: 32, quantity: 3 },
-    ],
-  },
-  {
-    protection: [
-      { protectionSize: "XS", quantity: 3 },
-      { protectionSize: "S", quantity: 1 },
-      { protectionSize: "M", quantity: 2 },
-    ],
-  },
-];
+// const equipmentData = [
+//   {
+//     skates: [
+//       { skateSize: 27, quantity: 2 },
+//       { skateSize: 28, quantity: 1 },
+//       { skateSize: 30, quantity: 4 },
+//       { skateSize: 32, quantity: 3 },
+//     ],
+//   },
+//   {
+//     protection: [
+//       { protectionSize: "XS", quantity: 3 },
+//       { protectionSize: "S", quantity: 1 },
+//       { protectionSize: "M", quantity: 2 },
+//     ],
+//   },
+// ];
 
 function EquipmentList() {
   const { lang } = useLanguage();
   const { path, newPath } = usePath();
+
+  const { isFetching, data: equipmentData } = useGetEquipmentQuery();
+
   useEffect(() => newPath("equipment"), [newPath]);
 
   return (
@@ -40,8 +44,8 @@ function EquipmentList() {
                 {lang.skates}
               </h4>
               <div className={styles.equipmentContainer}>
-                {equipmentData.at(0)?.skates.map((equipment) => (
-                  <figure className={styles.figure} key={equipment._id}>
+                {equipmentData.at(0)?.skates.map((equipment, index) => (
+                  <figure className={styles.figure} key={`${index}${equipment.skateSize}`}>
                     <div className={styles.content}>
                       <div className={styles.skateItem}>
                         <p className={styles.element}>
@@ -79,8 +83,8 @@ function EquipmentList() {
                 {lang.protection}
               </h4>
               <div className={styles.equipmentContainer}>
-                {equipmentData.at(1)?.protection.map((equipment) => (
-                  <figure className={styles.figure} key={equipment._id}>
+                {equipmentData.at(1)?.protection.map((equipment, index) => (
+                  <figure className={styles.figure} key={`${index}${equipment.protectionSize}`}>
                     <div className={styles.content}>
                       <div className={styles.skateItem}>
                         <p className={styles.element}>

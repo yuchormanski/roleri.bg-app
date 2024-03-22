@@ -63,6 +63,7 @@ const SERVER_ENDPOINTS = {
   DELETE_LESSON: (lessonId) => `lessons/delete-lesson/${lessonId}`,
 
   GET_COACH_LESSONS: "coach/get-coach-lessons",
+  GET_COACH_LESSONS_EQUIPMENT: "coach/get-coach-lessons-equipment",
   EDIT_COACH_IS_PRESENT: "coach/edit-coach-is-present",
   EDIT_COACH_IS_NOT_PRESENT: "coach/edit-coach-is-not-present",
   EDIT_COACH_IS_PAID: "coach/edit-coach-is-paid",

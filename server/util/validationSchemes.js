@@ -82,6 +82,7 @@ const lessonCreateSchema = joi.object({
   age: objectIdSchema,
   skills: joi.string().max(410).trim().required(),
   participants: joi.number().max(20).required(),
+  isIndividual: joi.boolean().optional(),
   type: objectIdSchema,
   location: joi.string().max(410).trim().required(),
   price: joi.number().max(10000).required(),

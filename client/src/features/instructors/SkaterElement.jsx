@@ -15,6 +15,7 @@ import { MdOutlineDoNotDisturbAlt } from "react-icons/md";
 import Popup from "../../ui/elements/popupModal/Popup.jsx";
 import Button from "../../ui/elements/button/Button.jsx";
 import { useAuthContext } from "../../context/AuthContext.jsx";
+import { GoX } from "react-icons/go";
 
 function SkaterElement({ lesson }) {
   const {
@@ -134,9 +135,8 @@ function SkaterElement({ lesson }) {
       <figure className={styles.figure}>
         <div className={styles.buttonContainer}>
           <button
-            className={`${styles.isNotPresent} ${
-              isPresent ? styles.isHere : null
-            }`}
+            className={`${styles.isNotPresent} ${isPresent ? styles.isHere : null
+              }`}
             onClick={presentHandler}
             disabled={isPaid}
           >
@@ -172,6 +172,11 @@ function SkaterElement({ lesson }) {
       {modal && (
         <Popup onClose={toggleModal}>
           <div className={styles.modalContainer}>
+            <div className={styles.closeBtn}>
+              <button onClick={toggleModal} className={styles.closeIcon}>
+                <GoX />
+              </button>
+            </div>
             <h3 className={styles.headingModal}>
               {firstName} {lastName}
             </h3>

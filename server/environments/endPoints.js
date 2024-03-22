@@ -73,6 +73,7 @@ export const endpoints = {
 
   // main path: /coach/
   get_coach_lessons: "/get-coach-lessons",
+  get_coach_lessons_equipment: "/get-coach-lessons-equipment",
   edit_coach_is_present: "/edit-coach-is-present",
   edit_coach_is_not_present: "/edit-coach-is-not-present",
   edit_coach_is_paid: "/edit-coach-is-paid",

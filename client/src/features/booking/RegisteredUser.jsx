@@ -93,13 +93,13 @@ function RegisteredUser() {
         !!valueObj.subscriptionType &&
         !!valueObj.lessonId
         ? [
-            ...acc,
-            {
-              ...valueObj,
-              date: selectedDate,
-              additionalRequirements: additional,
-            },
-          ]
+          ...acc,
+          {
+            ...valueObj,
+            date: selectedDate,
+            additionalRequirements: additional,
+          },
+        ]
         : acc;
     }, []);
 
@@ -107,11 +107,13 @@ function RegisteredUser() {
       try {
         await mutateAsync(dataToServer);
 
-        setSign([]);
         navigate("/profile");
       } catch (error) {
         console.log(error.message);
+      } finally {
+        setSign([]);
       }
+
     } else return toast.error("You should select all option for skater");
   }
 
@@ -123,9 +125,9 @@ function RegisteredUser() {
     <>
       {" "}
       {isSkatersLoading ||
-      isOptionsLoading ||
-      isLessonsLoading ||
-      isAddBookingLoading ? (
+        isOptionsLoading ||
+        isLessonsLoading ||
+        isAddBookingLoading ? (
         <Spinner />
       ) : (
         <div className={styles.container}>
@@ -269,9 +271,9 @@ function RegisteredUser() {
                   <label
                     htmlFor={"textArea"}
                     className={`${styles.enabledLevel} ${styles.textareaLabel} `}
-                    //  ${
-                    //   fieldValues.textArea ? styles.filled : null
-                    // }
+                  //  ${
+                  //   fieldValues.textArea ? styles.filled : null
+                  // }
                   >
                     {lang.requirements}
                   </label>

@@ -152,7 +152,7 @@ const getNearestLessonsDate = async () => {
                     lastName: "$skater.lastName",
                     additionalRequirements: "$skater.additionalRequirements",
                     skatesSize: "$skatesSize", // Direct value
-                    protection: "$protection" // Direct value
+                    protection: "$protection"  // Direct value
                 },
                 ownerDetails: {
                     firstName: "$ownerDetails.firstName",
@@ -186,8 +186,85 @@ const getNearestLessonsDate = async () => {
     return groupedLessons;
 };
 
+// Get all needed equipment for current lesson
+const getEquipmentForDate = async () => {
+    const currentDate = new Date();
+
+    const bookings = await BookingModel.aggregate([
+        // Match bookings with dates greater than or equal to currentDate
+        {
+            $match: { date: { $gte: currentDate }, isRejected: false }
+        },
+        // Group by date and get the minimum date in each group
+        {
+            $group: {
+                _id: null,
+                earliestDate: { $min: "$date" }
+            }
+        }
+    ]);
+
+    // Extract the earliest date from the aggregation result
+    const earliestDate = bookings.length > 0 ? bookings[0].earliestDate : null;
+
+    // Now fetch bookings with the earliest date
+    const bookingsWithEarliestDate = await BookingModel.find({ date: earliestDate, isRejected: false }).populate({
+        path: 'skaterId',
+        populate: [
+            {
+                path: 'protection',
+                model: 'Protection'
+            },
+            {
+                path: 'skatesSize',
+                model: 'Skates'
+            }
+        ]
+    });
+
+    // Initialize objects to store skates and protection
+    const skatesData = [];
+    const protectionData = [];
+
+    bookingsWithEarliestDate.forEach(booking => {
+        const { skaterId: { skatesSize, protection } } = booking;
+
+        // Add skate size to skatesData array if quantity is greater than 0
+        if (skatesSize && skatesSize.size !== 0) {
+            const skateIndex = skatesData.findIndex(item => item.skateSize === skatesSize.size);
+            if (skateIndex === -1) {
+                skatesData.push({ skateSize: skatesSize.size, quantity: 1 });
+            } else {
+                skatesData[skateIndex].quantity++;
+            }
+        }
+
+        // Add protection size to protectionData array if quantity is greater than 0
+        if (protection && protection.size !== 0) {
+            const protectionIndex = protectionData.findIndex(item => item.protectionSize === protection.size);
+            if (protectionIndex === -1) {
+                protectionData.push({ protectionSize: protection.size, quantity: 1 });
+            } else {
+                protectionData[protectionIndex].quantity++;
+            }
+        }
+    });
+
+    // Wrap skates and protection data in their own objects
+    const skatesObject = { skates: skatesData };
+    const protectionObject = { protection: protectionData };
+
+    // Combine skates and protection objects into a single array
+    const equipmentData = [skatesObject, protectionObject];
+
+    return equipmentData;
+};
+
+
+
 export {
     getNearestLessonsDate,
+    getEquipmentForDate,
     setIsPresentToTrue,
     setIsPresentToFalse,
     setIsPaidToTrue,
