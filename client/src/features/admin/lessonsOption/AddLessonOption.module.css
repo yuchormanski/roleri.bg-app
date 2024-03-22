@@ -78,13 +78,20 @@
   position: relative;
 }
 
-.fieldContainer_triple {
+.fieldContainer_triple,
+.fieldContainer_triple_extended {
   position: relative;
   width: 100%;
   display: grid;
-  grid-template-columns: 49.3% 22.3% 26.3%;
   /* grid-template-columns: repeat(3, 1fr); */
   gap: 1%;
+}
+.fieldContainer_triple {
+  grid-template-columns: 49.3% 22.3% 26.3%;
+}
+
+.fieldContainer_triple_extended {
+  grid-template-columns: 49.3% 43.7% 5%;
 }
 
 .fieldContainer_double_extended {

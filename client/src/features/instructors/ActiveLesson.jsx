@@ -6,35 +6,40 @@ import { useLanguage } from "../../context/Language.jsx";
 import Button from "../../ui/elements/button/Button.jsx";
 import SkaterElement from "./SkaterElement.jsx";
 import { useTranslate } from "../../hooks/useTranslate.js";
+import { useEffect, useState } from "react";
 
 function ActiveLesson() {
+  const [{ title, lessonsData }, setLesson] = useState({});
   const { lang } = useLanguage();
   const { id } = useParams();
   const { moveBack } = useMoveBack();
   const { translatePhrase: translate } = useTranslate();
 
   const queryClient = useQueryClient();
-  const data = queryClient.getQueryData(["lessonsActive"])
+  const data = queryClient.getQueryData(["lessonsActive"]);
 
-  const foundData = Object.entries(data).reduce((acc, [k, v]) => {
-    if (v._id === id) {
-      acc.push({ title: k, data: v.data });
-    }
+  useEffect(() => {
+    const foundData = Object.entries(data).reduce((acc, [k, v]) => {
+      if (v._id === id) {
+        acc.push({ title: k, data: v.data });
+      }
+      return acc;
+    }, []);
 
-    return acc;
-  }, []);
-
-  const { title, data: lessonsData } = foundData[0];
+    const { title, data: lessonsData } = foundData.at(0);
+    setLesson({ title: title, lessonsData: lessonsData });
+  }, [id, data]);
 
   return (
     <>
       <div className={styles.container}>
-        <h3 className={styles.heading}>{translate(title)}</h3>
+        <h3 className={styles.heading}>{title && translate(title)}</h3>
 
         <div className={styles.secondaryContainer}>
-          {lessonsData.map((lesson) => (
-            <SkaterElement lesson={lesson} key={lesson._id} />
-          ))}
+          {lessonsData &&
+            lessonsData.map((lesson) => (
+              <SkaterElement lesson={lesson} key={lesson._id} />
+            ))}
         </div>
 
         <div className={styles.hiddenOnMobile}>
