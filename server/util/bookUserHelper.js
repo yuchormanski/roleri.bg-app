@@ -1,36 +1,32 @@
-const bookUserHelper = (isoDate, lessonId, skaterId, additionalRequirements, count, ownerId) => {
-    const currentDate = new Date(isoDate);
-    const nextWeekendBookings = [];
+const bookUserHelper = (
+  isoDate,
+  count = 1,
+  lessonId,
+  skaterId,
+  additionalRequirements,
+  subscriptionId,
+  ownerId
+) => {
+  const currentDate = new Date(isoDate);
+  const nextWeekendBookings = [];
+  let countSignedLessons = 1;
+  for (let i = 0; i < count * 7; i += 7) {
+    let nextDate = new Date(currentDate);
+    nextDate.setDate(nextDate.getDate() + i);
+    nextWeekendBookings.push({
+      lessonId,
+      skaterId,
+      subscriptionId,
+      additionalRequirements,
+      owner: ownerId || null,
+      date: new Date(nextDate),
+      lessonIndex: countSignedLessons,
+    });
 
-    // Find the next available weekend date
-    while (nextWeekendBookings.length === 0) {
-        currentDate.setDate(currentDate.getDate() + 1);
-        const dayOfWeek = currentDate.getDay();
-        if (dayOfWeek === 0 || dayOfWeek === 6) {
-            nextWeekendBookings.push({
-                lessonId,
-                skaterId,
-                additionalRequirements,
-                owner: ownerId || null,
-                date: new Date(currentDate)
-            });
-        }
-    }
+    countSignedLessons++;
+  }
 
-    // Get the same day of the week for the specified count
-    for (let i = 1; i < count; i++) {
-        const nextDate = new Date(nextWeekendBookings[i - 1].date);
-        nextDate.setDate(nextDate.getDate() + 7);
-        nextWeekendBookings.push({
-            lessonId,
-            skaterId,
-            additionalRequirements,
-            owner: ownerId || null,
-            date: new Date(nextDate)
-        });
-    }
-
-    return nextWeekendBookings;
+  return nextWeekendBookings;
 };
 
-export { bookUserHelper }
+export { bookUserHelper };

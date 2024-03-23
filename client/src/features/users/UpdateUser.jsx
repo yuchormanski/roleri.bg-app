@@ -8,40 +8,45 @@ import { toast } from "react-hot-toast";
 import { EMAIL_REGEX, PHONE_REGEX } from "../../services/environment.js";
 
 import { useLanguage } from "../../context/Language.jsx";
-import { useAuthContext } from "../../context/AuthContext.jsx";
 
 import { useUpdateUserQuery } from "./useUpdateUserQuery.js";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
+import { useGetUserDataQuery } from "./useGetUserDataQuery.js";
 
 function UpdateUser() {
-  const { path, newPath } = usePath();
-
-  const { updateUserMutation } = useUpdateUserQuery();
-  const { getUserHandler } = useAuthContext();
-  const data = getUserHandler();
-  const [fieldValues, setFieldValues] = useState({ ...data });
+  const [fieldValues, setFieldValues] = useState(null);
 
   const { lang } = useLanguage();
+  const { path, newPath } = usePath();
 
-  useEffect(() => newPath("edit"), [newPath]);
+  const { isFetching, data } = useGetUserDataQuery();
+  const { mutateAsync, isPending } = useUpdateUserQuery();
 
-  const { register, handleSubmit, reset } = useForm({
-    defaultValues: data,
-  });
+  useEffect(() => {
+    newPath("edit");
+
+    if (data) {
+      setFieldValues(data);
+    }
+  }, [newPath, data]);
+
+  // Initialize form with default values after data is fetched
+  const { register, handleSubmit, reset } = useForm({ defaultValues: fieldValues ?? {} });
+
+  // Reset form when default values change to populate data from server
+  useEffect(() => {
+    reset(fieldValues ?? {});
+  }, [fieldValues, reset]);
 
   async function onFormSubmit(data) {
-    // const { _id, ...dataFromServer } = data;
-    const { firstName, lastName, email, phone } = data;
-    const result = {
-      firstName,
-      lastName,
-      email,
-      phone,
-    };
+    try {
+      const { _id, createdAt, updatedAt, ...serverData } = data;
+      await mutateAsync(serverData);
 
-    console.log(result);
-    await updateUserMutation.mutateAsync(result);
-    reset();
+      reset();
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   function onErrorForm(error) {
@@ -59,13 +64,12 @@ function UpdateUser() {
     setFieldValues({ ...fieldValues, [valueName]: value });
   }
 
-  const isLoading = updateUserMutation.isPending;
   return (
     <div className={styles.container}>
       <h3 className={styles.heading}>{lang.update}</h3>
 
       <div className={styles.secondaryContainer}>
-        {updateUserMutation.isPending ? (
+        {isPending ? (
           <Spinner />
         ) : (
           <form
@@ -74,7 +78,7 @@ function UpdateUser() {
           >
             <div className={styles.element}>
               <input
-                disabled={isLoading}
+                disabled={isPending}
                 className={styles.textInput}
                 type="text"
                 id="firstName"
@@ -91,9 +95,8 @@ function UpdateUser() {
               />
               <label
                 htmlFor={"firstName"}
-                className={`${styles.label} ${
-                  fieldValues.firstName ? styles.filled : null
-                }`}
+                className={`${styles.label} ${fieldValues?.firstName ? styles.filled : null
+                  }`}
               >
                 {lang.firstName}
               </label>
@@ -101,7 +104,7 @@ function UpdateUser() {
 
             <div className={styles.element}>
               <input
-                disabled={isLoading}
+                disabled={isPending}
                 className={styles.textInput}
                 type="text"
                 id="lastName"
@@ -117,9 +120,8 @@ function UpdateUser() {
               />
               <label
                 htmlFor={"lastName"}
-                className={`${styles.label} ${
-                  fieldValues.lastName ? styles.filled : null
-                }`}
+                className={`${styles.label} ${fieldValues?.lastName ? styles.filled : null
+                  }`}
               >
                 {lang.lastName}
               </label>
@@ -127,7 +129,7 @@ function UpdateUser() {
 
             <div className={styles.element}>
               <input
-                disabled={isLoading}
+                disabled={isPending}
                 className={styles.textInput}
                 type="email"
                 id="email"
@@ -147,9 +149,8 @@ function UpdateUser() {
               />
               <label
                 htmlFor={"email"}
-                className={`${styles.label} ${
-                  fieldValues.email ? styles.filled : null
-                }`}
+                className={`${styles.label} ${fieldValues?.email ? styles.filled : null
+                  }`}
               >
                 {lang.email}
               </label>
@@ -157,7 +158,7 @@ function UpdateUser() {
 
             <div className={styles.element}>
               <input
-                disabled={isLoading}
+                disabled={isPending}
                 className={styles.textInput}
                 type="tel"
                 id="phone"
@@ -177,14 +178,13 @@ function UpdateUser() {
               />
               <label
                 htmlFor={"phone"}
-                className={`${styles.label} ${
-                  fieldValues.phone ? styles.filled : null
-                }`}
+                className={`${styles.label} ${fieldValues?.phone ? styles.filled : null
+                  }`}
               >
                 {lang.phone}
               </label>
             </div>
-            <button className={styles.updateBtn} disabled={isLoading}>
+            <button className={styles.updateBtn} disabled={isPending}>
               {lang.send}
             </button>
           </form>

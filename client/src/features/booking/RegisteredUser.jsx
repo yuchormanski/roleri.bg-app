@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import DatePickerCalendar from "../../ui/elements/datePicker/Calendar.jsx";
 import { useLanguage } from "../../context/Language.jsx";
 import { useGetSkatersQuery } from "../skaters/useGetSkatersQuery.js";
-import { useGetUserDataQuery } from "../users/useGetUserDataQuery.js";
+// import { useGetUserDataQuery } from "../users/useGetUserDataQuery.js";
 import { useGetSkaterOptionsQuery } from "../skaters/useGetSkaterOptionsQuery.js";
 import { useGetAllLessonQueries } from "../../pages/lessons/useGetAllLessonQueries.js";
 import { useAddRegisteredBookQuery } from "./useAddRegisteredBookQuery.js";
@@ -24,18 +24,17 @@ function RegisteredUser() {
   const [additional, setAdditional] = useState("");
   const navigate = useNavigate();
 
-  const { isFetching: userLoading, data: user } = useGetUserDataQuery();
+  // const { isFetching: userLoading, data: user } = useGetUserDataQuery();
 
   const { isFetching: isSkatersLoading, data: skaters } = useGetSkatersQuery();
   const { isFetching: isOptionsLoading, data: optionData } =
     useGetSkaterOptionsQuery();
   const { isFetching: isLessonsLoading, data: incoming } =
     useGetAllLessonQueries();
-  const { mutate, isPending: isAddBookingLoading } =
+  const { mutateAsync, isPending: isAddBookingLoading } =
     useAddRegisteredBookQuery();
 
   const lessonData = incoming.filter((el) => new Date(el.validTo) > new Date());
-
 
   // SELECTING DATE
   function selectedDateHandler(date) {
@@ -58,7 +57,7 @@ function RegisteredUser() {
     setSign((state) => (state = [...sign]));
   }
   // FINISHING REQUEST
-  function bookHandler() {
+  async function bookHandler() {
     // hardcoded disable validation
     if (!selectedDate && sign.length === 0) {
       return toast.error("You should fill the form!");
@@ -94,21 +93,27 @@ function RegisteredUser() {
         !!valueObj.subscriptionType &&
         !!valueObj.lessonId
         ? [
-            ...acc,
-            {
-              ...valueObj,
-              date: selectedDate,
-              additionalRequirements: additional,
-            },
-          ]
+          ...acc,
+          {
+            ...valueObj,
+            date: selectedDate,
+            additionalRequirements: additional,
+          },
+        ]
         : acc;
     }, []);
 
     if (dataToServer.length > 0) {
-      mutate(dataToServer);
+      try {
+        await mutateAsync(dataToServer);
 
-      setSign([]);
-      navigate("/profile");
+        navigate("/profile");
+      } catch (error) {
+        console.log(error.message);
+      } finally {
+        setSign([]);
+      }
+
     } else return toast.error("You should select all option for skater");
   }
 
@@ -120,9 +125,9 @@ function RegisteredUser() {
     <>
       {" "}
       {isSkatersLoading ||
-      isOptionsLoading ||
-      isLessonsLoading ||
-      isAddBookingLoading ? (
+        isOptionsLoading ||
+        isLessonsLoading ||
+        isAddBookingLoading ? (
         <Spinner />
       ) : (
         <div className={styles.container}>
@@ -198,76 +203,7 @@ function RegisteredUser() {
                     </div>
 
                     <div className={styles.selectContainer}>
-                      <div
-                        className={styles.label}
-                        // className={
-                        //   hasSkater(s._id) ? styles.label : styles.hidden
-                        // }
-                      >
-                        <label
-                          htmlFor={`${s._id}-subscriptionType`}
-                          className={
-                            hasSkater(s._id)
-                              ? styles.enabledLevel
-                              : styles.disabledLabel
-                          }
-                        >
-                          <span>{lang.subscription}:</span>
-                        </label>
-                        <select
-                          name="subscriptionType"
-                          id={`${s._id}-subscriptionType`}
-                          className={styles.select}
-                          disabled={hasSkater(s._id) ? false : true}
-                          defaultValue=""
-                          onChange={(e) => selection(e, s._id)}
-                        >
-                          <option value="" hidden></option>
-                          {hasSkater(s._id) &&
-                            optionData?.subscriptionData.map((subscription) => (
-                              <option
-                                key={subscription._id}
-                                value={subscription._id}
-                              >
-                                {`
-                                                                ${translate(
-                                                                  subscription.typePayment
-                                                                )} - ${
-                                  subscription.subscriptionCount
-                                } 
-                            							        ${lang.visit}${
-                                  subscription.subscriptionCount > 1
-                                    ? selectedLangIndex === 0
-                                      ? "я"
-                                      : "s"
-                                    : selectedLangIndex === 0
-                                    ? "e"
-                                    : ""
-                                }
-                                                            `}
-                              </option>
-                            ))}
-
-                          {/* {data?.subscriptionData.map((subscription) => (
-                                                    <option
-                                                    value={subscription._id}
-                                                    key={subscription._id}
-                                                    >
-                                                    {translate(subscription.typePayment)}
-                                                    </option>
-                                                     ))} */}
-                          {/* <option value="group">One time group</option>
-                                                <option value="subscription">Subscription</option> */}
-                        </select>
-                      </div>
-
-                      <div
-                        className={styles.label}
-
-                        // className={
-                        //   hasSkater(s._id) ? styles.label : styles.hidden
-                        // }
-                      >
+                      <div className={styles.label}>
                         <label
                           htmlFor={`${s._id}-lessonId`}
                           className={
@@ -295,6 +231,38 @@ function RegisteredUser() {
                             ))}
                         </select>
                       </div>
+
+                      <div className={styles.label}>
+                        <label
+                          htmlFor={`${s._id}`}
+                          className={
+                            hasSkater(s._id)
+                              ? styles.enabledLevel
+                              : styles.disabledLabel
+                          }
+                        >
+                          <span>{lang.type}:</span>
+                        </label>
+                        <select
+                          name="subscriptionType"
+                          id={`${s._id}`}
+                          className={styles.select}
+                          disabled={hasSkater(s._id) ? false : true}
+                          defaultValue=""
+                          onChange={(e) => selection(e, s._id)}
+                        >
+                          <option value="" hidden></option>
+                          {hasSkater(s._id) &&
+                            optionData?.subscriptionData.map((subscription) => (
+                              <option
+                                key={subscription._id}
+                                value={subscription._id}
+                              >
+                                {translate(subscription.typePayment)}
+                              </option>
+                            ))}
+                        </select>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -303,9 +271,9 @@ function RegisteredUser() {
                   <label
                     htmlFor={"textArea"}
                     className={`${styles.enabledLevel} ${styles.textareaLabel} `}
-                    //  ${
-                    //   fieldValues.textArea ? styles.filled : null
-                    // }
+                  //  ${
+                  //   fieldValues.textArea ? styles.filled : null
+                  // }
                   >
                     {lang.requirements}
                   </label>
@@ -320,20 +288,6 @@ function RegisteredUser() {
                 </div>
               </div>
 
-              {/* CONDITIONS 
-                            <div className={styles.conditions}>
-                                <p>
-                                    Съгласявам се с{" "}
-                                    <Link className={styles.link} to={"/conditions"}>
-                                        Общите условия
-                                    </Link>
-                                </p>
-                                <input
-                                    className={styles.checkbox}
-                                    type="checkbox"
-                                // onChange={(e) => checkboxHandler(e, s._id)}
-                                />
-                            </div>*/}
               <div className={styles.btnContainer}>
                 <div style={{ marginLeft: "auto" }}>
                   <Button
@@ -341,7 +295,7 @@ function RegisteredUser() {
                     onClick={bookHandler}
                     disabled={!selectedDate && sign.length === 0}
                   >
-                    {skaters.length > 1 ? lang.addSkaters : lang.addSkater}
+                    {lang.book}
                   </Button>
                 </div>
               </div>

@@ -1,33 +1,57 @@
-import { Schema, model, Types } from 'mongoose';
+import { Schema, model, Types } from "mongoose";
 
-const bookingSchema = new Schema({
+const bookingSchema = new Schema(
+  {
     date: {
-        type: Date,
-        required: true
+      type: Date,
+      required: true,
     },
-    present: {
-        type: Boolean,
-        default: false
+    isPresent: {
+      type: Boolean,
+      default: false,
     },
-    lessonId: {
-        type: Types.ObjectId,
-        ref: 'Lesson'
+    isPaid: {
+      type: Boolean,
+      default: false,
     },
-    skaterId: {
-        type: Types.ObjectId,
-        ref: 'Skater'
+    isRejected: {
+      type: Boolean,
+      default: false,
     },
     additionalRequirements: {
-        type: String,
-        default: null,
+      type: String,
+      default: null,
+    },
+    lessonIndex: {
+      type: Number,
+      default: 1,
+    },
+    lessonId: {
+      type: Types.ObjectId,
+      ref: "Lesson",
+    },
+    skaterId: {
+      type: Types.ObjectId,
+      ref: "Skater",
+    },
+    subscriptionId: {
+      type: Types.ObjectId,
+      ref: "SubscriptionType",
     },
     owner: {
-        type: Types.ObjectId,
-        ref: "UserParent",
-        default: null
+      type: Types.ObjectId,
+      ref: "UserParent",
+      default: null,
     },
-}, { timestamps: true });
+    instructorId: {
+      type: Types.ObjectId,
+      ref: "UserParent",
+      default: null,
+    },
+  },
+  { timestamps: true }
+);
 
-const BookingModel = model('Booking', bookingSchema);
+const BookingModel = model("Booking", bookingSchema);
 
 export { BookingModel };

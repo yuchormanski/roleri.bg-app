@@ -33,6 +33,9 @@
     --color-lesson-heading: #fdfdfd;
     --color-lesson-heading-hover: rgb(93, 200, 250);
     --lesson-link-border: #ccac1c;
+    --toggle-switch: #ffd000;
+    --toggle-switch-bg: #11a2db48;
+    --calendar-day: #eef5ec;
   }
 
   /* dark mode */
@@ -67,6 +70,9 @@
     --color-lesson-heading: #ffd823;
     --color-lesson-heading-hover: rgba(255, 217, 0, 0.651);
     --lesson-link-border: #ccac1c80;
+    --toggle-switch: #adb6c5;
+    --toggle-switch-bg: #2e3644;
+    --calendar-day: #7c7c7c;
   }
   /* main styles */
   --text-dark: #222;

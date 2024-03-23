@@ -12,11 +12,15 @@ import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 function DeleteAgeOption({ onClose, ageData }) {
     const { lang } = useLanguage();
 
-    const { mutate, isPending } = useDeleteOptionsQuery("age");
+    const { mutateAsync, isPending } = useDeleteOptionsQuery("age");
 
-    function onDelete() {
-        mutate(ageData);
-        onClose();
+    async function onDelete() {
+        try {
+            await mutateAsync(ageData)
+            onClose();
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 
     return (

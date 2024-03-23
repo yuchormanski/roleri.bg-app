@@ -12,11 +12,15 @@ import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 function DeleteSkatesOption({ onClose, skatesData }) {
     const { lang } = useLanguage();
 
-    const { mutate, isPending } = useDeleteOptionsQuery("skates");
+    const { mutateAsync, isPending } = useDeleteOptionsQuery("skates");
 
-    function onDelete() {
-        mutate(skatesData);
-        onClose();
+    async function onDelete() {
+        try {
+            await mutateAsync(skatesData);
+            onClose();
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 
     return (

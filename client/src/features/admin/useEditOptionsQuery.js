@@ -12,11 +12,12 @@ function useEditOptionsQuery(actionType) {
         age: SERVER_ENDPOINTS.EDIT_AGE_OPTIONS,
         subscription: SERVER_ENDPOINTS.EDIT_SUBSCRIPTION_OPTIONS,
         lessons: SERVER_ENDPOINTS.EDIT_LESSON,
+        users: SERVER_ENDPOINTS.EDIT_USER_ROLE,
     }
 
     const queryClient = useQueryClient();
 
-    const { mutate, isPending } = useMutation({
+    const { mutateAsync, mutate, isPending } = useMutation({
         enabled: false,
         mutationFn: (optionsData) => put(endPoints[actionType], optionsData),
         onSuccess: (optionsData) => {
@@ -30,7 +31,7 @@ function useEditOptionsQuery(actionType) {
         },
     });
 
-    return { mutate, isPending };
+    return { mutateAsync, mutate, isPending };
 }
 
 export { useEditOptionsQuery };

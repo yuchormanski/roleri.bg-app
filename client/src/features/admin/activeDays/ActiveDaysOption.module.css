@@ -19,6 +19,79 @@
   margin-bottom: 1rem;
 }
 
+.toggleSwitch {
+  width: 60px;
+  height: 28px;
+  background-color: var(--toggle-switch-bg);
+  border-radius: 13px;
+  position: relative;
+  cursor: pointer;
+  /* transition: margin 5.8s ease-in-out; */
+}
+
+.switchBtn {
+  width: 29px;
+  aspect-ratio: 1/1;
+  background-color: var(--toggle-switch);
+  position: absolute;
+  top: -1px;
+  border-radius: 100%;
+  opacity: 0.8;
+  border: 1px solid #0000003f;
+}
+
+.toggleRight {
+  transform: translateX(31px);
+  filter: drop-shadow(-4px 2px 5px #0b0b139a);
+}
+
+.toggleLeft {
+  transform: translateX(-1px);
+  filter: drop-shadow(4px 2px 5px #0b0b139a);
+}
+
+.timePickerCOntainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.double {
+  display: flex;
+}
+
+.timeWrapper {
+  width: 100%;
+  align-self: center;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.timeElement {
+  /* width: 100%; */
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.timeElement label {
+  font-size: 1.4rem;
+  color: var(--color-header-dim);
+}
+
+.timeElement input.timeInput {
+  width: 100%;
+  /* min-height: 2rem; */
+  font-size: 1.8rem;
+  text-align: center;
+  padding: 0.2rem 0 0.2rem 0.4rem;
+  border: var(--card-border);
+  border-radius: 0.3rem;
+}
+
 .secondaryContainer {
   background-color: var(--color-header);
   width: 100%;
@@ -28,6 +101,9 @@
   border-radius: 0.3rem;
   box-shadow: inset 0 1px 6px var(--box);
   padding: 1.5rem;
+}
+.fixedHeight {
+  min-height: 25rem;
 }
 
 .daysContainer {
@@ -54,6 +130,7 @@
   background-color: rgb(4, 155, 4);
   color: #ededed;
 }
+
 .inactiveDay {
   background-color: #ededed;
   color: rgb(4, 155, 4);
@@ -62,16 +139,36 @@
 .btnContainer {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 1.5rem;
+  /* align-items: center; */
+  /* margin-top: 1.5rem; */
+}
+
+.weekDaysBtn {
+  width: 20%;
+  background-color: var(--color-main-btn);
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-body);
+  margin-left: auto;
+  border-radius: 0.3rem;
+  transition: all 0.3s ease;
+}
+
+.weekDaysBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .info {
   width: 100%;
-  font-size: clamp(1.4rem, 1.7vw, 1.8rem);
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--color-nav-link);
 }
-.info span {
-  font-size: clamp(1.6rem, 2rem, 2rem);
+
+.span {
+  font-size: 1.8rem;
   color: var(--color-main-btn);
   margin-right: 1rem;
 }
@@ -79,10 +176,118 @@
 .selectedList {
   padding: 1rem 0 0 3rem;
 }
+
 .listItem {
   font-size: 1.4rem;
   color: var(--button);
 }
+.selectContainer {
+  display: grid;
+  grid-template-columns: 70% 20%;
+  gap: 10%;
+  padding: 1rem 0 2rem;
+}
+.selectInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.selectInfoItem {
+  display: flex;
+}
+.bullet {
+  width: 25px;
+  height: 25px;
+}
+.bulletText {
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--color-nav-link);
+}
+.bulletText span {
+  color: var(--color-main-btn);
+}
+
+.excludedDaysBtn {
+  justify-self: end;
+  width: 13.4rem;
+  grid-column: 2/3;
+  background-color: var(--color-main-btn);
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-body);
+  border-radius: 0.3rem;
+  transition: all 0.3s ease;
+}
+.excludedDaysBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.customDateContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  margin-bottom: 2rem;
+}
+
+.calendarContainer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2rem;
+}
+
+.excludedDatesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.excludedDatesHeading {
+  font-size: 2rem;
+  font-weight: 200;
+  color: var(--color-header-dim);
+  border-bottom: 1px var(--border-bottom);
+}
+
+.excludedDatesList {
+  padding: 0 0 0 2rem;
+}
+.excludedDatesListItem {
+  display: flex;
+  align-items: flex-end;
+  font-size: 1.6rem;
+}
+
+.excludedDatesDelete {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: red;
+  margin-bottom: -0.1rem;
+}
+
+.calendarInfo {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  align-items: end;
+}
+
+.calendarInfoItem {
+  display: flex;
+  align-items: flex-start;
+}
+
+.calendarBtn {
+  width: 20%;
+  margin: 1rem 0 2rem auto;
+}
+
 @media (max-width: 765px) {
   .heading {
     margin-bottom: 3rem;
@@ -93,16 +298,79 @@
   .container {
     padding: 1rem 0 2rem;
   }
+
   .secondaryContainer {
     padding: 4rem 1rem;
   }
-  /* .dayName {
-    font-size: 1.8rem;
-  } */
+
+  .double {
+    flex-direction: column;
+  }
+  .timeWrapper {
+    justify-content: center;
+  }
 
   .dayBox {
     font-size: 1.8rem;
     font-weight: 300;
+  }
+
+  .toggleSwitch {
+    margin: 0 1rem 0 auto;
+  }
+
+  .timeElement {
+    width: 100%;
+  }
+
+  .selectContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .selectItem {
+    width: 60%;
+    align-self: center;
+  }
+
+  .weekDaysBtn {
+    width: 60%;
+    padding: 0.6rem 0;
+    margin: 2rem auto 0;
+  }
+
+  .excludedDaysBtn {
+    width: 60%;
+    padding: 0.6rem 0;
+    align-self: center;
+  }
+
+  .calendarContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .excludedDatesList {
+    width: 100%;
+  }
+  .excludedDatesListItem {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .calendarInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .calendarBtn {
+    width: 20%;
+    margin: 1rem 0 2rem auto;
+  }
+  .calendarBtn {
+    width: 60%;
+    margin: 1rem auto 2rem;
   }
 }
 

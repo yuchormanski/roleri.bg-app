@@ -22,20 +22,25 @@ function AddSkatesOptions({ onClose }) {
   const { lang } = useLanguage();
 
   const queryClient = useQueryClient();
-  const { mutate, isPending } = useAddOptionsQuery("skates");
+  const { mutateAsync, isPending } = useAddOptionsQuery("skates");
 
   const { register, handleSubmit, reset } = useForm();
 
   // SUBMITTING THE FORM
-  function onFormSubmit(skatesData) {
+  async function onFormSubmit(skatesData) {
     const skatesAvailableData = queryClient.getQueryData(["skates"]);
     if (skatesAvailableData.some((s) => s.size == skatesData.size)) {
       return toast.error(`Skates ${skatesData.size} already exist`);
     }
 
-    mutate(skatesData);
-    onClose();
-    reset();
+    try {
+      await mutateAsync(skatesData);
+
+      onClose();
+      reset();
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   //ERROR IN FORM
@@ -79,9 +84,8 @@ function AddSkatesOptions({ onClose }) {
             />
             <label
               htmlFor={"title"}
-              className={`${styles.label} ${
-                fieldValues.size ? styles.filled : null
-              }`}
+              className={`${styles.label} ${fieldValues.size ? styles.filled : null
+                }`}
             >
               {lang.number}
             </label>
@@ -102,9 +106,8 @@ function AddSkatesOptions({ onClose }) {
             />
             <label
               htmlFor={"quantity"}
-              className={`${styles.label} ${
-                fieldValues.quantity ? styles.filled : null
-              }`}
+              className={`${styles.label} ${fieldValues.quantity ? styles.filled : null
+                }`}
             >
               {lang.quantity}
             </label>

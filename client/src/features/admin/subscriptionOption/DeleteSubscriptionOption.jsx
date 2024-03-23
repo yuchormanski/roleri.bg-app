@@ -14,11 +14,15 @@ function DeleteSubscriptionOption({ onClose, subscriptionData }) {
     const { lang } = useLanguage();
     const { translatePhrase: translate } = useTranslate();
 
-    const { mutate, isPending } = useDeleteOptionsQuery("subscription");
+    const { mutateAsync, isPending } = useDeleteOptionsQuery("subscription");
 
-    function onDelete() {
-        mutate(subscriptionData);
-        onClose();
+    async function onDelete() {
+        try {
+            await mutateAsync(subscriptionData);
+            onClose();
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 
     return (

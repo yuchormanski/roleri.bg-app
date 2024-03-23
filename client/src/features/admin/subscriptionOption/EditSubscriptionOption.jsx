@@ -14,7 +14,7 @@ import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 function EditSubscriptionOption({ onClose, subscriptionData }) {
   const { lang } = useLanguage();
 
-  const { mutate, isPending } = useEditOptionsQuery("subscription");
+  const { mutateAsync, isPending } = useEditOptionsQuery("subscription");
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       typePaymentBg: subscriptionData.typePayment.split("&/&").at(0),
@@ -25,16 +25,21 @@ function EditSubscriptionOption({ onClose, subscriptionData }) {
   });
 
   // SUBMITTING THE FORM
-  function onFormSubmit(formData) {
+  async function onFormSubmit(formData) {
     const result = {
       _id: subscriptionData._id,
       typePayment: `${formData.typePaymentBg}&/&${formData.typePaymentEn}`,
       price: formData.price,
+      subscriptionCount: formData.subscriptionCount,
     };
 
-    mutate(result);
-    onClose();
-    reset();
+    try {
+      await mutateAsync(result);
+      onClose();
+      reset();
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   //ERROR IN FORM

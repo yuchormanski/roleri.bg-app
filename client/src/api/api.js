@@ -14,6 +14,7 @@ async function request(method, url, data) {
   if (userData) {
     options.headers["X-Authorization"] = userData.accessToken;
   }
+
   const response = await fetch(BASE_URL + url, options);
 
   if (response.ok == false) {

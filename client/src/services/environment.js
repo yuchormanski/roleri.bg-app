@@ -5,20 +5,26 @@ const BASE_URL =
     : "http://localhost:3000/";
 
 const SERVER_ENDPOINTS = {
+  GET_ALL_NEWS: "news",
+
+  GET_ALL_USERS: "users/",
+  GET_USER: "users/get-user",
+  UPDATE_USER: "users/update-user",
+  EDIT_USER_ROLE: "users/edit-user-role",
   REGISTER: "users/register",
   LOGIN: "users/login",
   LOGOUT: "users/logout",
-  GET_USER: "users/get-user",
-  UPDATE_USER: "users/update-user",
   FORGOT_PASSWORD: "users/forgot-password",
   RESET_PASSWORD: "users/reset-password",
+  DELETE_USER: (userId) => `users/delete-user/${userId}`,
+
   GET_ALL_SKATERS: "skaters",
   GET_ALL_USER_SKATERS: "skaters/owned-by",
   GET_SKATER_BY_ID: (skaterId) => `skaters/get-one/${skaterId}`,
   ADD_SKATER: "skaters/add",
   EDIT_SKATER: "skaters/edit",
   DELETE_SKATER: (skaterId) => `skaters/delete/${skaterId}`,
-  GET_ALL_NEWS: "news",
+
   GET_ALL_OPTIONS: "options",
   GET_SKATES_OPTIONS: "options/skates",
   GET_PROTECTION_OPTIONS: "options/protections",
@@ -33,20 +39,43 @@ const SERVER_ENDPOINTS = {
   EDIT_AGE_OPTIONS: "options/edit-group-age",
   EDIT_SUBSCRIPTION_OPTIONS: "options/edit-subscriptions",
   DELETE_SKATES_OPTIONS: (optionId) => `options/delete-skates/${optionId}`,
-  DELETE_PROTECTION_OPTIONS: (optionId) => `options/delete-protections/${optionId}`,
+  DELETE_PROTECTION_OPTIONS: (optionId) =>
+    `options/delete-protections/${optionId}`,
   DELETE_AGE_OPTIONS: (optionId) => `options/delete-group-age/${optionId}`,
-  DELETE_SUBSCRIPTION_OPTIONS: (optionId) => `options/delete-subscriptions/${optionId}`,
+  DELETE_SUBSCRIPTION_OPTIONS: (optionId) =>
+    `options/delete-subscriptions/${optionId}`,
+
+  GET_ALL_BOOKING: "bookings/",
   UNREGISTERED_BOOKING_USER: "bookings/unregistered-booking",
   REGISTERED_BOOKING_USER: "bookings/registered-booking",
+  GET_ACTIVE_DAYS_ADMIN: "bookings/active-days-admin",
+  GET_ACTIVE_DAYS_INDIVIDUAL: "bookings/active-days-individuals",
+  GET_ACTIVE_DAYS_REGULAR: "bookings/active-days-regular",
+  EDIT_ACTIVE_DAYS_INDIVIDUAL: "bookings/edit-active-days-individuals",
+  EDIT_ACTIVE_DAYS_REGULAR: "bookings/edit-active-days-regular",
+  REJECT_BOOKING: "bookings/reject-booking",
+  ADD_EXCLUDED_OPTIONS: "bookings/add-excluded-options",
+  GET_EXCLUDED_OPTIONS: "bookings/get-excluded-options",
+
   GET_ALL_LESSONS: "lessons",
   ADD_LESSON: "lessons/add-lesson",
   EDIT_LESSON: "lessons/edit-lesson",
   DELETE_LESSON: (lessonId) => `lessons/delete-lesson/${lessonId}`,
+
+  GET_COACH_LESSONS: "coach/get-coach-lessons",
+  GET_COACH_LESSONS_EQUIPMENT: "coach/get-coach-lessons-equipment",
+  EDIT_COACH_IS_PRESENT: "coach/edit-coach-is-present",
+  EDIT_COACH_IS_NOT_PRESENT: "coach/edit-coach-is-not-present",
+  EDIT_COACH_IS_PAID: "coach/edit-coach-is-paid",
+  EDIT_COACH_IS_NOT_PAID: "coach/edit-coach-is-not-paid",
+  ADD_COACH_NOTE: "coach/add-coach-note",
+  EDIT_COACH_NOTE: "coach/edit-coach-note",
 };
 
 // const EMAIL_REGEX =
 //   /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?: \.[a - z0 - 9!#$ %& '*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
-const EMAIL_REGEX = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+const EMAIL_REGEX =
+  /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 
 const PASS_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/;
 

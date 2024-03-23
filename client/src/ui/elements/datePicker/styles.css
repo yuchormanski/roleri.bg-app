@@ -11,7 +11,6 @@
     font-size: 0.8rem;
     background-color: #fff;
     color: #000;
-    /* border: 1px solid #aeaeae; */
     border-radius: 0.3rem;
     display: inline-block;
     position: relative;
@@ -67,7 +66,7 @@
   /* day names */
   .react-datepicker__day-name {
     font-size: 1.4rem;
-    color: var(--color-header-even);
+    color: var(--color-lesson-info);
   }
   .react-datepicker__month {
     display: flex;
@@ -118,10 +117,14 @@
   }
 
   /* navigation buttons */
-  .react-datepicker__navigation--previous,
+  /* .react-datepicker__navigation--previous,
   .react-datepicker__navigation--next {
     left: 2px;
     display: none;
+  } */
+
+  .react-datepicker__navigation {
+    top: 14px;
   }
 }
 

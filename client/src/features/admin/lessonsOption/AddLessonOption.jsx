@@ -30,6 +30,7 @@ function AddLessonOption({ onClose }) {
     //
     participants: "", //брой учасници // *
     price: "", // цена // *
+    isIndividual: "",
     //
     skills: "", // какво ще се научи в урока
     skillsBG: "", // какво ще се научи в урока
@@ -55,7 +56,7 @@ function AddLessonOption({ onClose }) {
 
   const queryClient = useQueryClient();
   const { isFetching, data: optionData } = useGetSkaterOptionsQuery();
-  const { isPending, mutate } = useAddOptionsQuery("lessons");
+  const { isPending, mutateAsync } = useAddOptionsQuery("lessons");
 
   // TRANSFORM INPUT DATA TO BE VISUALIZED WITH REACT-SELECT
   function transformDataToSelect(dataToTransform) {
@@ -83,7 +84,7 @@ function AddLessonOption({ onClose }) {
   }
 
   // SUBMITTING THE FORM
-  function onFormSubmit(formData) {
+  async function onFormSubmit(formData) {
     const lessonAvailableData = queryClient.getQueryData(["lessons"]);
     if (lessonAvailableData.some((a) => a.title == fieldValues.title)) {
       return toast.error(`Title ${fieldValues.title} already exist`);
@@ -98,14 +99,26 @@ function AddLessonOption({ onClose }) {
       skills: `${fieldValues.skillsBG}&/&${fieldValues.skills}`,
       location: `${fieldValues.locationBG}&/&${fieldValues.location}`,
       description: `${fieldValues.descriptionBG}&/&${fieldValues.description}`,
-      imageUrl: fieldValues.imageUrl,
-      validTo: fieldValues.validTo,
+      imageUrl: fieldValues.imageUrl || null,
+      validTo: fieldValues.validTo || null,
       geoLocation: fieldValues.geoLocation,
       time: fieldValues.time,
+      isIndividual: fieldValues.isIndividual,
     };
 
-    mutate(dataToServer);
-    onClose();
+    if (!fieldValues.age) return toast.error("Age is required");
+    if (!fieldValues.type) return toast.error("Type is required");
+    if (fieldValues.isIndividual === "")
+      return toast.error("Is individual is required");
+
+    // console.log(dataToServer);
+
+    try {
+      await mutateAsync(dataToServer);
+      onClose();
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   //ERROR IN FORM
@@ -129,7 +142,6 @@ function AddLessonOption({ onClose }) {
   }
 
   function selectHandler(data) {
-    // console.log(data);
     setFieldValues((field) => ({ ...field, [data.name]: data.value }));
   }
   return (
@@ -640,6 +652,33 @@ function AddLessonOption({ onClose }) {
               </div>
 
               <div className={styles.btnContainer}>
+                {/* Is Individual*/}
+                <div className={styles.fieldContainer_single}>
+                  <div className={styles.element}>
+                    <Select
+                      name={"isIndividual"}
+                      defaultValue={selectedOption}
+                      onChange={selectHandler}
+                      options={[
+                        { value: false, label: "No", name: "isIndividual" },
+                        { value: true, label: "Yes", name: "isIndividual" },
+                      ]}
+                      styles={customStyles}
+                      placeholder={
+                        <div style={{ fontSize: 14 }}>Is Individual</div>
+                      }
+                      // isMulti
+                    />
+                    <label
+                      className={`${styles.selectLabel} ${
+                        fieldValues.isIndividual ? styles.filled : null
+                      }`}
+                    >
+                      <span>isIndividual</span>
+                    </label>
+                  </div>
+                </div>
+
                 <div style={{ marginLeft: "auto" }}>
                   <Button type={"primary"}>{lang.addOptions}</Button>
                 </div>

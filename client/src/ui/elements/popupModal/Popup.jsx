@@ -1,4 +1,5 @@
 import styles from "./Popup.module.css";
+import { CgClose } from "react-icons/cg";
 
 function Popup({
   children,
@@ -11,16 +12,17 @@ function Popup({
   return (
     <div className={styles.modalBg} onClick={backgroundClick ? onClose : null}>
       <figure
-        className={`${styles.fullInfo} ${noBackground && styles.noBackground} ${
-          userWidth && styles[userWidth]
-        } 
+        className={`${styles.fullInfo} ${
+          noBackground ? styles.noBackground : ""
+        } ${userWidth && styles[userWidth]} 
         ${userHeight && styles["userHeight"]}
         `}
         onClick={(e) => e.stopPropagation()}
       >
-        <button className={styles.closeIcon} onClick={onClose}>
+        {/* <button className={styles.closeIcon} onClick={onClose}>
           <ion-icon name="close-outline"></ion-icon>
-        </button>
+          <CgClose />
+        </button> */}
         {children}
       </figure>
     </div>

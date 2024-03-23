@@ -12,11 +12,12 @@ function useDeleteOptionsQuery(actionType) {
         age: SERVER_ENDPOINTS.DELETE_AGE_OPTIONS,
         subscription: SERVER_ENDPOINTS.DELETE_SUBSCRIPTION_OPTIONS,
         lessons: SERVER_ENDPOINTS.DELETE_LESSON,
+        users: SERVER_ENDPOINTS.DELETE_USER,
     }
 
     const queryClient = useQueryClient();
 
-    const { mutate, isPending } = useMutation({
+    const { mutateAsync, mutate, isPending } = useMutation({
         enabled: false,
         mutationFn: (optionData) => del(endPoints[actionType](optionData._id)),
         onSuccess: (optionData) => {
@@ -30,7 +31,7 @@ function useDeleteOptionsQuery(actionType) {
         },
     });
 
-    return { mutate, isPending };
+    return { mutateAsync, mutate, isPending };
 }
 
 export { useDeleteOptionsQuery };

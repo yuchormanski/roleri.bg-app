@@ -4,19 +4,24 @@ import Popup from "../../../ui/elements/popupModal/Popup.jsx";
 import styles from "./RoleChanger.module.css";
 import { GoX } from "react-icons/go";
 import Button from "../../../ui/elements/button/Button.jsx";
-import { useMoveBack } from "../../../hooks/useMoveBack.js";
+import { USER_ROLE } from "../../../services/environment.js";
+import { useEditOptionsQuery } from "../useEditOptionsQuery.js";
 
 function RoleChanger({ onClose, selectedOption }) {
   const { lang } = useLanguage();
-  const { redirectTo } = useMoveBack();
   const [role, setRole] = useState(selectedOption.role);
 
-  function roleHandler() {
-    const mid = { ...selectedOption, role };
-    const { value, label, ...res } = mid;
+  const { mutateAsync, isPending } = useEditOptionsQuery("users");
 
-    // console.log(res);
-    redirectTo("/settings");
+  async function roleHandler() {
+    try {
+      const { _id, ...rest } = selectedOption;
+      await mutateAsync({ _id, role });
+
+      onClose();
+    } catch (error) {
+      console.error(error.message);
+    }
   }
 
   return (
@@ -39,26 +44,23 @@ function RoleChanger({ onClose, selectedOption }) {
             <p className={styles.elSpan}>{lang.a_available_roles}:</p>
             <div className={styles.element}>
               <button
-                onClick={() => setRole("user")}
-                className={`${styles.checkbox} ${
-                  role === "user" ? styles.selected : ""
-                }`}
+                onClick={() => setRole(USER_ROLE.user)}
+                className={`${styles.checkbox} ${role === USER_ROLE.user ? styles.selected : ""
+                  }`}
               >
                 <p className={styles.boxHeading}>{lang.a_user}</p>
               </button>
               <button
-                onClick={() => setRole("instructor")}
-                className={`${styles.checkbox} ${
-                  role === "instructor" ? styles.selected : ""
-                }`}
+                onClick={() => setRole(USER_ROLE.instructor)}
+                className={`${styles.checkbox} ${role === USER_ROLE.instructor ? styles.selected : ""
+                  }`}
               >
                 <p className={styles.boxHeading}>{lang.a_instructor}</p>
               </button>
               <button
-                onClick={() => setRole("admin")}
-                className={`${styles.checkbox} ${
-                  role === "admin" ? styles.selected : ""
-                }`}
+                onClick={() => setRole(USER_ROLE.admin)}
+                className={`${styles.checkbox} ${role === USER_ROLE.admin ? styles.selected : ""
+                  }`}
               >
                 <p className={styles.boxHeading}>{lang.a_admin}</p>
               </button>

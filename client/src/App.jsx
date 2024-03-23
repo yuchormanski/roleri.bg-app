@@ -39,6 +39,7 @@ import TeamList from "./features/admin/team/TeamList.jsx";
 import OnDuty from "./features/instructors/OnDuty.jsx";
 import ActiveLessonsList from "./features/instructors/ActiveLessonsList.jsx";
 import EquipmentList from "./features/instructors/EquipmentList.jsx";
+import ActiveLesson from "./features/instructors/ActiveLesson.jsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -76,6 +77,10 @@ function App() {
                       <Route path={"on-duty"} element={<OnDuty />}>
                         <Route index element={<ActiveLessonsList />} />
                         <Route path={"equipment"} element={<EquipmentList />} />
+                        <Route
+                          path={"activeLesson/:id"}
+                          element={<ActiveLesson />}
+                        />
                       </Route>
                       <Route path={"profile"} element={<Profile />}>
                         <Route index element={<UserInfo />} />

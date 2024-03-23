@@ -37,15 +37,14 @@ export const EN = {
   send: "Send",
   addSkater: "Add skater",
   addSkaters: "Add skaters",
-  // gender: "Gender",
   level: "Level",
   levelEn: "Level on English",
   levelBg: "Level on Bulgarian",
   description: "Description",
   descriptionEn: "Description on English",
   descriptionBg: "Description on Bulgarian",
-  typePaymentEn: "Type payment on English",
-  typePaymentBg: "Type payment on Bulgarian",
+  typePaymentEn: "Subscription type on English",
+  typePaymentBg: "Subscription type on Bulgarian",
   requirements: "Additional requirements",
   editSkater: "Edit skater",
   deleteSkater: "Delete skater",
@@ -81,7 +80,8 @@ export const EN = {
   imageUrl: "Image URL",
   validTo: "Valid to date",
   learnMore: "Learn more",
-  activeDays: "Lessons active days",
+  activeDays: "Regular lessons",
+  individualDays: "Individual days",
   mon: "Monday",
   tue: "Tuesday",
   wed: "Wednesday",
@@ -97,6 +97,13 @@ export const EN = {
   signIn: "Sign In",
   signUp: "Sign Up",
   onDuty: "Active lessons",
+  from: "From",
+  to: "To",
+  date: "Date",
+  sequence: "Sequence",
+  reject: "Cancel",
+  book: "Book now",
+  about: "About",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",
@@ -114,8 +121,10 @@ export const EN = {
     "You have the ability to edit and delete every item on the list",
   a_active_days: "Active days",
   a_lessons: "Lessons",
-  a_selectedDays:
+  a_selectedDays_regular:
     "Here you could select days in which will be done the lessons. This selection will be valid only for the regular group lessons. It will not affect individual lessons",
+  a_selectedDays_individual:
+    "Here you could select days in which will be done the lessons. This selection will be valid only for the individual lessons.",
   a_selectedDays_election: "The current selection is:",
   a_team_management: "Team",
   a_user_management: "Users",
@@ -127,6 +136,14 @@ export const EN = {
   a_instructor: "Instructor",
   a_admin: "Administrator",
   a_change: "Change",
+  a_select: "Select",
+  a_dates_0: "Select how many days before lesson the form should be disabled",
+  a_dates_1: "Current settings are :",
+  a_dates_2: "Select specific date to exclude it from the schedule",
+  a_dates_3: "You could select more than one date",
+  a_dates_4: "After passing the date it will be removed from the list",
+  a_dates_5: "The field accepts user input",
+  a_dates_6: "The excluded dates are: ",
 
   // SKATER OPTIONS
   s_firstName: "First name",
@@ -147,10 +164,18 @@ export const EN = {
 
   i_signedLessons: "Signed lessons",
   i_equipment: "Equipment",
+  i_noNeededEquipment: "There is no equipment required for this lesson",
+  i_noSignedLessons: "There is no signed lessons",
 
   // USER OPTIONS
   u_add_skater_info:
     "If you have additional requirements or custom needs, add them to 'Additional requirements' field.",
+  u_no_lessons: "You have no active lessons.",
+  u_info_1: "The lessons you have signed up for are sorted by date sequence",
+  u_info_2:
+    "In case of inability to attend the lesson, please use the 'Cancel' button.",
+  u_info_3:
+    "If the lesson is by subscription, following the club's requirements, you are entitled to one pass. Lessons are moved forward one week. With each subsequent refusal, you lose the corresponding lesson.",
 
   // Book lessons
   book_headInfo_1: "Before filling the form, please, check the ",

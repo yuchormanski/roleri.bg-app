@@ -22,7 +22,115 @@
 .secondaryContainer {
   background-color: var(--color-header);
   width: 100%;
-  border-radius: 0.3rem;
-  box-shadow: inset 0 1px 6px var(--box);
+  display: flex;
+  flex-direction: column;
   padding: 2rem;
+  box-shadow: inset 0 1px 6px var(--box);
+  border-radius: 0.3rem;
+}
+
+.sectionHeading {
+  font-size: 1.8rem;
+  color: var(--color-header-dim);
+}
+
+.headingNoSkaters {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 200;
+  padding: 2rem;
+}
+
+.equipmentContainer {
+  margin-bottom: 4rem;
+}
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0;
+  border-radius: 0.3rem;
+  border-bottom: var(--card-border);
+}
+
+.figure:nth-child(odd) {
+  background-color: var(--color-header-even);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+a.skateItem:link,
+a.skateItem:visited,
+a.skateItem:focus {
+  color: var(--color-header);
+  text-decoration: none;
+  transition: all 0.2s ease-in;
+}
+.skateItem:hover .element {
+  color: var(--color-header-dim);
+}
+
+.skateItem {
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 0 1rem;
+}
+
+.actionContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.actionBtn {
+  background-color: var(--action-btn);
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  padding: 0.6rem 1rem;
+  color: var(--active-text);
+  border: var(--card-border);
+  border-radius: 0.3rem;
+}
+
+.element {
+  font-size: 2rem;
+  text-transform: uppercase;
+  color: var(--color-menu-btn);
+  padding: 1rem 0;
+}
+
+.elSpan {
+  font-size: 1.2rem;
+  color: var(--color-header-dim);
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem 0 2rem;
+  }
+  .skateItem {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0rem;
+    padding: 0;
+  }
+  .element {
+    padding: 0;
+  }
 }

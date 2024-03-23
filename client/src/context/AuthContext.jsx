@@ -18,7 +18,7 @@ function AutContextProvider({ children }) {
       localStorage.getItem(USER_LOCAL_STORAGE_KEY)
     );
 
-    return queryUserData || localStorageUserData || false;
+    return queryUserData || localStorageUserData || null;
   }
 
   function removeUserHandler() {
@@ -36,12 +36,41 @@ function AutContextProvider({ children }) {
     return isAdmin;
   }
 
+  function checkIsUser() {
+    const userData = getUserHandler();
+
+    const isUser = userData ? userData.role === USER_ROLE.user : false;
+    return isUser;
+  }
+
+  function checkIsUserInstructor() {
+    const userData = getUserHandler();
+
+    const isInstructor = userData
+      ? userData.role === USER_ROLE.instructor
+      : false;
+    return isInstructor;
+  }
+
+  function updateUserHandler(data) {
+    const oldUserData = JSON.parse(
+      localStorage.getItem(USER_LOCAL_STORAGE_KEY)
+    );
+
+    const newData = { ...oldUserData, ...data };
+
+    localStorage.setItem(USER_LOCAL_STORAGE_KEY, JSON.stringify(newData));
+  }
+
   const values = {
     addUserHandler,
     getUserHandler,
     removeUserHandler,
     checkIsUserLoggedIn,
     checkIsUserAdmin,
+    checkIsUserInstructor,
+    checkIsUser,
+    updateUserHandler,
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;

@@ -12,11 +12,16 @@ import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 function DeleteProtectionOption({ onClose, protectionData }) {
     const { lang } = useLanguage();
 
-    const { mutate, isPending } = useDeleteOptionsQuery("protection");
+    const { mutateAsync, isPending } = useDeleteOptionsQuery("protection");
 
-    function onDelete() {
-        mutate(protectionData);
-        onClose();
+    async function onDelete() {
+        try {
+            await mutateAsync(protectionData);
+
+            onClose();
+        } catch (error) {
+            console.error(error.message);
+        }
     }
 
     return (
