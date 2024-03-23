@@ -27,6 +27,7 @@ export const endpoints = {
 
   // main path: /lessons/
   get_all_lessons: "/",
+  get_all_valid_lessons: "/valid",
   add_lesson: "/add-lesson",
   edit_lesson: "/edit-lesson",
   delete_lesson: "/delete-lesson/:lessonId",
