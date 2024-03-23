@@ -100,7 +100,7 @@ export const BG = {
   reject: "Откажи",
   book: "Запиши се",
   about: "За Нас",
-
+  years: "години",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Добавете номер и количество",

@@ -58,6 +58,7 @@ const SERVER_ENDPOINTS = {
   GET_EXCLUDED_OPTIONS: "bookings/get-excluded-options",
 
   GET_ALL_LESSONS: "lessons",
+  GET_ALL_VALID_LESSONS: "lessons/valid",
   ADD_LESSON: "lessons/add-lesson",
   EDIT_LESSON: "lessons/edit-lesson",
   DELETE_LESSON: (lessonId) => `lessons/delete-lesson/${lessonId}`,

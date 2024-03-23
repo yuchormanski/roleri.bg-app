@@ -104,6 +104,7 @@ export const EN = {
   reject: "Cancel",
   book: "Book now",
   about: "About",
+  years: "years",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",
