@@ -170,7 +170,6 @@
 }
 
 @media (max-width: 600px) {
-
   .heading,
   .headingModal {
     font-size: 1.8rem;
@@ -182,6 +181,9 @@
 }
 
 @media (max-width: 480px) {
+  .parentInfo {
+    flex-direction: column;
+  }
   .isHere {
     transform: translateX(150%);
   }
