@@ -16,7 +16,8 @@ import { useAddUnregisteredBookQuery } from "./useAddUnregisteredBookQuery.js";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 import toast from "react-hot-toast";
 import { EMAIL_REGEX, PHONE_REGEX } from "../../services/environment.js";
-import { useGetAllLessonQueries } from "../../pages/lessons/useGetAllLessonQueries.js";
+// import { useGetAllLessonQueries } from "../../pages/lessons/useGetAllLessonQueries.js";
+import { useGetAllValidLessonQueries } from "./useGetAllValidLessonsQuery.js";
 
 const initialFieldsValues = {
   firstName: "",
@@ -46,7 +47,7 @@ function UnregisteredUser() {
 
   const { isFetching, error, data } = useGetSkaterOptionsQuery();
   const { isFetching: isFetchingLesson, data: incoming } =
-    useGetAllLessonQueries();
+    useGetAllValidLessonQueries();
   const { mutate, isPending } = useAddUnregisteredBookQuery();
 
   const lessonData = incoming.filter((el) => new Date(el.validTo) > new Date());
