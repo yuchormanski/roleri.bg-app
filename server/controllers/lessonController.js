@@ -6,7 +6,7 @@ import { getUserById } from "../services/userService.js";
 import { preloadOptions, userRole } from "../environments/constants.js";
 import { isUserLogged, isUserRole } from "../middlewares/guards.js";
 import { lessonCreateSchema } from "../util/validationSchemes.js";
-import { addLesson, deleteLesson, getAllLessons, updateLesson } from "../services/lessonService.js";
+import { addLesson, deleteLesson, getAllLessons, getAllLessonsWithoutIndividual, updateLesson } from "../services/lessonService.js";
 
 const lessonController = Router();
 
@@ -16,6 +16,17 @@ lessonController.get(endpoints.get_all_lessons, async (req, res, next) => {
     const allLessons = await getAllLessons();
 
     res.status(200).json(allLessons);
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Get all lessons without individual
+lessonController.get(endpoints.get_all_lessons_without_individual, async (req, res, next) => {
+  try {
+    const lessons = await getAllLessonsWithoutIndividual();
+
+    res.status(200).json(lessons);
   } catch (error) {
     next(error);
   }

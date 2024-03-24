@@ -8,7 +8,7 @@ import { useLanguage } from "../../context/Language.jsx";
 import { useGetSkatersQuery } from "../skaters/useGetSkatersQuery.js";
 // import { useGetUserDataQuery } from "../users/useGetUserDataQuery.js";
 import { useGetSkaterOptionsQuery } from "../skaters/useGetSkaterOptionsQuery.js";
-import { useGetAllLessonQueries } from "../../pages/lessons/useGetAllLessonQueries.js";
+import { useGetAllLessonWithoutIndividualQueries } from "./useGetAllLessonWithoutIndividualQueries.js";
 import { useAddRegisteredBookQuery } from "./useAddRegisteredBookQuery.js";
 import { useTranslate } from "../../hooks/useTranslate.js";
 import Button from "../../ui/elements/button/Button.jsx";
@@ -30,7 +30,7 @@ function RegisteredUser() {
   const { isFetching: isOptionsLoading, data: optionData } =
     useGetSkaterOptionsQuery();
   const { isFetching: isLessonsLoading, data: incoming } =
-    useGetAllLessonQueries();
+    useGetAllLessonWithoutIndividualQueries();
   const { mutateAsync, isPending: isAddBookingLoading } =
     useAddRegisteredBookQuery();
 

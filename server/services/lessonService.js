@@ -2,6 +2,11 @@ import { LessonModel } from '../models/LessonModel.js';
 
 const getAllLessons = async () => {
     const currentDate = new Date();
+    return populateLesson(LessonModel.find({ validTo: { $gte: currentDate } }));
+};
+
+const getAllLessonsWithoutIndividual = async () => {
+    const currentDate = new Date();
     return populateLesson(LessonModel.find({ validTo: { $gte: currentDate }, isIndividual: false }));
 };
 
@@ -47,6 +52,7 @@ function checkDate(lessonObj) {
 
 export {
     getAllLessons,
+    getAllLessonsWithoutIndividual,
     getLessonById,
     addLesson,
     updateLesson,

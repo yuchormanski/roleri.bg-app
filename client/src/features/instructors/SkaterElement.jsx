@@ -20,6 +20,8 @@ import { GoX } from "react-icons/go";
 function SkaterElement({ lesson }) {
   const {
     _id,
+    isPresent: isPresentServer,
+    isPaid: isPaidServer,
     lesson: { title, time },
     skater: {
       firstName,
@@ -34,9 +36,9 @@ function SkaterElement({ lesson }) {
   } = lesson;
 
   const [modal, setModal] = useState(false);
-  const [isPresent, setIsPresent] = useState(false);
-  const [money, setMoney] = useState(false);
-  const [isPaid, setIsPaid] = useState(false);
+  const [isPresent, setIsPresent] = useState(isPresentServer);
+  const [money, setMoney] = useState(isPresentServer);
+  const [isPaid, setIsPaid] = useState(isPaidServer);
   const [instructorText, setInstructorText] = useState("");
   const { lang } = useLanguage();
 
