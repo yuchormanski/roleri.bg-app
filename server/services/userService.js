@@ -126,7 +126,7 @@ const userRegister = async ({
   });
 
   // Send mail to client
-  await sendMail(user.email, htmlTemplate);
+  sendMail(user.email, htmlTemplate);
 
   return createUserDetailsObject(user, userToken);
 };
@@ -189,7 +189,7 @@ async function createResetLink({ email, origin }) {
   });
 
   // Send mail to client
-  await sendMail(user.email, htmlTemplate);
+  sendMail(user.email, htmlTemplate);
 
   return { resetLink };
 }

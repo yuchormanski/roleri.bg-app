@@ -21,10 +21,3 @@ export async function sendMail(email, htmlTemplate) {
     });
 
 }
-
-/* 
-Register [*]
-Forgot Pass [*]
-Booking - reg and unregistered user 
-Rejected Lesson - SEND to user and to admin
-*/

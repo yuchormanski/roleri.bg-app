@@ -59,9 +59,10 @@ bookingController.put(
   isOwner,
   async (req, res, next) => {
     try {
+      const userId = req.user._id;
       const { _id: bookingId } = req.body;
 
-      const rejectedBooking = await rejectBooking(bookingId);
+      const rejectedBooking = await rejectBooking(bookingId, userId);
 
       res.status(200).json(rejectedBooking);
     } catch (error) {
@@ -98,7 +99,7 @@ bookingController.post(
     try {
       const bookingData = req.body;
       const ownerId = req.user._id;
-      
+
       await registeredBookingUserSchema.validateAsync(bookingData);
       const newLessonsBooked = await registeredUser(bookingData, ownerId);
 
