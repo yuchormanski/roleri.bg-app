@@ -1,13 +1,13 @@
 import bcrypt from "bcrypt";
-import nodemailer from "nodemailer";
 import base64url from "base64url";
 
 import { UserParent } from "../models/UserParent.js";
 import { BlackListToken } from "../models/BlackListToken.js";
 
 import { userRole } from "../environments/constants.js";
+import { sendMail } from "../util/sendMail.js";
 import { generateUserToken, signJwtToken } from "../util/signJwtToken.js";
-import { passwordResetTemplate } from "../util/passwordResetTemplate.js";
+import { emailTemplate } from "../util/emailTemplate.js";
 import verifyJwtToken from "../util/verifyJwtToken.js";
 import { BookingModel } from "../models/BookingModel.js";
 import { LessonModel } from "../models/LessonModel.js";
@@ -118,6 +118,16 @@ const userRegister = async ({
   // Create token
   const userToken = await generateUserToken(user);
 
+  // Add a reset template to be sent by email
+  const htmlTemplate = emailTemplate({
+    title: 'Registered user',
+    header: 'Successful registered to Vertigo skates school',
+    content: ['Enjoy the ride!'],
+  });
+
+  // Send mail to client
+  await sendMail(user.email, htmlTemplate);
+
   return createUserDetailsObject(user, userToken);
 };
 
@@ -166,25 +176,20 @@ async function createResetLink({ email, origin }) {
   // Create URL used on front-end to reset password
   const resetLink = `${origin}/reset-password/${encodedToken}`;
 
-  // Send an email with the reset link
-  const transporter = nodemailer.createTransport({
-    // Configure email provider
-    service: "gmail",
-    auth: {
-      user: process.env.GMAIL_USER,
-      pass: process.env.GMAIL_APP_PASS,
-    },
-  });
   // Add a reset template to be sent by email
-  const htmlTemplate = passwordResetTemplate(resetLink);
-
-  await transporter.sendMail({
-    from: `"Училище за Кънки Vertigo", ${process.env.GMAIL_USER}`,
-    to: user.email,
-    subject: "DO NOT REPLY: roleri.bg - Password Reset",
-    text: "To reset your password, please follow the link. The link is active for 10 minutes.",
-    html: htmlTemplate,
+  const htmlTemplate = emailTemplate({
+    resetLink,
+    title: 'Reset Password',
+    header: 'Възстанови парола',
+    buttonText: 'Възстанови парола',
+    content: [
+      'За да възстановите своята парола моля последвайте линка.',
+      'Линка е активен в рамките на 10 минути.'
+    ],
   });
+
+  // Send mail to client
+  await sendMail(user.email, htmlTemplate);
 
   return { resetLink };
 }

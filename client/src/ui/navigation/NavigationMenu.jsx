@@ -124,7 +124,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
                     onLogin();
                   }}
                   className={styles.link}
-                  to="javascript:void(0)"
+                  to={undefined}
                 >
                   {lang.login}
                   <span className={styles.linkBorder}></span>

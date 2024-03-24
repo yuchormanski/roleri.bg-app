@@ -5,6 +5,9 @@ import { UnregisteredUser } from "../models/UnregisteredUser.js";
 import { RegularDaysModel } from "../models/RegularDaysModel.js";
 import { bookUserHelper } from "../util/bookUserHelper.js";
 import { CalendarExcludedOptions } from "../models/CalendarExcludedOptions.js";
+import { emailTemplate } from "../util/emailTemplate.js";
+import { sendMail } from "../util/sendMail.js";
+import { UserParent } from "../models/UserParent.js";
 
 // Get all booking
 const getAllBooking = async (userId) => {
@@ -37,21 +40,50 @@ const rejectBooking = async (bookingId) =>
 
 // Unregistered user booking
 const unregisteredUser = async ({ date, lessonId, ...userData }) => {
-  const [unregisteredUserData, subscriptionData] = await Promise.all([
-    UnregisteredUser.create(userData),
-    SubscriptionTypeModel.findById(userData.subscriptionType),
+  let currentUser;
+
+  const [foundUnregisterUser, foundRegisterUser] = await Promise.all([
+    UnregisteredUser.findOne({ email: userData.email }),
+    UserParent.findOne({ email: userData.email })
   ]);
+
+  if (foundUnregisterUser || foundRegisterUser) {
+    currentUser = foundUnregisterUser || foundRegisterUser;
+  } else {
+    currentUser = await UnregisteredUser.create(userData);
+  }
+
+  const subscriptionData = await SubscriptionTypeModel.findById(userData.subscriptionType);
 
   const bookingWithDate = bookUserHelper(
     date,
     subscriptionData.subscriptionCount,
     lessonId,
-    unregisteredUserData._id,
+    currentUser._id,
     userData.additionalRequirements,
     subscriptionData._id
   );
 
-  const newLessonBooked = await BookingModel.insertMany(bookingWithDate);
+  const bookingData = bookingWithDate.at(0);
+  const newLessonBooked = await BookingModel.create(bookingData);
+  const currentBook = await BookingModel.findById(newLessonBooked._id).populate('lessonId');
+
+  // Add a reset template to be sent by email
+  const htmlTemplate = emailTemplate({
+    title: 'New Booking',
+    header: 'You signed up for a skate lesson',
+    content: [
+      `You are signed for skate lesson in group 
+      ${currentBook.lessonId.title.split('&/&').at(1)} on 
+      ${new Date(currentBook.date).toLocaleDateString('fr-CH')} from 
+      ${currentBook.lessonId.time}h`,
+      'Please ensure that you arrive at least 15 minutes before the lesson.',
+      'Enjoy the ride!'
+    ],
+  });
+
+  // Send mail to client
+  await sendMail(currentUser.email, htmlTemplate);
 
   return newLessonBooked;
 };
@@ -89,6 +121,26 @@ const registeredUser = async (bookingDataArray, ownerId) => {
 
   // Insert new bookings into the database
   const newLessonsBooked = await BookingModel.insertMany(newBookings);
+
+  // TODO: Make request
+  // const currentBook = await BookingModel.findById(newLessonBooked._id).populate('lessonId');
+
+  // // Add a reset template to be sent by email
+  // const htmlTemplate = emailTemplate({
+  //   title: 'New Booking',
+  //   header: 'You signed up for a skate lesson',
+  //   content: [
+  //     `You are signed for skate lesson in group 
+  //     ${currentBook.lessonId.title.split('&/&').at(1)} on 
+  //     ${new Date(currentBook.date).toLocaleDateString('fr-CH')} from 
+  //     ${currentBook.lessonId.time}h`,
+  //     'Please ensure that you arrive at least 15 minutes before the lesson.',
+  //     'Enjoy the ride!'
+  //   ],
+  // });
+
+  // // Send mail to client
+  // await sendMail(currentUser.email, htmlTemplate);
 
   return newLessonsBooked;
 };
