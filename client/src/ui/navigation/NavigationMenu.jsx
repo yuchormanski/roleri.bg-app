@@ -1,6 +1,6 @@
 import styles from "./NavigationMenu.module.css";
 
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
 
@@ -9,10 +9,16 @@ import { useLanguage } from "../../context/Language.jsx";
 import { useAuthContext } from "../../context/AuthContext.jsx";
 
 import { useAuthQueries } from "../../pages/auth/useAuthQueries.js";
+import { useState } from "react";
+import Popup from "../elements/popupModal/Popup.jsx";
+import Login from "../../pages/auth/Login.jsx";
+import Register from "../../pages/auth/Register.jsx";
 
 function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
   const { isDark, themeToggle } = useTheme();
   const { lang, langChanger, toggle: language } = useLanguage();
+  const [background, setBackground] = useState(false);
+  const [authToggle, setAuthToggle] = useState(true);
 
   const {
     checkIsUserLoggedIn,
@@ -50,6 +56,28 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
 
   return (
     <>
+      {background && (
+        <Popup backgroundClick={false}>
+          {authToggle ? (
+            <Login
+              onClose={() => {
+                setBackground(false);
+                toggleMobile();
+              }}
+              authToggle={setAuthToggle}
+            />
+          ) : (
+            <Register
+              onClose={() => {
+                setBackground(false);
+                toggleMobile();
+              }}
+              authToggle={setAuthToggle}
+            />
+          )}
+        </Popup>
+      )}
+
       {/* next line is for keeping nav menu closed on initial render.
       If missing the menu will be permanently open */}
       {isMobile && (
@@ -118,7 +146,17 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
               </>
             ) : (
               <li className={styles.listItem}>
-                <button
+                <Link
+                  onClick={() => {
+                    setBackground(true);
+                  }}
+                  className={`${styles.link}`}
+                  to={undefined}
+                >
+                  {lang.login}
+                  <span className={styles.linkBorder}></span>
+                </Link>
+                {/* <button
                   onClick={() => {
                     if (!isMobile) toggleMobile();
                     onLogin();
@@ -128,7 +166,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
                 >
                   {lang.login}
                   <span className={styles.linkBorder}></span>
-                </button>
+                </button> */}
               </li>
             )}
 
