@@ -30,7 +30,7 @@
 .lessons {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem 4rem;
+  gap: 8rem 4rem;
   place-items: center;
 }
 

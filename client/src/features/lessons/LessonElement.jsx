@@ -21,6 +21,7 @@ function LessonElement() {
 
   const { data, isFetching, error } = useGetAllLessonQueries();
   let lesson = data.filter((el) => el._id === id).at(0);
+  console.log(lesson);
 
   return (
     <>
@@ -92,13 +93,29 @@ function LessonElement() {
               {translate(lesson.description)}
             </p>
 
+            {lesson.isIndividual && (
+              <div className={styles.individualContainer}>
+                <h3>
+                  Индивидуалните уроци се провеждат и уговарят директно с
+                  инструктора.
+                </h3>
+                <p>
+                  В настоящия момент възможните дни за провеждане на
+                  индивидуален урок са сряда и петък, във времевия интервал
+                  между 12:00 и 16:00 часа
+                </p>
+              </div>
+            )}
+
             <div className={styles.btnContainer}>
               <button className={styles.btn} onClick={moveBack}>
                 {lang.back}
               </button>
-              <Link className={styles.link} to={"/booking"}>
-                {lang.booking}
-              </Link>
+              {lesson.isIndividual ? null : (
+                <Link className={styles.link} to={"/booking"}>
+                  {lang.booking}
+                </Link>
+              )}
             </div>
           </div>
         </div>

@@ -688,9 +688,7 @@ function AddLessonOption({ onClose }) {
             <section className={styles.description}>
               <p className={styles.info}>
                 <span>&#9737;</span>
-                {lang.s_list_1} Lorem ipsum dolor sit amet consectetur
-                adipisicing elit. Voluptatum, itaque ullam. Amet magni autem
-                nesciunt aliquid deserunt numquam inventore dignissimos!
+                {lang.s_list_1}
               </p>
             </section>
           </div>

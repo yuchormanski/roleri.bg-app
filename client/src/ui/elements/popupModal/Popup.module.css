@@ -8,7 +8,7 @@
   display: grid;
   place-items: center;
   z-index: 1;
-  padding-top: 8rem;
+  padding-top: 10rem;
 }
 
 .modalBg::before {
@@ -62,11 +62,12 @@ button.closeIcon {
 }
 
 .width800 {
-  min-width: 800px;
+  min-width: 150px;
   max-width: 1200px;
 }
 
 .userHeight {
+  min-height: 150px;
   max-height: 600px;
 }
 
@@ -83,7 +84,6 @@ button.closeIcon {
 }
 
 @media (max-width: 760px) {
-
   .width600,
   .width700,
   .width800 {

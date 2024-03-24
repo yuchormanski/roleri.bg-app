@@ -16,7 +16,8 @@ import { useAddUnregisteredBookQuery } from "./useAddUnregisteredBookQuery.js";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 import toast from "react-hot-toast";
 import { EMAIL_REGEX, PHONE_REGEX } from "../../services/environment.js";
-import { useGetAllLessonWithoutIndividualQueries } from "./useGetAllLessonWithoutIndividualQueries.js";
+// import { useGetAllLessonQueries } from "../../pages/lessons/useGetAllLessonQueries.js";
+import { useGetAllValidLessonQueries } from "./useGetAllValidLessonsQuery.js";
 
 const initialFieldsValues = {
   firstName: "",
@@ -46,7 +47,7 @@ function UnregisteredUser() {
 
   const { isFetching, error, data } = useGetSkaterOptionsQuery();
   const { isFetching: isFetchingLesson, data: incoming } =
-    useGetAllLessonWithoutIndividualQueries();
+    useGetAllValidLessonQueries();
   const { mutate, isPending } = useAddUnregisteredBookQuery();
 
   const lessonData = incoming.filter((el) => new Date(el.validTo) > new Date());
@@ -192,7 +193,6 @@ function UnregisteredUser() {
                         },
                       })}
                       onBlur={valueHandler}
-                    // autoComplete="family-name"
                     />
                     <label
                       htmlFor={"lastName"}
@@ -251,7 +251,7 @@ function UnregisteredUser() {
                       {/* <option value={"hasOwn"}>{lang.haveOwn}</option> */}
                       {data.skatesData.map((skate) => (
                         <option key={skate._id} value={skate._id}>
-                          {skate.size}
+                          {skate.size === 0 ? lang.haveOwn : skate.size}
                         </option>
                       ))}
                     </select>
@@ -280,7 +280,9 @@ function UnregisteredUser() {
                       {/* <option value={"hasOwn"}>{lang.haveOwn}</option> */}
                       {data.protectionsData.map((protection) => (
                         <option key={protection._id} value={protection._id}>
-                          {protection.size}
+                          {Number(protection.size) === 0
+                            ? lang.haveOwn
+                            : protection.size}
                         </option>
                       ))}
                     </select>
