@@ -193,7 +193,6 @@ function UnregisteredUser() {
                         },
                       })}
                       onBlur={valueHandler}
-                      // autoComplete="family-name"
                     />
                     <label
                       htmlFor={"lastName"}
@@ -254,7 +253,7 @@ function UnregisteredUser() {
                       {/* <option value={"hasOwn"}>{lang.haveOwn}</option> */}
                       {data.skatesData.map((skate) => (
                         <option key={skate._id} value={skate._id}>
-                          {skate.size}
+                          {skate.size === 0 ? lang.haveOwn : skate.size}
                         </option>
                       ))}
                     </select>
@@ -284,7 +283,9 @@ function UnregisteredUser() {
                       {/* <option value={"hasOwn"}>{lang.haveOwn}</option> */}
                       {data.protectionsData.map((protection) => (
                         <option key={protection._id} value={protection._id}>
-                          {protection.size}
+                          {Number(protection.size) === 0
+                            ? lang.haveOwn
+                            : protection.size}
                         </option>
                       ))}
                     </select>

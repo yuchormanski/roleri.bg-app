@@ -66,7 +66,7 @@ export const EN = {
   bookLesson: "Book a lesson",
   skates: "Skates",
   protection: "Protection",
-  haveOwn: "Have own",
+  haveOwn: "I have own",
   contactName: "Contact name",
   select_skaters: "Select skaters",
   schedule: "schedule",
@@ -109,6 +109,8 @@ export const EN = {
   a_skates_info_1: "Add number and quantity",
   a_skates_info_2: "It is possible to manage every item",
   a_skates_info_3: "Sort is in ascending order",
+  a_skates_info_4:
+    "For option 'I have own' add 0 (zero). It will be displayed as text",
   a_info_1: "Here you can mange all available inventory.",
   a_info_2: "Subscription plans and age groups.",
   a_info_3: "Select from menu category for full list of actions actions",
@@ -144,6 +146,11 @@ export const EN = {
   a_dates_4: "After passing the date it will be removed from the list",
   a_dates_5: "The field accepts user input",
   a_dates_6: "The excluded dates are: ",
+  a_protection_info_1: "Add number & quantity",
+  a_protection_info_0: "You can view, edit & delete everyone of them",
+  a_protection_info_2: "You can view, edit & delete everyone of them",
+  a_protection_info_3:
+    "The list will be seen by users in the order of input. It would be a good idea to enter them in the order you want them to be displayed",
 
   // SKATER OPTIONS
   s_firstName: "First name",
@@ -170,6 +177,7 @@ export const EN = {
   // USER OPTIONS
   u_add_skater_info:
     "If you have additional requirements or custom needs, add them to 'Additional requirements' field.",
+
   u_no_lessons: "You have no active lessons.",
   u_info_1: "The lessons you have signed up for are sorted by date sequence",
   u_info_2:
