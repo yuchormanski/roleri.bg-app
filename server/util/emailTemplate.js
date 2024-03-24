@@ -1,33 +1,31 @@
 export const emailTemplate = ({
-    title,
-    resetLink,
-    header,
-    buttonText,
-    content,
+  title,
+  resetLink,
+  header,
+  buttonText,
+  content,
 }) => {
+  function getContent() {
+    return content
+      .map(
+        (text) =>
+          `<p style="color:#455056; font-size:15px;line-height:24px; margin:0; padding-bottom:10px">${text}</p>`
+      )
+      .join("");
+  }
 
-    function getContent() {
-
-
-        return (
-            content.map(text => `<p style="color:#455056; font-size:15px;line-height:24px; margin:0; padding-bottom:10px">${text}</p>`).join('')
-        )
-    }
-
-    function checkForButton() {
-        return (resetLink
-            ?
-            `
+  function checkForButton() {
+    return resetLink
+      ? `
             <a style="background:#ffd823;text-decoration:none; font-weight:500; margin-top:35px; color:#3e4756;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;"
                 href=${resetLink} target="_blank">
                 ${buttonText}
             </a>
             `
-            : '<span></span>')
-    };
+      : "<span></span>";
+  }
 
-    return (
-        `
+  return `
         <!doctype html>
         <html lang="en-US">
         
@@ -61,7 +59,7 @@ export const emailTemplate = ({
                             <tr>
                                 <td>
                                     <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0"
-                                        style="max-width:670px;background:#fff; border-radius:3px; text-align:center;-webkit-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);-moz-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);box-shadow:0 6px 18px 0 rgba(0,0,0,.06);">
+                                        style="max-width:960px;background:#fff; border-radius:3px; text-align:center;-webkit-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);-moz-box-shadow:0 6px 18px 0 rgba(0,0,0,.06);box-shadow:0 6px 18px 0 rgba(0,0,0,.06);">
                                         <tr>
                                             <td style="height:40px;">&nbsp;</td>
                                         </tr>
@@ -102,6 +100,5 @@ export const emailTemplate = ({
         </body>
         
         </html>
-        `
-    );
+        `;
 };

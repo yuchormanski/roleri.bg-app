@@ -118,17 +118,17 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
               </>
             ) : (
               <li className={styles.listItem}>
-                <NavLink
+                <button
                   onClick={() => {
                     if (!isMobile) toggleMobile();
                     onLogin();
                   }}
-                  className={styles.link}
-                  to={undefined}
+                  className={`${styles.link} ${styles.loginBtn}`}
+                  // to={undefined}
                 >
                   {lang.login}
                   <span className={styles.linkBorder}></span>
-                </NavLink>
+                </button>
               </li>
             )}
 

@@ -144,18 +144,18 @@ function Register({ onClose, authToggle }) {
                 "password",
                 !isNotForgotten
                   ? {
-                    required: "Password is required",
-                    minLength: {
-                      value: 3,
-                      message:
-                        "The password should be at least 3 characters long ",
-                    },
-                    pattern: {
-                      value: PASS_REGEX,
-                      message:
-                        "Password must contain at least one lowercase letter, one uppercase letter, and one digit",
-                    },
-                  }
+                      required: "Password is required",
+                      minLength: {
+                        value: 3,
+                        message:
+                          "The password should be at least 3 characters long ",
+                      },
+                      pattern: {
+                        value: PASS_REGEX,
+                        message:
+                          "Password must contain at least one lowercase letter, one uppercase letter, and one digit",
+                      },
+                    }
                   : null
               )}
               placeholder={"Password"}
@@ -225,12 +225,6 @@ function Register({ onClose, authToggle }) {
             }}
           />
 
-          <div className={styles.btnContainer}>
-            <div style={{ marginLeft: "auto" }}>
-              <Button type={"primary"}>Register</Button>
-            </div>
-          </div>
-
           {/* CONDITIONS */}
           <div className={styles.conditions}>
             <p>
@@ -244,6 +238,11 @@ function Register({ onClose, authToggle }) {
               type="checkbox"
               onChange={checkboxHandler}
             />
+          </div>
+          <div className={styles.btnContainer}>
+            <div style={{ marginLeft: "auto" }}>
+              <Button type={"primary"}>Register</Button>
+            </div>
           </div>
         </form>
 
