@@ -136,7 +136,7 @@ function AddSkater({ onClose }) {
               </option>
               {options_data?.protectionsData?.map((p) => (
                 <option key={p._id} value={p._id}>
-                  {p.size === 0 ? lang.haveOwn : p.size}
+                  {p.size == 0 ? lang.haveOwn : p.size}
                 </option>
               ))}
             </select>
