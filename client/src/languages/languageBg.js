@@ -63,6 +63,7 @@ export const BG = {
   skates: "Кънки",
   protection: "Протектори",
   haveOwn: "Имам свои",
+  hasOwn: "Има свои",
   contactName: "Име за контакт",
   select_skaters: "Изберете кънкьори",
   schedule: "График",

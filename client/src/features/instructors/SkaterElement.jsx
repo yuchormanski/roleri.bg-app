@@ -137,8 +137,9 @@ function SkaterElement({ lesson }) {
       <figure className={styles.figure}>
         <div className={styles.buttonContainer}>
           <button
-            className={`${styles.isNotPresent} ${isPresent ? styles.isHere : null
-              }`}
+            className={`${styles.isNotPresent} ${
+              isPresent ? styles.isHere : null
+            }`}
             onClick={presentHandler}
             disabled={isPaid}
           >
@@ -160,8 +161,12 @@ function SkaterElement({ lesson }) {
         </div>
 
         <div className={styles.additional}>
-          <p className={styles.skaterProps}>{skates}</p>
-          <p className={styles.skaterProps}>{protection}</p>
+          <p className={styles.skaterProps}>
+            {Number(skates) === 0 ? lang.hasOwn : skates}
+          </p>
+          <p className={styles.skaterProps}>
+            {protection == 0 ? lang.hasOwn : protection}
+          </p>
           <button
             className={`${styles.skaterProps} ${styles.infoBlock}`}
             onClick={toggleModal}
@@ -179,6 +184,7 @@ function SkaterElement({ lesson }) {
                 <GoX />
               </button>
             </div>
+
             <h3 className={styles.headingModal}>
               {firstName} {lastName}
             </h3>
