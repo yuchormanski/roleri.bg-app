@@ -26,7 +26,7 @@ function LessonListElement({ lesson }) {
   }
 
   window.addEventListener("scroll", reveal);
-  console.log(lesson);
+
   return (
     <figure className={styles.card}>
       <div className={styles.imgBox}>

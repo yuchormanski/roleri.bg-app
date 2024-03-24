@@ -1,4 +1,31 @@
-export const passwordResetTemplate = (resetLink) => {
+export const emailTemplate = ({
+    title,
+    resetLink,
+    header,
+    buttonText,
+    content,
+}) => {
+
+    function getContent() {
+
+
+        return (
+            content.map(text => `<p style="color:#455056; font-size:15px;line-height:24px; margin:0;">${text}</p>`).join('')
+        )
+    }
+
+    function checkForButton() {
+        return (resetLink
+            ?
+            `
+            <a style="background:#ffd823;text-decoration:none; font-weight:500; margin-top:35px; color:#3e4756;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;"
+                href=${resetLink} target="_blank">
+                ${buttonText}
+            </a>
+            `
+            : '<span></span>')
+    };
+
     return (
         `
         <!doctype html>
@@ -6,9 +33,14 @@ export const passwordResetTemplate = (resetLink) => {
         
         <head>
             <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-            <title>Reset Password Email Template</title>
-            <meta name="description" content="Reset Password Email Template">
+            <title>${title}</title>
+            <meta name="description" content="${title}">
             <style type="text/css">
+                a:link,
+                a:visited {
+                    text-decoration: none;
+                }
+        
                 a:hover {
                     text-decoration: underline;
                 }
@@ -37,19 +69,13 @@ export const passwordResetTemplate = (resetLink) => {
                                             <td style="padding:0 35px;">
                                                 <h1
                                                     style="color:#1e1e2d; font-weight:500; margin:0;font-size:32px;font-family:'Rubik',sans-serif;">
-                                                    Възстанови парола
+                                                    ${header}
                                                 </h1>
                                                 <span
                                                     style="display:inline-block; vertical-align:middle; margin:29px 0 26px; border-bottom:1px solid #cecece; width:100px;"></span>
-                                                <p style="color:#455056; font-size:15px;line-height:24px; margin:0;">
-                                                    За да възстановите своята парола моля последвайте линка.
-                                                    <br />
-                                                    Линка е активен в рамките на 10 минути.
-                                                </p>
-                                                <a style="background:#ffd823;text-decoration:none; font-weight:500; margin-top:35px; color:#3e4756;text-transform:uppercase; font-size:14px;padding:10px 24px;display:inline-block;border-radius:50px;"
-                                                    href=${resetLink} target="_blank">
-                                                    Възстанови парола
-                                                </a>
+                                                ${getContent()}
+                                                
+                                              ${checkForButton()}
                                             </td>
                                         </tr>
                                         <tr>
@@ -59,9 +85,10 @@ export const passwordResetTemplate = (resetLink) => {
                                 </td>
                             <tr>
                                 <td style="text-align:center;">
-                                    <p
-                                        style="font-size:14px; color:rgba(69, 80, 86, 0.7411764705882353); line-height:18px; margin-top: 10px;;">
-                                        &copy; <strong>www.roleri.bg</strong></p>
+                                    <a href="https://www.roleri.bg" target="_blank"
+                                        style="font-size:14px; color:rgba(69, 80, 86, 0.7411764705882353); line-height:18px; margin-top: 10px;">
+                                        &copy; <strong>www.roleri.bg</strong>
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
