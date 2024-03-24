@@ -8,7 +8,7 @@ export const EN = {
   lastName: "Last name",
   email: "Email",
   phone: "Phone",
-  home: "Home",
+  home: "News",
   lessons: "Lessons",
   login: "Login",
   logout: "Logout",

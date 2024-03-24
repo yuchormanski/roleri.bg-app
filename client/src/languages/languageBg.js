@@ -3,7 +3,7 @@ export const BG = {
   lastName: "Фамилия",
   email: "Имейл",
   phone: "Телефон",
-  home: "Начало",
+  home: "Новини",
   lessons: "Уроци",
   login: "Вход",
   logout: "Изход",
