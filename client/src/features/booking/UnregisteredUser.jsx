@@ -166,12 +166,13 @@ function UnregisteredUser() {
                         },
                       })}
                       onBlur={valueHandler}
-                    // autoComplete="given-name"
+                      // autoComplete="given-name"
                     />
                     <label
                       htmlFor={"firstName"}
-                      className={`${styles.label} ${fieldValues.firstName ? styles.filled : null
-                        }`}
+                      className={`${styles.label} ${
+                        fieldValues.firstName ? styles.filled : null
+                      }`}
                     >
                       {lang.firstName}
                     </label>
@@ -196,8 +197,9 @@ function UnregisteredUser() {
                     />
                     <label
                       htmlFor={"lastName"}
-                      className={`${styles.label} ${fieldValues.lastName ? styles.filled : null
-                        }`}
+                      className={`${styles.label} ${
+                        fieldValues.lastName ? styles.filled : null
+                      }`}
                     >
                       {lang.lastName}
                     </label>
@@ -228,8 +230,9 @@ function UnregisteredUser() {
                     </select>
                     <label
                       htmlFor={`groupAge`}
-                      className={`${styles.selectLabel} ${fieldValues.groupAge ? styles.filled : null
-                        }`}
+                      className={`${styles.selectLabel} ${
+                        fieldValues.groupAge ? styles.filled : null
+                      }`}
                     >
                       <span>{lang.ageGroup}</span>
                     </label>
@@ -257,8 +260,9 @@ function UnregisteredUser() {
                     </select>
                     <label
                       htmlFor={`skatesSize`}
-                      className={`${styles.selectLabel} ${fieldValues.skatesSize ? styles.filled : null
-                        }`}
+                      className={`${styles.selectLabel} ${
+                        fieldValues.skatesSize ? styles.filled : null
+                      }`}
                     >
                       <span>{lang.skates}</span>
                     </label>
@@ -288,8 +292,9 @@ function UnregisteredUser() {
                     </select>
                     <label
                       htmlFor={`protection`}
-                      className={`${styles.selectLabel} ${fieldValues.protection ? styles.filled : null
-                        }`}
+                      className={`${styles.selectLabel} ${
+                        fieldValues.protection ? styles.filled : null
+                      }`}
                     >
                       <span>{lang.protection}</span>
                     </label>
@@ -313,24 +318,27 @@ function UnregisteredUser() {
                       {data.subscriptionData.map((subscription) => (
                         <option key={subscription._id} value={subscription._id}>
                           {`
-                            							${translate(subscription.typePayment)} - ${subscription.subscriptionCount
-                            } 
-                            							${lang.visit}${subscription.subscriptionCount > 1
+                            							${translate(subscription.typePayment)} - ${
+                            subscription.subscriptionCount
+                          } 
+                            							${lang.visit}${
+                            subscription.subscriptionCount > 1
                               ? selectedLangIndex === 0
                                 ? "я"
                                 : "s"
                               : selectedLangIndex === 0
-                                ? "e"
-                                : ""
-                            }
+                              ? "e"
+                              : ""
+                          }
                           							`}
                         </option>
                       ))}
                     </select>
                     <label
                       htmlFor={`subscriptionType`}
-                      className={`${styles.selectLabel} ${fieldValues.subscriptionType ? styles.filled : null
-                        }`}
+                      className={`${styles.selectLabel} ${
+                        fieldValues.subscriptionType ? styles.filled : null
+                      }`}
                     >
                       <span>{lang.type}</span>
                     </label>
@@ -357,8 +365,9 @@ function UnregisteredUser() {
                     </select>
                     <label
                       htmlFor={`lessonId`}
-                      className={`${styles.selectLabel} ${fieldValues.lessonId ? styles.filled : null
-                        }`}
+                      className={`${styles.selectLabel} ${
+                        fieldValues.lessonId ? styles.filled : null
+                      }`}
                     >
                       <span>{lang.lessons}</span>
                     </label>
@@ -411,8 +420,9 @@ function UnregisteredUser() {
                     />
                     <label
                       htmlFor={"contactName"}
-                      className={`${styles.label} ${fieldValues.contactName ? styles.filled : null
-                        }`}
+                      className={`${styles.label} ${
+                        fieldValues.contactName ? styles.filled : null
+                      }`}
                     >
                       {lang.contactName}
                     </label>
@@ -445,8 +455,9 @@ function UnregisteredUser() {
                     />
                     <label
                       htmlFor={"email"}
-                      className={`${styles.label} ${fieldValues.email ? styles.filled : null
-                        }`}
+                      className={`${styles.label} ${
+                        fieldValues.email ? styles.filled : null
+                      }`}
                     >
                       {lang.email}
                     </label>
@@ -529,8 +540,9 @@ function UnregisteredUser() {
                   />
                   <label
                     htmlFor={"additionalRequirements"}
-                    className={`${styles.label} ${fieldValues.additionalRequirements ? styles.filled : null
-                      }`}
+                    className={`${styles.label} ${
+                      fieldValues.additionalRequirements ? styles.filled : null
+                    }`}
                   >
                     {lang.requirements}
                   </label>
@@ -547,7 +559,7 @@ function UnregisteredUser() {
                   <input
                     className={styles.checkbox}
                     type="checkbox"
-                  // onChange={(e) => checkboxHandler(e, s._id)}
+                    // onChange={(e) => checkboxHandler(e, s._id)}
                   />
                 </div>
                 <div className={styles.btnContainer}>
