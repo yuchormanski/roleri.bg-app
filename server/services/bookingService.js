@@ -8,6 +8,7 @@ import { CalendarExcludedOptions } from "../models/CalendarExcludedOptions.js";
 import { emailTemplate } from "../util/emailTemplate.js";
 import { sendMail } from "../util/sendMail.js";
 import { UserParent } from "../models/UserParent.js";
+import { userRole } from "../environments/constants.js";
 
 // Get all booking
 const getAllBooking = async (userId) => {
@@ -29,14 +30,50 @@ const getBookingById = async (bookingId) =>
   populateBookingData(BookingModel.findById(bookingId));
 
 // Reject booking
-const rejectBooking = async (bookingId) =>
-  populateBookingData(
-    BookingModel.findByIdAndUpdate(
-      bookingId,
-      { isRejected: true },
-      { runValidators: true, new: true }
-    )
-  );
+const rejectBooking = async (bookingId, ownerId) => {
+  const [currentBooking, currentUserParent, adminUserData] = await Promise.all([
+    populateBookingData(BookingModel.findByIdAndUpdate(bookingId, { isRejected: true }, { runValidators: true, new: true })),
+    UserParent.findById(ownerId),
+    UserParent.find({ role: userRole.admin }, { email: 1, _id: 0 }),
+  ]);
+
+  // Get all emails for all admins to be sent at once
+  const onlyAminEmails = [...adminUserData.map(e => e.email)].join(', ');
+
+  // Get common details content for admins and user
+  const emailCommonContent = [
+    `
+      ${currentBooking.skaterId.firstName} ${currentBooking.skaterId.lastName} canceled the
+      ${currentBooking.lessonId.title.split('&/&').at(1)} skating lesson scheduled for 
+      ${new Date(currentBooking.date).toLocaleDateString('fr-CH')} at 
+      ${currentBooking.lessonId.time}h
+    `
+  ];
+
+  // Add html template to be sent by email only for client
+  const htmlTemplateUser = emailTemplate({
+    title: 'Reject Booking',
+    header: 'Your skating lesson has been canceled',
+    content: [
+      ...emailCommonContent,
+      'We look forward to seeing you again soon!'
+    ]
+  });
+
+  // Send mail to client
+  sendMail(currentUserParent.email, htmlTemplateUser);
+
+  // Add html template to be sent by email for all admins
+  const htmlTemplateAdmin = emailTemplate({
+    title: 'Reject Booking',
+    header: `${currentBooking.skaterId.firstName} ${currentBooking.skaterId.lastName} canceled the lesson`,
+    content: emailCommonContent,
+  });
+  // Send mail to all admins
+  sendMail(onlyAminEmails, htmlTemplateAdmin);
+
+  return currentBooking;
+};
 
 // Unregistered user booking
 const unregisteredUser = async ({ date, lessonId, ...userData }) => {
@@ -83,7 +120,7 @@ const unregisteredUser = async ({ date, lessonId, ...userData }) => {
   });
 
   // Send mail to client
-  await sendMail(currentUser.email, htmlTemplate);
+  sendMail(currentUser.email, htmlTemplate);
 
   return newLessonBooked;
 };
@@ -152,7 +189,7 @@ const registeredUser = async (bookingDataArray, ownerId) => {
   });
 
   // Send mail to client
-  await sendMail(currentUserParent.email, htmlTemplate);
+  sendMail(currentUserParent.email, htmlTemplate);
 
   return newLessonsBooked;
 };
