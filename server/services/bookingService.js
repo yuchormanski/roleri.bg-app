@@ -122,25 +122,37 @@ const registeredUser = async (bookingDataArray, ownerId) => {
   // Insert new bookings into the database
   const newLessonsBooked = await BookingModel.insertMany(newBookings);
 
-  // TODO: Make request
-  // const currentBook = await BookingModel.findById(newLessonBooked._id).populate('lessonId');
+  const userDataArray = [];
+  // Iterate over each booking to gather user data
+  for (const booking of newLessonsBooked) {
+    const currentBook = await BookingModel.findById(booking._id).populate(['lessonId', 'skaterId']);
 
-  // // Add a reset template to be sent by email
-  // const htmlTemplate = emailTemplate({
-  //   title: 'New Booking',
-  //   header: 'You signed up for a skate lesson',
-  //   content: [
-  //     `You are signed for skate lesson in group 
-  //     ${currentBook.lessonId.title.split('&/&').at(1)} on 
-  //     ${new Date(currentBook.date).toLocaleDateString('fr-CH')} from 
-  //     ${currentBook.lessonId.time}h`,
-  //     'Please ensure that you arrive at least 15 minutes before the lesson.',
-  //     'Enjoy the ride!'
-  //   ],
-  // });
+    // Compose data for the current user
+    const currentUserData = `
+    ${currentBook.skaterId.firstName} ${currentBook.skaterId.lastName} is signed up for a skate lesson
+    ${currentBook.lessonId.title.split('&/&').at(1)} on 
+    ${new Date(currentBook.date).toLocaleDateString('fr-CH')} from 
+    ${currentBook.lessonId.time} h
+    `;
 
-  // // Send mail to client
-  // await sendMail(currentUser.email, htmlTemplate);
+    userDataArray.push(currentUserData);
+  };
+
+  const currentUserParent = await UserParent.findById(ownerId);
+
+  // Add html template to be sent by email
+  const htmlTemplate = emailTemplate({
+    title: 'New Booking',
+    header: 'You signed up for a skate lesson',
+    content: [
+      ...userDataArray,
+      'Please ensure that you arrive at least 15 minutes before the lesson.',
+      'Enjoy the ride!'
+    ],
+  });
+
+  // Send mail to client
+  await sendMail(currentUserParent.email, htmlTemplate);
 
   return newLessonsBooked;
 };
