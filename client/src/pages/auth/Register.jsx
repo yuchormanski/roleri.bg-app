@@ -19,7 +19,7 @@ import Button from "../../ui/elements/button/Button.jsx";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 import { Link } from "react-router-dom";
 
-function Register({ onClose, authToggle }) {
+function Register({ onOut = null, onClose, authToggle }) {
   const { lang } = useLanguage();
   const [isNotForgotten, setIsNotForgotten] = useState(false);
   const [terms, setTerms] = useState(false);
@@ -46,6 +46,7 @@ function Register({ onClose, authToggle }) {
 
       await registerMutation.mutateAsync(resultData);
       onClose();
+      onOut ? onOut() : null;
       reset();
     } catch (error) {
       toast.error(error.message);

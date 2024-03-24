@@ -35,7 +35,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
     } catch (error) {
       console.error(error.message);
     } finally {
-      toggleMobile();
+      if (!isMobile) toggleMobile();
     }
   }
 
@@ -60,17 +60,19 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
         <Popup backgroundClick={false}>
           {authToggle ? (
             <Login
+              onOut={toggleMobile}
               onClose={() => {
                 setBackground(false);
-                toggleMobile();
+                if (!isMobile) toggleMobile();
               }}
               authToggle={setAuthToggle}
             />
           ) : (
             <Register
+              onOut={toggleMobile}
               onClose={() => {
                 setBackground(false);
-                toggleMobile();
+                if (!isMobile) toggleMobile();
               }}
               authToggle={setAuthToggle}
             />
