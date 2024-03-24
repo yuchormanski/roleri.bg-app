@@ -67,6 +67,7 @@ export const EN = {
   skates: "Skates",
   protection: "Protection",
   haveOwn: "I have own",
+  hasOwn: "has own",
   contactName: "Contact name",
   select_skaters: "Select skaters",
   schedule: "schedule",
