@@ -10,7 +10,7 @@ export const emailTemplate = ({
 
 
         return (
-            content.map(text => `<p style="color:#455056; font-size:15px;line-height:24px; margin:0;">${text}</p>`).join('')
+            content.map(text => `<p style="color:#455056; font-size:15px;line-height:24px; margin:0; padding-bottom:10px">${text}</p>`).join('')
         )
     }
 
@@ -52,7 +52,7 @@ export const emailTemplate = ({
                 style="@import url(https://fonts.googleapis.com/css?family=Rubik:300,400,500,700|Open+Sans:300,400,600,700); font-family: 'Open Sans', sans-serif;">
                 <tr>
                     <td>
-                        <table style="background-color: #f2f3f8; max-width:670px;  margin:0 auto;" width="100%" border="0"
+                        <table style="background-color: #f2f3f8; max-width:960px;  margin:0 auto;" width="100%" border="0"
                             align="center" cellpadding="0" cellspacing="0">
                             <tr>
                                 <td style="height:80px;">&nbsp;</td>
