@@ -15,7 +15,7 @@ import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 
 const initialFieldsValues = { email: "", password: "" };
 
-function Login({ onClose, authToggle }) {
+function Login({ onOut = null, onClose, authToggle }) {
   const { lang } = useLanguage();
   const { loginMutation, forgotPasswordMutation } = useAuthQueries();
   const { register, handleSubmit, reset, getValues, formState } = useForm();
@@ -34,6 +34,7 @@ function Login({ onClose, authToggle }) {
       }
 
       onClose();
+      onOut ? onOut() : null;
       reset();
     } catch (error) {
       console.error("Login error:", error);
@@ -87,7 +88,7 @@ function Login({ onClose, authToggle }) {
           <div className={styles.element}>
             <input
               className={styles.textInput}
-              type="text"
+              type="email"
               id="email"
               {...register("email", {
                 required: "Email is required",
