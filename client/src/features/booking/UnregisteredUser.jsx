@@ -41,6 +41,7 @@ function UnregisteredUser() {
   const [ageVerifier, setAgeVerifier] = useState(false);
   const [fieldValues, setFieldValues] = useState(initialFieldsValues);
   const [phone, setPhone] = useState("");
+  const [blockedSubscription, setBlockedSSubscription] = useState(false);
 
   const { lang, index: selectedLangIndex } = useLanguage();
   const { translatePhrase: translate } = useTranslate();
@@ -59,6 +60,10 @@ function UnregisteredUser() {
   }
 
   function formSuccessHandler(formData) {
+    if (blockedSubscription)
+      return toast.error(
+        "Only registered users can book an subscription plan!"
+      );
     if (!PHONE_REGEX.test(phone)) return toast.error("Invalid phone number!");
 
     // TODO: contactName is required
@@ -100,11 +105,23 @@ function UnregisteredUser() {
   function valueHandler(e) {
     const valueName = e.target.name;
     const value = e.target.value || e.target.checked;
+
+    if (valueName === "subscriptionType") {
+      subscriptionTypeHandler(value);
+    }
+
     setFieldValues({ ...fieldValues, [valueName]: value });
   }
   function onFocusHandler(e) {
     const valueName = e.target.name;
     setFieldValues({ ...fieldValues, [valueName]: "" });
+  }
+
+  function subscriptionTypeHandler(id) {
+    if (!id) return;
+    const found = data.subscriptionData.find((x) => x._id === id);
+    if (found.subscriptionCount > 1) setBlockedSSubscription(true);
+    else setBlockedSSubscription(false);
   }
 
   return (
@@ -550,9 +567,9 @@ function UnregisteredUser() {
                 {/* Conditions */}
                 <div className={styles.conditions}>
                   <p>
-                    Съгласявам се с{" "}
+                    {lang.terms_1}
                     <Link className={styles.link} to={"/conditions"}>
-                      Общите условия
+                      {lang.terms_2}
                     </Link>
                   </p>
                   <input
@@ -569,13 +586,19 @@ function UnregisteredUser() {
                 </div>
                 <div className={styles.btnContainer}>
                   <div style={{ marginLeft: "auto" }}>
-                    <Button
-                      type={"primary"}
-                      // onClick={bookHandler}
-                      disabled={!selectedDate}
-                    >
-                      {lang.addSkater}
-                    </Button>
+                    {blockedSubscription ? (
+                      <div className={styles.warning}>
+                        <p>{lang.restriction}</p>
+                      </div>
+                    ) : (
+                      <Button
+                        type={"primary"}
+                        // onClick={bookHandler}
+                        disabled={!selectedDate}
+                      >
+                        {lang.addSkater}
+                      </Button>
+                    )}
                   </div>
                 </div>
               </form>
