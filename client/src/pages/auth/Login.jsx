@@ -88,7 +88,7 @@ function Login({ onOut = null, onClose, authToggle }) {
           <div className={styles.element}>
             <input
               className={styles.textInput}
-              type="text"
+              type="email"
               id="email"
               {...register("email", {
                 required: "Email is required",

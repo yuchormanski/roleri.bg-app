@@ -56,7 +56,7 @@ function Register({ onOut = null, onClose, authToggle }) {
 
   //ERROR IN FORM
   function onErrorSubmit(errors) {
-    console.log(errors);
+    // console.log(errors);
     Object.keys(errors).forEach((error) => toast.error(errors[error].message));
   }
 

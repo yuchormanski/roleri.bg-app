@@ -32,6 +32,7 @@ const initialFieldsValues = {
   phone: "",
   textArea: "",
   additionalRequirements: "",
+  checkbox: false,
   // gender: "",
 };
 
@@ -60,7 +61,13 @@ function UnregisteredUser() {
   function formSuccessHandler(formData) {
     if (!PHONE_REGEX.test(phone)) return toast.error("Invalid phone number!");
 
-    const dataToServer = { ...formData, phone: phone, date: selectedDate };
+    // TODO: contactName is required
+    const { checkbox, contactName, ...resultObj } = formData;
+    const dataToServer = {
+      ...resultObj,
+      phone: phone,
+      date: selectedDate,
+    };
     mutate(dataToServer);
 
     reset();
@@ -74,13 +81,25 @@ function UnregisteredUser() {
   // HELPER
   function ageHandler(e) {
     if (!e.target.value) return;
-    const age = Number(e.target.value.slice(-2));
-    if (age < 18) setAgeVerifier(true);
+
+    const found = data.groupsAgeData.find((x) => x._id === e.target.value);
+
+    function resolver(n) {
+      const res = n
+        .split("")
+        .filter((x) => (!isNaN(x) ? x : null))
+        .join("");
+      return Number(res);
+    }
+
+    const age1 = resolver(found.typeGroup.slice(0, 2));
+    const age2 = resolver(found.typeGroup.slice(-2));
+    if (age1 < 18 && age2 < 18) setAgeVerifier(true);
   }
 
   function valueHandler(e) {
     const valueName = e.target.name;
-    const value = e.target.value;
+    const value = e.target.value || e.target.checked;
     setFieldValues({ ...fieldValues, [valueName]: value });
   }
   function onFocusHandler(e) {
@@ -463,26 +482,6 @@ function UnregisteredUser() {
                     </label>
                   </div>
 
-                  {/* Phone */}
-                  {/* <div className={styles.element}>
-                    <input
-                      className={styles.textInput}
-                      type="number"
-                      id="phone"
-                      name={"phone"}
-                      {...register}
-                      onChange={valueHandler}
-                    />
-                    <label
-                      htmlFor={"phone"}
-                      className={`${styles.label} ${
-                        fieldValues.phone ? styles.filled : null
-                      }`}
-                    >
-                      {lang.phone}
-                    </label>
-                  </div> */}
-
                   <PhoneInput
                     name={"phone"}
                     defaultCountry="bg"
@@ -559,7 +558,13 @@ function UnregisteredUser() {
                   <input
                     className={styles.checkbox}
                     type="checkbox"
-                    // onChange={(e) => checkboxHandler(e, s._id)}
+                    name={"checkbox"}
+                    id={"checkbox"}
+                    defaultValue=""
+                    {...register("checkbox", {
+                      required: "You must accept our Terms and Conditions",
+                    })}
+                    onChange={valueHandler}
                   />
                 </div>
                 <div className={styles.btnContainer}>

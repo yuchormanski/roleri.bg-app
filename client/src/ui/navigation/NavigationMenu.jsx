@@ -35,7 +35,9 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
     } catch (error) {
       console.error(error.message);
     } finally {
-      if (!isMobile) toggleMobile();
+      if (isMobile) {
+        toggleMobile();
+      }
     }
   }
 
