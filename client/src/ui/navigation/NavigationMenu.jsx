@@ -89,18 +89,21 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile = null }) {
           className={`${styles.menuPanel} ${isDark && styles.isMobileBorder}`}
         >
           <ul className={styles.list}>
-            {links.map((link, i) => (
-              <li className={styles.listItem} key={i}>
-                <NavLink
-                  to={link.path}
-                  className={styles.link}
-                  onClick={toggleMobile}
-                >
-                  {link.label}
-                  <span className={styles.linkBorder}></span>
-                </NavLink>
-              </li>
-            ))}
+            {links.map((link, i) =>
+              link.path === "home" &&
+              (checkIsUserAdmin() || checkIsUserInstructor()) ? null : (
+                <li className={styles.listItem} key={i}>
+                  <NavLink
+                    to={link.path}
+                    className={styles.link}
+                    onClick={toggleMobile}
+                  >
+                    {link.label}
+                    <span className={styles.linkBorder}></span>
+                  </NavLink>
+                </li>
+              )
+            )}
 
             {(checkIsUserInstructor() || checkIsUserAdmin()) && (
               <li className={styles.listItem}>
