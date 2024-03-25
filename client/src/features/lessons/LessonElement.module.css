@@ -34,20 +34,38 @@
   width: 100%;
   display: flex;
   align-items: flex-start;
-  gap: 2rem;
+  gap: 7rem;
+}
+
+.imgContainer {
+  width: 40%;
+}
+
+.imgContainer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.3rem;
+  box-shadow: 0.3rem 0.3rem 0.4rem 0rem #0205214f;
 }
 
 .infoBlock {
   flex: 1 0 20rem;
   display: flex;
   flex-direction: column;
+  padding: 5rem 5rem 0 0;
+}
+
+.lessonHeading {
+  font-weight: 400;
+  margin-bottom: 2rem;
 }
 
 .infoElement {
   font-size: 2rem;
 }
 
-.infoElement:nth-child(odd) {
+.infoElement:nth-child(even) {
   background-color: var(--color-header-even);
 }
 
@@ -55,7 +73,17 @@
   font-size: 1.2rem;
   margin-right: 1rem;
   text-transform: uppercase;
+  color: var(--color-main-btn);
 }
+
+.description {
+  font-weight: 200;
+  padding: 1rem 2rem;
+  margin: 2rem 0;
+  border: 1px solid var(--lesson-link-border);
+  border-radius: 0.3rem;
+}
+
 .btnContainer {
   display: flex;
   align-items: center;
@@ -69,6 +97,7 @@
   padding: 0.5rem 2rem;
   border-radius: 0.3rem;
 }
+
 .link:link,
 .link:visited,
 .link:focus {
@@ -78,4 +107,21 @@
   font-size: 1.8rem;
   padding: 0.5rem 2rem;
   border-radius: 0.3rem;
+}
+
+@media (max-width: 650px) {
+  .section {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .imgContainer {
+    width: 100%;
+  }
+  .infoBlock {
+    flex: 1 0 20rem;
+    display: flex;
+    flex-direction: column;
+    padding: 4rem 0 0;
+  }
 }

@@ -106,6 +106,9 @@ export const EN = {
   book: "Book now",
   about: "About",
   years: "years",
+  terms_1: "I'm agree with ",
+  terms_2: "Terms and Conditions",
+  restriction: "Only registered users can book an subscription plan!",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",
