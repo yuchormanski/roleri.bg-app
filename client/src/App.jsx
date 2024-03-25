@@ -55,9 +55,7 @@ function App() {
       <LanguageProvider>
         <QueryClientProvider client={queryClient}>
           <PathContextProvider>
-            <div style={{ fontSize: "16px" }}>
-              <ReactQueryDevtools initialIsOpen={false} />
-            </div>
+            <ReactQueryDevtools initialIsOpen={false} />
             <AutContextProvider>
               <BrowserRouter>
                 <Routes>
