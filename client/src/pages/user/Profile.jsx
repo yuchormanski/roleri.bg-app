@@ -15,7 +15,7 @@ import AsideMenu from "../../ui/elements/asideMenu/AsideMenu.jsx";
 
 function Profile() {
   const { lang, index } = useLanguage();
-  const { path } = usePath();
+  const { path, newPath } = usePath();
   const urlPath = path === "profile";
 
   const links = [
@@ -29,6 +29,14 @@ function Profile() {
       label: lang.history,
       // icon: <PiCalendarBlankThin />,
     },
+    // {
+    //   path: "/profile",
+    //   label: lang.profile,
+    // },
+    // {
+    //   path: "edit",
+    //   label: lang.edit,
+    // },
     {
       path: urlPath ? "edit" : "/profile",
       label: urlPath ? lang.edit : lang.profile,
