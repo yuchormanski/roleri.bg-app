@@ -15,13 +15,13 @@ import Register from "../pages/auth/Register.jsx";
 
 function AppLayout() {
   const [background, toggle] = useToggleModal();
-  const [authToggle, setAuthToggle] = useState(true);
+  // const [authToggle, setAuthToggle] = useState(true);
 
   return (
     <>
       <Navigation onLogin={toggle} />
       <main className={styles.main}>
-        {background && (
+        {/* {background && (
           <Popup onClose={toggle} backgroundClick={false}>
             {authToggle ? (
               <Login onClose={toggle} authToggle={setAuthToggle} />
@@ -29,7 +29,7 @@ function AppLayout() {
               <Register onClose={toggle} authToggle={setAuthToggle} />
             )}
           </Popup>
-        )}
+        )} */}
         <Outlet />
       </main>
       <Footer />

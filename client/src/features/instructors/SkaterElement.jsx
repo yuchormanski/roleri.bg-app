@@ -20,6 +20,8 @@ import { GoX } from "react-icons/go";
 function SkaterElement({ lesson }) {
   const {
     _id,
+    isPresent: isPresentServer,
+    isPaid: isPaidServer,
     lesson: { title, time },
     skater: {
       firstName,
@@ -34,9 +36,9 @@ function SkaterElement({ lesson }) {
   } = lesson;
 
   const [modal, setModal] = useState(false);
-  const [isPresent, setIsPresent] = useState(false);
-  const [money, setMoney] = useState(false);
-  const [isPaid, setIsPaid] = useState(false);
+  const [isPresent, setIsPresent] = useState(isPresentServer);
+  const [money, setMoney] = useState(isPresentServer);
+  const [isPaid, setIsPaid] = useState(isPaidServer);
   const [instructorText, setInstructorText] = useState("");
   const { lang } = useLanguage();
 
@@ -135,8 +137,9 @@ function SkaterElement({ lesson }) {
       <figure className={styles.figure}>
         <div className={styles.buttonContainer}>
           <button
-            className={`${styles.isNotPresent} ${isPresent ? styles.isHere : null
-              }`}
+            className={`${styles.isNotPresent} ${
+              isPresent ? styles.isHere : null
+            }`}
             onClick={presentHandler}
             disabled={isPaid}
           >
@@ -158,8 +161,12 @@ function SkaterElement({ lesson }) {
         </div>
 
         <div className={styles.additional}>
-          <p className={styles.skaterProps}>{skates}</p>
-          <p className={styles.skaterProps}>{protection}</p>
+          <p className={styles.skaterProps}>
+            {Number(skates) === 0 ? lang.hasOwn : skates}
+          </p>
+          <p className={styles.skaterProps}>
+            {protection == 0 ? lang.hasOwn : protection}
+          </p>
           <button
             className={`${styles.skaterProps} ${styles.infoBlock}`}
             onClick={toggleModal}
@@ -177,6 +184,7 @@ function SkaterElement({ lesson }) {
                 <GoX />
               </button>
             </div>
+
             <h3 className={styles.headingModal}>
               {firstName} {lastName}
             </h3>

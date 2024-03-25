@@ -13,6 +13,8 @@ import Popup from "../../../ui/elements/popupModal/Popup.jsx";
 import Button from "../../../ui/elements/button/Button.jsx";
 import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 
+import { GoIssueOpened } from "react-icons/go";
+
 function AddProtectionOptions({ onClose }) {
   const { lang } = useLanguage();
 
@@ -29,7 +31,7 @@ function AddProtectionOptions({ onClose }) {
     };
 
     const protectionAvailableData = queryClient.getQueryData(["protection"]);
-    if (protectionAvailableData.some(p => p.size == result.size)) {
+    if (protectionAvailableData.some((p) => p.size == result.size)) {
       return toast.error(`Protector size ${result.size} already exist`);
     }
 
@@ -98,10 +100,31 @@ function AddProtectionOptions({ onClose }) {
             </div>
           </div>
         </form>
-        <p className={styles.info}>
-          <span>&#9737;</span>
-          {lang.a_protection}
-        </p>
+        <section className={styles.description}>
+          <p className={styles.info}>
+            <span>
+              <GoIssueOpened />
+            </span>
+            {lang.a_protection_info_1}
+          </p>
+          <p className={styles.info}>
+            <span>
+              <GoIssueOpened />
+            </span>
+            {lang.a_skates_info_4}
+          </p>
+
+          <p className={styles.info}>
+            <span>
+              <GoIssueOpened />
+            </span>
+            {lang.a_protection_info_3}
+          </p>
+          <p className={styles.info}>
+            <span>&#9737;</span>
+            {lang.a_protection}
+          </p>
+        </section>
       </div>
     </Popup>
   );

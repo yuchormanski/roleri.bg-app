@@ -112,18 +112,6 @@ function EditSkater({ onClose, skaterData }) {
             placeholder={lang.age}
             autoComplete="skater-age"
           />
-          {/* <select
-            className={styles.input}
-            id="gender"
-            {...register("gender", {
-              required: "Gender is required",
-            })}
-            autoComplete="skater-gender"
-          >
-            <option value="">{lang.gender}</option>
-            <option value="male">{lang.s_genderMale}</option>
-            <option value="female">{lang.s_genderFemale}</option>
-          </select> */}
 
           <select
             className={styles.input}
@@ -134,7 +122,7 @@ function EditSkater({ onClose, skaterData }) {
             <option value="">{lang.s_skateSize}</option>
             {options_data?.skatesData?.map((s) => (
               <option key={s._id} value={s._id}>
-                {s.size}
+                {s.size === 0 ? lang.haveOwn : s.size}
               </option>
             ))}
           </select>
@@ -148,7 +136,7 @@ function EditSkater({ onClose, skaterData }) {
             <option value="">{lang.s_protections}</option>
             {options_data?.protectionsData?.map((p) => (
               <option key={p._id} value={p._id}>
-                {p.size}
+                {Number(p.size) === 0 ? lang.haveOwn : p.size}
               </option>
             ))}
           </select>

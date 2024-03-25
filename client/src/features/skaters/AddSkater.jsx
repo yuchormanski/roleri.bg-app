@@ -103,21 +103,6 @@ function AddSkater({ onClose }) {
               placeholder={lang.age}
               autoComplete="skater-age"
             />
-
-            {/* <select
-              className={`${styles.halfWidth} ${styles.select}`}
-              id="gender"
-              {...register("gender", {
-                required: "Gender is required",
-              })}
-              defaultValue=""
-            >
-              <option value="" disabled hidden>
-                {lang.gender}
-              </option>
-              <option value="male">{lang.s_genderMale}</option>
-              <option value="female">{lang.s_genderFemale}</option>
-            </select> */}
           </div>
           <div className={styles.fieldsContainer}>
             <select
@@ -133,7 +118,7 @@ function AddSkater({ onClose }) {
               </option>
               {options_data?.skatesData?.map((s) => (
                 <option key={s._id} value={s._id}>
-                  {s.size}
+                  {s.size === 0 ? lang.haveOwn : s.size}
                 </option>
               ))}
             </select>
@@ -151,7 +136,7 @@ function AddSkater({ onClose }) {
               </option>
               {options_data?.protectionsData?.map((p) => (
                 <option key={p._id} value={p._id}>
-                  {p.size}
+                  {p.size == 0 ? lang.haveOwn : p.size}
                 </option>
               ))}
             </select>
@@ -171,7 +156,8 @@ function AddSkater({ onClose }) {
             autoComplete="skater-additional-requirements"
             rows="2"
             draggable={false}
-          ></textarea>
+          />
+
           <div className={styles.btnContainer}>
             <div style={{ marginLeft: "auto" }}>
               <Button type={"primary"}>{lang.addSkater}</Button>

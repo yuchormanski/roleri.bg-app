@@ -35,12 +35,16 @@ function GetSkater({ onClose, skaterData: skater }) {
 
             <p className={styles.element}>
               <span className={styles.elSpan}>{lang.s_skates}: </span>
-              {skater?.skatesSize?.size}
+              {skater?.skatesSize?.size === 0
+                ? lang.haveOwn
+                : skater.skatesSize.size}
             </p>
 
             <p className={styles.element}>
               <span className={styles.elSpan}>{lang.s_protections}: </span>
-              {skater?.protection?.size}
+              {Number(skater?.protection?.size) === 0
+                ? lang.haveOwn
+                : skater.protection.size}
             </p>
 
             <p className={`${styles.element} ${styles.additional}`}>

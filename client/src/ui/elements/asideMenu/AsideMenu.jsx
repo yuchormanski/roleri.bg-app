@@ -7,16 +7,19 @@ import {
   PiCaretDoubleDownDuotone,
   PiCaretDoubleUpDuotone,
 } from "react-icons/pi";
+import { usePath } from "../../../context/PathContext.jsx";
 
 function AsideMenu({ links }) {
   const [isMobile, setIsMobile] = useState(true);
+  const { path, newPath } = usePath();
 
   return (
     <aside className={styles.aside}>
       <button
         onClick={() => setIsMobile((x) => !x)}
-        className={`${styles.mobileMenuBtn} ${isMobile ? styles.notClicked : styles.clicked
-          }`}
+        className={`${styles.mobileMenuBtn} ${
+          isMobile ? styles.notClicked : styles.clicked
+        }`}
       >
         {isMobile ? <PiCaretDoubleDownDuotone /> : <PiCaretDoubleUpDuotone />}
       </button>
@@ -27,7 +30,10 @@ function AsideMenu({ links }) {
               <NavLink
                 to={link.path}
                 className={styles.profileLink}
-                onClick={() => setIsMobile((x) => !x)}
+                onClick={() => {
+                  setIsMobile((x) => !x);
+                  // newPath(link.path);
+                }}
               >
                 <span className={styles.icon}>{link.icon}</span>
                 <span className={styles.label}>{link.label}</span>

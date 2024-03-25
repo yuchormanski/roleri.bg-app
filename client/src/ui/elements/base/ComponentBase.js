@@ -42,3 +42,33 @@
 //     {lang.firstName}
 //   </label>
 // </div>;
+
+// инфо
+
+// import { GoIssueOpened } from "react-icons/go";
+
+// <section className={styles.description}>
+//   <p className={styles.info}>
+//     <span>
+//       <GoIssueOpened />
+//     </span>
+//     To create an instructor select him from the list and change his role
+//   </p>
+// </section>;
+
+// .description {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 2rem;
+//     margin-top: 2rem;
+//   }
+
+//   .info {
+//     width: 100%;
+//     font-size: 1.6rem;
+//   }
+//   .info span {
+//     font-size: 1.6rem;
+//     color: var(--color-main-btn);
+//     margin-right: 1rem;
+//   }

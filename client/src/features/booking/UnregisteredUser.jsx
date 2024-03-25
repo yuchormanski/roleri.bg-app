@@ -16,7 +16,8 @@ import { useAddUnregisteredBookQuery } from "./useAddUnregisteredBookQuery.js";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 import toast from "react-hot-toast";
 import { EMAIL_REGEX, PHONE_REGEX } from "../../services/environment.js";
-import { useGetAllLessonQueries } from "../../pages/lessons/useGetAllLessonQueries.js";
+// import { useGetAllLessonQueries } from "../../pages/lessons/useGetAllLessonQueries.js";
+import { useGetAllValidLessonQueries } from "./useGetAllValidLessonsQuery.js";
 
 const initialFieldsValues = {
   firstName: "",
@@ -31,6 +32,7 @@ const initialFieldsValues = {
   phone: "",
   textArea: "",
   additionalRequirements: "",
+  checkbox: false,
   // gender: "",
 };
 
@@ -39,6 +41,7 @@ function UnregisteredUser() {
   const [ageVerifier, setAgeVerifier] = useState(false);
   const [fieldValues, setFieldValues] = useState(initialFieldsValues);
   const [phone, setPhone] = useState("");
+  const [blockedSubscription, setBlockedSSubscription] = useState(false);
 
   const { lang, index: selectedLangIndex } = useLanguage();
   const { translatePhrase: translate } = useTranslate();
@@ -46,7 +49,7 @@ function UnregisteredUser() {
 
   const { isFetching, error, data } = useGetSkaterOptionsQuery();
   const { isFetching: isFetchingLesson, data: incoming } =
-    useGetAllLessonQueries();
+    useGetAllValidLessonQueries();
   const { mutate, isPending } = useAddUnregisteredBookQuery();
 
   const lessonData = incoming.filter((el) => new Date(el.validTo) > new Date());
@@ -57,9 +60,19 @@ function UnregisteredUser() {
   }
 
   function formSuccessHandler(formData) {
+    if (blockedSubscription)
+      return toast.error(
+        "Only registered users can book an subscription plan!"
+      );
     if (!PHONE_REGEX.test(phone)) return toast.error("Invalid phone number!");
 
-    const dataToServer = { ...formData, phone: phone, date: selectedDate };
+    // TODO: contactName is required
+    const { checkbox, contactName, ...resultObj } = formData;
+    const dataToServer = {
+      ...resultObj,
+      phone: phone,
+      date: selectedDate,
+    };
     mutate(dataToServer);
 
     reset();
@@ -73,18 +86,42 @@ function UnregisteredUser() {
   // HELPER
   function ageHandler(e) {
     if (!e.target.value) return;
-    const age = Number(e.target.value.slice(-2));
-    if (age < 18) setAgeVerifier(true);
+
+    const found = data.groupsAgeData.find((x) => x._id === e.target.value);
+
+    function resolver(n) {
+      const res = n
+        .split("")
+        .filter((x) => (!isNaN(x) ? x : null))
+        .join("");
+      return Number(res);
+    }
+
+    const age1 = resolver(found.typeGroup.slice(0, 2));
+    const age2 = resolver(found.typeGroup.slice(-2));
+    if (age1 < 18 && age2 < 18) setAgeVerifier(true);
   }
 
   function valueHandler(e) {
     const valueName = e.target.name;
-    const value = e.target.value;
+    const value = e.target.value || e.target.checked;
+
+    if (valueName === "subscriptionType") {
+      subscriptionTypeHandler(value);
+    }
+
     setFieldValues({ ...fieldValues, [valueName]: value });
   }
   function onFocusHandler(e) {
     const valueName = e.target.name;
     setFieldValues({ ...fieldValues, [valueName]: "" });
+  }
+
+  function subscriptionTypeHandler(id) {
+    if (!id) return;
+    const found = data.subscriptionData.find((x) => x._id === id);
+    if (found.subscriptionCount > 1) setBlockedSSubscription(true);
+    else setBlockedSSubscription(false);
   }
 
   return (
@@ -193,7 +230,6 @@ function UnregisteredUser() {
                         },
                       })}
                       onBlur={valueHandler}
-                      // autoComplete="family-name"
                     />
                     <label
                       htmlFor={"lastName"}
@@ -254,7 +290,7 @@ function UnregisteredUser() {
                       {/* <option value={"hasOwn"}>{lang.haveOwn}</option> */}
                       {data.skatesData.map((skate) => (
                         <option key={skate._id} value={skate._id}>
-                          {skate.size}
+                          {skate.size === 0 ? lang.haveOwn : skate.size}
                         </option>
                       ))}
                     </select>
@@ -284,7 +320,9 @@ function UnregisteredUser() {
                       {/* <option value={"hasOwn"}>{lang.haveOwn}</option> */}
                       {data.protectionsData.map((protection) => (
                         <option key={protection._id} value={protection._id}>
-                          {protection.size}
+                          {Number(protection.size) === 0
+                            ? lang.haveOwn
+                            : protection.size}
                         </option>
                       ))}
                     </select>
@@ -461,26 +499,6 @@ function UnregisteredUser() {
                     </label>
                   </div>
 
-                  {/* Phone */}
-                  {/* <div className={styles.element}>
-                    <input
-                      className={styles.textInput}
-                      type="number"
-                      id="phone"
-                      name={"phone"}
-                      {...register}
-                      onChange={valueHandler}
-                    />
-                    <label
-                      htmlFor={"phone"}
-                      className={`${styles.label} ${
-                        fieldValues.phone ? styles.filled : null
-                      }`}
-                    >
-                      {lang.phone}
-                    </label>
-                  </div> */}
-
                   <PhoneInput
                     name={"phone"}
                     defaultCountry="bg"
@@ -549,26 +567,38 @@ function UnregisteredUser() {
                 {/* Conditions */}
                 <div className={styles.conditions}>
                   <p>
-                    Съгласявам се с{" "}
+                    {lang.terms_1}
                     <Link className={styles.link} to={"/conditions"}>
-                      Общите условия
+                      {lang.terms_2}
                     </Link>
                   </p>
                   <input
                     className={styles.checkbox}
                     type="checkbox"
-                    // onChange={(e) => checkboxHandler(e, s._id)}
+                    name={"checkbox"}
+                    id={"checkbox"}
+                    defaultValue=""
+                    {...register("checkbox", {
+                      required: "You must accept our Terms and Conditions",
+                    })}
+                    onChange={valueHandler}
                   />
                 </div>
                 <div className={styles.btnContainer}>
                   <div style={{ marginLeft: "auto" }}>
-                    <Button
-                      type={"primary"}
-                      // onClick={bookHandler}
-                      disabled={!selectedDate}
-                    >
-                      {lang.addSkater}
-                    </Button>
+                    {blockedSubscription ? (
+                      <div className={styles.warning}>
+                        <p>{lang.restriction}</p>
+                      </div>
+                    ) : (
+                      <Button
+                        type={"primary"}
+                        // onClick={bookHandler}
+                        disabled={!selectedDate}
+                      >
+                        {lang.addSkater}
+                      </Button>
+                    )}
                   </div>
                 </div>
               </form>

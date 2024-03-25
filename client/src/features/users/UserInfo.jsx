@@ -21,8 +21,10 @@ function UserInfo() {
 
   const { mutateAsync, isPending } = useRejectBookingQuery();
   const { isFetchingBooking, data: lessons } = useGetAllBookingDataQuery();
+  const isLoading = isFetchingBooking || isPending;
 
   useEffect(() => newPath("profile"), [newPath]);
+
   async function rejectLessonHandler(bookingId) {
     try {
       await mutateAsync({ _id: bookingId });
@@ -31,7 +33,6 @@ function UserInfo() {
     }
   }
 
-  const isLoading = isFetchingBooking || isPending;
   return (
     <>
       {isLoading ? (

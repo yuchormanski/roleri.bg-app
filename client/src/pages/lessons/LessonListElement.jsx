@@ -38,6 +38,9 @@ function LessonListElement({ lesson }) {
       <div className={styles.main}>
         <div className={styles.info}>
           <p>{translate(lesson.skills)}</p>
+          <p>
+            {translate(lesson.age.typeGroup)} {lang.years}
+          </p>
           <p>{translate(lesson.location)}</p>
         </div>
         <Link to={`/lesson/${lesson._id}`} className={styles.link}>

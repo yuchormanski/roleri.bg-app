@@ -6,7 +6,13 @@ import { getUserById } from "../services/userService.js";
 import { preloadOptions, userRole } from "../environments/constants.js";
 import { isUserLogged, isUserRole } from "../middlewares/guards.js";
 import { lessonCreateSchema } from "../util/validationSchemes.js";
-import { addLesson, deleteLesson, getAllLessons, updateLesson } from "../services/lessonService.js";
+import {
+  addLesson,
+  deleteLesson,
+  getAllLessons,
+  getAllValidLessons,
+  updateLesson,
+} from "../services/lessonService.js";
 
 const lessonController = Router();
 
@@ -20,6 +26,19 @@ lessonController.get(endpoints.get_all_lessons, async (req, res, next) => {
     next(error);
   }
 });
+// Get all valid lessons
+lessonController.get(
+  endpoints.get_all_valid_lessons,
+  async (req, res, next) => {
+    try {
+      const allLessons = await getAllValidLessons();
+
+      res.status(200).json(allLessons);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 // Add new lesson
 lessonController.post(
@@ -39,7 +58,8 @@ lessonController.post(
     } catch (error) {
       next(error);
     }
-  });
+  }
+);
 
 // Edit lesson
 lessonController.put(
@@ -58,7 +78,8 @@ lessonController.put(
     } catch (error) {
       next(error);
     }
-  });
+  }
+);
 
 // Delete lesson
 lessonController.delete(
@@ -76,6 +97,7 @@ lessonController.delete(
     } catch (error) {
       next(error);
     }
-  });
+  }
+);
 
 export { lessonController };

@@ -128,6 +128,8 @@ const getNearestLessonsDate = async () => {
             $project: {
                 _id: "$bookings._id",
                 date: 1,
+                isPresent: "$bookings.isPresent",
+                isPaid: "$bookings.isPaid",
                 lesson: { $arrayElemAt: ["$lesson", 0] },
                 skater: { $arrayElemAt: ["$skater", 0] },
                 ownerDetails: { $arrayElemAt: ["$ownerDetails", 0] },
@@ -142,6 +144,8 @@ const getNearestLessonsDate = async () => {
             $project: {
                 _id: 1,
                 date: 1,
+                isPresent: 1,
+                isPaid: 1,
                 lesson: {
                     title: "$lesson.title",
                     time: "$lesson.time"

@@ -8,7 +8,8 @@ import { useLanguage } from "../../context/Language.jsx";
 import { useGetSkatersQuery } from "../skaters/useGetSkatersQuery.js";
 // import { useGetUserDataQuery } from "../users/useGetUserDataQuery.js";
 import { useGetSkaterOptionsQuery } from "../skaters/useGetSkaterOptionsQuery.js";
-import { useGetAllLessonQueries } from "../../pages/lessons/useGetAllLessonQueries.js";
+// import { useGetAllLessonQueries } from "../../pages/lessons/useGetAllLessonQueries.js";
+import { useGetAllValidLessonQueries } from "./useGetAllValidLessonsQuery.js";
 import { useAddRegisteredBookQuery } from "./useAddRegisteredBookQuery.js";
 import { useTranslate } from "../../hooks/useTranslate.js";
 import Button from "../../ui/elements/button/Button.jsx";
@@ -30,7 +31,7 @@ function RegisteredUser() {
   const { isFetching: isOptionsLoading, data: optionData } =
     useGetSkaterOptionsQuery();
   const { isFetching: isLessonsLoading, data: incoming } =
-    useGetAllLessonQueries();
+    useGetAllValidLessonQueries();
   const { mutateAsync, isPending: isAddBookingLoading } =
     useAddRegisteredBookQuery();
 
@@ -93,13 +94,13 @@ function RegisteredUser() {
         !!valueObj.subscriptionType &&
         !!valueObj.lessonId
         ? [
-          ...acc,
-          {
-            ...valueObj,
-            date: selectedDate,
-            additionalRequirements: additional,
-          },
-        ]
+            ...acc,
+            {
+              ...valueObj,
+              date: selectedDate,
+              additionalRequirements: additional,
+            },
+          ]
         : acc;
     }, []);
 
@@ -113,7 +114,6 @@ function RegisteredUser() {
       } finally {
         setSign([]);
       }
-
     } else return toast.error("You should select all option for skater");
   }
 
@@ -125,9 +125,9 @@ function RegisteredUser() {
     <>
       {" "}
       {isSkatersLoading ||
-        isOptionsLoading ||
-        isLessonsLoading ||
-        isAddBookingLoading ? (
+      isOptionsLoading ||
+      isLessonsLoading ||
+      isAddBookingLoading ? (
         <Spinner />
       ) : (
         <div className={styles.container}>
@@ -271,9 +271,9 @@ function RegisteredUser() {
                   <label
                     htmlFor={"textArea"}
                     className={`${styles.enabledLevel} ${styles.textareaLabel} `}
-                  //  ${
-                  //   fieldValues.textArea ? styles.filled : null
-                  // }
+                    //  ${
+                    //   fieldValues.textArea ? styles.filled : null
+                    // }
                   >
                     {lang.requirements}
                   </label>

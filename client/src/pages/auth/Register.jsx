@@ -19,7 +19,7 @@ import Button from "../../ui/elements/button/Button.jsx";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 import { Link } from "react-router-dom";
 
-function Register({ onClose, authToggle }) {
+function Register({ onOut = null, onClose, authToggle }) {
   const { lang } = useLanguage();
   const [isNotForgotten, setIsNotForgotten] = useState(false);
   const [terms, setTerms] = useState(false);
@@ -46,6 +46,7 @@ function Register({ onClose, authToggle }) {
 
       await registerMutation.mutateAsync(resultData);
       onClose();
+      onOut ? onOut() : null;
       reset();
     } catch (error) {
       toast.error(error.message);
@@ -55,7 +56,7 @@ function Register({ onClose, authToggle }) {
 
   //ERROR IN FORM
   function onErrorSubmit(errors) {
-    console.log(errors);
+    // console.log(errors);
     Object.keys(errors).forEach((error) => toast.error(errors[error].message));
   }
 
@@ -144,18 +145,18 @@ function Register({ onClose, authToggle }) {
                 "password",
                 !isNotForgotten
                   ? {
-                    required: "Password is required",
-                    minLength: {
-                      value: 3,
-                      message:
-                        "The password should be at least 3 characters long ",
-                    },
-                    pattern: {
-                      value: PASS_REGEX,
-                      message:
-                        "Password must contain at least one lowercase letter, one uppercase letter, and one digit",
-                    },
-                  }
+                      required: "Password is required",
+                      minLength: {
+                        value: 3,
+                        message:
+                          "The password should be at least 3 characters long ",
+                      },
+                      pattern: {
+                        value: PASS_REGEX,
+                        message:
+                          "Password must contain at least one lowercase letter, one uppercase letter, and one digit",
+                      },
+                    }
                   : null
               )}
               placeholder={"Password"}
@@ -225,12 +226,6 @@ function Register({ onClose, authToggle }) {
             }}
           />
 
-          <div className={styles.btnContainer}>
-            <div style={{ marginLeft: "auto" }}>
-              <Button type={"primary"}>Register</Button>
-            </div>
-          </div>
-
           {/* CONDITIONS */}
           <div className={styles.conditions}>
             <p>
@@ -244,6 +239,11 @@ function Register({ onClose, authToggle }) {
               type="checkbox"
               onChange={checkboxHandler}
             />
+          </div>
+          <div className={styles.btnContainer}>
+            <div style={{ marginLeft: "auto" }}>
+              <Button type={"primary"}>Register</Button>
+            </div>
           </div>
         </form>
 

@@ -1,6 +1,6 @@
 import styles from "./NavigationMenu.module.css";
 
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { IoMoonOutline, IoSunnyOutline } from "react-icons/io5";
 
@@ -9,10 +9,16 @@ import { useLanguage } from "../../context/Language.jsx";
 import { useAuthContext } from "../../context/AuthContext.jsx";
 
 import { useAuthQueries } from "../../pages/auth/useAuthQueries.js";
+import { useState } from "react";
+import Popup from "../elements/popupModal/Popup.jsx";
+import Login from "../../pages/auth/Login.jsx";
+import Register from "../../pages/auth/Register.jsx";
 
-function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
+function NavigationMenu({ onLogin, isMobile = true, toggleMobile = null }) {
   const { isDark, themeToggle } = useTheme();
   const { lang, langChanger, toggle: language } = useLanguage();
+  const [background, setBackground] = useState(false);
+  const [authToggle, setAuthToggle] = useState(true);
 
   const {
     checkIsUserLoggedIn,
@@ -29,7 +35,9 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
     } catch (error) {
       console.error(error.message);
     } finally {
-      toggleMobile();
+      if (isMobile) {
+        toggleMobile ? toggleMobile() : null;
+      }
     }
   }
 
@@ -50,6 +58,30 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
 
   return (
     <>
+      {background && (
+        <Popup backgroundClick={false}>
+          {authToggle ? (
+            <Login
+              onOut={toggleMobile}
+              onClose={() => {
+                setBackground(false);
+                if (!isMobile) toggleMobile();
+              }}
+              authToggle={setAuthToggle}
+            />
+          ) : (
+            <Register
+              onOut={toggleMobile}
+              onClose={() => {
+                setBackground(false);
+                if (!isMobile) toggleMobile();
+              }}
+              authToggle={setAuthToggle}
+            />
+          )}
+        </Popup>
+      )}
+
       {/* next line is for keeping nav menu closed on initial render.
       If missing the menu will be permanently open */}
       {isMobile && (
@@ -57,18 +89,21 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
           className={`${styles.menuPanel} ${isDark && styles.isMobileBorder}`}
         >
           <ul className={styles.list}>
-            {links.map((link, i) => (
-              <li className={styles.listItem} key={i}>
-                <NavLink
-                  to={link.path}
-                  className={styles.link}
-                  onClick={toggleMobile}
-                >
-                  {link.label}
-                  <span className={styles.linkBorder}></span>
-                </NavLink>
-              </li>
-            ))}
+            {links.map((link, i) =>
+              link.path === "home" &&
+              (checkIsUserAdmin() || checkIsUserInstructor()) ? null : (
+                <li className={styles.listItem} key={i}>
+                  <NavLink
+                    to={link.path}
+                    className={styles.link}
+                    onClick={toggleMobile}
+                  >
+                    {link.label}
+                    <span className={styles.linkBorder}></span>
+                  </NavLink>
+                </li>
+              )
+            )}
 
             {(checkIsUserInstructor() || checkIsUserAdmin()) && (
               <li className={styles.listItem}>
@@ -118,17 +153,27 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
               </>
             ) : (
               <li className={styles.listItem}>
-                <NavLink
+                <Link
+                  onClick={() => {
+                    setBackground(true);
+                  }}
+                  className={`${styles.link}`}
+                  to={undefined}
+                >
+                  {lang.login}
+                  <span className={styles.linkBorder}></span>
+                </Link>
+                {/* <button
                   onClick={() => {
                     if (!isMobile) toggleMobile();
                     onLogin();
                   }}
-                  className={styles.link}
-                  to="javascript:void(0)"
+                  className={`${styles.link} ${styles.loginBtn}`}
+                  // to={undefined}
                 >
                   {lang.login}
                   <span className={styles.linkBorder}></span>
-                </NavLink>
+                </button> */}
               </li>
             )}
 

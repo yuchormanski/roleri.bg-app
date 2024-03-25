@@ -1,14 +1,14 @@
-import { Link, useParams } from "react-router-dom";
 import styles from "./LessonElement.module.css";
-// import { useQuery, useQueryClient } from "@tanstack/react-query";
+
+import { Link, useParams } from "react-router-dom";
+
 import { useLanguage } from "../../context/Language.jsx";
 import { useTranslate } from "../../hooks/useTranslate.js";
 import { useMoveBack } from "../../hooks/useMoveBack.js";
+
 import { useGetAllLessonQueries } from "../../pages/lessons/useGetAllLessonQueries.js";
 
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
-import { useEffect } from "react";
-import Button from "../../ui/elements/button/Button.jsx";
 
 function LessonElement() {
   const { lang } = useLanguage();
@@ -16,11 +16,9 @@ function LessonElement() {
   const { id } = useParams();
   const { moveBack } = useMoveBack();
 
-  // const queryClient = useQueryClient();
-  // const data = queryClient.getQueryData(["lessons"]);
-
   const { data, isFetching, error } = useGetAllLessonQueries();
   let lesson = data.filter((el) => el._id === id).at(0);
+  console.log(lesson);
 
   return (
     <>
@@ -36,24 +34,14 @@ function LessonElement() {
                 <img src={lesson.imageUrl} alt="Lesson base image" />
               </div>
               <div className={styles.infoBlock}>
-                <p className={styles.infoElement}>
-                  <span>{lang.age}:</span>
-                  {lesson.age.typeGroup}
-                </p>
+                <h3 className={`${styles.infoElement} ${styles.lessonHeading}`}>
+                  {/* <span>{lang.type}:</span> */}
+                  {translate(lesson.type.typePayment)}
+                </h3>
 
                 <p className={styles.infoElement}>
                   <span>{lang.skills}:</span>
                   {translate(lesson.skills)}
-                </p>
-
-                <p className={styles.infoElement}>
-                  <span>{lang.participants}:</span>
-                  {lesson.participants}
-                </p>
-
-                <p className={styles.infoElement}>
-                  <span>{lang.type}:</span>
-                  {translate(lesson.type.typePayment)}
                 </p>
 
                 <p className={styles.infoElement}>
@@ -62,43 +50,69 @@ function LessonElement() {
                 </p>
 
                 <p className={styles.infoElement}>
-                  <span>{lang.price}:</span>
-                  {lesson.price}
-                </p>
-
-                <p className={styles.infoElement}>
                   <span>{lang.time}:</span>
                   {lesson.time}
                 </p>
 
                 <p className={styles.infoElement}>
-                  <span>{lang.validTo}:</span>
-                  {lesson.validTo}
+                  <span>{lang.participants}:</span>
+                  {lesson.participants}
                 </p>
 
                 <p className={styles.infoElement}>
+                  <span>{lang.age}:</span>
+                  {lesson.age.typeGroup} {lang.years}
+                </p>
+
+                {/* <p className={styles.infoElement}>
+                  <span>{lang.price}:</span>
+                  {lesson.price}
+                </p> */}
+
+                <p className={styles.infoElement}>
+                  <span>{lang.validTo}:</span>
+                  {new Date(lesson.validTo).toLocaleDateString("fr-CH")}
+                </p>
+
+                {/* <p className={styles.infoElement}>
                   <span>{lang.owner}:</span>
                   {lesson.owner.firstName} {lesson.owner.lastName}
-                </p>
+                </p> */}
 
-                <p className={styles.infoElement}>
+                {/* <p className={styles.infoElement}>
                   <span>{lang.createdAt}:</span>
                   {lesson.createdAt}
-                </p>
+                </p> */}
               </div>
             </section>
-            <p className={styles.infoElement}>
+            <p className={`${styles.infoElement} ${styles.description}`}>
               <span></span>
               {translate(lesson.description)}
             </p>
+
+            {lesson.isIndividual && (
+              <div className={styles.individualContainer}>
+                <h3>
+                  Индивидуалните уроци се провеждат и уговарят директно с
+                  инструктора.
+                </h3>
+                <p>
+                  В настоящия момент възможните дни за провеждане на
+                  индивидуален урок са сряда и петък, във времевия интервал
+                  между 12:00 и 16:00 часа
+                </p>
+              </div>
+            )}
 
             <div className={styles.btnContainer}>
               <button className={styles.btn} onClick={moveBack}>
                 {lang.back}
               </button>
-              <Link className={styles.link} to={"/booking"}>
-                {lang.booking}
-              </Link>
+              {lesson.isIndividual ? null : (
+                <Link className={styles.link} to={"/booking"}>
+                  {lang.booking}
+                </Link>
+              )}
             </div>
           </div>
         </div>
