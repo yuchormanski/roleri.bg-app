@@ -14,7 +14,7 @@ import Popup from "../elements/popupModal/Popup.jsx";
 import Login from "../../pages/auth/Login.jsx";
 import Register from "../../pages/auth/Register.jsx";
 
-function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
+function NavigationMenu({ onLogin, isMobile = true, toggleMobile = null }) {
   const { isDark, themeToggle } = useTheme();
   const { lang, langChanger, toggle: language } = useLanguage();
   const [background, setBackground] = useState(false);
@@ -36,7 +36,7 @@ function NavigationMenu({ onLogin, isMobile = true, toggleMobile }) {
       console.error(error.message);
     } finally {
       if (isMobile) {
-        toggleMobile();
+        toggleMobile ? toggleMobile() : null;
       }
     }
   }
