@@ -46,6 +46,7 @@ const SERVER_ENDPOINTS = {
     `options/delete-subscriptions/${optionId}`,
 
   GET_ALL_BOOKING: "bookings/",
+  GET_ALL_BOOKING_HISTORY: "bookings/get-all-booking-history",
   UNREGISTERED_BOOKING_USER: "bookings/unregistered-booking",
   REGISTERED_BOOKING_USER: "bookings/registered-booking",
   GET_ACTIVE_DAYS_ADMIN: "bookings/active-days-admin",
