@@ -20,7 +20,9 @@ import {
 import {
   addExcludedOptions,
   getAllBooking,
+  getAllBookingHistory,
   getBookingById,
+  getBookingCountDocuments,
   getExcludedOptions,
   getIndividualActiveDays,
   getRegularActiveDays,
@@ -45,6 +47,33 @@ bookingController.get(
       const allBooking = await getAllBooking(userId);
 
       res.status(200).json(allBooking);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// Get all booking from current User History request
+bookingController.post(
+  endpoints.get_all_booking_history,
+  isUserLogged,
+  async (req, res, next) => {
+    try {
+      const userId = req.user._id;
+
+      const data = req.body;
+      const page = parseInt(data.page) || 1;
+      const limit = parseInt(data.limit) || 20;
+
+      const [countBookingDocuments, allBooking] = await Promise.all([
+        getBookingCountDocuments(userId),
+        getAllBookingHistory(userId, page, limit),
+      ]);
+
+      const totalPages = Math.ceil(countBookingDocuments / limit);
+      const payload = { page, totalPages, data: allBooking };
+
+      res.status(200).json(payload);
     } catch (error) {
       next(error);
     }

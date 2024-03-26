@@ -2,12 +2,45 @@ import styles from "./History.module.css";
 
 import { useLanguage } from "../../context/Language.jsx";
 import toast from "react-hot-toast";
+import { useGetHistory } from "./useGetHistory.js";
+import { useEffect, useRef, useState } from "react";
+import { useInfiniteScroll } from "../../hooks/useInfiniteScroll.js";
 
 function History() {
+  const [totalPages, setTotalPages] = useState(0);
+  const [isInitialRendering, setIsInitialRendering] = useState(true);
+  const [historyData, setHistoryData] = useState([]);
+  const bottomElementRef = useRef(null);
+  const { page } = useInfiniteScroll(bottomElementRef, initialHandler);
   const { lang } = useLanguage();
 
-  // TODO: If we want to use the entire history from the database, it is a good idea to use pagination or make a request to get history from a certain time period
-    
+  const { mutate, isPending, data } = useGetHistory();
+
+  useEffect(() => {
+    if ((totalPages === 0 || totalPages >= page) && !isInitialRendering) {
+      loadHistory();
+    }
+
+  }, [page, totalPages, isInitialRendering]);
+
+  useEffect(() => {
+    if (data) {
+      setHistoryData(data.data);
+      setTotalPages(data.totalPages);
+    }
+
+  }, [data]);
+
+  console.log("TODO ADD DATA", historyData)
+
+  function loadHistory() {
+    mutate({ limit: 20, page });
+  }
+
+  function initialHandler() {
+    setIsInitialRendering(false);
+  }
+
   function toastClick() {
     toast(
       (t) => (
@@ -82,6 +115,8 @@ function History() {
             40 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
           </p>
         </div>
+
+        <div ref={bottomElementRef} />
 
         <div className={styles.outerBox}>
           <div className={styles.innerBox}></div>

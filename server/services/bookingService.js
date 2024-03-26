@@ -25,6 +25,12 @@ const getAllBooking = async (userId) => {
   return bookings;
 };
 
+// Get all booking for current user (history page)
+const getAllBookingHistory = async (userId, page = 1, limit = 20) => populateBookingData(BookingModel.find({ owner: userId }).sort({ _id: -1 }).skip((page - 1) * limit).limit(limit));
+
+// Get all booking documents
+const getBookingCountDocuments = async (userId) => BookingModel.countDocuments({ owner: userId });
+
 // Get one booking
 const getBookingById = async (bookingId) =>
   populateBookingData(BookingModel.findById(bookingId));
@@ -410,4 +416,6 @@ export {
   getBookingById,
   addExcludedOptions,
   getExcludedOptions,
+  getAllBookingHistory,
+  getBookingCountDocuments,
 };
