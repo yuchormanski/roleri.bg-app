@@ -12,13 +12,18 @@ function ActiveLesson() {
   const [{ title, lessonsData }, setLesson] = useState({});
   const { lang } = useLanguage();
   const { id } = useParams();
-  const { moveBack } = useMoveBack();
+  const { moveBack, redirectTo } = useMoveBack();
   const { translatePhrase: translate } = useTranslate();
 
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData(["lessonsActive"]);
 
   useEffect(() => {
+    if (!data) {
+      redirectTo('/on-duty');
+      return;
+    }
+
     const foundData = Object.entries(data).reduce((acc, [k, v]) => {
       if (v._id === id) {
         acc.push({ title: k, data: v.data });
