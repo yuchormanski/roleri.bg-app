@@ -9,16 +9,42 @@ import { useMoveBack } from "../../hooks/useMoveBack.js";
 import { useGetAllLessonQueries } from "../../pages/lessons/useGetAllLessonQueries.js";
 
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
+import { useEffect, useState } from "react";
+
+const mockedDays = {
+  _id: "65f36cb405245d26529652a8",
+  mon: false,
+  tue: true,
+  wed: false,
+  thu: false,
+  fri: false,
+  sat: true,
+  sun: false,
+  start: "10:00",
+  end: "16:30",
+};
 
 function LessonElement() {
   const { lang } = useLanguage();
   const { translatePhrase: translate } = useTranslate();
   const { id } = useParams();
   const { moveBack } = useMoveBack();
+  const [activeDays, setActiveDays] = useState([]);
+  const [activeHours, setActiveHours] = useState([]);
 
   const { data, isFetching, error } = useGetAllLessonQueries();
   let lesson = data.filter((el) => el._id === id).at(0);
-  console.log(lesson);
+  // console.log(lesson);
+
+  useEffect(() => {
+    const { _id, start, end, ...daysObj } = mockedDays;
+    setActiveDays((state) => (state = daysObj));
+    setActiveHours({ start, end });
+  }, []);
+
+  function wordModifier(day) {
+    return day.at(0).toUpperCase() + day.slice(1).toLowerCase();
+  }
 
   return (
     <>
@@ -83,6 +109,34 @@ function LessonElement() {
                   <span>{lang.createdAt}:</span>
                   {lesson.createdAt}
                 </p> */}
+
+                {/* //////////////////////////// */}
+
+                <div className={styles.daysBlock}>
+                  <p className={styles.containerInfo}>
+                    Available days to sign individual lesson{" "}
+                    {Object.values(activeDays).filter((x) => x).length === 1
+                      ? "is"
+                      : "are"}
+                  </p>
+                  <div className={styles.daysContainer}>
+                    {Array.from({ length: 7 }, (_, i) => (
+                      <DayName
+                        key={i}
+                        isValid={Object.values(activeDays).at(i)}
+                        text={wordModifier(Object.keys(activeDays).at(i))}
+                      />
+                    ))}
+                  </div>
+
+                  <p className={styles.containerInfo}></p>
+                  <div className={styles.hoursContainer}>
+                    <p className={styles.hourElement}>{activeHours.start}</p>
+                    <span className={styles.hoursSeparator}>-</span>
+                    <p className={styles.hourElement}>{activeHours.end}</p>
+                  </div>
+                </div>
+                {/* /////////////////////////// */}
               </div>
             </section>
             <p className={`${styles.infoElement} ${styles.description}`}>
@@ -123,36 +177,14 @@ function LessonElement() {
 
 export default LessonElement;
 
-// {
-//     "geoLocation": {
-//         "lat": null,
-//         "lon": null
-//     },
-//     "_id": "65e8a990c7dc5ca7725341f9",
-//     "imageUrl": "https://roleri.bg/wp-content/uploads/2015/10/beginers_group_winter-300x235.jpg",
-//     "title": "Група Начинаещи&/&Group Beginners",
-//     "age": {
-//         "_id": "65e314955af625ebe17c483a",
-//         "typeGroup": "4 - 6"
-//     },
-//     "skills": "Правилна стойка; Спиране&/&Correct position; Brakeing",
-//     "participants": 10,
-//     "type": {
-//         "_id": "65e1025312e6f21c66948431",
-//         "typePayment": "Единичен групов урок&/&One time group lesson",
-//         "price": 25
-//     },
-//     "location": "София, България&/&Sofia, Bulgaria",
-//     "price": "20",
-//     "description": "Когато господарят им става жертва на коварния Кира, който отнема земите му, 47 самураи са унижени и прогонени от домовете си.&/&Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec qu",
-//     "time": "10:04",
-//     "validTo": "2028-12-06T00:00:00.000Z",
-//     "owner": {
-//         "_id": "65d1e25875c58bac29f86ea7",
-//         "firstName": "Van",
-//         "lastName": "Deribohten"
-//     },
-//     "createdAt": "2024-03-06T17:36:16.047Z",
-//     "updatedAt": "2024-03-06T17:36:16.047Z",
-//     "__v": 0
-// }
+function DayName({ isValid, text }) {
+  return (
+    <p
+      className={`${styles.dayBox} ${
+        isValid ? styles.activeDay : styles.inactiveDay
+      }`}
+    >
+      {text}
+    </p>
+  );
+}
