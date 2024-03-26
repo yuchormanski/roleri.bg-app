@@ -198,6 +198,4 @@ export const EN = {
 
   l_info_1:
     "Individual lessons are held and negotiated directly with the instructor..",
-  l_info_2:
-    "The individual lessonsИндивидуалните уроци се провеждат и уговарят директно с инструктора.",
 };
