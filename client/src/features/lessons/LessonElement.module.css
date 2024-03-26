@@ -63,6 +63,7 @@
 
 .infoElement {
   font-size: 2rem;
+  font-weight: 300;
 }
 
 .infoElement:nth-child(even) {
@@ -116,7 +117,7 @@
   gap: 2rem;
   font-size: 1.8rem;
   font-weight: 200;
-  margin-top: 5rem;
+  margin-top: 2.5rem;
 }
 
 .daysContainer,
@@ -131,6 +132,15 @@
 
 .hoursContainer {
   width: 50%;
+}
+
+.hourElement {
+  font-size: 2.2rem;
+}
+
+.hourElement::after {
+  content: " h";
+  font-size: 1.8rem;
 }
 
 .dayBox {
@@ -157,6 +167,35 @@
   color: rgb(4, 155, 4);
 }
 
+.individualContainer {
+  margin-top: 4rem;
+}
+
+.instructorsContainer {
+  margin-top: 2rem;
+}
+
+.head {
+  font-size: 2rem;
+  font-weight: 200;
+  color: var(--color-header-dim);
+}
+.element {
+  display: flex;
+  gap: 0.3rem;
+  align-items: flex-end;
+  font-size: 1.8rem;
+}
+
+.element span {
+  margin-bottom: -0.3rem;
+}
+
+.element span,
+.elLink {
+  color: var(--lesson-link-border);
+}
+
 @media (max-width: 650px) {
   .section {
     flex-direction: column;
@@ -172,4 +211,13 @@
     flex-direction: column;
     padding: 4rem 0 0;
   }
+  .dayBox {
+    width: calc(100% / 7 - 2px);
+    font-size: 1.4rem;
+  }
+  .hoursContainer {
+    width: 60%;
+  }
+}
+@media (max-width: 480px) {
 }
