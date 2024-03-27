@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { useGetHistory } from "./useGetHistory.js";
 import { useEffect, useRef, useState } from "react";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll.js";
+import { useTranslate } from "../../hooks/useTranslate.js";
 
 function History() {
   const [totalPages, setTotalPages] = useState(0);
@@ -13,11 +14,14 @@ function History() {
   const bottomElementRef = useRef(null);
   const { page } = useInfiniteScroll(bottomElementRef, initialHandler);
   const { lang } = useLanguage();
+  const { translatePhrase: translate } = useTranslate();
 
   const { mutate, isPending, data } = useGetHistory();
 
   useEffect(() => {
-    if ((totalPages === 0 || totalPages >= page) && !isInitialRendering) {
+    if (isInitialRendering) {
+      loadHistory();
+    } else if ((totalPages === 0 || totalPages >= page)) {
       loadHistory();
     }
 
@@ -25,13 +29,10 @@ function History() {
 
   useEffect(() => {
     if (data) {
-      setHistoryData(data.data);
+      setHistoryData((prevData) => [...prevData, ...data.data]); // Append new data to existing historyData
       setTotalPages(data.totalPages);
     }
-
   }, [data]);
-
-  console.log("TODO ADD DATA", historyData)
 
   function loadHistory() {
     mutate({ limit: 20, page });
@@ -75,7 +76,20 @@ function History() {
           >
             Toast test
           </button>
-          <p style={{ fontSize: "16px" }}>
+
+          {/* Render history data */}
+          <p style={{ fontSize: "32px" }}>TODO: this should be styled</p>
+          {historyData.length !== 0
+            ? (historyData.map((h, index) => (
+              <p key={index} style={{ fontSize: "20px" }}>
+                {translate(h.lessonId.title)} - {h.skaterId.firstName} {h.skaterId.lastName}
+              </p>))
+            ) : (
+              <p style={{ fontSize: "40px" }}>There are no lessons booked</p>
+            )
+          }
+
+          <p style={{ fontSize: "16px", paddingTop: "24px" }}>
             16 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
           </p>
           <p style={{ fontSize: "18px" }}>
