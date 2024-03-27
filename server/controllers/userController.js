@@ -17,10 +17,15 @@ import {
 } from "../util/validationSchemes.js";
 
 import {
+  addActiveContactUser,
   createResetLink,
   deleteUserById,
+  editActiveContactUser,
+  getAllActiveContactUsers,
   getAllUsers,
+  getByIdActiveContactUsers,
   getUserById,
+  removeActiveContactUser,
   resetUserPassword,
   updateUserById,
   updateUserRoleById,
@@ -191,6 +196,97 @@ userController.delete(
       const deletedMessage = await deleteUserById(userId);
 
       res.status(200).json(deletedMessage);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// Get all active contact users (for individual lessons contact persons)
+userController.get(
+  endpoints.get_all_active_contact_user,
+  async (req, res, next) => {
+    try {
+
+      const activeUsers = await getAllActiveContactUsers(userId);
+
+      res.status(200).json(activeUsers);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// Add active contact user (for individual lessons contact persons)
+userController.post(
+  endpoints.add_active_contact_user,
+  isUserGuest,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole([userRole.admin]),
+  async (req, res, next) => {
+    try {
+      const { userId } = req.body;
+
+      await addActiveContactUser(userId);
+
+      res.status(200).json({ message: "Success!" });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// Edit active contact user (for individual lessons contact persons)
+userController.put(
+  endpoints.edit_active_contact_user,
+  isUserGuest,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole([userRole.admin]),
+  async (req, res, next) => {
+    try {
+      const { userId } = req.body;
+
+      await editActiveContactUser(userId);
+
+      res.status(200).json({ message: "Success!" });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// Remove active contact user (for individual lessons contact persons)
+userController.put(
+  endpoints.remove_active_contact_user,
+  isUserGuest,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole([userRole.admin]),
+  async (req, res, next) => {
+    try {
+      const { userId } = req.body;
+
+      await removeActiveContactUser(userId);
+
+      res.status(200).json({ message: "Success!" });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// Get active contact user by Id (for individual lessons contact persons)
+userController.post(
+  endpoints.get_active_contact_user,
+  isUserGuest,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole([userRole.admin]),
+  async (req, res, next) => {
+    try {
+      const { userId } = req.body;
+
+      const activeUser = await getByIdActiveContactUsers(userId);
+
+      res.status(200).json(activeUser);
     } catch (error) {
       next(error);
     }
