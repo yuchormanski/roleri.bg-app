@@ -24,6 +24,11 @@ export const endpoints = {
   update_user: "/update-user",
   edit_user_role: "/edit-user-role",
   delete_user: "/delete-user/:userId",
+  get_active_contact_user: "/active-contact-user",
+  get_all_active_contact_user: "/all-active-contact-user",
+  add_active_contact_user: "/add-active-contact-user",
+  edit_active_contact_user: "/edit-active-contact-user",
+  remove_active_contact_user: "/remove-active-contact-user",
 
   // main path: /lessons/
   get_all_lessons: "/",
