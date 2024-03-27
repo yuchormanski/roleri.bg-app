@@ -25,6 +25,10 @@ const userParentSchema = new Schema({
     password: {
         type: String,
         require: [true, 'Password is require']
+    },
+    individualCoachOnDuty: {
+        type: Boolean,
+        default: false
     }
 }, { timestamps: true });
 
