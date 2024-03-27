@@ -12,7 +12,6 @@ import verifyJwtToken from "../util/verifyJwtToken.js";
 import { BookingModel } from "../models/BookingModel.js";
 import { LessonModel } from "../models/LessonModel.js";
 import { SkaterModel } from "../models/SkaterModel.js";
-import { ActiveContactUser } from "../models/ActiveContactUser.js";
 
 // Get one user
 const getAllUsers = async (userIdToExclude) =>
@@ -64,20 +63,28 @@ const deleteUserById = async (userId) => {
   };
 };
 
-// Add active contact user (for individual lessons contact persons)
-const addActiveContactUser = async (userId) => ActiveContactUser.create({ contactUser: userId });
+// Set active individual coach on duty (for individual lessons contact persons)
+const setActiveOnDutyCoachForIndividual = async (userId) => {
+  const currentUser = await UserParent.findById(userId);
+  if (currentUser.role === userRole.admin || currentUser.role === userRole.instructor) {
+    return UserParent.findByIdAndUpdate(userId, { individualCoachOnDuty: true }, { new: true, runValidators: true });
+  }
 
-// Edit active contact user (for individual lessons contact persons)
-const editActiveContactUser = async (userId) => ActiveContactUser.findOneAndUpdate({ contactUser: userId }, { contactUser: userId });
+  throw new Error('Current user must be an admin or instructor');
+};
 
-// Remove active contact user (for individual lessons contact persons)
-const removeActiveContactUser = async (userId) => ActiveContactUser.findOneAndDelete({ contactUser: userId });
+// Set inactive individual coach on duty (for individual lessons contact persons)
+const setInactiveOnDutyCoachForIndividual = async (userId) => {
+  const currentUser = await UserParent.findById(userId);
+  if (currentUser.role === userRole.admin || currentUser.role === userRole.instructor) {
+    return UserParent.findByIdAndUpdate(userId, { individualCoachOnDuty: false }, { new: true, runValidators: true });
+  }
 
-// Get active contact user by Id (for individual lessons contact persons)
-const getByIdActiveContactUsers = async (userId) => ActiveContactUser.findOne({ contactUser: userId }).populate('contactUser', '-password -__v -updatedAt -createdAt -role');
+  throw new Error('Current user must be an admin or instructor');
+};
 
-// Get all active contact users (for individual lessons contact persons)
-const getAllActiveContactUsers = async () => ActiveContactUser.find().populate('contactUser', '-password -__v -updatedAt -createdAt -role');
+const getAllOnDuty = async () => UserParent.find({individualCoachOnDuty: true}).select('-password -role -__v -createdAt -updatedAt');
+
 
 // Register
 const userRegister = async ({
@@ -268,9 +275,7 @@ export {
   resetUserPassword,
   updateUserRoleById,
   deleteUserById,
-  addActiveContactUser,
-  editActiveContactUser,
-  removeActiveContactUser,
-  getByIdActiveContactUsers,
-  getAllActiveContactUsers,
+  setActiveOnDutyCoachForIndividual,
+  setInactiveOnDutyCoachForIndividual,
+  getAllOnDuty
 };

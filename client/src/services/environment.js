@@ -17,11 +17,10 @@ const SERVER_ENDPOINTS = {
   FORGOT_PASSWORD: "users/forgot-password",
   RESET_PASSWORD: "users/reset-password",
   DELETE_USER: (userId) => `users/delete-user/${userId}`,
-  GET_ACTIVE_CONTACT_USER: "users/active-contact-user",
-  GET_ALL_ACTIVE_CONTACT_USER: "users/all-active-contact-user",
-  ADD_ACTIVE_CONTACT_USER: "users/add-active-contact-user",
-  EDIT_ACTIVE_CONTACT_USER: "users/edit-active-contact-user",
-  REMOVE_ACTIVE_CONTACT_USER: "users/remove-active-contact-user",
+  SET_ACTIVE_ON_DUTY_USER: 'users/set-active-onDuty-user',
+  SET_INACTIVE_ON_DUTY_USER: 'users/set-inactive-onDuty-user',
+  GET_ALL_ON_DUTY_USERS: 'users/get-all-on-duty-users',
+
 
   GET_ALL_SKATERS: "skaters",
   GET_ALL_USER_SKATERS: "skaters/owned-by",

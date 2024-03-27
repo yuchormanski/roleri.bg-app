@@ -17,16 +17,14 @@ import {
 } from "../util/validationSchemes.js";
 
 import {
-  addActiveContactUser,
   createResetLink,
   deleteUserById,
-  editActiveContactUser,
-  getAllActiveContactUsers,
+  getAllOnDuty,
   getAllUsers,
-  getByIdActiveContactUsers,
   getUserById,
-  removeActiveContactUser,
   resetUserPassword,
+  setActiveOnDutyCoachForIndividual,
+  setInactiveOnDutyCoachForIndividual,
   updateUserById,
   updateUserRoleById,
   userLogin,
@@ -202,93 +200,46 @@ userController.delete(
   }
 );
 
-// Get all active contact users (for individual lessons contact persons)
+// Set active status on duty (for individual lessons)
+userController.post(
+  endpoints.set_active_on_duty_user,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole([userRole.admin]),
+  async (req, res, next) => {
+    try {
+      const updatedUser = await setActiveOnDutyCoachForIndividual(req.body.userId);
+      res.status(200).json(updatedUser);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// Set inactive status on duty (for individual lessons)
+userController.post(
+  endpoints.set_inactive_on_duty_user,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole([userRole.admin]),
+  async (req, res, next) => {
+    try {
+      const updatedUser = await setInactiveOnDutyCoachForIndividual(req.body.userId);
+      res.status(200).json(updatedUser);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
 userController.get(
-  endpoints.get_all_active_contact_user,
+  endpoints.get_all_on_duty_users,
   async (req, res, next) => {
     try {
-
-      const activeUsers = await getAllActiveContactUsers(userId);
-
-      res.status(200).json(activeUsers);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-// Add active contact user (for individual lessons contact persons)
-userController.post(
-  endpoints.add_active_contact_user,
-  isUserGuest,
-  preloader(getUserById, preloadOptions.getUserById),
-  isUserRole([userRole.admin]),
-  async (req, res, next) => {
-    try {
-      const { userId } = req.body;
-
-      await addActiveContactUser(userId);
-
-      res.status(200).json({ message: "Success!" });
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-// Edit active contact user (for individual lessons contact persons)
-userController.put(
-  endpoints.edit_active_contact_user,
-  isUserGuest,
-  preloader(getUserById, preloadOptions.getUserById),
-  isUserRole([userRole.admin]),
-  async (req, res, next) => {
-    try {
-      const { userId } = req.body;
-
-      await editActiveContactUser(userId);
-
-      res.status(200).json({ message: "Success!" });
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-// Remove active contact user (for individual lessons contact persons)
-userController.put(
-  endpoints.remove_active_contact_user,
-  isUserGuest,
-  preloader(getUserById, preloadOptions.getUserById),
-  isUserRole([userRole.admin]),
-  async (req, res, next) => {
-    try {
-      const { userId } = req.body;
-
-      await removeActiveContactUser(userId);
-
-      res.status(200).json({ message: "Success!" });
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-// Get active contact user by Id (for individual lessons contact persons)
-userController.post(
-  endpoints.get_active_contact_user,
-  isUserGuest,
-  preloader(getUserById, preloadOptions.getUserById),
-  isUserRole([userRole.admin]),
-  async (req, res, next) => {
-    try {
-      const { userId } = req.body;
-
-      const activeUser = await getByIdActiveContactUsers(userId);
-
-      res.status(200).json(activeUser);
-    } catch (error) {
-      next(error);
+      const allOnDutyUsers = await getAllOnDuty();
+      res.status(200).json(allOnDutyUsers);
+    } catch (err) {
+      next(err);
     }
   }
 );
