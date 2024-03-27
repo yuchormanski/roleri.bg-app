@@ -29,6 +29,9 @@ export const endpoints = {
   add_active_contact_user: "/add-active-contact-user",
   edit_active_contact_user: "/edit-active-contact-user",
   remove_active_contact_user: "/remove-active-contact-user",
+  set_active_on_duty_user: '/set-active-onDuty-user',
+  set_inactive_on_duty_user: '/set-inactive-onDuty-user',
+  get_all_on_duty_users: '/get-all-on-duty-users',
 
   // main path: /lessons/
   get_all_lessons: "/",
@@ -87,4 +90,5 @@ export const endpoints = {
   edit_coach_is_not_paid: "/edit-coach-is-not-paid",
   add_coach_note: "/add-coach-note",
   edit_coach_note: "/edit-coach-note",
+  get_coach_on_duty: "/get-"
 };

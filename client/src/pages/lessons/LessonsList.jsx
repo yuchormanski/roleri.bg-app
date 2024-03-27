@@ -10,15 +10,15 @@ import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 
 function LessonsList() {
   const { lang } = useLanguage();
-  const { data, isFetching } = useGetAllLessonQueries();
+  const { data , isFetching } = useGetAllLessonQueries();
   const result = data.filter((x) => new Date(x.validTo) >= new Date());
 
   return (
     <>
       {isFetching ? (
         <Spinner />
-      ) : (
-        <>
+        ) : (
+          <>
           <div className={styles.container}>
             <h1 className={styles.heading}>{lang.lessons}</h1>
             <div className={styles.secondaryContainer}>

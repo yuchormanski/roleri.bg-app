@@ -15,6 +15,7 @@ import { GoIssueOpened } from "react-icons/go";
 import RoleChanger from "./RoleChanger.jsx";
 import DeleteUser from "./DeleteUser.jsx";
 import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
+import { useAddOptionsQuery } from "../useAddOptionsQuery.js";
 
 function TeamList() {
   const { lang } = useLanguage();
@@ -26,6 +27,8 @@ function TeamList() {
   const [modalOption, setModalOption] = useState(1);
 
   const { isFetching, data: usersList } = useGetOptionsQuery("users");
+  const { mutate: mutateAddDuty, isPending: isPendingAddDuty } = useAddOptionsQuery('addOnDuty');
+  const { mutate: mutateRemoveDuty, isPending: isPendingRemoveDuty } = useAddOptionsQuery('removeOnDuty');
 
   const listOptions = [
     { value: "all", label: lang.a_all },
@@ -69,6 +72,16 @@ function TeamList() {
     setOpenModal(false);
   }
 
+  function changeOnDutyStatus({_id, individualCoachOnDuty}) {
+    
+    if (individualCoachOnDuty) {
+      mutateRemoveDuty({userId: _id});
+    } else {
+      mutateAddDuty({userId: _id});
+
+    }
+  }
+
   return (
     <>
       <div className={styles.container}>
@@ -100,7 +113,6 @@ function TeamList() {
                   placeholder={<div style={{ fontSize: 16 }}>{lang.a_search}</div>}
                 />
               </div>
-
               {selectedOption && (
                 <>
                   <section className={styles.resultContainer}>
@@ -143,6 +155,9 @@ function TeamList() {
                   <div className={styles.actionContainer}>
                     <Button type={"primary"} onClick={() => toggleModal(1)}>
                       Change role
+                    </Button>
+                    <Button type={"primary"} onClick={() => changeOnDutyStatus(selectedOption)}>
+                      {selectedOption.individualCoachOnDuty ? "Not on shift" : "Set on duty"}
                     </Button>
                     <Button type={"primary"} onClick={() => toggleModal(0)}>
                       Delete

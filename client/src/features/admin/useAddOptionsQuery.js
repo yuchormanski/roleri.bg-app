@@ -12,6 +12,8 @@ function useAddOptionsQuery(actionType) {
         age: SERVER_ENDPOINTS.ADD_AGE_OPTIONS,
         subscription: SERVER_ENDPOINTS.ADD_SUBSCRIPTION_OPTIONS,
         lessons: SERVER_ENDPOINTS.ADD_LESSON,
+        addOnDuty: SERVER_ENDPOINTS.SET_ACTIVE_ON_DUTY_USER,
+        removeOnDuty: SERVER_ENDPOINTS.SET_INACTIVE_ON_DUTY_USER
     }
 
     const queryClient = useQueryClient();

@@ -13,11 +13,13 @@ import { useEffect, useState } from "react";
 
 import { PiPhoneOutgoingThin, PiPhoneOutgoing } from "react-icons/pi";
 import { useGetIndividualsDays } from "./useGetIndividualsDays.js";
+import { useGetAllOnDuty } from "../../pages/lessons/useGetAllOnDuty.js";
 
 function LessonElement() {
   const { isFetching: isLoading, data: availableDays } =
     useGetIndividualsDays();
-  const { data, isFetching, error } = useGetAllLessonQueries();
+  const { data, isFetching } = useGetAllLessonQueries();
+  const { data: onDutyStuff, isFetching: isFetchingOnDutyStuff } = useGetAllOnDuty();
 
   const { lang } = useLanguage();
   const { translatePhrase: translate } = useTranslate();
@@ -109,7 +111,7 @@ function LessonElement() {
                         <p className={styles.head}>
                           Available days to sign individual lesson{" "}
                           {Object.values(activeDays).filter((x) => x).length ===
-                          1
+                            1
                             ? "is"
                             : "are"}
                         </p>
@@ -137,26 +139,28 @@ function LessonElement() {
 
                       <div className={styles.instructorsContainer}>
                         <p className={styles.head}>Instructors on duty are:</p>
-                        <p className={styles.element}>
-                          Emil Belev &#9866;
-                          {
-                            <>
-                              <span>
-                                <PiPhoneOutgoing />
-                              </span>
-                              <Link
-                                className={styles.elLink}
-                                to="#"
-                                onClick={(e) => {
-                                  window.location = `callTo:090543959064350`;
-                                  e.preventDefault();
-                                }}
-                              >
-                                090543959064350
-                              </Link>
-                            </>
-                          }
-                        </p>
+                        {onDutyStuff.map( x =>
+                          <p key={x._id} className={styles.element}>
+                            {`${x.firstName} ${x.lastName}`} &#9866;
+                            {
+                              <>
+                                <span>
+                                  <PiPhoneOutgoing />
+                                </span>
+                                <Link
+                                  className={styles.elLink}
+                                  to="#"
+                                  onClick={(e) => {
+                                    window.location = `callTo:${x.phone}`;
+                                    e.preventDefault();
+                                  }}
+                                >
+                                  {x.phone}
+                                </Link>
+                              </>
+                            }
+                          </p>
+                        )}
                       </div>
                     </div>
                   </>
@@ -191,9 +195,8 @@ export default LessonElement;
 function DayName({ isValid, text }) {
   return (
     <p
-      className={`${styles.dayBox} ${
-        isValid ? styles.activeDay : styles.inactiveDay
-      }`}
+      className={`${styles.dayBox} ${isValid ? styles.activeDay : styles.inactiveDay
+        }`}
     >
       {text}
     </p>
