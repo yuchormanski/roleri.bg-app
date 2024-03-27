@@ -12,6 +12,7 @@ import verifyJwtToken from "../util/verifyJwtToken.js";
 import { BookingModel } from "../models/BookingModel.js";
 import { LessonModel } from "../models/LessonModel.js";
 import { SkaterModel } from "../models/SkaterModel.js";
+import { ActiveContactUser } from "../models/ActiveContactUser.js";
 
 // Get one user
 const getAllUsers = async (userIdToExclude) =>
@@ -62,6 +63,21 @@ const deleteUserById = async (userId) => {
     message: "User and related models deleted successfully",
   };
 };
+
+// Add active contact user (for individual lessons contact persons)
+const addActiveContactUser = async (userId) => ActiveContactUser.create({ contactUser: userId });
+
+// Edit active contact user (for individual lessons contact persons)
+const editActiveContactUser = async (userId) => ActiveContactUser.findOneAndUpdate({ contactUser: userId }, { contactUser: userId });
+
+// Remove active contact user (for individual lessons contact persons)
+const removeActiveContactUser = async (userId) => ActiveContactUser.findOneAndDelete({ contactUser: userId });
+
+// Get active contact user by Id (for individual lessons contact persons)
+const getByIdActiveContactUsers = async (userId) => ActiveContactUser.findOne({ contactUser: userId }).populate('contactUser', '-password -__v -updatedAt -createdAt -role');
+
+// Get all active contact users (for individual lessons contact persons)
+const getAllActiveContactUsers = async () => ActiveContactUser.find().populate('contactUser', '-password -__v -updatedAt -createdAt -role');
 
 // Register
 const userRegister = async ({
@@ -252,4 +268,9 @@ export {
   resetUserPassword,
   updateUserRoleById,
   deleteUserById,
+  addActiveContactUser,
+  editActiveContactUser,
+  removeActiveContactUser,
+  getByIdActiveContactUsers,
+  getAllActiveContactUsers,
 };

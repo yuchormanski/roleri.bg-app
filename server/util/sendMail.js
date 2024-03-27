@@ -13,11 +13,22 @@ export async function sendMail(email, htmlTemplate) {
         }
     });
 
-    transporter.sendMail({
+    // Create send options
+    const mailOptions = {
         from: `Училище за кънки Vertigo ${process.env.EMAIL_USER}`,
         to: email,
         subject: "DO NOT REPLY: roleri.bg",
         html: htmlTemplate,
-    });
+    };
 
+    // Send the email
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            // Handle error
+            console.error('Error sending email:', error);
+        } else {
+            // Email sent successfully
+            console.log('Email sent to:', email);
+        }
+    });
 }

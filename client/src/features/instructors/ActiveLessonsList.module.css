@@ -16,6 +16,15 @@
   word-spacing: 0.3rem;
   margin-left: auto;
   border-bottom: 1px var(--border-bottom);
+  /* margin-bottom: 1rem; */
+}
+
+.headingDate {
+  width: fit-content;
+  font-size: 1.6rem;
+  font-weight: 300;
+  word-spacing: 0.3rem;
+  margin-left: auto;
   margin-bottom: 1rem;
 }
 

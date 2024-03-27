@@ -17,6 +17,11 @@ const SERVER_ENDPOINTS = {
   FORGOT_PASSWORD: "users/forgot-password",
   RESET_PASSWORD: "users/reset-password",
   DELETE_USER: (userId) => `users/delete-user/${userId}`,
+  GET_ACTIVE_CONTACT_USER: "users/active-contact-user",
+  GET_ALL_ACTIVE_CONTACT_USER: "users/all-active-contact-user",
+  ADD_ACTIVE_CONTACT_USER: "users/add-active-contact-user",
+  EDIT_ACTIVE_CONTACT_USER: "users/edit-active-contact-user",
+  REMOVE_ACTIVE_CONTACT_USER: "users/remove-active-contact-user",
 
   GET_ALL_SKATERS: "skaters",
   GET_ALL_USER_SKATERS: "skaters/owned-by",
@@ -46,6 +51,7 @@ const SERVER_ENDPOINTS = {
     `options/delete-subscriptions/${optionId}`,
 
   GET_ALL_BOOKING: "bookings/",
+  GET_ALL_BOOKING_HISTORY: "bookings/get-all-booking-history",
   UNREGISTERED_BOOKING_USER: "bookings/unregistered-booking",
   REGISTERED_BOOKING_USER: "bookings/registered-booking",
   GET_ACTIVE_DAYS_ADMIN: "bookings/active-days-admin",

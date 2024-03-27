@@ -195,4 +195,9 @@ export const EN = {
   book_headInfo_2: "and their ",
   book_sec_heading_1: "Follow the steps",
   book_sec_heading_2: "Select day",
+
+  l_info_1:
+    "Individual lessons are held and negotiated directly with the instructor.",
+  l_activeLesson_info_1:
+    "means the skater has their own item from the current gear",
 };
