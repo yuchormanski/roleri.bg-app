@@ -8,6 +8,9 @@ import SkaterElement from "./SkaterElement.jsx";
 import { useTranslate } from "../../hooks/useTranslate.js";
 import { useEffect, useState } from "react";
 
+import { GoIssueOpened } from "react-icons/go";
+import { PiSuitcaseRolling } from "react-icons/pi";
+
 function ActiveLesson() {
   const [{ title, lessonsData }, setLesson] = useState({});
   const { lang } = useLanguage();
@@ -39,19 +42,25 @@ function ActiveLesson() {
     <>
       <div className={styles.container}>
         <h3 className={styles.heading}>{title && translate(title)}</h3>
-
         <div className={styles.secondaryContainer}>
           {lessonsData &&
             lessonsData.map((lesson) => (
               <SkaterElement lesson={lesson} key={lesson._id} />
             ))}
         </div>
-
         <div className={styles.hiddenOnMobile}>
           <Button type={"primary"} onClick={moveBack}>
             Back
           </Button>
         </div>
+        <section className={styles.description}>
+          <p className={styles.info}>
+            <span>
+              <GoIssueOpened />
+            </span>
+            {<PiSuitcaseRolling />} - {lang.l_activeLesson_info_1}
+          </p>
+        </section>
       </div>
     </>
   );
