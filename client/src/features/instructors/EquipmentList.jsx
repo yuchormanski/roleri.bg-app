@@ -1,14 +1,58 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePath } from "../../context/PathContext.jsx";
 import styles from "./EquipmentList.module.css";
 import { useLanguage } from "../../context/Language.jsx";
-import { useGetEquipmentQuery } from "./useGetEquipmentQuery.js";
+import { useQueryClient } from "@tanstack/react-query";
+import { useMoveBack } from "../../hooks/useMoveBack.js";
 
 function EquipmentList() {
+  const [equipmentData, setEquipmentData] = useState([]);
   const { lang } = useLanguage();
   const { path, newPath } = usePath();
+  const { redirectTo } = useMoveBack();
+  const queryClient = useQueryClient();
 
-  const { isFetching, data: equipmentData } = useGetEquipmentQuery();
+  useEffect(() => {// Initialize objects to store skates and protection
+    const data = queryClient.getQueryData(["lessonsActive"]);
+    if (!data) {
+      redirectTo('/on-duty');
+      return;
+    }
+    const extractedData = Object.values(data).flatMap(v => v.data);
+    const skatesData = [];
+    const protectionData = [];
+
+    extractedData.forEach(booking => {
+      const { skater: { skatesSize, protection } } = booking;
+
+      // Add skate size to skatesData array if quantity is greater than 0
+      if (skatesSize && skatesSize.size !== 0) {
+        const skateIndex = skatesData.findIndex(item => item.skateSize === skatesSize);
+        if (skateIndex === -1) {
+          skatesData.push({ skateSize: skatesSize, quantity: 1 });
+        } else {
+          skatesData[skateIndex].quantity++;
+        }
+      }
+
+      // Add protection size to protectionData array if quantity is greater than 0
+      if (protection && protection.size !== 0) {
+        const protectionIndex = protectionData.findIndex(item => item.protectionSize === protection);
+        if (protectionIndex === -1) {
+          protectionData.push({ protectionSize: protection, quantity: 1 });
+        } else {
+          protectionData[protectionIndex].quantity++;
+        }
+      }
+    });
+
+    // Wrap skates and protection data in their own objects
+    const skatesObject = { skates: skatesData };
+    const protectionObject = { protection: protectionData };
+
+    // Combine skates and protection objects into a single array
+    setEquipmentData([skatesObject, protectionObject]);
+  }, []);
 
   useEffect(() => newPath("equipment"), [newPath]);
 

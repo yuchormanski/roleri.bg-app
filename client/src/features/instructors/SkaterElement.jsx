@@ -5,17 +5,19 @@ import { Link } from "react-router-dom";
 
 import { useLanguage } from "../../context/Language.jsx";
 
-import { ImInfo } from "react-icons/im";
-import { TfiEmail } from "react-icons/tfi";
-import { PiCheck, PiPhoneLight, PiCurrencyDollar } from "react-icons/pi";
 import { useEditInstructorQuery } from "./useEditInstructorQuery.js";
 import { useAddInstructorNoteQuery } from "./useAddInstructorNoteQuery.js";
+
+import { ImInfo } from "react-icons/im";
 import { MdOutlineDoNotDisturbAlt } from "react-icons/md";
+import { PiCheck, PiPhoneLight, PiCurrencyDollar } from "react-icons/pi";
+import { GoX } from "react-icons/go";
+import { PiSuitcaseRollingLight, PiSuitcaseRolling } from "react-icons/pi";
+import { TfiEmail } from "react-icons/tfi";
 
 import Popup from "../../ui/elements/popupModal/Popup.jsx";
 import Button from "../../ui/elements/button/Button.jsx";
 import { useAuthContext } from "../../context/AuthContext.jsx";
-import { GoX } from "react-icons/go";
 
 function SkaterElement({ lesson }) {
   const {
@@ -165,7 +167,8 @@ function SkaterElement({ lesson }) {
             {Number(skates) === 0 ? lang.hasOwn : skates}
           </p>
           <p className={styles.skaterProps}>
-            {protection == 0 ? lang.hasOwn : protection}
+            {/* {protection == 0 ? lang.hasOwn : protection} */}
+            {protection == 0 ? <PiSuitcaseRolling /> : protection}
           </p>
           <button
             className={`${styles.skaterProps} ${styles.infoBlock}`}

@@ -25,6 +25,7 @@ import { useTranslate } from "../../hooks/useTranslate.js";
 
 function ActiveLessonsList() {
   const [lessonsData, setLessonData] = useState([]);
+  const [currentDate, setCurrentDate] = useState("");
   // const [activeLessonId, setActiveLessonId] = useState(null);
 
   const { lang } = useLanguage();
@@ -32,25 +33,27 @@ function ActiveLessonsList() {
   const { path, newPath } = usePath();
 
   const { isFetching, data: lessons } = useGetActiveLessonsQuery();
-
   useEffect(() => newPath("lessons"), [newPath]);
 
   useEffect(() => {
-    if (!lessons) {
+    if (isFetching || !lessons) {
       return;
     }
+    const current = Object.values(lessons).at(0).lessonDate;
+    setCurrentDate(current.replaceAll("/", "."));
 
-    setLessonData(Object.keys(lessons).reduce((acc, groupName) => {
-      const summaryObject = {
-        lessonTitle: groupName,
-        participants: lessons[groupName].data.length,
-        _id: lessons[groupName]._id,
-      };
+    setLessonData(
+      Object.keys(lessons).reduce((acc, groupName) => {
+        const summaryObject = {
+          lessonTitle: groupName,
+          participants: lessons[groupName].data.length,
+          _id: lessons[groupName]._id,
+        };
 
-      acc.push(summaryObject);
-      return acc;
-    }, []));
-
+        acc.push(summaryObject);
+        return acc;
+      }, [])
+    );
   }, [lessons]);
 
   // function onLessonClickHandler(lessonId) {
@@ -61,6 +64,9 @@ function ActiveLessonsList() {
     <>
       <div className={styles.container}>
         <h3 className={styles.heading}>{lang.i_signedLessons}</h3>
+        {isFetching ? null : (
+          <p className={styles.headingDate}>{currentDate}</p>
+        )}
 
         <div className={styles.secondaryContainer}>
           {lessonsData.length ? (
@@ -71,8 +77,8 @@ function ActiveLessonsList() {
                     <Link
                       className={styles.skateItem}
                       to={`/on-duty/activeLesson/${lesson._id}`}
-                    // to={undefined}
-                    // onClick={() => onLessonClickHandler(lesson._id)}
+                      // to={undefined}
+                      // onClick={() => onLessonClickHandler(lesson._id)}
                     >
                       <p className={styles.element}>
                         <span className={styles.elSpan}>{lang.type}:</span>

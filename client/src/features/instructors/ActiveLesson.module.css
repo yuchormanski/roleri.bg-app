@@ -30,6 +30,23 @@
   display: none;
 }
 
+.description {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.info {
+  width: 100%;
+  font-size: 1.6rem;
+}
+.info span {
+  font-size: 1.6rem;
+  color: var(--color-main-btn);
+  margin-right: 1rem;
+}
+
 @media (max-width: 480px) {
   .container {
     padding: 1rem 0 2rem;
