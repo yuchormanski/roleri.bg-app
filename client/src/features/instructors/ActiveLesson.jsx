@@ -20,7 +20,7 @@ function ActiveLesson() {
 
   useEffect(() => {
     if (!data) {
-      redirectTo('/on-duty');
+      redirectTo("/on-duty");
       return;
     }
 
