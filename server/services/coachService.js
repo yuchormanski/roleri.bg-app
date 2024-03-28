@@ -52,6 +52,20 @@ const getNearestLessonsDate = async () => {
                 bookings: { $push: "$$ROOT" }
             }
         },
+        // Project only the earliest date and related bookings
+        {
+            $project: {
+                _id: 0,
+                date: "$earliestDate",
+                bookings: {
+                    $filter: {
+                        input: "$bookings",
+                        as: "booking",
+                        cond: { $eq: ["$$booking.date", "$earliestDate"] } // Filter only the bookings with the earliest date
+                    }
+                }
+            }
+        },
         // Unwind the bookings array
         { $unwind: "$bookings" },
         // Filter out the bookings with isRejected = false
