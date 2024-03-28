@@ -14,6 +14,8 @@ import AddLessonOption from "./AddLessonOption.jsx";
 import EditLessonOption from "./EditLessonOption.jsx";
 import DeleteLessonOption from "./DeleteLessonOption.jsx";
 
+import { GoIssueOpened } from "react-icons/go";
+
 function ListLessonsOption() {
   const { lang } = useLanguage();
   const { translatePhrase } = useTranslate();
@@ -97,13 +99,20 @@ function ListLessonsOption() {
       </div>
 
       <section className={styles.description}>
-        <p className={styles.par}>Добавете тип (4-7, 7-9) група.</p>
-        <p className={styles.par}>
+        <p className={styles.info}>
+          <span>
+            <GoIssueOpened />
+          </span>
+          Добавете тип (4-7, 7-9) група.
+        </p>
+        <p className={styles.info}>
+          <span>
+            <GoIssueOpened />
+          </span>
           Имате възможност да прегледате и редактирате всеки един от записите в
           списъка.
         </p>
       </section>
-
       {isShownAddModal && <AddLessonOption onClose={toggleAddModalHandler} />}
       {isShownEditModal && (
         <EditLessonOption

@@ -7,6 +7,8 @@ import toast from "react-hot-toast";
 
 import { useLanguage } from "../../../context/Language.jsx";
 
+import { useState } from "react";
+
 import { useAddOptionsQuery } from "../useAddOptionsQuery.js";
 
 import Popup from "../../../ui/elements/popupModal/Popup.jsx";
@@ -15,8 +17,19 @@ import Spinner from "../../../ui/elements/spinner/Spinner.jsx";
 
 import { GoIssueOpened } from "react-icons/go";
 
+const initialFieldsValues = {
+  size: "",
+  quantity: "",
+};
+
 function AddProtectionOptions({ onClose }) {
   const { lang } = useLanguage();
+  const [fieldValues, setFieldValues] = useState(initialFieldsValues);
+  function valueHandler(e) {
+    const valueName = e.target.name;
+    const value = e.target.value;
+    setFieldValues({ ...fieldValues, [valueName]: value });
+  }
 
   const queryClient = useQueryClient();
   const { mutateAsync, isPending } = useAddOptionsQuery("protection");
@@ -52,7 +65,7 @@ function AddProtectionOptions({ onClose }) {
   }
 
   return (
-    <Popup onClose={onClose} backgroundClick={false}>
+    <Popup onClose={onClose} backgroundClick={false} userWidth={"width800"}>
       {isPending && <Spinner />}
       <div className={styles.container}>
         <div className={styles.closeBtn}>
@@ -65,34 +78,59 @@ function AddProtectionOptions({ onClose }) {
           onSubmit={handleSubmit(onFormSubmit, onErrorSubmit)}
           className={styles.form}
         >
-          <input
-            className={styles.input}
-            type="text"
-            id="size"
-            {...register("size", {
-              required: "Protection size is required",
-              min: {
-                value: 0,
-                message: "Protection size cannot be a negative number.",
-              },
-            })}
-            placeholder={lang.s_protections}
-            autoComplete="protection-size"
-          />
-          <input
-            className={styles.input}
-            type="number"
-            id="quantity"
-            {...register("quantity", {
-              required: "Protection quantity is required",
-              min: {
-                value: 0,
-                message: "Protection quantity cannot be a negative number.",
-              },
-            })}
-            placeholder={lang.quantity}
-            autoComplete="skate-size"
-          />
+          <div className={styles.element}>
+            <input
+              className={styles.textInput}
+              type="text"
+              id="size"
+              name={"size"}
+              {...register("size", {
+                required: "Protection size is required",
+                min: {
+                  value: 0,
+                  message: "Protection size cannot be a negative number.",
+                },
+              })}
+              onBlur={valueHandler}
+              // autoComplete="given-name"
+              // autoComplete="family-name"
+            />
+            <label
+              htmlFor={"size"}
+              className={`${styles.label} ${
+                fieldValues.size ? styles.filled : null
+              }`}
+            >
+              {lang.s_protections}
+            </label>
+          </div>
+
+          <div className={styles.element}>
+            <input
+              className={styles.textInput}
+              type="number"
+              id="quantity"
+              name={"quantity"}
+              {...register("quantity", {
+                required: "Protection quantity is required",
+                min: {
+                  value: 0,
+                  message: "Protection quantity cannot be a negative number.",
+                },
+              })}
+              onBlur={valueHandler}
+              // autoComplete="given-name"
+              // autoComplete="family-name"
+            />
+            <label
+              htmlFor={"quantity"}
+              className={`${styles.label} ${
+                fieldValues.quantity ? styles.filled : null
+              }`}
+            >
+              {lang.quantity}
+            </label>
+          </div>
 
           <div className={styles.btnContainer}>
             <div style={{ marginLeft: "auto" }}>
