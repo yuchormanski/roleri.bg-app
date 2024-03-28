@@ -18,6 +18,10 @@ const bookingSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    isSubscriptionRejectedOnce: {
+      type: Boolean,
+      default: false,
+    },
     additionalRequirements: {
       type: String,
       default: null,
@@ -48,6 +52,10 @@ const bookingSchema = new Schema(
       ref: "UserParent",
       default: null,
     },
+    subscriptionCodeId: {
+      type: String,
+      require: true,
+    }
   },
   { timestamps: true }
 );

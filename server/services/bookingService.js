@@ -37,14 +37,83 @@ const getBookingById = async (bookingId) =>
 
 // Reject booking
 const rejectBooking = async (bookingId, ownerId) => {
-  const [currentBooking, currentUserParent, adminUserData] = await Promise.all([
-    populateBookingData(
-      BookingModel.findByIdAndUpdate(
-        bookingId,
-        { isRejected: true },
-        { runValidators: true, new: true }
-      )
-    ),
+
+  const currentBooking = await populateBookingData(BookingModel.findById(bookingId));
+
+  // Thats all booked lessons from one subscription (array of all bookings)
+  const subscriptionSequence = await BookingModel.find({ subscriptionCodeId: currentBooking.subscriptionCodeId }).sort({ date: 1 });
+
+  // For individual lessons or if subscription is already postponed 
+  if (subscriptionSequence.length === 1 || currentBooking.isSubscriptionRejectedOnce) {
+    currentBooking.isRejected = true;
+    await currentBooking.save();
+
+
+    // Only for subscription!! that have not been postponed
+  } else {
+
+    // Getting all feature subscription for current owner and skater 
+    const futureOverLappingBooking = await populateBookingData(BookingModel.find({
+      owner: currentBooking.owner,
+      skaterId: currentBooking.skaterId,
+      date: { $gt: subscriptionSequence[subscriptionSequence.length - 1].date }
+    }).sort({ date: 1 }));
+
+    // Filter only subscription lessons and also filter only the same day as currentBooking (for example only Monday dates)
+    const futureOverLappingSubscription = futureOverLappingBooking.filter(x => {
+      const originalDate = new Date(currentBooking.date);
+      const futureDate = new Date(x.date);
+      return (x.subscriptionId.subscriptionCount > 1 && originalDate.getDay() === futureDate.getDay());
+    });
+
+    if (futureOverLappingSubscription.length > 0) {
+      // Getting last subscription lesson (in correct format)
+      const lastLessonDateOfCurrentSubscription = new Date(subscriptionSequence[subscriptionSequence.length - 1].date);
+      lastLessonDateOfCurrentSubscription.setDate(lastLessonDateOfCurrentSubscription.getDate() + 7);
+
+      // Getting first subscription lesson of feature subscriptions (in correct format)
+      const firstLessonOfFeatureSubscription = new Date(futureOverLappingSubscription[0].date);
+
+      // Compere both subscription dates 
+      const isThereOverlappingInBookedDate = lastLessonDateOfCurrentSubscription.getTime() === firstLessonOfFeatureSubscription.getTime();
+
+      // Increment all future subscription date (+7 days)
+      if (isThereOverlappingInBookedDate) {
+        const promiseFutureSubscriptions = futureOverLappingSubscription.map(booking => {
+
+          let nextDate = new Date(booking.date);
+          nextDate.setDate(nextDate.getDate() + 7);
+          booking.date = nextDate;
+          return booking.save();
+        });
+
+        await Promise.all(promiseFutureSubscriptions);
+      }
+    }
+
+    // Increment all current subscriptions (it start from the current sub and increase the rest +7 days)
+    let startIncrement = false;
+
+    const promiseSubscriptions = subscriptionSequence.map(booking => {
+
+      if (booking._id.toString() === currentBooking._id.toString()) {
+        startIncrement = true;
+      }
+
+      if (startIncrement) {
+        let nextDate = new Date(booking.date);
+        nextDate.setDate(nextDate.getDate() + 7);
+        booking.date = nextDate;
+      }
+
+      booking.isSubscriptionRejectedOnce = true;
+      return booking.save();
+    });
+
+    await Promise.all(promiseSubscriptions);
+  }
+
+  const [currentUserParent, adminUserData] = await Promise.all([
     UserParent.findById(ownerId),
     UserParent.find({ role: userRole.admin }, { email: 1, _id: 0 }),
   ]);
