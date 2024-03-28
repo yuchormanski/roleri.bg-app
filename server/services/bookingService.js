@@ -92,27 +92,14 @@ const rejectBooking = async (bookingId, ownerId) => {
 
 // Unregistered user booking
 const unregisteredUser = async ({ date, lessonId, ...userData }) => {
-  let currentUser;
 
-  const [foundUnregisterUser, foundRegisterUser, adminEmails] =
-    await Promise.all([
-      UnregisteredUser.findOne({ email: userData.email }),
-      UserParent.findOne({ email: userData.email }),
-      UserParent.find({ role: userRole.admin }, { email: 1, _id: 0 }),
-    ]);
+  const currentUser = await UnregisteredUser.create(userData);
+  const adminEmails = await UserParent.find({ role: userRole.admin }, { email: 1, _id: 0 });
 
   // Get all emails for all admins to be sent at once
   const onlyAminEmails = [...adminEmails.map((e) => e.email)].join(", ");
 
-  if (foundUnregisterUser || foundRegisterUser) {
-    currentUser = foundUnregisterUser || foundRegisterUser;
-  } else {
-    currentUser = await UnregisteredUser.create(userData);
-  }
-
-  const subscriptionData = await SubscriptionTypeModel.findById(
-    userData.subscriptionType
-  );
+  const subscriptionData = await SubscriptionTypeModel.findById(userData.subscriptionType);
 
   const bookingWithDate = bookUserHelper(
     date,
@@ -202,15 +189,11 @@ const registeredUser = async (bookingDataArray, ownerId) => {
   const userDataArray = [];
   // Iterate over each booking to gather user data
   for (const booking of newLessonsBooked) {
-    const currentBook = await BookingModel.findById(booking._id).populate([
-      "lessonId",
-      "skaterId",
-    ]);
+    const currentBook = await BookingModel.findById(booking._id).populate(["lessonId", "skaterId"]);
 
     // Compose data for the current user
     const currentUserData = `
-    ${currentBook.skaterId.firstName} ${currentBook.skaterId.lastName
-      } is signed up for a skate lesson
+    ${currentBook.skaterId.firstName} ${currentBook.skaterId.lastName} is signed up for a skate lesson
     ${currentBook.lessonId.title.split("&/&").at(1)} on 
     ${new Date(currentBook.date).toLocaleDateString("fr-CH")} from 
     ${currentBook.lessonId.time} h
