@@ -84,8 +84,9 @@ function AddSkatesOptions({ onClose }) {
             />
             <label
               htmlFor={"title"}
-              className={`${styles.label} ${fieldValues.size ? styles.filled : null
-                }`}
+              className={`${styles.label} ${
+                fieldValues.size ? styles.filled : null
+              }`}
             >
               {lang.number}
             </label>
@@ -106,8 +107,9 @@ function AddSkatesOptions({ onClose }) {
             />
             <label
               htmlFor={"quantity"}
-              className={`${styles.label} ${fieldValues.quantity ? styles.filled : null
-                }`}
+              className={`${styles.label} ${
+                fieldValues.quantity ? styles.filled : null
+              }`}
             >
               {lang.quantity}
             </label>

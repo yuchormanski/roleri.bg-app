@@ -11,11 +11,11 @@ Admin: (Setting)
 
 
 
-    - Subscription type: EDIT - inputs;
+    
 
     - Lessons: Да оправим описанието на уроците;
 
-    - Active days: Да оправим описанието на активните дни;
+
     
 
     - Admin: Да се добави статистика ??? (Да се обсъди с Емил);
