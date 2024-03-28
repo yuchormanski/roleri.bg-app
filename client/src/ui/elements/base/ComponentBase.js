@@ -41,7 +41,7 @@
 //   >
 //     {lang.firstName}
 //   </label>
-// </div>;
+// </div>
 
 // инфо
 

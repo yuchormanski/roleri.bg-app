@@ -152,10 +152,19 @@ export const EN = {
   a_dates_5: "The field accepts user input",
   a_dates_6: "The excluded dates are: ",
   a_protection_info_1: "Add number & quantity",
-  a_protection_info_0: "You can view, edit & delete everyone of them",
-  a_protection_info_2: "You can view, edit & delete everyone of them",
+  a_protection_info_0: "You can view, edit & delete everything",
+  a_protection_info_2: "You can view, edit & delete everything",
   a_protection_info_3:
     "The list will be seen by users in the order of input. It would be a good idea to enter them in the order you want them to be displayed",
+  a_age_options_info_1: "Input options will be visible on the UI",
+  a_age_options_info_2: "Recommended format - 5 - 10",
+  a_age_options_info_3: "You can view, edit & delete everything",
+  a_subscription_info_1:
+    "Add lesson type (Single lesson, Subscription ...), number of visits and price.",
+  a_subscription_info_2:
+    "The price will only be visible to admins. This is a service field",
+  a_subscription_info_3:
+    "You have the option to view and edit each of the entries in the list.",
 
   // SKATER OPTIONS
   s_firstName: "First name",
