@@ -15,6 +15,8 @@ import EditSubscriptionOption from "./EditSubscriptionOption.jsx";
 import DeleteSubscriptionOption from "./DeleteSubscriptionOption.jsx";
 import { formatCurrency } from "../../../util/formatCurrency.js";
 
+import { GoIssueOpened } from "react-icons/go";
+
 function ListSubscriptionOptions() {
   const [selectedOptionData, setSelectedOptionData] = useState({});
 
@@ -103,12 +105,23 @@ function ListSubscriptionOptions() {
       </div>
 
       <section className={styles.description}>
-        <p className={styles.par}>
-          Добавете тип плащане (Абонамент, единичен урок) и цена.
+        <p className={styles.info}>
+          <span>
+            <GoIssueOpened />
+          </span>
+          {lang.a_subscription_info_1}
         </p>
-        <p className={styles.par}>
-          Имате възможност да прегледате и редактирате всеки един от записите в
-          списъка.
+        <p className={styles.info}>
+          <span>
+            <GoIssueOpened />
+          </span>
+          {lang.a_subscription_info_2}
+        </p>
+        <p className={styles.info}>
+          <span>
+            <GoIssueOpened />
+          </span>
+          {lang.a_subscription_info_3}
         </p>
       </section>
 

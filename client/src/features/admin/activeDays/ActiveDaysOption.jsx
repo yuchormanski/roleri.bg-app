@@ -48,7 +48,14 @@ function reducer(state, action) {
     case "excluded/userDates":
       return { ...state, excludedUserDates: action.payload };
     case "excluded/removeDate":
-      return { ...state, excludedUserDates: state.excludedUserDates.filter(date => new Date(date).toISOString() !== new Date(action.payload).toISOString()) };
+      return {
+        ...state,
+        excludedUserDates: state.excludedUserDates.filter(
+          (date) =>
+            new Date(date).toISOString() !==
+            new Date(action.payload).toISOString()
+        ),
+      };
 
     default:
       throw new Error("Unknown action type");
@@ -59,10 +66,17 @@ function ActiveDaysOption() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { lang } = useLanguage();
   const { isFetching, data: availableDays } = useGetOptionsQuery("activeDays");
-  const { mutate: mutateRegularDay, isPending: isPendingRegularDay } = useEditActiveDaysQuery("edit_regular_day");
-  const { mutate: mutateIndividualDay, isPending: isPendingInitialDay } = useEditActiveDaysQuery("edit_individual_day");
-  const { isFetching: isFetchingExcluded, data: excludedOptions } = useExcludedOptions();
-  const { mutateAsync, isPending, isFetching: addData, } = useAddExcludedOptionsQuery();
+  const { mutate: mutateRegularDay, isPending: isPendingRegularDay } =
+    useEditActiveDaysQuery("edit_regular_day");
+  const { mutate: mutateIndividualDay, isPending: isPendingInitialDay } =
+    useEditActiveDaysQuery("edit_individual_day");
+  const { isFetching: isFetchingExcluded, data: excludedOptions } =
+    useExcludedOptions();
+  const {
+    mutateAsync,
+    isPending,
+    isFetching: addData,
+  } = useAddExcludedOptionsQuery();
 
   const { isDark } = useTheme();
   const src = isDark ? "/android-chrome-512x512.png" : "/wheel.webp";
@@ -192,8 +206,11 @@ function ActiveDaysOption() {
   async function excludedDateDelete(excludedDate) {
     const date = excludedDate;
     const excludedUserDatesToServer = state.excludedUserDates
-      .filter(date => new Date(date).toISOString() !== new Date(excludedDate).toISOString())
-      .map(d => ({ date: d }));
+      .filter(
+        (date) =>
+          new Date(date).toISOString() !== new Date(excludedDate).toISOString()
+      )
+      .map((d) => ({ date: d }));
 
     const res = {
       daysBeforeLesson: state.daysBeforeLesson,
@@ -203,7 +220,7 @@ function ActiveDaysOption() {
     try {
       await mutateAsync(res);
       toast.success("Date is removed!");
-      dispatch({ type: 'excluded/removeDate', payload: date });
+      dispatch({ type: "excluded/removeDate", payload: date });
     } catch (error) {
       console.error(error);
     }
@@ -218,8 +235,9 @@ function ActiveDaysOption() {
 
         <div className={styles.toggleSwitch}>
           <div
-            className={`${styles.switchBtn} ${state.type ? styles.toggleRight : styles.toggleLeft
-              }`}
+            className={`${styles.switchBtn} ${
+              state.type ? styles.toggleRight : styles.toggleLeft
+            }`}
             onClick={() => dispatch({ type: "subscription/changed" })}
           ></div>
         </div>
@@ -248,11 +266,13 @@ function ActiveDaysOption() {
                     : lang.a_selectedDays_regular}
                 </p>
 
-                <div className={styles.info}>
+                {/* List of selected days */}
+                {/* <div className={styles.info}>
                   <span className={styles.span}>&#9737;</span>
                   {lang.a_selectedDays_election}
-                </div>
-                <ul className={styles.selectedList}>
+                </div> */}
+
+                {/* <ul className={styles.selectedList}>
                   {Object.keys(state)
                     .filter((x) => state[x] && x !== "type")
                     .map((el, i) => (
@@ -260,7 +280,7 @@ function ActiveDaysOption() {
                         {lang[el]}
                       </li>
                     ))}
-                </ul>
+                </ul> */}
               </section>
 
               {state.type && (
@@ -328,9 +348,7 @@ function ActiveDaysOption() {
                   <span className={styles.span}>&#9737;</span>
                   <div className={styles.bulletText}>
                     {lang.a_dates_1}{" "}
-                    <span>
-                      {excludedOptions?.daysBeforeLesson?.at(-1)}
-                    </span>
+                    <span>{excludedOptions?.daysBeforeLesson?.at(-1)}</span>
                   </div>
                 </div>
               </div>
@@ -339,13 +357,17 @@ function ActiveDaysOption() {
                   options={selectOptions}
                   onChange={(e) => excludedDaysHandler(e.value)}
                   styles={customStyles}
-                  placeholder={<div style={{ fontSize: 16 }}>{lang.a_select}</div>}
+                  placeholder={
+                    <div style={{ fontSize: 16 }}>{lang.a_select}</div>
+                  }
                 />
               </div>
               <button
                 className={styles.excludedDaysBtn}
                 onClick={excludedOptionsHandler}
-                disabled={state.daysBeforeLesson && state.daysBeforeLesson.length === 0}
+                disabled={
+                  state.daysBeforeLesson && state.daysBeforeLesson.length === 0
+                }
               >
                 {lang.a_select}
               </button>
@@ -392,10 +414,7 @@ function ActiveDaysOption() {
                   </h3>
                   <ul className={styles.excludedDatesList}>
                     {state.excludedUserDates.map((date, index) => (
-                      <li
-                        key={index}
-                        className={styles.excludedDatesListItem}
-                      >
+                      <li key={index} className={styles.excludedDatesListItem}>
                         {new Date(date).toLocaleDateString("fr-CH")}
                         <button
                           className={styles.excludedDatesDelete}
@@ -436,7 +455,9 @@ function DayName({ isValid, dispatch, text, state }) {
 
   return (
     <button
-      className={`${styles.dayBox} ${isValid ? styles.activeDay : styles.inactiveDay}`}
+      className={`${styles.dayBox} ${
+        isValid ? styles.activeDay : styles.inactiveDay
+      }`}
       onClick={clickHandler}
     >
       {text}

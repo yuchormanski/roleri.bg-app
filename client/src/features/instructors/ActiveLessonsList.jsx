@@ -36,12 +36,11 @@ function ActiveLessonsList() {
   useEffect(() => newPath("lessons"), [newPath]);
 
   useEffect(() => {
-    if (isFetching || !lessons) {
+    if (isFetching || !lessons || Object.keys(lessons).length == 0) {
       return;
     }
     const current = Object.values(lessons).at(0).lessonDate;
     setCurrentDate(current.replaceAll("/", "."));
-
     setLessonData(
       Object.keys(lessons).reduce((acc, groupName) => {
         const summaryObject = {

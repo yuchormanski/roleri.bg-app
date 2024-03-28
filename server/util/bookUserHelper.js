@@ -10,6 +10,9 @@ const bookUserHelper = (
   const currentDate = new Date(isoDate);
   const nextWeekendBookings = [];
   let countSignedLessons = 1;
+
+  const customUniqueId = `${skaterId}${new Date().getTime()}`;
+
   for (let i = 0; i < count * 7; i += 7) {
     let nextDate = new Date(currentDate);
     nextDate.setDate(nextDate.getDate() + i);
@@ -21,6 +24,7 @@ const bookUserHelper = (
       owner: ownerId || null,
       date: new Date(nextDate),
       lessonIndex: countSignedLessons,
+      subscriptionCodeId: customUniqueId,
     });
 
     countSignedLessons++;

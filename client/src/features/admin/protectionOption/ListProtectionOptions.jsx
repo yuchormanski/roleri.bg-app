@@ -103,12 +103,24 @@ function ListProtectionOptions() {
           </span>
           {lang.a_protection_info_1}
         </p>
+        <p className={styles.info}>
+          <span>
+            <GoIssueOpened />
+          </span>
+          {lang.a_protection_info_3}
+        </p>
 
         <p className={styles.info}>
           <span>
             <GoIssueOpened />
           </span>
           {lang.a_protection_info_2}
+        </p>
+        <p className={styles.info}>
+          <span>
+            <GoIssueOpened />
+          </span>
+          {lang.a_skates_info_4}
         </p>
       </section>
 

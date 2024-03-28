@@ -1,102 +1,101 @@
 .container {
-    width: 100%;
-    min-width: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    position: relative;
-    padding: 2rem;
+  width: 100%;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+  padding: 2rem;
 }
 
 .closeBtn {
-    position: absolute;
-    top: 0rem;
-    right: 0rem;
-    font-size: 2.4rem;
-    transition: all 0.2s ease-in-out;
+  position: absolute;
+  top: 0rem;
+  right: 0rem;
+  font-size: 2.4rem;
+  transition: all 0.2s ease-in-out;
 }
 
 .closeBtn:hover {
-    transform: rotate(90deg) translate(-0.4rem, 0.3rem);
-    /* filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.5)); */
+  transform: rotate(90deg) translate(-0.6rem, 0.6rem);
+  /* filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.5)); */
 }
 
 .closeIcon {
-    font-size: 3rem;
+  font-size: 3rem;
 }
 
 .heading {
-    text-transform: uppercase;
-    font-size: 2rem;
-    font-weight: 300;
+  text-transform: uppercase;
+  font-size: 2rem;
+  font-weight: 300;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
 .form .input {
-    background-color: var(--color-input);
-    padding: 0.3rem 1rem;
-    font-size: 1.6rem;
-    color: var(--color-main);
-    border-color: var(--input-border);
-    border-radius: 0.3rem;
+  background-color: var(--color-input);
+  padding: 0.3rem 1rem;
+  font-size: 1.6rem;
+  color: var(--color-main);
+  border-color: var(--input-border);
+  border-radius: 0.3rem;
 }
 
 .input::placeholder {
-    font-size: 1.2rem;
-    color: var(--color-nav-link);
-    opacity: 0.5;
+  font-size: 1.2rem;
+  color: var(--color-nav-link);
+  opacity: 0.5;
 }
 
 .authInfo {
-    align-self: flex-end;
-    font-size: 1.4rem;
+  align-self: flex-end;
+  font-size: 1.4rem;
 }
 
 .btnContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
 }
 
-.backBtn {
-    display: flex;
-    align-items: center;
-    font-size: 1.6rem;
+.element {
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
-.arrow {
-    margin-top: 0.6rem;
+.form input.textInput {
+  padding: 0.4rem 1rem 0.2rem;
+  font-size: 1.8rem;
+  color: var(--color-nav-link);
+  border: 1px solid var(--input-border);
+  border-radius: 0.3rem;
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.authBtn {
-    font-weight: 500;
-    color: var(--color-selected);
-    transition: all 0.3s ease;
+label.label {
+  position: absolute;
+  background-color: var(--color-header);
+  color: var(--placeholder);
+  padding-inline: 0.6rem;
+  top: 1rem;
+  left: 0.5rem;
+  font-size: 1.4rem;
+  pointer-events: none;
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.authBtn:hover {
-    color: var(--color-selected-tint);
+.form input.textInput:is(:focus) ~ label.label,
+.filled {
+  transform: translate(10%, -110%);
+  color: var(--color-nav-link);
 }
-
-.passContainer {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-}
-
-.passContainer .input {
-    width: 80%;
-}
-
-.passEyeBtn {
-    padding: 0rem 0.5rem;
-    margin-top: 0.5rem;
-    font-size: 2rem;
-    cursor: pointer;
+.filled span {
+  color: var(--placeholder);
 }

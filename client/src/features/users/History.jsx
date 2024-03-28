@@ -18,13 +18,14 @@ function History() {
 
   const { mutate, isPending, data } = useGetHistory();
 
+  console.log(historyData);
+
   useEffect(() => {
     if (isInitialRendering) {
       loadHistory();
-    } else if ((totalPages === 0 || totalPages >= page)) {
+    } else if (totalPages === 0 || totalPages >= page) {
       loadHistory();
     }
-
   }, [page, totalPages, isInitialRendering]);
 
   useEffect(() => {
@@ -35,7 +36,7 @@ function History() {
   }, [data]);
 
   function loadHistory() {
-    mutate({ limit: 20, page });
+    mutate({ limit: 5, page });
   }
 
   function initialHandler() {
@@ -79,55 +80,16 @@ function History() {
 
           {/* Render history data */}
           <p style={{ fontSize: "32px" }}>TODO: this should be styled</p>
-          {historyData.length !== 0
-            ? (historyData.map((h, index) => (
+          {historyData.length !== 0 ? (
+            historyData.map((h, index) => (
               <p key={index} style={{ fontSize: "20px" }}>
-                {translate(h.lessonId.title)} - {h.skaterId.firstName} {h.skaterId.lastName}
-              </p>))
-            ) : (
-              <p style={{ fontSize: "40px" }}>There are no lessons booked</p>
-            )
-          }
-
-          <p style={{ fontSize: "16px", paddingTop: "24px" }}>
-            16 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
-          </p>
-          <p style={{ fontSize: "18px" }}>
-            18 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
-          </p>
-          <p style={{ fontSize: "20px" }}>
-            20 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
-          </p>
-          <p style={{ fontSize: "22px" }}>
-            22 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
-          </p>
-          <p style={{ fontSize: "24px" }}>
-            24 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
-          </p>
-          <p style={{ fontSize: "26px" }}>
-            26 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
-          </p>
-          <p style={{ fontSize: "28px" }}>
-            28 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
-          </p>
-          <p style={{ fontSize: "30px" }}>
-            30 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
-          </p>
-          <p style={{ fontSize: "32px" }}>
-            32 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
-          </p>
-          <p style={{ fontSize: "34px" }}>
-            34 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
-          </p>
-          <p style={{ fontSize: "36px" }}>
-            36 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
-          </p>
-          <p style={{ fontSize: "38px" }}>
-            38 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
-          </p>
-          <p style={{ fontSize: "40px" }}>
-            40 Lorem ipsum, dolor sit amet consectetur adipisicing illum.
-          </p>
+                {translate(h.lessonId.title)} - {h.skaterId.firstName}{" "}
+                {h.skaterId.lastName}
+              </p>
+            ))
+          ) : (
+            <p style={{ fontSize: "40px" }}>There are no lessons booked</p>
+          )}
         </div>
 
         <div ref={bottomElementRef} />

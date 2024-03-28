@@ -37,14 +37,83 @@ const getBookingById = async (bookingId) =>
 
 // Reject booking
 const rejectBooking = async (bookingId, ownerId) => {
-  const [currentBooking, currentUserParent, adminUserData] = await Promise.all([
-    populateBookingData(
-      BookingModel.findByIdAndUpdate(
-        bookingId,
-        { isRejected: true },
-        { runValidators: true, new: true }
-      )
-    ),
+
+  const currentBooking = await populateBookingData(BookingModel.findById(bookingId));
+
+  // Thats all booked lessons from one subscription (array of all bookings)
+  const subscriptionSequence = await BookingModel.find({ subscriptionCodeId: currentBooking.subscriptionCodeId }).sort({ date: 1 });
+
+  // For individual lessons or if subscription is already postponed 
+  if (subscriptionSequence.length === 1 || currentBooking.isSubscriptionRejectedOnce) {
+    currentBooking.isRejected = true;
+    await currentBooking.save();
+
+
+    // Only for subscription!! that have not been postponed
+  } else {
+
+    // Getting all feature subscription for current owner and skater 
+    const futureOverLappingBooking = await populateBookingData(BookingModel.find({
+      owner: currentBooking.owner,
+      skaterId: currentBooking.skaterId,
+      date: { $gt: subscriptionSequence[subscriptionSequence.length - 1].date }
+    }).sort({ date: 1 }));
+
+    // Filter only subscription lessons and also filter only the same day as currentBooking (for example only Monday dates)
+    const futureOverLappingSubscription = futureOverLappingBooking.filter(x => {
+      const originalDate = new Date(currentBooking.date);
+      const futureDate = new Date(x.date);
+      return (x.subscriptionId.subscriptionCount > 1 && originalDate.getDay() === futureDate.getDay());
+    });
+
+    if (futureOverLappingSubscription.length > 0) {
+      // Getting last subscription lesson (in correct format)
+      const lastLessonDateOfCurrentSubscription = new Date(subscriptionSequence[subscriptionSequence.length - 1].date);
+      lastLessonDateOfCurrentSubscription.setDate(lastLessonDateOfCurrentSubscription.getDate() + 7);
+
+      // Getting first subscription lesson of feature subscriptions (in correct format)
+      const firstLessonOfFeatureSubscription = new Date(futureOverLappingSubscription[0].date);
+
+      // Compere both subscription dates 
+      const isThereOverlappingInBookedDate = lastLessonDateOfCurrentSubscription.getTime() === firstLessonOfFeatureSubscription.getTime();
+
+      // Increment all future subscription date (+7 days)
+      if (isThereOverlappingInBookedDate) {
+        const promiseFutureSubscriptions = futureOverLappingSubscription.map(booking => {
+
+          let nextDate = new Date(booking.date);
+          nextDate.setDate(nextDate.getDate() + 7);
+          booking.date = nextDate;
+          return booking.save();
+        });
+
+        await Promise.all(promiseFutureSubscriptions);
+      }
+    }
+
+    // Increment all current subscriptions (it start from the current sub and increase the rest +7 days)
+    let startIncrement = false;
+
+    const promiseSubscriptions = subscriptionSequence.map(booking => {
+
+      if (booking._id.toString() === currentBooking._id.toString()) {
+        startIncrement = true;
+      }
+
+      if (startIncrement) {
+        let nextDate = new Date(booking.date);
+        nextDate.setDate(nextDate.getDate() + 7);
+        booking.date = nextDate;
+      }
+
+      booking.isSubscriptionRejectedOnce = true;
+      return booking.save();
+    });
+
+    await Promise.all(promiseSubscriptions);
+  }
+
+  const [currentUserParent, adminUserData] = await Promise.all([
     UserParent.findById(ownerId),
     UserParent.find({ role: userRole.admin }, { email: 1, _id: 0 }),
   ]);
@@ -92,27 +161,14 @@ const rejectBooking = async (bookingId, ownerId) => {
 
 // Unregistered user booking
 const unregisteredUser = async ({ date, lessonId, ...userData }) => {
-  let currentUser;
 
-  const [foundUnregisterUser, foundRegisterUser, adminEmails] =
-    await Promise.all([
-      UnregisteredUser.findOne({ email: userData.email }),
-      UserParent.findOne({ email: userData.email }),
-      UserParent.find({ role: userRole.admin }, { email: 1, _id: 0 }),
-    ]);
+  const currentUser = await UnregisteredUser.create(userData);
+  const adminEmails = await UserParent.find({ role: userRole.admin }, { email: 1, _id: 0 });
 
   // Get all emails for all admins to be sent at once
   const onlyAminEmails = [...adminEmails.map((e) => e.email)].join(", ");
 
-  if (foundUnregisterUser || foundRegisterUser) {
-    currentUser = foundUnregisterUser || foundRegisterUser;
-  } else {
-    currentUser = await UnregisteredUser.create(userData);
-  }
-
-  const subscriptionData = await SubscriptionTypeModel.findById(
-    userData.subscriptionType
-  );
+  const subscriptionData = await SubscriptionTypeModel.findById(userData.subscriptionType);
 
   const bookingWithDate = bookUserHelper(
     date,
@@ -202,15 +258,11 @@ const registeredUser = async (bookingDataArray, ownerId) => {
   const userDataArray = [];
   // Iterate over each booking to gather user data
   for (const booking of newLessonsBooked) {
-    const currentBook = await BookingModel.findById(booking._id).populate([
-      "lessonId",
-      "skaterId",
-    ]);
+    const currentBook = await BookingModel.findById(booking._id).populate(["lessonId", "skaterId"]);
 
     // Compose data for the current user
     const currentUserData = `
-    ${currentBook.skaterId.firstName} ${currentBook.skaterId.lastName
-      } is signed up for a skate lesson
+    ${currentBook.skaterId.firstName} ${currentBook.skaterId.lastName} is signed up for a skate lesson
     ${currentBook.lessonId.title.split("&/&").at(1)} on 
     ${new Date(currentBook.date).toLocaleDateString("fr-CH")} from 
     ${currentBook.lessonId.time} h
