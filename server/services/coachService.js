@@ -161,6 +161,7 @@ const getNearestLessonsDate = async () => {
                 },
                 additionalRequirements: "$bookings.additionalRequirements",
                 instructorNotes: "$instructorNotes",
+                subscriptionCodeId: "$bookings.subscriptionCodeId"
             }
         }
     ];
