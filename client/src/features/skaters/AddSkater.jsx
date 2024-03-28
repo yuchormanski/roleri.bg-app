@@ -14,6 +14,8 @@ import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 import { useGetSkaterOptionsQuery } from "./useGetSkaterOptionsQuery.js";
 import { useTranslate } from "../../hooks/useTranslate.js";
 
+import { GoIssueOpened } from "react-icons/go";
+
 function AddSkater({ onClose }) {
   const { lang, index } = useLanguage();
   const { translatePhrase, translatePhraseFn } = useTranslate();
@@ -174,3 +176,12 @@ function AddSkater({ onClose }) {
 }
 
 export default AddSkater;
+
+// <section className={styles.description}>
+//   <p className={styles.info}>
+//     <span>
+//       <GoIssueOpened />
+//     </span>
+//     To create an instructor select him from the list and change his role
+//   </p>
+// </section>;
