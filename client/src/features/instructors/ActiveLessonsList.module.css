@@ -1,4 +1,5 @@
-.container {
+.container,
+.modalContainer {
   width: 100%;
   min-width: 300px;
   display: flex;
@@ -6,6 +7,27 @@
   gap: 2rem;
   position: relative;
   padding: 1rem 2rem 2rem;
+}
+
+.modalContainer {
+  padding: 4rem 2rem 2rem;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 0rem;
+  right: 0rem;
+  font-size: 2.4rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.closeBtn:hover {
+  transform: rotate(90deg) translate(-0.6rem, 0.6rem);
+  /* filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.5)); */
+}
+
+.closeIcon {
+  font-size: 3rem;
 }
 
 .heading {
@@ -19,13 +41,36 @@
   /* margin-bottom: 1rem; */
 }
 
+.headingActions {
+  width: 100%;
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+}
+
 .headingDate {
   width: fit-content;
   font-size: 1.6rem;
   font-weight: 300;
   word-spacing: 0.3rem;
-  margin-left: auto;
-  margin-bottom: 1rem;
+  align-self: flex-end;
+  /* margin-bottom: 1rem; */
+}
+
+.actionBtn {
+  background-color: var(--action-btn);
+  align-self: center;
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  color: var(--active-text);
+  transition: all 0.2s ease-in-out;
+  border: var(--card-border);
+  border-radius: 0.3rem;
+}
+.actionBtn:hover {
+  background-color: var(--color-header-dim);
 }
 
 .secondaryContainer {
@@ -99,12 +144,12 @@ a.skateItem:focus {
   padding: 0 1rem;
 }
 
-.actionContainer {
+/* .actionContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
-}
+} */
 
-.actionBtn {
+/* .actionBtn {
   background-color: var(--action-btn);
   display: grid;
   place-items: center;
@@ -113,13 +158,28 @@ a.skateItem:focus {
   color: var(--active-text);
   border: var(--card-border);
   border-radius: 0.3rem;
-}
+} */
 
 .element {
   font-size: 2rem;
   text-transform: uppercase;
   color: var(--color-menu-btn);
   padding: 1rem 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+label.label {
+  position: absolute;
+  background-color: var(--color-header);
+  color: var(--placeholder);
+  padding-inline: 0.6rem;
+  top: 2rem;
+  left: 0.5rem;
+  font-size: 1.4rem;
+  pointer-events: none;
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .elSpan {
@@ -128,6 +188,30 @@ a.skateItem:focus {
   margin-right: 0.5rem;
 }
 
+.textarea {
+  background-color: var(--color-header);
+  padding: 0.4rem 1rem 0.2rem;
+  font-size: 1.8rem;
+  color: var(--color-nav-link);
+  border: 1px solid var(--input-border);
+  border-radius: 0.3rem;
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.textarea:is(:focus) {
+  outline: none;
+}
+.textarea:is(:focus) ~ label.label,
+.filled {
+  color: var(--color-nav-link);
+  transform: translate(10%, -120%) scale(0.9);
+}
+
+@media (max-width: 760px) {
+  .headingDate {
+    margin-left: 1rem;
+  }
+}
 @media (max-width: 480px) {
   .container {
     padding: 1rem 0 2rem;

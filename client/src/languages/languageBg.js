@@ -105,6 +105,7 @@ export const BG = {
   terms_1: "Съгласен съм с ",
   terms_2: "Общите условия",
   restriction: "Само регистрирани потребители могат да записват абонамент!",
+  cancelDate: "Анулирай",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Добавете номер и количество",
@@ -201,6 +202,8 @@ export const BG = {
   i_equipment: "Оборудване",
   i_noNeededEquipment: "За този урок не е необходимо оборудване",
   i_noSignedLessons: "Няма записани уроци",
+  i_cancelLable: "Съобщение до потребителите",
+  i_cancelLesson: "Анулирай урока",
 
   // Book lessons
   book_headInfo_1:

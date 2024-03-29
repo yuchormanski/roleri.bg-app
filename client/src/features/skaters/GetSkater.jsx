@@ -44,7 +44,7 @@ function GetSkater({ onClose, skaterData: skater }) {
               <span className={styles.elSpan}>{lang.s_protections}: </span>
               {Number(skater?.protection?.size) === 0
                 ? lang.haveOwn
-                : skater.protection.size}
+                : skater.protection.size.toUpperCase()}
             </p>
 
             <p className={`${styles.element} ${styles.additional}`}>

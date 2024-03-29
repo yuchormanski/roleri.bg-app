@@ -39,6 +39,7 @@ export const endpoints = {
   add_lesson: "/add-lesson",
   edit_lesson: "/edit-lesson",
   delete_lesson: "/delete-lesson/:lessonId",
+  postpone_lesson: "/postpone-lesson",
 
   // main path: /skaters/
   get_all_skaters: "/",

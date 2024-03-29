@@ -222,18 +222,20 @@ const unregisteredUser = async ({ date, lessonId, ...userData }) => {
 // Registered user booking
 const registeredUser = async (bookingDataArray, ownerId) => {
   const newBookings = [];
+  const currentDate = new Date();
 
   // Iterate over each booking data
   for (const bookingData of bookingDataArray) {
     // Check if the user has a previous booking for the same lesson on the specific date
-    const existingBooking = await BookingModel.findOne({
+    const existingBooking = await BookingModel.find({
+      isRejected: false,
       skaterId: bookingData.skaterId,
-      date: new Date(bookingData.date),
+      date: { $gte: currentDate },
     });
 
     // If user has a previous booking, throw an error
-    if (existingBooking) {
-      throw new Error("User already has a booking for the specified date.");
+    if (existingBooking.length > 0) {
+      throw new Error("User already has a booking.");
     }
 
     // If no previous booking found, proceed to create a new booking
