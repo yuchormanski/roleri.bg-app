@@ -105,6 +105,7 @@ function AddSkater({ onClose }) {
               className={styles.textInput}
               type="text"
               id="lastName"
+              name={"lastName"}
               {...register("lastName", {
                 required: "Last name is required",
                 maxLength: {
@@ -128,12 +129,12 @@ function AddSkater({ onClose }) {
 
           <div className={styles.fieldsContainer}>
             {/* AGE */}
-
             <div className={styles.element}>
               <input
                 className={styles.textInput}
                 type="number"
                 id="age"
+                name={"age"}
                 {...register("age", {
                   required: "Age is required",
                   max: {
@@ -225,6 +226,7 @@ function AddSkater({ onClose }) {
               className={styles.textarea}
               type="text"
               id="additionalRequirements"
+              name={"additionalRequirements"}
               {...register("additionalRequirements", {
                 maxLength: {
                   value: 150,
