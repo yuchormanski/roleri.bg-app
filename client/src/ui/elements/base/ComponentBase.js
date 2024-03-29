@@ -43,6 +43,40 @@
 //   </label>
 // </div>
 
+// SELECT
+
+{
+  /* <div className={styles.element}>
+<select
+  name="groupAge"
+  id={`groupAge`}
+  className={styles.select}
+  defaultValue=""
+  {...register("groupAge", {
+    required: "Age is required",
+  })}
+  onBlur={(e) => {
+    valueHandler(e), ageHandler(e);
+  }}
+>
+  <option value="" disabled hidden></option>
+  {data.groupsAgeData.map((age) => (
+    <option value={age._id} key={age._id}>
+      {age.typeGroup}
+    </option>
+  ))}
+</select>
+<label
+  htmlFor={`groupAge`}
+  className={`${styles.selectLabel} ${
+    fieldValues.groupAge ? styles.filled : null
+  }`}
+>
+  <span>{lang.ageGroup}</span>
+</label>
+</div> */
+}
+
 // инфо
 
 // import { GoIssueOpened } from "react-icons/go";
@@ -72,3 +106,32 @@
 //     color: var(--color-main-btn);
 //     margin-right: 1rem;
 //   }
+
+{
+  /*TEXTAREA*/
+}
+// <div className={styles.element}>
+//   <textarea
+//     className={styles.textarea}
+//     type="text"
+//     id="additionalRequirements"
+//     name="additionalRequirements"
+//     {...register("additionalRequirements", {
+//       maxLength: {
+//         value: 300,
+//         message:
+//           "Additional requirement can't be more than 300 characters long!",
+//       },
+//     })}
+//     rows={3}
+//     onBlur={valueHandler}
+//   />
+//   <label
+//     htmlFor={"additionalRequirements"}
+//     className={`${styles.label} ${
+//       fieldValues.additionalRequirements ? styles.filled : null
+//     }`}
+//   >
+//     {lang.requirements}
+//   </label>
+// </div>
