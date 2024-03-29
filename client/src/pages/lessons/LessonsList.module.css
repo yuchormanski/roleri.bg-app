@@ -47,7 +47,7 @@
     grid-template-columns: 1fr;
     place-items: center;
     align-items: center;
-    row-gap: 18rem;
+    row-gap: 8rem;
   }
   .scrollToTop {
     display: block;

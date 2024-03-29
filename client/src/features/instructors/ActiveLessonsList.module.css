@@ -19,13 +19,36 @@
   /* margin-bottom: 1rem; */
 }
 
+.headingActions {
+  width: 100%;
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+}
+
 .headingDate {
   width: fit-content;
   font-size: 1.6rem;
   font-weight: 300;
   word-spacing: 0.3rem;
-  margin-left: auto;
-  margin-bottom: 1rem;
+  align-self: flex-end;
+  /* margin-bottom: 1rem; */
+}
+
+.actionBtn {
+  background-color: var(--action-btn);
+  align-self: center;
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  padding: 0.5rem 1rem;
+  color: var(--active-text);
+  transition: all 0.2s ease-in-out;
+  border: var(--card-border);
+  border-radius: 0.3rem;
+}
+.actionBtn:hover {
+  background-color: var(--color-header-dim);
 }
 
 .secondaryContainer {
@@ -99,12 +122,12 @@ a.skateItem:focus {
   padding: 0 1rem;
 }
 
-.actionContainer {
+/* .actionContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
-}
+} */
 
-.actionBtn {
+/* .actionBtn {
   background-color: var(--action-btn);
   display: grid;
   place-items: center;
@@ -113,7 +136,7 @@ a.skateItem:focus {
   color: var(--active-text);
   border: var(--card-border);
   border-radius: 0.3rem;
-}
+} */
 
 .element {
   font-size: 2rem;
@@ -128,6 +151,11 @@ a.skateItem:focus {
   margin-right: 0.5rem;
 }
 
+@media (max-width: 760px) {
+  .headingDate {
+    margin-left: 1rem;
+  }
+}
 @media (max-width: 480px) {
   .container {
     padding: 1rem 0 2rem;

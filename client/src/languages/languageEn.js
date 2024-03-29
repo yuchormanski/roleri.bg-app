@@ -109,6 +109,7 @@ export const EN = {
   terms_1: "I'm agree with ",
   terms_2: "Terms and Conditions",
   restriction: "Only registered users can book an subscription plan!",
+  cancelDate: "Cancel",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",
