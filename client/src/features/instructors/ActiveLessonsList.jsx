@@ -64,9 +64,11 @@ function ActiveLessonsList() {
       <div className={styles.container}>
         <h3 className={styles.heading}>{lang.i_signedLessons}</h3>
         {isFetching ? null : (
-          <p className={styles.headingDate}>{currentDate}</p>
+          <div className={styles.headingActions}>
+            <p className={styles.headingDate}>{currentDate}</p>
+            <button className={styles.actionBtn}>{lang.cancelDate}</button>
+          </div>
         )}
-
         <div className={styles.secondaryContainer}>
           {lessonsData.length ? (
             <div className={styles.equipmentContainer}>
