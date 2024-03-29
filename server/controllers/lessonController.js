@@ -5,12 +5,13 @@ import { endpoints } from "../environments/endPoints.js";
 import { getUserById } from "../services/userService.js";
 import { preloadOptions, userRole } from "../environments/constants.js";
 import { isUserLogged, isUserRole } from "../middlewares/guards.js";
-import { lessonCreateSchema } from "../util/validationSchemes.js";
+import { lessonCreateSchema, postponeLessonValidation } from "../util/validationSchemes.js";
 import {
   addLesson,
   deleteLesson,
   getAllLessons,
   getAllValidLessons,
+  postponeLessonUsers,
   updateLesson,
 } from "../services/lessonService.js";
 
@@ -94,6 +95,25 @@ lessonController.delete(
       const deletedLesson = await deleteLesson(lessonId);
 
       res.status(200).json(deletedLesson);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// Postpone lesson
+lessonController.post(
+  endpoints.postpone_lesson,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole([userRole.admin]),
+  async (req, res, next) => {
+    try {
+      const {activeLessonBookedUsersCustomIds, message} = req.body;
+      await postponeLessonValidation.validateAsync({activeLessonBookedUsersCustomIds, message});
+
+      const postponeUsers = await postponeLessonUsers(activeLessonBookedUsersCustomIds, message);
+      res.status(200).json(postponeUsers);
     } catch (error) {
       next(error);
     }

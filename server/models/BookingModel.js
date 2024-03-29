@@ -55,6 +55,10 @@ const bookingSchema = new Schema(
     subscriptionCodeId: {
       type: String,
       require: true,
+    },
+    cancellationMessage: {
+      type: String,
+      default: '',
     }
   },
   { timestamps: true }
