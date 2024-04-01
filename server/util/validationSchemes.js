@@ -144,6 +144,12 @@ const registeredBookingUserSchema = joi.array().items(
   })
 );
 
+// Postpone lesson validation
+const postponeLessonValidation = joi.object({
+  activeLessonBookedUsersCustomIds: joi.array().items(joi.string()).required(),
+  message: joi.string().trim().required()
+});
+
 // Booking validation to regular active days
 const regularActiveDaysBookingSchema = joi.object({
   _id: objectIdSchema,
@@ -190,4 +196,5 @@ export {
   regularActiveDaysBookingSchema,
   updateUserRoleSchema,
   instructorCreateSchema,
+  postponeLessonValidation,
 };

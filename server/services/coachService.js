@@ -43,7 +43,7 @@ const getNearestLessonsDate = async () => {
 
     const aggregationPipeline = [
         // Match bookings with dates greater than or equal to currentDate
-        { $match: { date: { $gte: currentDate } } },
+        { $match: { cancellationMessage: { $eq: "" }, date: { $gte: currentDate } } },
         // Group by date and get the minimum date in each group
         {
             $group: {
