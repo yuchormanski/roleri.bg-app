@@ -31,6 +31,7 @@ export const BG = {
   details: "Още",
   send: "Изпрати",
   addSkater: "Добави кънкьора",
+  add_skater: "Добави кънкьор",
   addSkaters: "Добави кънкьорите",
   level: "Ниво",
   levelEn: "Ниво на Английски език",
@@ -107,6 +108,7 @@ export const BG = {
   restriction: "Само регистрирани потребители могат да записват абонамент!",
   cancelDate: "Анулирай",
   repass: "Повтори паролата",
+  regBookInfo_1: "Нямате регистрирани кънкьори. Моля,",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Добавете номер и количество",

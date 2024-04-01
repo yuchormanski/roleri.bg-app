@@ -54,7 +54,7 @@
   font-weight: 300;
   word-spacing: 0.3rem;
   align-self: flex-end;
-  /* margin-bottom: 1rem; */
+  margin-left: 1rem;
 }
 
 .actionBtn {
