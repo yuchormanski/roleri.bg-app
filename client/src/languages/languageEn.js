@@ -110,6 +110,7 @@ export const EN = {
   terms_2: "Terms and Conditions",
   restriction: "Only registered users can book an subscription plan!",
   cancelDate: "Cancel",
+  repass: "Repeat password",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",
