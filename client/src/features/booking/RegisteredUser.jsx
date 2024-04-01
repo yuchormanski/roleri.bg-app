@@ -187,118 +187,138 @@ function RegisteredUser() {
                 {lang.book_sec_heading_2}
               </h3>
               <DatePickerCalendar selectedDateProp={selectedDateHandler} />
-              <h3 className={styles.secondaryHeading}>{lang.select_skaters}</h3>
-              <div className={` ${styles.userChoice} `}>
-                {skaters.map((s) => (
-                  <div className={styles.skaterWrapper} key={s._id}>
-                    <div className={styles.skaterContainer}>
-                      <p
-                        className={styles.skaterName}
-                      >{`${s.firstName} ${s.lastName}`}</p>
-                      <input
-                        className={styles.skaterSelection}
-                        type="checkbox"
-                        onChange={(e) => checkboxHandler(e, s._id)}
+
+              {skaters ? (
+                <div className={styles.noSkatersContainer}>
+                  <h3 className={styles.secondaryHeading}>
+                    <p>{lang.regBookInfo_1}</p>
+                    <Link
+                      to={"/profile/skaters"}
+                      className={styles.noSkatersLink}
+                    >
+                      {lang.add_skater}
+                    </Link>
+                  </h3>
+                </div>
+              ) : (
+                <>
+                  <h3 className={styles.secondaryHeading}>
+                    {lang.select_skaters}
+                  </h3>
+                  <div className={` ${styles.userChoice} `}>
+                    {skaters.map((s) => (
+                      <div className={styles.skaterWrapper} key={s._id}>
+                        <div className={styles.skaterContainer}>
+                          <p
+                            className={styles.skaterName}
+                          >{`${s.firstName} ${s.lastName}`}</p>
+                          <input
+                            className={styles.skaterSelection}
+                            type="checkbox"
+                            onChange={(e) => checkboxHandler(e, s._id)}
+                          />
+                        </div>
+
+                        <div className={styles.selectContainer}>
+                          <div className={styles.label}>
+                            <label
+                              htmlFor={`${s._id}-lessonId`}
+                              className={
+                                hasSkater(s._id)
+                                  ? styles.enabledLevel
+                                  : styles.disabledLabel
+                              }
+                            >
+                              <span>{lang.lessons}:</span>
+                            </label>
+                            <select
+                              name="lessonId"
+                              id={`${s._id}-lessonId`}
+                              className={styles.select}
+                              disabled={hasSkater(s._id) ? false : true}
+                              defaultValue=""
+                              onChange={(e) => selection(e, s._id)}
+                            >
+                              <option value="" hidden></option>
+                              {hasSkater(s._id) &&
+                                lessonData.map((lesson) => (
+                                  <option value={lesson._id} key={lesson._id}>
+                                    {translate(lesson.title)}
+                                  </option>
+                                ))}
+                            </select>
+                          </div>
+
+                          <div className={styles.label}>
+                            <label
+                              htmlFor={`${s._id}`}
+                              className={
+                                hasSkater(s._id)
+                                  ? styles.enabledLevel
+                                  : styles.disabledLabel
+                              }
+                            >
+                              <span>{lang.type}:</span>
+                            </label>
+                            <select
+                              name="subscriptionType"
+                              id={`${s._id}`}
+                              className={styles.select}
+                              disabled={hasSkater(s._id) ? false : true}
+                              defaultValue=""
+                              onChange={(e) => selection(e, s._id)}
+                            >
+                              <option value="" hidden></option>
+                              {hasSkater(s._id) &&
+                                optionData?.subscriptionData.map(
+                                  (subscription) => (
+                                    <option
+                                      key={subscription._id}
+                                      value={subscription._id}
+                                    >
+                                      {translate(subscription.typePayment)}
+                                    </option>
+                                  )
+                                )}
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                    {/* Additional field */}
+                    <div className={styles.element}>
+                      <label
+                        htmlFor={"textArea"}
+                        className={`${styles.enabledLevel} ${styles.textareaLabel} `}
+                        //  ${
+                        //   fieldValues.textArea ? styles.filled : null
+                        // }
+                      >
+                        {lang.requirements}
+                      </label>
+                      <textarea
+                        className={styles.textarea}
+                        type="text"
+                        id="textArea"
+                        name={"textArea"}
+                        rows={3}
+                        onBlur={(e) => setAdditional(e.target.value)}
                       />
                     </div>
-
-                    <div className={styles.selectContainer}>
-                      <div className={styles.label}>
-                        <label
-                          htmlFor={`${s._id}-lessonId`}
-                          className={
-                            hasSkater(s._id)
-                              ? styles.enabledLevel
-                              : styles.disabledLabel
-                          }
-                        >
-                          <span>{lang.lessons}:</span>
-                        </label>
-                        <select
-                          name="lessonId"
-                          id={`${s._id}-lessonId`}
-                          className={styles.select}
-                          disabled={hasSkater(s._id) ? false : true}
-                          defaultValue=""
-                          onChange={(e) => selection(e, s._id)}
-                        >
-                          <option value="" hidden></option>
-                          {hasSkater(s._id) &&
-                            lessonData.map((lesson) => (
-                              <option value={lesson._id} key={lesson._id}>
-                                {translate(lesson.title)}
-                              </option>
-                            ))}
-                        </select>
-                      </div>
-
-                      <div className={styles.label}>
-                        <label
-                          htmlFor={`${s._id}`}
-                          className={
-                            hasSkater(s._id)
-                              ? styles.enabledLevel
-                              : styles.disabledLabel
-                          }
-                        >
-                          <span>{lang.type}:</span>
-                        </label>
-                        <select
-                          name="subscriptionType"
-                          id={`${s._id}`}
-                          className={styles.select}
-                          disabled={hasSkater(s._id) ? false : true}
-                          defaultValue=""
-                          onChange={(e) => selection(e, s._id)}
-                        >
-                          <option value="" hidden></option>
-                          {hasSkater(s._id) &&
-                            optionData?.subscriptionData.map((subscription) => (
-                              <option
-                                key={subscription._id}
-                                value={subscription._id}
-                              >
-                                {translate(subscription.typePayment)}
-                              </option>
-                            ))}
-                        </select>
-                      </div>
+                  </div>
+                  <div className={styles.btnContainer}>
+                    <div style={{ marginLeft: "auto" }}>
+                      <Button
+                        type={"primary"}
+                        onClick={bookHandler}
+                        disabled={!selectedDate && sign.length === 0}
+                      >
+                        {lang.book}
+                      </Button>
                     </div>
                   </div>
-                ))}
-                {/* Additional field */}
-                <div className={styles.element}>
-                  <label
-                    htmlFor={"textArea"}
-                    className={`${styles.enabledLevel} ${styles.textareaLabel} `}
-                    //  ${
-                    //   fieldValues.textArea ? styles.filled : null
-                    // }
-                  >
-                    {lang.requirements}
-                  </label>
-                  <textarea
-                    className={styles.textarea}
-                    type="text"
-                    id="textArea"
-                    name={"textArea"}
-                    rows={3}
-                    onBlur={(e) => setAdditional(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className={styles.btnContainer}>
-                <div style={{ marginLeft: "auto" }}>
-                  <Button
-                    type={"primary"}
-                    onClick={bookHandler}
-                    disabled={!selectedDate && sign.length === 0}
-                  >
-                    {lang.book}
-                  </Button>
-                </div>
-              </div>
+                </>
+              )}
             </div>
           </div>
         </div>
