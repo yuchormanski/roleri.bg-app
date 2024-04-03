@@ -80,14 +80,17 @@ async function postponeLessonUsers(activeLessonBookedUsersCustomIds, message) {
     subscriptionBaseLessons.forEach(doc => doc.date = new Date(doc.date.getTime() + 7 * 24 * 60 * 60 * 1000));
 
     // Add cancelation msg to all canceled single lessons 
-    singleLessons.forEach(doc => doc.cancellationMessage = message);
+    singleLessons.forEach(doc => {
+      doc.cancellationMessage = message;
+      doc.isRejected = true;
+    });
 
     // Combine single and subscription base lesson
     const finalResult = [...singleLessons, ...subscriptionBaseLessons];
     
     // Update the document in the base
     const promises = finalResult.map(doc =>
-      BookingModel.findByIdAndUpdate(doc._id, { date: doc.date, cancellationMessage: doc.cancellationMessage }, { new: true, runValidators: true })
+      BookingModel.findByIdAndUpdate(doc._id, { date: doc.date, cancellationMessage: doc.cancellationMessage, isRejected: doc.isRejected }, { new: true, runValidators: true })
     );
 
     return Promise.all(promises);
