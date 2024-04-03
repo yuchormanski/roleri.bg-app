@@ -36,6 +36,7 @@ export const EN = {
   details: "Read more",
   send: "Send",
   addSkater: "Add skater",
+  add_skater: "Add skater",
   addSkaters: "Add skaters",
   level: "Level",
   levelEn: "Level on English",
@@ -110,6 +111,8 @@ export const EN = {
   terms_2: "Terms and Conditions",
   restriction: "Only registered users can book an subscription plan!",
   cancelDate: "Cancel",
+  repass: "Repeat password",
+  regBookInfo_1: "You have no skaters. Please,",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Add number and quantity",

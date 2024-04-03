@@ -231,6 +231,17 @@
   aspect-ratio: 1/1;
 }
 
+.noSkatersContainer {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+.noSkatersLink {
+  color: var(--lesson-link-border);
+  text-decoration: none;
+}
+
 @media (max-width: 900px) {
   .secondaryContainer {
     grid-template-columns: 1fr;

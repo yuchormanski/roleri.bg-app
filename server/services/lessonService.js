@@ -60,9 +60,19 @@ function checkDate(lessonObj) {
 }
 
 async function postponeLessonUsers(activeLessonBookedUsersCustomIds, message) {
+  
   return BookingModel.aggregate([
     { $match: { subscriptionCodeId: { $in: activeLessonBookedUsersCustomIds } } }, // Find documents with ids in the given array
-    { $group: { _id: "$subscriptionCodeId", count: { $sum: 1 }, documents: { $push: "$$ROOT" } } }, // Group by id and count occurrences
+    // TODO: Find out why the $lookup is not working  
+    {
+      $lookup: {
+        from: "UserParent", // Name of the collection to join
+        localField: "owner", // Field from the BookingModel collection
+        foreignField: "_id", // Field from the OwnerModel collection
+        as: "populatedOwner" // Output array field where the joined documents will be stored
+      }
+    },
+    { $group: { _id: "$subscriptionCodeId", count: { $sum: 1 }, documents: { $push: "$$ROOT" }} }, // Group by id and count occurrences
   ]).then(groups => {
     
     // Split the single lesson and subscription 
@@ -79,15 +89,17 @@ async function postponeLessonUsers(activeLessonBookedUsersCustomIds, message) {
     // For each created group find every document and updated the date property(+7 days)
     subscriptionBaseLessons.forEach(doc => doc.date = new Date(doc.date.getTime() + 7 * 24 * 60 * 60 * 1000));
 
-    // Add cancelation msg to all canceled single lessons 
-    singleLessons.forEach(doc => doc.cancellationMessage = message);
+    // Add cancelation msg to all canceled single lessons also set isRejected so the lessons wont show up in profile
+    singleLessons.forEach(doc => {
+      doc.cancellationMessage = message;
+      doc.isRejected = true;
+    });
 
     // Combine single and subscription base lesson
     const finalResult = [...singleLessons, ...subscriptionBaseLessons];
-    
     // Update the document in the base
     const promises = finalResult.map(doc =>
-      BookingModel.findByIdAndUpdate(doc._id, { date: doc.date, cancellationMessage: doc.cancellationMessage }, { new: true, runValidators: true })
+      BookingModel.findByIdAndUpdate(doc._id, { date: doc.date, cancellationMessage: doc.cancellationMessage, isRejected: doc.isRejected }, { new: true, runValidators: true })
     );
 
     return Promise.all(promises);
