@@ -71,6 +71,8 @@ export const endpoints = {
   // main path: /bookings/
   get_all_booking: "/",
   get_all_booking_history: "/get-all-booking-history",
+  get_all_booking_admins_and_instructors: "/get-all-booking-admins-and-instructors",
+  add_booking_instructor: "/add-booking-instructor",
   unregistered_booking_user: "/unregistered-booking",
   registered_booking_user: "/registered-booking",
   get_active_days_admin: "/active-days-admin",
