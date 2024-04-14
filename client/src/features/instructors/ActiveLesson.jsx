@@ -62,8 +62,12 @@ function ActiveLesson() {
     setBookingIds((state) => (state = ids));
     setLesson({ title: title, lessonsData: lessonsData });
     setInstructor((s) => (s = lessonsData.at(0).instructorId));
-    setIsEditable(excludedOptions.daysBeforeLesson.length);
   }, [id, data]);
+
+  useEffect(() => {
+    if (!excludedOptions) return;
+    setIsEditable(excludedOptions.daysBeforeLesson.length);
+  }, [excludedOptions]);
 
   function setLessonInstructor(e) {
     setInstructor(e.target.value);
