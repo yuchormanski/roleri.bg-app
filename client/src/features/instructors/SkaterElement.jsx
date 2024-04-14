@@ -117,7 +117,9 @@ function SkaterElement({ lesson }) {
       if (!isPresent) {
         await presentMutation({ bookingId: _id });
       } else {
-        await notPresentMutation({ bookingId: _id });
+        if (window.confirm("Are you sure you want to do this?")) {
+          await notPresentMutation({ bookingId: _id });
+        } else return;
       }
 
       setIsPresent((x) => !x);
@@ -132,7 +134,9 @@ function SkaterElement({ lesson }) {
       if (!isPaid) {
         await paidMutation({ bookingId: _id });
       } else {
-        await notPaidMutation({ bookingId: _id });
+        if (window.confirm("Are you sure you want to do this?")) {
+          await notPaidMutation({ bookingId: _id });
+        } else return;
       }
 
       setIsPaid((x) => !x);
