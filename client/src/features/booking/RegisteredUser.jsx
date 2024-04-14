@@ -188,7 +188,8 @@ function RegisteredUser() {
               </h3>
               <DatePickerCalendar selectedDateProp={selectedDateHandler} />
 
-              {skaters ? (
+              {console.log(skaters)}
+              {skaters.length === 0 ? (
                 <div className={styles.noSkatersContainer}>
                   <h3 className={styles.secondaryHeading}>
                     <p>{lang.regBookInfo_1}</p>

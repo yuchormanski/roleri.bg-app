@@ -36,10 +36,14 @@
     --toggle-switch: #ffd000;
     --toggle-switch-bg: #11a2db48;
     --calendar-day: #eef5ec;
+    --lesson-title-bg: rgb(255 198 0);
+    --lesson-title-font: rgb(0 30 44);
   }
 
   /* dark mode */
   &.dark {
+    --lesson-title-font: rgb(7 16 20);
+    --lesson-title-bg: rgb(159 124 0 / 94%);
     --placeholder: #818080;
     --action-btn: #888888;
     --box: #1c2029;
