@@ -13,6 +13,7 @@ import { GoIssueOpened } from "react-icons/go";
 import { PiSuitcaseRolling } from "react-icons/pi";
 import { useGetOptionsQuery } from "../admin/useGetOptionsQuery.js";
 import { useSetActiveInstructor } from "./useSetActiveInstructor.js";
+import Spinner from "../../ui/elements/spinner/Spinner.jsx";
 
 // mocked data
 const options = [
@@ -35,9 +36,7 @@ function ActiveLesson() {
     useSetActiveInstructor();
 
   const [instructor, setInstructor] = useState("");
-  const [skatersIds, setSkatersIds] = useState([]);
-
-  console.log(skatersIds);
+  const [bookingIds, setBookingIds] = useState([]);
 
   useEffect(() => {
     if (!data) {
@@ -54,71 +53,80 @@ function ActiveLesson() {
 
     const { title, data: lessonsData } = foundData.at(0);
 
-    const ids = lessonsData.map((x) => x.skater._id);
-    setSkatersIds((state) => (state = ids));
+    const ids = lessonsData.map((x) => x._id);
+    setBookingIds((state) => (state = ids));
     setLesson({ title: title, lessonsData: lessonsData });
-    // setInstructor(data.instructorId);
+    setInstructor(lessonsData.at(0).instructorId);
   }, [id, data]);
+
+  function setLessonInstructor(e) {
+    setInstructor(e.target.value);
+    const dataToServer = {
+      instructorId: instructor,
+      bookingIds: bookingIds,
+    };
+    addInstructor(dataToServer);
+  }
+
+  console.log(bookingIds);
 
   return (
     <>
-      <div className={styles.container}>
-        <div className={styles.instructorContainer}>
-          {/* ---------------- */}
-
-          <div className={styles.element}>
-            <select
-              // name="protection"
-              // id={`protection`}
-              className={styles.select}
-              defaultValue=""
-              onChange={(e) => setInstructor(e.target.value)}
-            >
-              <option value="" disabled hidden></option>
-              {/* <option value={"hasOwn"}>{lang.haveOwn}</option> */}
-              {coachesList.map((coach) => (
-                <option
-                  key={coach._id}
-                  value={coach._id}
-                  selected={instructor === coach._id}
-                >
-                  {coach.firstName} {coach.lastName}
-                </option>
-              ))}
-            </select>
-            <label
-              // htmlFor={`protection`}
-              className={`${styles.selectLabel}
+      {isFetching ? (
+        <Spinner />
+      ) : (
+        <div className={styles.container}>
+          <div className={styles.instructorContainer}>
+            <div className={styles.element}>
+              <select
+                className={styles.select}
+                defaultValue={instructor ?? ""}
+                onChange={setLessonInstructor}
+              >
+                <option value="" disabled hidden></option>
+                {coachesList.map((coach) => (
+                  <option
+                    key={coach._id}
+                    value={coach._id}
+                    // selected={instructor === coach._id}
+                  >
+                    {coach.firstName} {coach.lastName}
+                  </option>
+                ))}
+              </select>
+              <label
+                className={`${styles.selectLabel}
               ${instructor ? styles.filled : null}
               `}
-            >
-              <span>{lang.instructors}</span>
-            </label>
-          </div>
+              >
+                <span>{lang.instructors}</span>
+              </label>
+            </div>
 
-          {/* ---------------- */}
-          <h3 className={styles.heading}>{title && translate(title)}</h3>
+            {/* ---------------- */}
+            <h3 className={styles.heading}>{title && translate(title)}</h3>
+          </div>
+          <div className={styles.secondaryContainer}>
+            {lessonsData &&
+              lessonsData.map((lesson) => (
+                <SkaterElement lesson={lesson} key={lesson._id} />
+              ))}
+          </div>
+          <div className={styles.hiddenOnMobile}>
+            <Button type={"primary"} onClick={moveBack}>
+              Back
+            </Button>
+          </div>
+          <section className={styles.description}>
+            <p className={styles.info}>
+              <span>
+                <GoIssueOpened />
+              </span>
+              {<PiSuitcaseRolling />} - {lang.l_activeLesson_info_1}
+            </p>
+          </section>
         </div>
-        <div className={styles.secondaryContainer}>
-          {lessonsData &&
-            lessonsData.map((lesson) => (
-              <SkaterElement lesson={lesson} key={lesson._id} />
-            ))}
-        </div>
-        <div className={styles.hiddenOnMobile}>
-          <Button type={"primary"} onClick={moveBack}>
-            Back
-          </Button>
-        </div>
-        <section className={styles.description}>
-          <p className={styles.info}>
-            <span>
-              <GoIssueOpened />
-            </span>
-            {<PiSuitcaseRolling />} - {lang.l_activeLesson_info_1}
-          </p>
-        </section>
-      </div>
+      )}
     </>
   );
 }
