@@ -12,7 +12,7 @@ function useSetActiveInstructor() {
     enabled: false,
     mutationFn: (data) => put(SERVER_ENDPOINTS.ADD_BOOKING_INSTRUCTOR, data),
     onSuccess: (data) => {
-      queryClient.invalidateQueries(["lessonsActive"]);
+      queryClient.invalidateQueries(["coaches"]);
       toast.success("Successful set instructor", { duration: 1400 });
     },
     onError: (error) => toast.error(error.message),
