@@ -33,7 +33,9 @@ function LessonListElement({ lesson }) {
         <img src={lesson.imageUrl} alt="" />
       </div>
       <div className={styles.textBox}>
-        <span className={styles.title}>{translate(lesson.title)}</span>
+        <Link to={`/lesson/${lesson._id}`} className={styles.linkTitle}>
+          <span className={styles.title}>{translate(lesson.title)}</span>
+        </Link>
       </div>
       <div className={styles.main}>
         <div className={styles.info}>

@@ -8,6 +8,11 @@
   padding: 1rem 2rem 2rem;
 }
 
+.instructorContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
 .heading {
   width: fit-content;
   text-transform: uppercase;
@@ -45,6 +50,85 @@
   font-size: 1.6rem;
   color: var(--color-main-btn);
   margin-right: 1rem;
+}
+
+.element {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.form input.textInput {
+  padding: 0.4rem 1rem 0.2rem;
+  font-size: 1.8rem;
+  color: var(--color-nav-link);
+  border: 1px solid var(--input-border);
+  border-radius: 0.3rem;
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+label.label {
+  position: absolute;
+  background-color: var(--color-header);
+  color: var(--placeholder);
+  padding-inline: 0.6rem;
+  top: 1rem;
+  left: 0.5rem;
+  font-size: 1.4rem;
+  pointer-events: none;
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form input.textInput:is(:focus) ~ label.label,
+.filled {
+  transform: translate(10%, -110%);
+  color: var(--color-nav-link);
+}
+.filled span {
+  color: var(--placeholder);
+}
+
+/* select */
+.select {
+  min-height: 28px;
+  background-color: var(--color-header);
+  padding: 0.8rem 1rem 0.6rem;
+  font-size: 1.4rem;
+  color: var(--color-nav-link);
+  border: 1px solid var(--input-border);
+  border-radius: 0.3rem;
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.select:is(:focus),
+.select:focus + label span {
+  outline: none;
+  color: var(--color-nav-link);
+}
+
+.select option:checked {
+  display: none;
+}
+
+.selectLabel {
+  position: absolute;
+  top: 1rem;
+  left: 0.2rem;
+  font-size: 1.4rem;
+  /* background-color: var(--color-header); */
+  color: var(--placeholder);
+  padding-inline: 0.6rem;
+}
+
+select.select:focus ~ label.selectLabel,
+select.select:active ~ label.selectLabel,
+select.select:visited ~ label.selectLabel,
+.filled {
+  color: var(--placeholder);
+  background-color: var(--color-header);
+
+  /* transform: translate(10%, -110%) scale(0.9); */
+  transform: translate(10%, -110%);
 }
 
 @media (max-width: 480px) {

@@ -13,6 +13,7 @@ function useGetOptionsQuery(actionType) {
     subscription: SERVER_ENDPOINTS.GET_SUBSCRIPTION_OPTIONS,
     users: SERVER_ENDPOINTS.GET_ALL_USERS,
     activeDays: SERVER_ENDPOINTS.GET_ACTIVE_DAYS_ADMIN,
+    coaches: SERVER_ENDPOINTS.GET_ALL_COACHES,
   };
 
   const { isFetching, isError, error, data } = useQuery({

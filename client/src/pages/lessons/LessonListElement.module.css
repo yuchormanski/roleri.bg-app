@@ -63,7 +63,7 @@ a.focus {
   text-align: unset;
 }
 
-.card:hover .textBox {
+/* .card:hover .textBox {
   background-color: rgba(0, 0, 0, 0.507);
   color: var(--color-lesson-heading-hover);
   transform: translate(0, 114%);
@@ -76,7 +76,23 @@ a.focus {
   border-bottom-right-radius: 0.7rem;
   touch-action: auto;
   z-index: 0;
+} */
+
+.card:hover .textBox {
+  background-color: var(--lesson-title-bg);
+  color: var(--lesson-title-font);
+  transform: translate(0, 114%);
+  width: 107%;
+  transition: all;
+  transition-timing-function: ease-out;
+  transition-duration: 800ms;
+  padding: 2rem 2rem 1.4rem;
+  border-bottom-left-radius: 0.7rem;
+  border-bottom-right-radius: 0.7rem;
+  touch-action: auto;
+  z-index: 0;
 }
+
 .card:hover .link {
   width: 100%;
   display: block;
@@ -91,6 +107,11 @@ a.focus {
   transition: all;
   transition-timing-function: ease-out;
   transition-duration: 1000ms;
+}
+
+.linkTitle {
+  text-decoration: none;
+  color: var(--lesson-title-font);
 }
 
 .info {

@@ -109,6 +109,7 @@ export const BG = {
   cancelDate: "Анулирай урока",
   repass: "Повтори паролата",
   regBookInfo_1: "Нямате регистрирани кънкьори. Моля,",
+  instructors: "Инструктори",
 
   // ADMIN OPTIONS
   a_skates_info_1: "Добавете номер и количество",
