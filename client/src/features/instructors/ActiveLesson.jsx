@@ -12,6 +12,7 @@ import { useTranslate } from "../../hooks/useTranslate.js";
 import { GoIssueOpened } from "react-icons/go";
 import { PiSuitcaseRolling } from "react-icons/pi";
 import { useGetOptionsQuery } from "../admin/useGetOptionsQuery.js";
+import { useSetActiveInstructor } from "./useSetActiveInstructor.js";
 
 // mocked data
 const options = [
@@ -30,9 +31,13 @@ function ActiveLesson() {
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData(["lessonsActive"]);
   const { isFetching, data: coachesList } = useGetOptionsQuery("coaches");
-  const [instructor, setInstructor] = useState("");
+  const { mutateAsync: addInstructor, isPending: addInstructorPending } =
+    useSetActiveInstructor();
 
-  console.log(coachesList);
+  const [instructor, setInstructor] = useState("");
+  const [skatersIds, setSkatersIds] = useState([]);
+
+  console.log(skatersIds);
 
   useEffect(() => {
     if (!data) {
@@ -48,7 +53,11 @@ function ActiveLesson() {
     }, []);
 
     const { title, data: lessonsData } = foundData.at(0);
+
+    const ids = lessonsData.map((x) => x.skater._id);
+    setSkatersIds((state) => (state = ids));
     setLesson({ title: title, lessonsData: lessonsData });
+    // setInstructor(data.instructorId);
   }, [id, data]);
 
   return (
@@ -59,24 +68,26 @@ function ActiveLesson() {
 
           <div className={styles.element}>
             <select
-              name="protection"
-              id={`protection`}
+              // name="protection"
+              // id={`protection`}
               className={styles.select}
               defaultValue=""
               onChange={(e) => setInstructor(e.target.value)}
             >
               <option value="" disabled hidden></option>
               {/* <option value={"hasOwn"}>{lang.haveOwn}</option> */}
-              {coachesList.map((protection) => (
-                <option key={protection._id} value={protection._id}>
-                  {Number(protection.size) === 0
-                    ? lang.haveOwn
-                    : protection.size}
+              {coachesList.map((coach) => (
+                <option
+                  key={coach._id}
+                  value={coach._id}
+                  selected={instructor === coach._id}
+                >
+                  {coach.firstName} {coach.lastName}
                 </option>
               ))}
             </select>
             <label
-              htmlFor={`protection`}
+              // htmlFor={`protection`}
               className={`${styles.selectLabel}
               ${instructor ? styles.filled : null}
               `}

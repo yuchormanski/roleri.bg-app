@@ -76,7 +76,8 @@ const SERVER_ENDPOINTS = {
   EDIT_COACH_IS_NOT_PAID: "coach/edit-coach-is-not-paid",
   ADD_COACH_NOTE: "coach/add-coach-note",
   EDIT_COACH_NOTE: "coach/edit-coach-note",
-  GET_ALL_COACHES: "coach/get-",
+  GET_ALL_COACHES: "bookings/get-all-booking-admins-and-instructors",
+  ADD_BOOKING_INSTRUCTOR: "/add-booking-instructor",
 };
 
 // const EMAIL_REGEX =
