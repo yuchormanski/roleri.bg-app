@@ -14,6 +14,7 @@ import { PiSuitcaseRolling } from "react-icons/pi";
 import { useGetOptionsQuery } from "../admin/useGetOptionsQuery.js";
 import { useSetActiveInstructor } from "./useSetActiveInstructor.js";
 import Spinner from "../../ui/elements/spinner/Spinner.jsx";
+import { useExcludedOptions } from "../admin/activeDays/useGetExcludedOptions.js";
 
 // mocked data
 const options = [
@@ -34,9 +35,12 @@ function ActiveLesson() {
   const { isFetching, data: coachesList } = useGetOptionsQuery("coaches");
   const { mutateAsync: addInstructor, isPending: addInstructorPending } =
     useSetActiveInstructor();
+  const { isFetching: isFetchingExcluded, data: excludedOptions } =
+    useExcludedOptions();
 
   const [instructor, setInstructor] = useState("");
   const [bookingIds, setBookingIds] = useState([]);
+  const [isEditable, setIsEditable] = useState("");
 
   useEffect(() => {
     if (!data) {
@@ -59,45 +63,61 @@ function ActiveLesson() {
     setInstructor(lessonsData.at(0).instructorId);
   }, [id, data]);
 
+  useEffect(() => {
+    if (!excludedOptions) return;
+    setIsEditable(excludedOptions.daysBeforeLesson.length);
+  }, [excludedOptions]);
+
   function setLessonInstructor(e) {
     setInstructor(e.target.value);
     addInstructor({
-      instructorId: instructor,
+      instructorId: e.target.value,
       bookingIds: bookingIds,
     });
   }
 
+  function isDateCorrected() {
+    let date = new Date(lessonsData.at(0).date);
+    date.setDate(date.getDate() - isEditable);
+    let today = new Date();
+    const valid = date <= new Date();
+    return valid;
+  }
   return (
     <>
-      {isFetching ? (
+      {isFetching || isFetchingExcluded ? (
         <Spinner />
       ) : (
         <div className={styles.container}>
           <div className={styles.instructorContainer}>
             <div className={styles.element}>
-              <select
-                className={styles.select}
-                defaultValue={instructor ?? ""}
-                onChange={setLessonInstructor}
-              >
-                <option value="" disabled hidden></option>
-                {coachesList.map((coach) => (
-                  <option
-                    key={coach._id}
-                    value={coach._id}
-                    // selected={instructor === coach._id}
+              {isDateCorrected() && (
+                <>
+                  <select
+                    className={styles.select}
+                    defaultValue={instructor ?? ""}
+                    onChange={setLessonInstructor}
                   >
-                    {coach.firstName} {coach.lastName}
-                  </option>
-                ))}
-              </select>
-              <label
-                className={`${styles.selectLabel}
+                    <option value="" disabled hidden></option>
+                    {coachesList.map((coach) => (
+                      <option
+                        key={coach._id}
+                        value={coach._id}
+                        // selected={instructor === coach._id}
+                      >
+                        {coach.firstName} {coach.lastName}
+                      </option>
+                    ))}
+                  </select>
+                  <label
+                    className={`${styles.selectLabel}
               ${instructor ? styles.filled : null}
               `}
-              >
-                <span>{lang.instructors}</span>
-              </label>
+                  >
+                    <span>{lang.instructors}</span>
+                  </label>
+                </>
+              )}
             </div>
 
             {/* ---------------- */}

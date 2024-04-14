@@ -77,7 +77,7 @@ const SERVER_ENDPOINTS = {
   ADD_COACH_NOTE: "coach/add-coach-note",
   EDIT_COACH_NOTE: "coach/edit-coach-note",
   GET_ALL_COACHES: "bookings/get-all-booking-admins-and-instructors",
-  ADD_BOOKING_INSTRUCTOR: "/add-booking-instructor",
+  ADD_BOOKING_INSTRUCTOR: "bookings/add-booking-instructor",
 };
 
 // const EMAIL_REGEX =
