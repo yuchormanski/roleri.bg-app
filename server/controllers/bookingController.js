@@ -18,7 +18,7 @@ import {
   unregisteredBookingUserSchema,
 } from "../util/validationSchemes.js";
 import {
-  addBookingInstructor,
+  setBookingInstructor,
   addExcludedOptions,
   getAllAdminsAndInstructors,
   getAllBooking,
@@ -282,16 +282,17 @@ bookingController.get(
 
 // Add admin or instructor in booking
 bookingController.put(
-  endpoints.get_all_booking_admins_and_instructors,
+  endpoints.add_booking_instructor,
   isUserLogged,
   preloader(getUserById, preloadOptions.getUserById),
   isUserRole([userRole.admin, userRole.instructor]),
   async (req, res, next) => {
     try {
-      const { bookingId, instructorId } = req.body;
-      const updatedBooking = await addBookingInstructor(bookingId, instructorId);
+      const { bookingIds, instructorId } = req.body;
 
-      res.status(200).json(updatedBooking);
+      const updatedBooking = await setBookingInstructor(bookingIds, instructorId);
+
+      res.status(200).json({updatedRecords: updatedBooking.modifiedCount});
     } catch (error) {
       next(error);
     }
