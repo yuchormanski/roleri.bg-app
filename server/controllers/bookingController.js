@@ -18,7 +18,9 @@ import {
   unregisteredBookingUserSchema,
 } from "../util/validationSchemes.js";
 import {
+  addBookingInstructor,
   addExcludedOptions,
+  getAllAdminsAndInstructors,
   getAllBooking,
   getAllBookingHistory,
   getBookingById,
@@ -241,6 +243,7 @@ bookingController.get(
     }
   }
 );
+
 // add excluded options
 bookingController.post(
   endpoints.add_excluded_options,
@@ -254,6 +257,41 @@ bookingController.post(
       const excludedOptions = await addExcludedOptions(excludedData);
 
       res.status(200).json(excludedOptions);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// Get only admins and instructors
+bookingController.get(
+  endpoints.get_all_booking_admins_and_instructors,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole([userRole.admin, userRole.instructor]),
+  async (req, res, next) => {
+    try {
+      const allAdminsAndInstructors = await getAllAdminsAndInstructors();
+
+      res.status(200).json(allAdminsAndInstructors);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+// Add admin or instructor in booking
+bookingController.put(
+  endpoints.get_all_booking_admins_and_instructors,
+  isUserLogged,
+  preloader(getUserById, preloadOptions.getUserById),
+  isUserRole([userRole.admin, userRole.instructor]),
+  async (req, res, next) => {
+    try {
+      const { bookingId, instructorId } = req.body;
+      const updatedBooking = await addBookingInstructor(bookingId, instructorId);
+
+      res.status(200).json(updatedBooking);
     } catch (error) {
       next(error);
     }
