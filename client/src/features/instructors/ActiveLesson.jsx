@@ -61,14 +61,11 @@ function ActiveLesson() {
 
   function setLessonInstructor(e) {
     setInstructor(e.target.value);
-    const dataToServer = {
+    addInstructor({
       instructorId: instructor,
       bookingIds: bookingIds,
-    };
-    addInstructor(dataToServer);
+    });
   }
-
-  console.log(bookingIds);
 
   return (
     <>
