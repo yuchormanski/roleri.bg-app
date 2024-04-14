@@ -41,6 +41,7 @@ function SkaterElement({ lesson }) {
   const [isPresent, setIsPresent] = useState(isPresentServer);
   const [money, setMoney] = useState(isPresentServer);
   const [isPaid, setIsPaid] = useState(isPaidServer);
+  const [isEditable, setIsEditable] = useState(false);
   const [instructorText, setInstructorText] = useState("");
   const { lang } = useLanguage();
 
@@ -65,6 +66,12 @@ function SkaterElement({ lesson }) {
     if (!instructorInfo) return;
     setInstructorText(instructorInfo);
   }, [instructorInfo]);
+
+  useEffect(() => {
+    const lessonD = new Date(lesson.date);
+    const today = new Date();
+    setIsEditable(lessonD === today);
+  }, [lesson.date]);
 
   //   HELEPER
   async function addInstructorNoteHandler() {
@@ -138,15 +145,17 @@ function SkaterElement({ lesson }) {
     <>
       <figure className={styles.figure}>
         <div className={styles.buttonContainer}>
-          <button
-            className={`${styles.isNotPresent} ${
-              isPresent ? styles.isHere : null
-            }`}
-            onClick={presentHandler}
-            disabled={isPaid}
-          >
-            <PiCheck />
-          </button>
+          {isEditable && (
+            <button
+              className={`${styles.isNotPresent} ${
+                isPresent ? styles.isHere : null
+              }`}
+              onClick={presentHandler}
+              disabled={isPaid}
+            >
+              <PiCheck />
+            </button>
+          )}
           <button
             className={`
           ${styles.isNotPaid} 
