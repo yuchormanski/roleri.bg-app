@@ -161,14 +161,15 @@ const getNearestLessonsDate = async () => {
                 },
                 additionalRequirements: "$bookings.additionalRequirements",
                 instructorNotes: "$instructorNotes",
-                subscriptionCodeId: "$bookings.subscriptionCodeId"
+                subscriptionCodeId: "$bookings.subscriptionCodeId",
+                instructorId: "$bookings.instructorId",
             }
         }
     ];
 
     // Execute aggregation pipeline
     const result = await BookingModel.aggregate(aggregationPipeline);
-
+    console.log(result);
     // Group lessons by title
     const groupedLessons = result.reduce((acc, lesson) => {
         const randomId = Math.random().toString(36).slice(2);
