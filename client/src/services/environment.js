@@ -17,10 +17,9 @@ const SERVER_ENDPOINTS = {
   FORGOT_PASSWORD: "users/forgot-password",
   RESET_PASSWORD: "users/reset-password",
   DELETE_USER: (userId) => `users/delete-user/${userId}`,
-  SET_ACTIVE_ON_DUTY_USER: 'users/set-active-onDuty-user',
-  SET_INACTIVE_ON_DUTY_USER: 'users/set-inactive-onDuty-user',
-  GET_ALL_ON_DUTY_USERS: 'users/get-all-on-duty-users',
-
+  SET_ACTIVE_ON_DUTY_USER: "users/set-active-onDuty-user",
+  SET_INACTIVE_ON_DUTY_USER: "users/set-inactive-onDuty-user",
+  GET_ALL_ON_DUTY_USERS: "users/get-all-on-duty-users",
 
   GET_ALL_SKATERS: "skaters",
   GET_ALL_USER_SKATERS: "skaters/owned-by",
@@ -77,6 +76,8 @@ const SERVER_ENDPOINTS = {
   EDIT_COACH_IS_NOT_PAID: "coach/edit-coach-is-not-paid",
   ADD_COACH_NOTE: "coach/add-coach-note",
   EDIT_COACH_NOTE: "coach/edit-coach-note",
+  GET_ALL_COACHES: "bookings/get-all-booking-admins-and-instructors",
+  ADD_BOOKING_INSTRUCTOR: "bookings/add-booking-instructor",
 };
 
 // const EMAIL_REGEX =

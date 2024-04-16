@@ -431,6 +431,16 @@ const getExcludedOptions = async () => {
   return foundDates ? foundDates : defaultValues;
 };
 
+
+const getAllAdminsAndInstructors = async () => UserParent.find({ role: { $in: [userRole.admin, userRole.instructor] } });
+
+// const addBookingInstructor = async (bookingId, instructorId) => BookingModel.findByIdAndUpdate(bookingId, { instructorId }, { runValidators: true, new: true });
+
+const setBookingInstructor = async (bookingIds, instructorId) => BookingModel.updateMany(
+  { _id: { $in: bookingIds } },
+  { $set: { instructorId: instructorId } }
+);
+
 // Helper function
 // Return default values from active days if the DB is empty
 function getDefaultValuesFromActiveDays(option) {
@@ -472,4 +482,6 @@ export {
   getExcludedOptions,
   getAllBookingHistory,
   getBookingCountDocuments,
+  getAllAdminsAndInstructors,
+  setBookingInstructor,
 };
