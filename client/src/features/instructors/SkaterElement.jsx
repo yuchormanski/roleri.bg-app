@@ -35,6 +35,7 @@ function SkaterElement({ lesson }) {
     ownerDetails: parentDetails,
     additionalRequirements: lessonRequirements,
     instructorNotes: instructorInfo,
+    subscriptionCodeId: subscriptionCodeId,
   } = lesson;
 
   const [modal, setModal] = useState(false);
@@ -132,10 +133,10 @@ function SkaterElement({ lesson }) {
   async function moneyHandler() {
     try {
       if (!isPaid) {
-        await paidMutation({ bookingId: _id });
+        await paidMutation({ bookingId: _id, subscriptionCodeId });
       } else {
         if (window.confirm("Are you sure you want to do this?")) {
-          await notPaidMutation({ bookingId: _id });
+          await notPaidMutation({ bookingId: _id, subscriptionCodeId });
         } else return;
       }
 

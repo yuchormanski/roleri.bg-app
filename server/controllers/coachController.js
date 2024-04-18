@@ -9,6 +9,7 @@ import {
     addNote,
     getEquipmentForDate,
     getNearestLessonsDate,
+    setIsPaidForSubscriptions,
     setIsPaidToFalse,
     setIsPaidToTrue,
     setIsPresentToFalse,
@@ -87,8 +88,17 @@ coachController.put(endpoints.edit_coach_is_paid,
     isUserRole([userRole.admin, userRole.instructor]),
     async (req, res, next) => {
         try {
-            const { bookingId } = req.body;
-            const updatedBooking = await setIsPaidToTrue(bookingId);
+            const { bookingId, subscriptionCodeId } = req.body;
+
+            if (subscriptionCodeId) {
+                // Set true to all subscription (property isPaid: true)
+                const booleanForIsPaidToBeSet = true;
+                await setIsPaidForSubscriptions(subscriptionCodeId, booleanForIsPaidToBeSet);
+                
+            } else {
+                // Set true only for single lesson (property isPaid: true)
+                await setIsPaidToTrue(bookingId);
+            }
 
             res.status(200).json({ message: 'Success!' });
         } catch (error) {
@@ -103,9 +113,18 @@ coachController.put(endpoints.edit_coach_is_not_paid,
     isUserRole([userRole.admin, userRole.instructor]),
     async (req, res, next) => {
         try {
-            const { bookingId } = req.body;
-            const updatedBooking = await setIsPaidToFalse(bookingId);
+            const { bookingId, subscriptionCodeId } = req.body;
 
+            if (subscriptionCodeId) {
+                // Set false to all subscription (property isPaid: false)
+                const booleanForIsPaidToBeSet = false;
+                await setIsPaidForSubscriptions(subscriptionCodeId, booleanForIsPaidToBeSet);
+
+            } else {
+                // Set false only for single lesson (property isPaid: false)
+                await setIsPaidToFalse(bookingId);
+            }
+            
             res.status(200).json({ message: 'Success!' });
         } catch (error) {
             next(error);
