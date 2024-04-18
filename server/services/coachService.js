@@ -13,6 +13,9 @@ const setIsPaidToTrue = async (bookingId) => BookingModel.findByIdAndUpdate(book
 // Set Skater is paid to false
 const setIsPaidToFalse = async (bookingId) => BookingModel.findByIdAndUpdate(bookingId, { isPaid: false }, { runValidators: true, new: true });
 
+// Set Skater is paid for all subscriptions
+const setIsPaidForSubscriptions = async (subscriptionCodeId, boolean) => BookingModel.updateMany({subscriptionCodeId}, {isPaid: boolean});
+
 // Add instructor note
 const addNote = async (noteData) => {
     const foundNote = await InstructorNotesModel.findOne({ skater: noteData.skater });
@@ -273,4 +276,5 @@ export {
     setIsPaidToFalse,
     addNote,
     updateNote,
+    setIsPaidForSubscriptions,
 };
